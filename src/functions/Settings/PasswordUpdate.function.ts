@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { postData, postDataAutheticated } from "../fetchFromAPI.function";
 import { API_ENDPOINT } from "../../constants/API_ENDPOINT";
+import { useTranslation } from "react-i18next";
 
 interface SettingsPassword {
   current_password: string;
@@ -21,6 +22,8 @@ export const passwordUpdate = (
   setIsUpdateSuccess: any,
   setIsError: any
 ) => {
+  const { t } = useTranslation();
+  
   setIsUpdating(true);
   if (settingsPassword_schema.safeParse(settingsPasswordObject).success) {
     // If the password doesn't match, don't proceed. //
@@ -28,7 +31,7 @@ export const passwordUpdate = (
       settingsPasswordObject.new_password !=
       settingsPasswordObject.confirm_password
     ) {
-      setIsError("The passwords do not match.");
+      setIsError(t("Settings_account_password_notMatch"));
       setIsUpdating(false);
       setIsUpdateSuccess(false);
       return;
@@ -61,9 +64,7 @@ export const passwordUpdate = (
                 setIsUpdating(false);
                 setIsUpdateSuccess(true);
               } else {
-                setIsError(
-                  "There's a problem updating the password. Please try again later."
-                );
+                setIsError(t("Settings_account_password_updateError"));
                 setIsUpdating(false);
                 setIsUpdateSuccess(false);
               }
@@ -77,7 +78,7 @@ export const passwordUpdate = (
       }
     );
   } else {
-    setIsError("The password should be at least 8 characters long.");
+    setIsError(t("Settings_account_password_shortPassword"));
     setIsUpdating(false);
     setIsUpdateSuccess(false);
   }

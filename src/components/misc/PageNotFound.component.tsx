@@ -1,18 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const PageNotFound = () => {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="w-full">
       <div className="flex flex-col justify-center items-center gap-4">
-        <i className="fa-solid fa-xmark text-6xl"></i>
-        <h1 className="text-2xl">This page does not exist.</h1>
-        <h1
-          onClick={() => navigate(-1)}
-          className="text-lg text-center text-blue-500 hover:text-blue-400 mb-2 cursor-pointer">
-          <i className="fa-solid fa-chevron-left me-4"></i>Return
-        </h1>
+        <h1 className="text-6xl font-semibold">404</h1>
+        <h1 className="text-2xl">{t("PageNotFound_message")}</h1>
+        <NavLink to="/home">
+          <h1 className="text-lg text-center text-blue-500 hover:text-blue-400 mb-2 cursor-pointer">
+            <i className="fa-solid fa-home me-4"></i>
+            {t("PageNotFound_button")}
+          </h1>
+        </NavLink>
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
 import { hover_transition } from "../../../constants/styles/transitions.style";
 import SidebarLink from "./SidebarLink.component";
 
 const Sidebar = () => {
+  const { t } = useTranslation();
+  
   // Tailwind classes //
   const sidebar_parent =
     "fixed flex justify-center h-full w-12 bg-standardBlack";
@@ -19,24 +21,24 @@ const Sidebar = () => {
         <div className={sidebar_second_child}>
           <ul className={sidebar_ul}>
             {/* Home */}
-            <SidebarLink title="Home" to="/home" icon="fa-solid fa-home" margin="" />
+            <SidebarLink title={t("Sidebar_home")} to="/home" icon="fa-solid fa-home" margin="" />
 
             {/* User dashboard */}
-            <SidebarLink title="Dashboard" to="/dashboard" icon="fa-solid fa-circle-user" margin="mt-auto" />
+            <SidebarLink title={t("Sidebar_dashboard")} to="/dashboard" icon="fa-solid fa-circle-user" margin="mt-auto" />
 
             {/* Teachers */}
-            <SidebarLink title="Teachers" to="/teachers" icon="fa-solid fa-chalkboard-user" margin="mt-auto mb-4" />
+            <SidebarLink title={t("Sidebar_teachers")} to="/teachers" icon="fa-solid fa-chalkboard-user" margin="mt-auto mb-4" />
             {/* Students */}
-            <SidebarLink title="Students" to="/students" icon="fa-solid fa-graduation-cap" margin="mb-8" />
+            <SidebarLink title={t("Sidebar_students")} to="/students" icon="fa-solid fa-graduation-cap" margin="mb-8" />
             {/* Clubs */}
-            <SidebarLink title="Clubs" to="/clubs" icon="fa-solid fa-puzzle-piece" margin="" />
+            <SidebarLink title={t("Sidebar_clubs")} to="/clubs" icon="fa-solid fa-puzzle-piece" margin="" />
 
             {/* Settings */}
-            <SidebarLink title="Settings" to="/settings" icon="fa-solid fa-gear" margin="mt-auto mb-4" />
+            <SidebarLink title={t("Sidebar_settings")} to="/settings" icon="fa-solid fa-gear" margin="mt-auto mb-4" />
             {/* Logout button */}
             <li className={`${sidebar_li}`}>
               <Tooltip
-                title={<h1 className="text-sm p-1">Logout</h1>}
+                title={<h1 className="text-sm p-1">{t("Sidebar_logout")}</h1>}
                 placement="right"
                 arrow
                 disableInteractive>

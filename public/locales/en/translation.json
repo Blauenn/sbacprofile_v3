@@ -1,0 +1,41 @@
+{
+    "Sidebar_home": "Home",
+    "Sidebar_dashboard": "Dashboard",
+    "Sidebar_teachers": "Teachers",
+    "Sidebar_students": "Students",
+    "Sidebar_clubs": "Clubs",
+    "Sidebar_settings": "Settings",
+    "Sidebar_logout": "Logout",
+
+    "Home_welcomeMessage": "Welcome to SBAC Profile",
+
+    "Settings_header": "Settings",
+
+    "Settings_tab_preferences": "Preferences",
+
+    "Settings_preferences_language_title": "Language",
+    "Settings_preferences_language_description": "Change the display language.",
+    "Settings_preferences_theme_title": "Theme",
+    "Settings_preferences_theme_description": "Change the display theme.",
+    "Settings_preferences_theme_option1": "System",
+    "Settings_preferences_theme_option2": "Light",
+    "Settings_preferences_theme_option3": "Dark",
+
+    "Settings_tab_account": "Account",
+    "Settings_account_password_title": "Password",
+    "Settings_account_password_description": "Change account password.",
+    "Settings_account_password_label_currentPassword": "Current password",
+    "Settings_account_password_label_newPassword": "New password",
+    "Settings_account_password_label_confirmPassword": "Confirm new password",
+    "Settings_account_password_wrongPassword": "Current password is invalid.",
+    "Settings_account_password_notMatch": "The passwords do not match.",
+    "Settings_account_password_shortPassword": "The password should be at least 8 characters long.",
+    "Settings_account_password_updateError": "There's a problem updating the password. Please try again later.",
+    "Settings_account_password_updateSuccess": "Password has been updated.",
+    "Settings_account_password_button": "Change password",
+
+    "PageNotFound_message": "Page not found.",
+    "PageNotFound_button": "Return to home page.",
+
+    "Loading_message": "Loading..."
+}

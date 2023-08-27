@@ -1,0 +1,41 @@
+{
+    "Sidebar_home": "หน้าหลัก",
+    "Sidebar_dashboard": "แดชบอร์ด",
+    "Sidebar_teachers": "อาจารย์",
+    "Sidebar_students": "นักศึกษา",
+    "Sidebar_clubs": "ชมรม",
+    "Sidebar_settings": "การตั้งค่า",
+    "Sidebar_logout": "ลงชื่อออก",
+
+    "Home_welcomeMessage": "ยินดีต้อนรับสู่ SBAC Profile",
+
+    "Settings_header": "ตั้งค่า",
+
+    "Settings_tab_preferences": "ทั่วไป",
+
+    "Settings_preferences_language_title": "ภาษา",
+    "Settings_preferences_language_description": "เปลี่ยนภาษาที่ใช้ในการแสดงผล",
+    "Settings_preferences_theme_title": "ธีม",
+    "Settings_preferences_theme_description": "เปลี่ยนธีมที่ใช้ในการแสดงผล",
+    "Settings_preferences_theme_option1": "ระบบ",
+    "Settings_preferences_theme_option2": "ไลท์",
+    "Settings_preferences_theme_option3": "ดาร์ค",
+
+    "Settings_tab_account": "บัญชี",
+    "Settings_account_password_title": "รหัสผ่าน",
+    "Settings_account_password_description": "เปลี่ยนรหัสผ่านในการเข้าระบบ",
+    "Settings_account_password_label_currentPassword": "รหัสผ่านปัจจุบัน",
+    "Settings_account_password_label_newPassword": "รหัสผ่านใหม่",
+    "Settings_account_password_label_confirmPassword": "ยืนยันรหัสผ่านใหม่",
+    "Settings_account_password_wrongPassword": "รหัสผ่านปัจจุบันไม่ถูกต้อง",
+    "Settings_account_password_notMatch": "รหัสผ่านไม่ตรงกัน",
+    "Settings_account_password_shortPassword": "รหัสผ่านควรมีความยาว 8 ตัวขึ้นไป",
+    "Settings_account_password_updateError": "พบปํญหาในการอัพเดทรหัสผ่าน กรุณาลองใหม่ในภายหลัง",
+    "Settings_account_password_updateSuccess": "รหัสผ่านเปลี่ยนแปลงเสร็จสิ้น",
+    "Settings_account_password_button": "เปลี่ยนรหัสผ่าน",
+
+    "PageNotFound_message": "ไม่พบหน้านี้",
+    "PageNotFound_button": "กลับไปหน้าแรก",
+
+    "Loading_message": "กำลังโหลด..."
+}

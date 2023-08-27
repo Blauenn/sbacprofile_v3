@@ -1,17 +1,20 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import SettingsTab from "../components/Settings/SettingsTab.component";
 import SettingsPreferencesTab from "../components/Settings/SettingsPreferencesTab.component";
 import SettingsAccountTab from "../components/Settings/SettingsAccountTab.component";
 
 const Settings = () => {
+  const { t } = useTranslation();
+
   const [activeTab, setActiveTab] = useState(1);
 
   const userEmail = "nawee.moo@sbacnon.ac.th";
 
   return (
     <div>
-      <PageHeader icon="fa-solid fa-gear" text="Settings" />
+      <PageHeader icon="fa-solid fa-gear" text={t("Settings_header")} />
 
       <div className="flex flex-col">
         {/* Tabs */}
@@ -20,7 +23,7 @@ const Settings = () => {
           <SettingsTab
             tabIndex={1}
             icon="fa-solid fa-wrench"
-            text="Preferences"
+            text={t("Settings_tab_preferences")}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
@@ -28,7 +31,7 @@ const Settings = () => {
           <SettingsTab
             tabIndex={2}
             icon="fa-solid fa-lock"
-            text="Account"
+            text={t("Settings_tab_account")}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />

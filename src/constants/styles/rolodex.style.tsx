@@ -1,0 +1,2 @@
+export const RolodexCard_style = "relative flex items-center flex-col bg-opacity-5 border border-opacity-25 rounded-xl py-4 | transition-all duration-150 ease-in-out hover:scale-101";
+export const RolodexContactButton = "flex justify-center items-center rounded-full p-4 | w-12 h-12 | 2xl:w-16 2xl:h-16";
