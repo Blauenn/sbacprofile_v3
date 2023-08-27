@@ -1,4 +1,5 @@
 import { useState } from "react";
+import i18n from "i18next";
 import RolodexCard_robotIcon from "./RolodexCard_robotIcon.component";
 import RolodexCard_image from "./RolodexCard_image.component";
 import RolodexCard_contacts from "./RolodexCard_contacts.component";
@@ -18,78 +19,89 @@ const RolodexCard = (props: any) => {
     setModalOpen(false);
   };
 
+  // Remove profile names from the object key names. //
+  let remappedObject;
   if (profile === "student") {
-    return (
-      <>
-        <div
-          className={`${RolodexCard_style} ${
-            MajorToBackgroundColor[object.student_major]
-          } ${MajorToBorderColor[object.student_major]}`}
-          onClick={() => setModalOpen(true)}>
-          <div className="absolute right-4 text-sm font-semibold opacity-75">
-            {ShortLevelName[object.student_level]}/{object.student_class}
-          </div>
-          {/* If the user is artifical. */}
-          {object.student_ID.toString().startsWith("5") ? (
-            <RolodexCard_robotIcon />
-          ) : null}
-          <RolodexCard_image image={object.student_image} />
-          <h1 className="text-sm mb-2">{object.student_ID}</h1>
-          <div className="w-5/6">
-            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
-              {object.student_first_name}{" "}
-              {object.student_last_name.substring(0, 3)}.
-            </h1>
-          </div>
-          <RolodexCard_contacts
-            profile={profile}
-            object={object}
-            major={object.student_major}
-          />
-        </div>
-        <RolodexModal
-          profile={profile}
-          object={object}
-          open={modalOpen}
-          onCloseHandler={onModalClose}
-        />
-      </>
-    );
+    remappedObject = {
+      primary_ID: object.primary_student_ID,
+      ID: object.student_ID,
+      first_name: object.student_first_name,
+      last_name: object.student_last_name,
+      nickname: object.student_nickname,
+      first_name_thai: object.student_first_name_thai,
+      last_name_thai: object.student_last_name_thai,
+      nickname_thai: object.student_nickname_thai,
+      major: object.student_major,
+      level: object.student_level,
+      class: object.student_class,
+      phone: object.student_phone,
+      line_ID: object.student_line_ID,
+      image: object.student_image,
+      email: object.student_email,
+    };
   } else {
-    return (
-      <>
-        <div
-          className={`${RolodexCard_style} ${
-            MajorToBackgroundColor[object.teacher_major]
-          } ${MajorToBorderColor[object.teacher_major]}`}
-          onClick={() => setModalOpen(true)}>
-          {/* If the user is artifical. */}
-          {object.teacher_ID.toString().startsWith("4") ? (
-            <RolodexCard_robotIcon />
-          ) : null}
-          <RolodexCard_image image={object.teacher_image} />
-          <h1 className="text-sm mb-2">{object.teacher_ID}</h1>
-          <div className="w-5/6">
-            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
-              {object.teacher_first_name}{" "}
-              {object.teacher_last_name.substring(0, 3)}.
-            </h1>
-          </div>
-          <RolodexCard_contacts
-            profile={profile}
-            object={object}
-            major={object.teacher_major}
-          />
-        </div>
-        <RolodexModal
-          profile={profile}
-          object={object}
-          open={modalOpen}
-          onCloseHandler={onModalClose}
-        />
-      </>
-    );
+    remappedObject = {
+      primary_ID: object.primary_teacher_ID,
+      ID: object.teacher_ID,
+      first_name: object.teacher_first_name,
+      last_name: object.teacher_last_name,
+      nickname: object.teacher_nickname,
+      first_name_thai: object.teacher_first_name_thai,
+      last_name_thai: object.teacher_last_name_thai,
+      nickname_thai: object.teacher_nickname_thai,
+      major: object.teacher_major,
+      phone: object.teacher_phone,
+      line_ID: object.teacher_line_ID,
+      image: object.teacher_image,
+      email: object.teacher_email,
+    };
   }
+
+  return (
+    <>
+      <div
+        className={`${RolodexCard_style} ${
+          MajorToBackgroundColor[remappedObject.major]
+        } ${MajorToBorderColor[remappedObject.major]}`}
+        onClick={() => setModalOpen(true)}>
+        {profile === "student" ? (
+          <div className="absolute right-4 text-sm font-semibold opacity-75">
+            {ShortLevelName[remappedObject.level]}/{remappedObject.class}
+          </div>
+        ) : null}
+        {/* If the user is artifical. */}
+        {profile === "student" ? (
+          remappedObject.ID.toString().startsWith("5") ? (
+            <RolodexCard_robotIcon />
+          ) : null
+        ) : remappedObject.ID.toString().startsWith("4") ? (
+          <RolodexCard_robotIcon />
+        ) : null}
+        <RolodexCard_image image={remappedObject.image} />
+        <h1 className="text-sm mb-2">{remappedObject.ID}</h1>
+        <div className="w-5/6">
+          {i18n.language === "th" ? (
+            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
+              {remappedObject.first_name_thai}{" "}
+              {remappedObject.last_name_thai.substring(0, 5)}.
+            </h1>
+          ) : (
+            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
+              {remappedObject.first_name}{" "}
+              {remappedObject.last_name.substring(0, 3)}.
+            </h1>
+          )}
+        </div>
+        <RolodexCard_contacts object={remappedObject} />
+      </div>
+      <RolodexModal
+        profile={profile}
+        object={remappedObject}
+        open={modalOpen}
+        onCloseHandler={onModalClose}
+      />
+    </>
+  );
 };
 
 export default RolodexCard;

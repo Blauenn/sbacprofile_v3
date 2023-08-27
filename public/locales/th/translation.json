@@ -8,7 +8,27 @@
     "Sidebar_logout": "ลงชื่อออก",
 
     "Home_welcomeMessage": "ยินดีต้อนรับสู่ SBAC Profile",
+    
+    "Dashboard_header": "แดชบอร์ด",
 
+    "profile_filters_label_major": "สาขา",
+    "profile_filters_label_level": "ชั้นปี",
+    "profile_filters_label_class": "ห้อง",
+    "profile_filters_label_search": "ค้นหาโดยรหัสหรือชื่อ",
+    "profile_filters_option_all": "ทั้งหมด",
+
+    "profile_rolodex_studentClass": "นึกศึกษาห้อง {{level}}/{{classroom}}",
+    "profile_rolodex_teacherClass": "อาจารย์ที่ปรึกษาห้อง {{level}}/{{classroom}}",
+    "profile_rolodex_noHomeroomClass": "ไม่มีห้องในที่ปรึกษา",
+
+    "Teachers_header": "อาจารย์",
+
+    "Students_header": "นักศึกษา",
+
+    "Students_rolodexCard_robotMessage": "ข้อมูลสมมุติ",
+
+    "Clubs_header": "ชมรม",
+    
     "Settings_header": "ตั้งค่า",
 
     "Settings_tab_preferences": "ทั่วไป",
@@ -33,9 +53,14 @@
     "Settings_account_password_updateError": "พบปํญหาในการอัพเดทรหัสผ่าน กรุณาลองใหม่ในภายหลัง",
     "Settings_account_password_updateSuccess": "รหัสผ่านเปลี่ยนแปลงเสร็จสิ้น",
     "Settings_account_password_button": "เปลี่ยนรหัสผ่าน",
-
+    
     "PageNotFound_message": "ไม่พบหน้านี้",
     "PageNotFound_button": "กลับไปหน้าแรก",
 
-    "Loading_message": "กำลังโหลด..."
+    "Loading_message": "กำลังโหลด...",
+
+    "Logout_title": "ลงชื่อออก",
+    "Logout_description": "คุณแน่ใจว่าจะลงชื่อออกหรือไม่",
+    "Logout_confirmButton": "ลงชื่อออก",
+    "Logout_cancelButton": "ไม่"
 }

@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { Classroom, Major } from "../../interfaces/common.interface";
 import StudentClassFilter from "./StudentClassFilter.component";
+import { API_ENDPOINT } from "../../constants/API_ENDPOINT";
+import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
+import { LevelName, LevelNameThai } from "../../constants/Levels.constant";
 
 interface StudentFilterProps {
   majors: any[];
@@ -23,6 +28,8 @@ const StudentFilters = (props: StudentFilterProps) => {
     onClassChangeHandler,
     onSearchFieldChangeHandler,
   } = props;
+
+  const { t } = useTranslation();
 
   const [lowerLevel1, setlowerLevel1] = useState([]);
   const [lowerLevel2, setlowerLevel2] = useState([]);
@@ -47,27 +54,27 @@ const StudentFilters = (props: StudentFilterProps) => {
   // Fetch levels //
   useEffect(() => {
     post(
-      "http://api.sbacprofile-collection.cloudns.ph/api/v1/classroom/getClassroomByLevel",
+      `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       1,
       setlowerLevel1
     );
     post(
-      "http://api.sbacprofile-collection.cloudns.ph/api/v1/classroom/getClassroomByLevel",
+      `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       2,
       setlowerLevel2
     );
     post(
-      "http://api.sbacprofile-collection.cloudns.ph/api/v1/classroom/getClassroomByLevel",
+      `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       3,
       setlowerLevel3
     );
     post(
-      "http://api.sbacprofile-collection.cloudns.ph/api/v1/classroom/getClassroomByLevel",
+      `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       4,
       sethigherLevel1
     );
     post(
-      "http://api.sbacprofile-collection.cloudns.ph/api/v1/classroom/getClassroomByLevel",
+      `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       5,
       sethigherLevel2
     );
@@ -94,16 +101,18 @@ const StudentFilters = (props: StudentFilterProps) => {
       {/* Major */}
       <div className="flex md:w-1/3">
         <TextField
+          label={t("profile_filters_label_major")}
           select
           onChange={onMajorChangeHandler}
           className="w-full"
-          label="Major"
           SelectProps={{ native: true }}
           InputProps={{ sx: { borderRadius: 3 } }}>
-          <option value="0">All</option>
+          <option value="0">{t("profile_filters_option_all")}</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
-              {major.major_name}
+              {i18n.language === "th"
+                ? MajorNameThai[major.major_ID]
+                : MajorName[major.major_ID]}
             </option>
           ))}
         </TextField>
@@ -111,18 +120,28 @@ const StudentFilters = (props: StudentFilterProps) => {
       <div className="flex justify-between flex-row gap-2 md:w-1/3">
         {/* Level */}
         <TextField
-          label="Level"
+          label={t("profile_filters_label_level")}
           select
           onChange={onLevelChangeHandler}
           className="w-full"
           SelectProps={{ native: true }}
           InputProps={{ sx: { borderRadius: 3 } }}>
-          <option value="0">All</option>
-          <option value="1">Lower 1</option>
-          <option value="2">Lower 2</option>
-          <option value="3">Lower 3</option>
-          <option value="4">Higher 1</option>
-          <option value="5">Higher 2</option>
+          <option value="0">{t("profile_filters_option_all")}</option>
+          <option value="1">
+            {i18n.language === "th" ? LevelNameThai[1] : LevelName[1]}
+          </option>
+          <option value="2">
+            {i18n.language === "th" ? LevelNameThai[2] : LevelName[2]}
+          </option>
+          <option value="3">
+            {i18n.language === "th" ? LevelNameThai[3] : LevelName[3]}
+          </option>
+          <option value="4">
+            {i18n.language === "th" ? LevelNameThai[4] : LevelName[4]}
+          </option>
+          <option value="5">
+            {i18n.language === "th" ? LevelNameThai[5] : LevelName[5]}
+          </option>
         </TextField>
         {/* Class */}
         <StudentClassFilter
@@ -133,7 +152,7 @@ const StudentFilters = (props: StudentFilterProps) => {
       {/* Search */}
       <div className="md:w-1/3">
         <TextField
-          label="Search by ID or name"
+          label={t("profile_filters_label_search")}
           className="w-full"
           onChange={onSearchFieldChangeHandler}
           InputProps={{ sx: { borderRadius: 3 } }}

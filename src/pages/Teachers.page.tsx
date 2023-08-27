@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Teacher } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
+import { hasNumber } from "../functions/stringChecks.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
+import TeacherRolodex from "../components/Teachers/TeacherRolodex.component";
+import TeacherFilters from "../components/Teachers/TeacherFilters.component";
 import { API_ENDPOINT } from "../constants/API_ENDPOINT";
 
 // Contexts //
 import { useContext_Majors } from "../context/Majors.context";
 import { useContext_Teachers } from "../context/Teachers.context";
-import { Teacher } from "../interfaces/common.interface";
-import TeacherRolodex from "../components/Teachers/TeacherRolodex.component";
-import TeacherFilters from "../components/Teachers/TeacherFilters.component";
-import { hasNumber } from "../functions/StringChecks.function";
 
 const Teachers = () => {
   const { teachers, setTeachers, teacherCount, setTeacherCount } =
     useContext_Teachers();
   const { majors, setMajors } = useContext_Majors();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Teachers //
@@ -59,7 +62,7 @@ const Teachers = () => {
     <div>
       <PageHeader
         icon="fa-solid fa-chalkboard-user"
-        text="Teachers"
+        text={t("Teachers_header")}
         subtext={teacherCount}
       />
 

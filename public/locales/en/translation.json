@@ -9,6 +9,31 @@
 
     "Home_welcomeMessage": "Welcome to SBAC Profile",
 
+    "Dashboard_header": "Dashboard",
+    
+    "profile_filters_label_major": "Major",
+    "profile_filters_label_level": "Level",
+    "profile_filters_label_class": "Class",
+    "profile_filters_label_search": "Search by ID or name",
+    "profile_filters_option_all": "All",
+    "profile_filters_option_lower1": "Lower 1",
+    "profile_filters_option_lower2": "Lower 2",
+    "profile_filters_option_lower3": "Lower 3",
+    "profile_filters_option_higher1": "Higher 1",
+    "profile_filters_option_higher2": "Higher 2",
+    
+    "profile_rolodex_studentClass": "{{level}}/{{classroom}} student",
+    "profile_rolodex_teacherClass": "{{level}}/{{classroom}} homeroom teacher",
+    "profile_rolodex_noHomeroomClass": "No homeroom class",
+
+    "Teachers_header": "Teachers",
+
+    "Students_header": "Students",
+    
+    "Students_rolodexCard_robotMessage": "Artificial information",
+
+    "Clubs_header": "Club",
+
     "Settings_header": "Settings",
 
     "Settings_tab_preferences": "Preferences",
@@ -37,5 +62,10 @@
     "PageNotFound_message": "Page not found.",
     "PageNotFound_button": "Return to home page.",
 
-    "Loading_message": "Loading..."
+    "Loading_message": "Loading...",
+
+    "Logout_title": "Logout",
+    "Logout_description": "Are you sure you want to logout?",
+    "Logout_confirmButton": "Logout",
+    "Logout_cancelButton": "No"
 }

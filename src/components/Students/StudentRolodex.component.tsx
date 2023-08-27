@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import i18n from "i18next";
 import { Student } from "../../interfaces/common.interface";
 import RolodexCard from "../rolodex/card/RolodexCard.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
-import { MajorName } from "../../constants/Majors.constant";
+import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
 
 const StudentRolodex = (props: any) => {
   const { filteredStudents } = props;
@@ -47,7 +48,9 @@ const StudentRolodex = (props: any) => {
         {Object.entries(sortedStudentsByMajor).map(([major, students]) => (
           <div key={major} className="mb-12">
             <h1 className="text-2xl lg:text-3xl | font-semibold xl:mx-16 mb-6">
-              {MajorName[parseInt(major)]}
+              {i18n.language === "th"
+                ? MajorNameThai[parseInt(major)]
+                : MajorName[parseInt(major)]}
             </h1>
             <div className="grid-cols-1 min-[490px]:grid-cols-2 lg:grid-cols-4 xl:mx-16 | grid gap-4">
               {students.map((student: Student) => (

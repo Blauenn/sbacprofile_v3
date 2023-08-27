@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Student } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
-import { hasNumber } from "../functions/StringChecks.function";
+import { hasNumber } from "../functions/stringChecks.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import StudentRolodex from "../components/Students/StudentRolodex.component";
 import StudentFilters from "../components/Students/StudentFilters.component";
@@ -15,6 +16,8 @@ const Students = () => {
   const { students, setStudents, studentCount, setStudentCount } =
     useContext_Students();
   const { majors, setMajors } = useContext_Majors();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Students //
@@ -82,7 +85,7 @@ const Students = () => {
     <div>
       <PageHeader
         icon="fa-solid fa-graduation-cap"
-        text="Students"
+        text={t("Students_header")}
         subtext={studentCount}
       />
 

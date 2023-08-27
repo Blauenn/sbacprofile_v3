@@ -8,6 +8,16 @@ export const MajorName: any = {
   7: "Marketing",
   8: "Tourism",
 };
+export const MajorNameThai: any = {
+  1: "การบัญชี",
+  2: "คอมพิวเตอร์ธุรกิจ",
+  3: "คอมพิวเตอร์กราฟิก",
+  4: "ภาษาต่างประเทษ",
+  5: "การโรงแรม",
+  6: "เทคโนโลยีสารสนเทศ",
+  7: "การตลาด",
+  8: "การท่องเที่ยว",
+};
 
 export const MajorNameAbbreviation: any = {
   1: "AC",

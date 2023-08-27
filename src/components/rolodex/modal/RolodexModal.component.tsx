@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 import { Modal } from "@mui/material";
 import { getData } from "../../../functions/fetchFromAPI.function";
 import ModalCloseButton from "../../misc/common/ModalCloseButton.component";
 import RolodexModal_contacts from "./RolodexModalContacts.component";
 import RolodexModal_image from "./RolodexModal_image.component";
-import { MajorName } from "../../../constants/Majors.constant";
-import { LevelName } from "../../../constants/Levels.constant";
+import { MajorName, MajorNameThai } from "../../../constants/Majors.constant";
+import { LevelName, LevelNameThai } from "../../../constants/Levels.constant";
 import { API_ENDPOINT } from "../../../constants/API_ENDPOINT";
 
 // Contexts //
@@ -14,6 +16,8 @@ import { useContext_Classrooms } from "../../../context/Classrooms.context";
 
 const RolodexModal = (props: any) => {
   const { profile, object, open, onCloseHandler } = props;
+
+  const { t } = useTranslation();
 
   const { classrooms, setClassrooms } = useContext_Classrooms();
 
@@ -55,7 +59,7 @@ const RolodexModal = (props: any) => {
       return [{ classroom_ID: 0, classroom_level: 0, classroom_class: 0 }];
     };
 
-    matchedClassrooms = findClassroomByTeacherID(object.teacher_ID, classrooms);
+    matchedClassrooms = findClassroomByTeacherID(object.ID, classrooms);
   }
 
   const modal = document.getElementById("modal");
@@ -70,104 +74,87 @@ const RolodexModal = (props: any) => {
             sx={{ backdropFilter: "blur(2px)" }}>
             <div className="relative w-full mx-4 sm:w-auto sm:mx-0 flex items-center flex-col sm:flex-row overflow-hidden bg-white rounded-xl">
               <ModalCloseButton functionToRun={onCloseHandler} />
-              {profile === "student" ? (
-                <div className="flex flex-col lg:flex-row py-8 px-4 w-full lg:gap-x-4">
-                  <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
-                    <RolodexModal_image image={object.student_image} />
-                    <h1 className="font-semibold opacity-75">
-                      {object.student_ID}
-                    </h1>
-                  </div>
-                  <div className="flex justify-start items-start flex-col px-4 lg:px-0 lg:mt-4">
-                    <div className="mb-4 lg:mb-8">
-                      <h1 className="text-3xl font-semibold mb-2">
-                        {object.student_first_name} {object.student_last_name}
-                      </h1>
-                      <h1 className="text-2xl">
-                        {object.student_first_name_thai}{" "}
-                        {object.student_last_name_thai}
-                      </h1>
-                      {object.student_nickname &&
-                        object.student_nickname_thai && (
-                          <h1 className="text-2xl font-semibold mt-2">
-                            {object.student_nickname} ·{" "}
-                            {object.student_nickname_thai}
-                          </h1>
-                        )}
-                    </div>
-                    <div className="mb-4 lg:mb-8">
-                      <h1 className="text-xl font-semibold">
-                        {MajorName[object.student_major]}
-                      </h1>
-                      <h1 className="text-xl">
-                        <b className="text-xl font-semibold">
-                          {LevelName[object.student_level]}/
-                          {object.student_class}
-                        </b>{" "}
-                        student
-                      </h1>
-                    </div>
-                    <div className="w-11/12 lg:w-full">
-                      <RolodexModal_contacts
-                        profile={profile}
-                        object={object}
-                      />
-                    </div>
-                  </div>
+              <div className="flex flex-col lg:flex-row py-8 px-4 w-full lg:gap-x-4">
+                <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
+                  <RolodexModal_image image={object.image} />
+                  <h1 className="font-semibold opacity-75">{object.ID}</h1>
                 </div>
-              ) : (
-                <div className="flex flex-col lg:flex-row py-8 px-4 w-full lg:gap-x-4">
-                  <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
-                    <RolodexModal_image image={object.teacher_image} />
-                    <h1 className="font-semibold opacity-75">
-                      {object.teacher_ID}
-                    </h1>
+                <div className="flex justify-start items-start flex-col px-4 lg:px-0 lg:mt-4">
+                  <div className="mb-4 lg:mb-8">
+                    {i18n.language === "th" ? (
+                      <>
+                        <h1 className="text-3xl font-semibold mb-2">
+                          {object.first_name_thai} {object.last_name_thai}
+                        </h1>
+                        <h1 className="text-2xl">
+                          {object.first_name} {object.last_name}
+                        </h1>
+                      </>
+                    ) : (
+                      <>
+                        <h1 className="text-3xl font-semibold mb-2">
+                          {object.first_name} {object.last_name}
+                        </h1>
+                        <h1 className="text-2xl">
+                          {object.first_name_thai} {object.last_name_thai}
+                        </h1>
+                      </>
+                    )}
+                    {object.nickname && object.nickname_thai && (
+                      <h1 className="text-2xl font-semibold mt-2">
+                        {i18n.language === "th"
+                          ? `${object.nickname_thai} · ${object.nickname}`
+                          : `${object.nickname} · ${object.nickname_thai}`}
+                      </h1>
+                    )}
                   </div>
-                  <div className="flex justify-start items-start flex-col px-4 lg:px-0 lg:mt-4">
-                    <div className="mb-4 lg:mb-8">
-                      <h1 className="text-3xl font-semibold mb-2">
-                        {object.teacher_first_name} {object.teacher_last_name}
+                  <div className="mb-4 lg:mb-8">
+                    <h1 className="text-xl font-semibold">
+                      {i18n.language === "th"
+                        ? MajorNameThai[object.major]
+                        : MajorName[object.major]}
+                    </h1>
+                    {profile === "student" ? (
+                      <h1 className="text-xl">
+                        {t("profile_rolodex_studentClass", {
+                          level:
+                            i18n.language === "th"
+                              ? LevelNameThai[object.level]
+                              : LevelName[object.level],
+                          classroom: object.class,
+                        })}
                       </h1>
-                      <h1 className="text-2xl">
-                        {object.teacher_first_name_thai}{" "}
-                        {object.teacher_last_name_thai}
-                      </h1>
-                      {object.teacher_nickname &&
-                        object.teacher_nickname_thai && (
-                          <h1 className="text-2xl font-semibold mt-2">
-                            {object.teacher_nickname} ·{" "}
-                            {object.teacher_nickname_thai}
-                          </h1>
-                        )}
-                    </div>
-                    <div className="mb-4 lg:mb-8">
-                      <h1 className="text-xl font-semibold">
-                        {MajorName[object.teacher_major]}
-                      </h1>
-                      {matchedClassrooms.map((matchedClassroom: any) =>
+                    ) : (
+                      matchedClassrooms.map((matchedClassroom: any) =>
                         matchedClassroom.classroom_ID != 0 ? (
                           <h1
                             key={matchedClassroom.classroom_ID}
                             className="text-xl">
-                            <b className="font-semibold">
-                              {LevelName[matchedClassroom.classroom_level]}/
-                              {matchedClassroom.classroom_class}
-                            </b>{" "}
-                            homeroom teacher
+                            {t("profile_rolodex_teacherClass", {
+                              level:
+                                i18n.language === "th"
+                                  ? LevelNameThai[
+                                      matchedClassroom.classroom_level
+                                    ]
+                                  : LevelName[matchedClassroom.classroom_level],
+                              classroom: matchedClassroom.classroom_class,
+                            })}
                           </h1>
                         ) : (
                           <h1
                             key={matchedClassroom.classroom_ID}
                             className="text-xl">
-                            No homeroom class
+                            {t("profile_rolodex_noHomeroomClass")}
                           </h1>
                         )
-                      )}
-                    </div>
-                    <div className="w-11/12 lg:w-full"></div>
+                      )
+                    )}
+                  </div>
+                  <div className="w-11/12 lg:w-full">
+                    <RolodexModal_contacts profile={profile} object={object} />
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </Modal>
         </>,

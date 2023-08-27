@@ -1,4 +1,3 @@
-import React from "react"; // Import React if you haven't already
 import { Tooltip } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { hover_transition } from "../../../constants/styles/transitions.style";
