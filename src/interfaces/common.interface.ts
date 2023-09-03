@@ -1,5 +1,5 @@
 export interface Student {
-  primary_student_ID: number;
+  primary_student_ID?: number;
   student_ID: number;
   student_first_name: string;
   student_last_name: string;
@@ -14,6 +14,8 @@ export interface Student {
   student_line_ID: string;
   student_image: string;
   student_email: string;
+  student_position?: number;
+  student_gender?: number;
 }
 
 export interface Teacher {
@@ -30,6 +32,8 @@ export interface Teacher {
   teacher_line_ID: string;
   teacher_image: string;
   teacher_email: string;
+  teacher_position?: number;
+  teacher_gender?: number;
 }
 
 export interface Major {
@@ -46,7 +50,7 @@ export interface Classroom {
 }
 
 export interface LeaveNotice {
-  leave_notice_ID: number;
+  leave_notice_ID?: number;
   leave_notice_student_ID: number;
   leave_notice_student_classroom?: string;
   leave_notice_student_major?: number;
@@ -65,4 +69,29 @@ export interface LeaveNotice {
   leave_notice_head_status: number;
   leave_notice_head_description: string;
   leave_notice_head_change_datetime: string;
+}
+
+export interface Announcement {
+  announcement_ID?: number;
+  announcement_status?: number;
+  announcement_title: string;
+  announcement_description: string;
+  announcement_image: string;
+  announcement_datetime: string;
+}
+
+export interface Club {
+  club_ID: number;
+  club_name: string;
+  club_major: number;
+  club_teacher: { teachers: number[] };
+  club_status: number;
+  club_description: string;
+  club_image: string;
+  club_capacity: number;
+}
+export interface ClubMembership {
+  club_membership_ID: number;
+  club_ID: number;
+  club_student: number;
 }

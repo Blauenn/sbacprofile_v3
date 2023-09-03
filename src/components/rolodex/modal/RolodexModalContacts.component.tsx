@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
 import { handleCopy } from "../../../functions/copy.function";
 import { MajorContactsHover } from "../../../constants/Majors.constant";
 
-const RolodexModal_contacts = (props: any) => {
+interface CurrentComponentProp {
+  object: any;
+}
+
+const RolodexModal_contacts = (props: CurrentComponentProp) => {
   const { object } = props;
+
+  const { t } = useTranslation();
 
   const [copied, setCopied] = useState(false);
 
@@ -18,7 +25,9 @@ const RolodexModal_contacts = (props: any) => {
       <Tooltip
         title={
           <h1 className="text-[1rem] p-2">
-            {copied ? "Copied" : "Click to copy"}
+            {copied
+              ? t("RolodexCard_modal_copied_message")
+              : t("RolodexCard_modal_clickToCopy_message")}
           </h1>
         }
         placement="top-start"
@@ -36,7 +45,9 @@ const RolodexModal_contacts = (props: any) => {
         <Tooltip
           title={
             <h1 className="text-[1rem] p-2">
-              {copied ? "Copied" : "Click to copy"}
+              {copied
+                ? t("RolodexCard_modal_copied_message")
+                : t("RolodexCard_modal_clickToCopy_message")}
             </h1>
           }
           placement="top-start"
@@ -55,7 +66,9 @@ const RolodexModal_contacts = (props: any) => {
         <Tooltip
           title={
             <h1 className="text-[1rem] p-2">
-              {copied ? "Copied" : "Click to copy"}
+              {copied
+                ? t("RolodexCard_modal_copied_message")
+                : t("RolodexCard_modal_clickToCopy_message")}
             </h1>
           }
           placement="top-start"

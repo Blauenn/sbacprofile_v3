@@ -3,7 +3,13 @@ import { TextField } from "@mui/material";
 import { handleInputChange } from "../functions/fields/handleFieldChanges.function";
 import { handleLogin } from "../functions/Login/Login.function";
 
-const Login = (props: any) => {
+interface CurrentComponentProp {
+  setAccessToken: any;
+  setUserInfo: any;
+  setIsLoggedIn: any;
+}
+
+const Login = (props: CurrentComponentProp) => {
   const { setAccessToken, setUserInfo, setIsLoggedIn } = props;
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);

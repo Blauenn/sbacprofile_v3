@@ -6,7 +6,7 @@ import { hasNumber } from "../functions/stringChecks.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import StudentRolodex from "../components/Students/StudentRolodex.component";
 import StudentFilters from "../components/Students/StudentFilters.component";
-import { API_ENDPOINT } from "../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../context/Students.context";
@@ -86,7 +86,7 @@ const Students = () => {
       <PageHeader
         icon="fa-solid fa-graduation-cap"
         text={t("Students_header")}
-        subtext={studentCount}
+        subtext={studentCount.toString()}
       />
 
       <div className="mb-8 lg:mb-12">

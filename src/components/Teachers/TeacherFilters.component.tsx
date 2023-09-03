@@ -4,7 +4,13 @@ import { TextField } from "@mui/material";
 import { Major } from "../../interfaces/common.interface";
 import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
 
-const TeacherFilters = (props: any) => {
+interface CurrentComponentProp {
+  majors: Major[];
+  onMajorChangeHandler: any;
+  onSearchFieldChangeHandler: any;
+}
+
+const TeacherFilters = (props: CurrentComponentProp) => {
   const { majors, onMajorChangeHandler, onSearchFieldChangeHandler } = props;
 
   const { t } = useTranslation();

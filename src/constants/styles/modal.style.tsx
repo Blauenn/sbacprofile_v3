@@ -1,0 +1,1 @@
+export const style_modal_parent = "relative w-full mx-4 sm:w-auto sm:mx-0 flex items-start flex-col sm:flex-row overflow-scroll h-5/6 bg-white rounded-xl"

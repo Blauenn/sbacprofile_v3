@@ -14,9 +14,16 @@ export const LevelNameThai: any = {
 };
 
 export const ShortLevelName: any = {
-  1: "1",
-  2: "2",
-  3: "3",
-  4: "1",
-  5: "2",
+  1: "L. 1",
+  2: "L. 2",
+  3: "L. 3",
+  4: "H. 1",
+  5: "H. 2",
+};
+export const ShortLevelName_Thai: any = {
+  1: "ช. 1",
+  2: "ช. 2",
+  3: "ช. 3",
+  4: "ส. 1",
+  5: "ส. 2",
 };

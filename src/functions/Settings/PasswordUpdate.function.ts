@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { postData, postDataAutheticated } from "../fetchFromAPI.function";
-import { API_ENDPOINT } from "../../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import { useTranslation } from "react-i18next";
 
 interface SettingsPassword {

@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "../../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import { getDataAuthenticated, postData } from "../fetchFromAPI.function";
 
 export const handleLogin = async (

@@ -1,11 +1,16 @@
+import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 import { defaultImage } from "../../../constants/Misc.constant";
 
-const RolodexModal_image = (props: any) => {
+interface CurrentComponentProp {
+  image: string;
+}
+
+const RolodexModal_image = (props: CurrentComponentProp) => {
   const { image } = props;
 
   return (
     <img
-      src={`http://cdn.blauenthepeople.com${image}`}
+      src={`${CDN_ENDPOINT}${image}`}
       onError={(e) => {
         e.currentTarget.src = defaultImage;
       }}

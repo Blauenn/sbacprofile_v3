@@ -6,7 +6,7 @@ import { hasNumber } from "../functions/stringChecks.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import TeacherRolodex from "../components/Teachers/TeacherRolodex.component";
 import TeacherFilters from "../components/Teachers/TeacherFilters.component";
-import { API_ENDPOINT } from "../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Majors } from "../context/Majors.context";
@@ -26,9 +26,12 @@ const Teachers = () => {
       setTeacherCount(result.length);
     });
     // Majors //
-    getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-      setMajors(result);
-    });
+    // Only fetch when empty //
+    if (majors.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
+        setMajors(result);
+      });
+    }
   }, []);
 
   const [selectedMajor, setSelectedMajor] = useState(0);
@@ -63,7 +66,7 @@ const Teachers = () => {
       <PageHeader
         icon="fa-solid fa-chalkboard-user"
         text={t("Teachers_header")}
-        subtext={teacherCount}
+        subtext={teacherCount.toString()}
       />
 
       <div className="mb-8 lg:mb-12">

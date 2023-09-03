@@ -1,5 +1,7 @@
+import { CDN_ENDPOINT } from "./ENDPOINTS";
+
 export const defaultImage =
-  "http://cdn.blauenthepeople.com/assets/profilePic/defaultProfilePic.jpg";
+  `${CDN_ENDPOINT}/assets/profilePic/defaultProfilePic.jpg`;
 
 export const DayColors: any = {
   1: "text-red-500",

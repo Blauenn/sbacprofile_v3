@@ -9,17 +9,25 @@ import RolodexModal_contacts from "./RolodexModalContacts.component";
 import RolodexModal_image from "./RolodexModal_image.component";
 import { MajorName, MajorNameThai } from "../../../constants/Majors.constant";
 import { LevelName, LevelNameThai } from "../../../constants/Levels.constant";
-import { API_ENDPOINT } from "../../../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
+import { style_modal_parent } from "../../../constants/styles/modal.style";
 
 // Contexts //
 import { useContext_Classrooms } from "../../../context/Classrooms.context";
 
-const RolodexModal = (props: any) => {
-  const { profile, object, open, onCloseHandler } = props;
+interface CurrentComponentProp {
+  profile: string;
+  object: any;
+  open: boolean;
+  onModalClose: any;
+}
 
-  const { t } = useTranslation();
+const RolodexModal = (props: CurrentComponentProp) => {
+  const { profile, object, open, onModalClose } = props;
 
   const { classrooms, setClassrooms } = useContext_Classrooms();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (classrooms.length === 0) {
@@ -69,11 +77,11 @@ const RolodexModal = (props: any) => {
         <>
           <Modal
             open={open}
-            onClose={onCloseHandler}
+            onClose={onModalClose}
             className="flex justify-center items-center"
             sx={{ backdropFilter: "blur(2px)" }}>
-            <div className="relative w-full mx-4 sm:w-auto sm:mx-0 flex items-center flex-col sm:flex-row overflow-hidden bg-white rounded-xl">
-              <ModalCloseButton functionToRun={onCloseHandler} />
+            <div className={style_modal_parent}>
+              <ModalCloseButton functionToRun={onModalClose} />
               <div className="flex flex-col lg:flex-row py-8 px-4 w-full lg:gap-x-4">
                 <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
                   <RolodexModal_image image={object.image} />
@@ -151,7 +159,7 @@ const RolodexModal = (props: any) => {
                     )}
                   </div>
                   <div className="w-11/12 lg:w-full">
-                    <RolodexModal_contacts profile={profile} object={object} />
+                    <RolodexModal_contacts object={object} />
                   </div>
                 </div>
               </div>

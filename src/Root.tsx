@@ -1,8 +1,11 @@
 import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { getDataAuthenticated } from "./functions/fetchFromAPI.function";
 import Sidebar from "./components/misc/Sidebar/Sidebar.component";
 import Loading from "./components/misc/Loading.component";
 import PageNotFound from "./components/misc/PageNotFound.component";
+import { adminAccessOnly } from "./functions/permissionChecks.function";
+import { API_ENDPOINT } from "./constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Account } from "./context/Account.context";
@@ -10,15 +13,38 @@ import { MajorContextProvider } from "./context/Majors.context";
 import { ClassroomContextProvider } from "./context/Classrooms.context";
 import { StudentsContextProvider } from "./context/Students.context";
 import { TeachersContextProvider } from "./context/Teachers.context";
-import { getDataAuthenticated } from "./functions/fetchFromAPI.function";
-import { API_ENDPOINT } from "./constants/API_ENDPOINT";
+import { LeaveNoticesContextProvider } from "./context/LeaveNotices.context";
+import { ClubsContextProvider } from "./context/Clubs.context";
 
 // Lazy page imports //
 const Login = lazy(() => import("./pages/Login.page"));
 
 const Home = lazy(() => import("./pages/Home.page"));
+const Announcements = lazy(() => import("./pages/Announcements.page"));
+
+// Admin //
+const Admin_announcements = lazy(
+  () => import("./pages/AdminOnly/Admin_announcements.page")
+);
+const Admin_classrooms = lazy(
+  () => import("./pages/AdminOnly/Admin_classrooms.page")
+);
+const Admin_students = lazy(
+  () => import("./pages/AdminOnly/Admin_students.page")
+);
+const Admin_teachers = lazy(
+  () => import("./pages/AdminOnly/Admin_teachers.page")
+);
+const Admin_clubs = lazy(() => import("./pages/AdminOnly/Admin_clubs.page"));
+const Admin_leaveNotices = lazy(
+  () => import("./pages/AdminOnly/Admin_leaveNotices.page")
+);
+const Admin_requestForms = lazy(
+  () => import("./pages/AdminOnly/Admin_requestForms.page")
+);
 
 const Dashboard = lazy(() => import("./pages/Dashboard.page"));
+const LeaveNotices = lazy(() => import("./pages/LeaveNotices.page"));
 
 const Teachers = lazy(() => import("./pages/Teachers.page"));
 const Students = lazy(() => import("./pages/Students.page"));
@@ -67,53 +93,144 @@ const Root = () => {
   return (
     <BrowserRouter>
       {isLoggedIn ? (
-        <MajorContextProvider>
-          <ClassroomContextProvider>
-            <StudentsContextProvider>
-              <TeachersContextProvider>
-                <div className="flex flex-row">
-                  <Sidebar />
+        <ClubsContextProvider>
+          <LeaveNoticesContextProvider>
+            <MajorContextProvider>
+              <ClassroomContextProvider>
+                <StudentsContextProvider>
+                  <TeachersContextProvider>
+                    <div className="flex flex-row">
+                      <Sidebar />
 
-                  <div className="relative ms-20 me-8 my-16 | sm:ms-32 sm:me-20 sm:my-20 | lg:ms-40 lg:me-28 | w-full">
-                    <Suspense fallback={<Loading />}>
-                      <Routes>
-                        {/* No URL */}
-                        <Route
-                          path=""
-                          element={<Navigate to="/home" replace />}
-                        />
-                        <Route
-                          path="/login"
-                          element={<Navigate to="/home" replace />}
-                        />
-                        {/* Page not found */}
-                        <Route path="*" element={<PageNotFound />}></Route>
+                      <div className="relative ms-20 me-8 my-16 | sm:ms-32 sm:me-20 sm:my-20 | lg:ms-40 lg:me-28 | w-full">
+                        <Suspense fallback={<Loading />}>
+                          <Routes>
+                            {/* No URL */}
+                            <Route
+                              path=""
+                              element={<Navigate to="/home" replace />}
+                            />
+                            <Route
+                              path="/login"
+                              element={<Navigate to="/home" replace />}
+                            />
+                            {/* Page not found */}
+                            <Route path="*" element={<PageNotFound />}></Route>
 
-                        {/* Home */}
-                        <Route path="/home" element={<Home />}></Route>
+                            {/* Home */}
+                            <Route path="/home" element={<Home />}></Route>
+                            {/* Announcements */}
+                            <Route
+                              path="/announcements"
+                              element={<Announcements />}></Route>
 
-                        {/* Dashboard */}
-                        <Route
-                          path="/dashboard"
-                          element={<Dashboard />}></Route>
+                            {/* Admin only */}
+                            {/* Announcements */}
+                            <Route
+                              path="/admin/announcements"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_announcements />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Classrooms */}
+                            <Route
+                              path="/admin/classrooms"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_classrooms />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Students */}
+                            <Route
+                              path="/admin/students"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_students />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Teachers */}
+                            <Route
+                              path="/admin/teachers"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_teachers />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Clubs */}
+                            <Route
+                              path="/admin/clubs"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_clubs />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Leave notices */}
+                            <Route
+                              path="/admin/leaveNotices"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_leaveNotices />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
+                            {/* Request forms */}
+                            <Route
+                              path="/admin/requestForms"
+                              element={
+                                adminAccessOnly(userInfo.profile_position) ? (
+                                  <Admin_requestForms />
+                                ) : (
+                                  <PageNotFound />
+                                )
+                              }></Route>
 
-                        {/* Teachers */}
-                        <Route path="/teachers" element={<Teachers />}></Route>
-                        {/* Students */}
-                        <Route path="/students" element={<Students />}></Route>
-                        {/* Clubs */}
-                        <Route path="/clubs" element={<Clubs />}></Route>
+                            {/* Dashboard */}
+                            <Route
+                              path="/dashboard"
+                              element={<Dashboard />}></Route>
 
-                        {/* Settings */}
-                        <Route path="/settings" element={<Settings />}></Route>
-                      </Routes>
-                    </Suspense>
-                  </div>
-                </div>
-              </TeachersContextProvider>
-            </StudentsContextProvider>
-          </ClassroomContextProvider>
-        </MajorContextProvider>
+                            {/* Leave notices */}
+                            <Route
+                              path="/leaveNotices"
+                              element={<LeaveNotices />}></Route>
+
+                            {/* Teachers */}
+                            <Route
+                              path="/teachers"
+                              element={<Teachers />}></Route>
+                            {/* Students */}
+                            <Route
+                              path="/students"
+                              element={<Students />}></Route>
+                            {/* Clubs */}
+                            <Route path="/clubs" element={<Clubs />}></Route>
+
+                            {/* Settings */}
+                            <Route
+                              path="/settings"
+                              element={<Settings />}></Route>
+                          </Routes>
+                        </Suspense>
+                      </div>
+                    </div>
+                  </TeachersContextProvider>
+                </StudentsContextProvider>
+              </ClassroomContextProvider>
+            </MajorContextProvider>
+          </LeaveNoticesContextProvider>
+        </ClubsContextProvider>
       ) : (
         <Suspense>
           <Routes>

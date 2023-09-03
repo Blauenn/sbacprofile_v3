@@ -6,13 +6,14 @@ import SidebarLink from "./SidebarLink.component";
 import { getDataAuthenticated } from "../../../functions/fetchFromAPI.function";
 import { hover_transition } from "../../../constants/styles/transitions.style";
 import { defaultImage } from "../../../constants/Misc.constant";
-import SidebarLogoutModal from "./SidebarLogoutModal.component";
-import { API_ENDPOINT } from "../../../constants/API_ENDPOINT";
+import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
+// Contexts //
 import { useContext_Account } from "../../../context/Account.context";
+import Sidebar_modal_logout from "./Sidebar_modal_logout.component";
 
 const Sidebar = () => {
-  const { accessToken } = useContext_Account();
+  const { accessToken, userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
@@ -59,29 +60,42 @@ const Sidebar = () => {
               title={t("Sidebar_home")}
               to="/home"
               icon="fa-solid fa-home"
+              margin="mb-4"
+            />
+            {/* Announcements */}
+            <SidebarLink
+              title={t("Sidebar_announcements")}
+              to="/announcements"
+              icon="fa-solid fa-bullhorn"
               margin=""
             />
 
-            {/* User dashboard */}
-            <li className={`${sidebar_li} mt-auto mx-1`}>
-              <Tooltip
-                title={
-                  <h1 className="text-sm p-1">{t("Sidebar_dashboard")}</h1>
-                }
-                placement="right"
-                arrow
-                disableInteractive>
-                <NavLink to="/dashboard">
-                  <img
-                    src={`http://cdn.blauenthepeople.com${profileImage}`}
-                    className="rounded-full"
-                    onError={(e) => {
-                      e.currentTarget.src = defaultImage;
-                    }}
-                  />
-                </NavLink>
-              </Tooltip>
-            </li>
+            {userInfo.length !== 0 ? (
+              /* User dashboard */
+              <li className={`${sidebar_li} mt-auto mx-1`}>
+                <Tooltip
+                  title={
+                    <h1 className="text-sm p-1">{t("Sidebar_dashboard")}</h1>
+                  }
+                  placement="right"
+                  arrow
+                  disableInteractive>
+                  <NavLink to="/dashboard">
+                    <img
+                      src={`${CDN_ENDPOINT}${profileImage}`}
+                      className="rounded-full"
+                      onError={(e) => {
+                        e.currentTarget.src = defaultImage;
+                      }}
+                    />
+                  </NavLink>
+                </Tooltip>
+              </li>
+            ) : (
+              <li className={`${sidebar_li} mt-auto`}>
+                <div className="w-[30px] h-[30px] rounded-full bg-white opacity-50"></div>
+              </li>
+            )}
 
             {/* Teachers */}
             <SidebarLink
@@ -125,9 +139,9 @@ const Sidebar = () => {
                   }}
                   className={`fa-solid fa-right-from-bracket rotate-180 cursor-pointer ${sidebar_i} ${hover_transition}`}></i>
               </Tooltip>
-              <SidebarLogoutModal
+              <Sidebar_modal_logout
                 open={modalOpen}
-                onCloseHandler={onModalClose}
+                onModalClose={onModalClose}
               />
             </li>
           </ul>

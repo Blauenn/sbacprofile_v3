@@ -1,6 +1,10 @@
 import RolodexCard_contactButton from "./RolodexCard_contactButton.component";
 
-const RolodexCard_contacts = (props: any) => {
+interface CurrentComponentProp {
+  object: any;
+}
+
+const RolodexCard_contacts = (props: CurrentComponentProp) => {
   const { object } = props;
 
   return (

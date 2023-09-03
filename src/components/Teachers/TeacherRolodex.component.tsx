@@ -6,7 +6,11 @@ import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
 import RolodexCard from "../rolodex/card/RolodexCard.component";
 import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
 
-const TeacherRolodex = (props: any) => {
+interface CurrentComponentProp {
+  filteredTeachers: Teacher[];
+}
+
+const TeacherRolodex = (props: CurrentComponentProp) => {
   const { filteredTeachers } = props;
 
   const [isLoading, setIsLoading] = useState(true);

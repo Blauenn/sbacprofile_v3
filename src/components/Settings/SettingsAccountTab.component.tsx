@@ -4,10 +4,14 @@ import { TextField } from "@mui/material";
 import { handleInputChange } from "../../functions/fields/handleFieldChanges.function";
 import { passwordUpdate } from "../../functions/Settings/PasswordUpdate.function";
 
-const SettingsAccountTab = (props: any) => {
-  const { t } = useTranslation();
+interface CurrentComponentProp {
+  userEmail: string;
+}
 
+const SettingsAccountTab = (props: CurrentComponentProp) => {
   const { userEmail } = props;
+
+  const { t } = useTranslation();
 
   const [isError, setError] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);

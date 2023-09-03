@@ -9,9 +9,17 @@ import {
   MajorToBackgroundColor,
   MajorToBorderColor,
 } from "../../../constants/Majors.constant";
-import { ShortLevelName } from "../../../constants/Levels.constant";
+import {
+  ShortLevelName,
+  ShortLevelName_Thai,
+} from "../../../constants/Levels.constant";
 
-const RolodexCard = (props: any) => {
+interface CurrentComponentProp {
+  profile: string;
+  object: any;
+}
+
+const RolodexCard = (props: CurrentComponentProp) => {
   const { profile, object } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -65,8 +73,14 @@ const RolodexCard = (props: any) => {
         } ${MajorToBorderColor[remappedObject.major]}`}
         onClick={() => setModalOpen(true)}>
         {profile === "student" ? (
-          <div className="absolute right-4 text-sm font-semibold opacity-75">
-            {ShortLevelName[remappedObject.level]}/{remappedObject.class}
+          <div className="absolute right-4 text-[12px] font-semibold opacity-75">
+            {i18n.language === "th"
+              ? `${ShortLevelName_Thai[remappedObject.level]}/${
+                  remappedObject.class
+                }`
+              : `${ShortLevelName[remappedObject.level]}/${
+                  remappedObject.class
+                }`}
           </div>
         ) : null}
         {/* If the user is artifical. */}
@@ -98,7 +112,7 @@ const RolodexCard = (props: any) => {
         profile={profile}
         object={remappedObject}
         open={modalOpen}
-        onCloseHandler={onModalClose}
+        onModalClose={onModalClose}
       />
     </>
   );

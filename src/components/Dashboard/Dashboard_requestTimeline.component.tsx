@@ -1,15 +1,15 @@
-import { getColorFromStatus_Timeline } from "../../functions/LeaveNotice/LeaveNotice.function";
+import { getColorFromStatus_Timeline } from "../../functions/LeaveNotice/LeaveNotice.function.tsx";
 import {
   getDayFromDate,
   getDayNameFromDate,
 } from "../../functions/getDates.function";
 import { LeaveNotice } from "../../interfaces/common.interface";
 
-interface Props {
+interface CurrentComponentProps {
   leaveNotice: LeaveNotice;
 }
 
-const Dashboard_requstTimeline = (props: Props) => {
+const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
   const { leaveNotice } = props;
 
   return (

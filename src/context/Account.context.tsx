@@ -1,12 +1,11 @@
 import { ReactNode, createContext, useContext, useMemo, useState } from "react";
-import { UserInfo } from "../interfaces/account.interface";
 
 // Type //
 type AccountContextType = {
   accessToken: string;
   setAccessToken: React.Dispatch<React.SetStateAction<string>>;
-  userInfo: UserInfo[];
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo[]>>;
+  userInfo: any;
+  setUserInfo: React.Dispatch<React.SetStateAction<any>>;
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -29,7 +28,7 @@ export function AccountContextProvider({
   children,
 }: AccountContextProviderProps) {
   const [accessToken, setAccessToken] = useState<string>("");
-  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+  const [userInfo, setUserInfo] = useState<any>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const contextValue = useMemo(

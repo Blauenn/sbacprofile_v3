@@ -1,4 +1,10 @@
-const PageHeader = (props: any) => {
+interface CurrentComponentProp {
+  icon: string;
+  text: string;
+  subtext: string;
+}
+
+const PageHeader = (props: CurrentComponentProp) => {
   const { icon, text, subtext } = props;
 
   return (

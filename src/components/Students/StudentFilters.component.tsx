@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { Classroom, Major } from "../../interfaces/common.interface";
 import StudentClassFilter from "./StudentClassFilter.component";
-import { API_ENDPOINT } from "../../constants/API_ENDPOINT";
+import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
 import { LevelName, LevelNameThai } from "../../constants/Levels.constant";
 
