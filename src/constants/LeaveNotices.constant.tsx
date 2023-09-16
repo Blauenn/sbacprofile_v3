@@ -3,10 +3,15 @@ export const LeaveNoticeChoice: any = {
   2: "Private matter",
   3: "Others",
 };
-export const LeaveNoticeChoice_Thai: any = {
+export const LeaveNoticeChoiceThai: any = {
   1: "ลาป่วย",
   2: "ลากิจ",
   3: "อื่นๆ",
+};
+export const LeaveNoticeChoiceKorean: any = {
+  1: "병가",
+  2: "사적인 문제",
+  3: "기타",
 };
 
 export const LeaveNoticeChoiceIcon: any = {

@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { Modal, TextField } from "@mui/material";
+import { Modal } from "@mui/material";
+import { TextField_select, TextField_text } from "../../../../custom/Custom_TextFields";
 import { Major } from "../../../../../interfaces/common.interface";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
-import { handleInputChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
-
-// Contexts //
-import { useContext_Majors } from "../../../../../context/Majors.context";
 import {
   MajorName,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
-import TextField_text from "../../../../custom/TextFields/TextField_text.component";
-import TextField_select from "../../../../custom/TextFields/TextField_select.component";
 import { style_modal_parent } from "../../../../../constants/styles/modal.style";
+
+// Contexts //
+import { useContext_Majors } from "../../../../../context/Majors.context";
 
 interface CurrentComponentProp {
   open: boolean;

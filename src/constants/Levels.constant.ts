@@ -12,6 +12,13 @@ export const LevelNameThai: any = {
   4: "ปวส. 1",
   5: "ปวส. 2",
 };
+export const LevelNameKorean: any = {
+  1: "하위 졸업장 1",
+  2: "하위 졸업장 2",
+  3: "하위 졸업장 3",
+  4: "고등 졸업장 1",
+  5: "고등 졸업장 2",
+};
 
 export const ShortLevelName: any = {
   1: "L. 1",

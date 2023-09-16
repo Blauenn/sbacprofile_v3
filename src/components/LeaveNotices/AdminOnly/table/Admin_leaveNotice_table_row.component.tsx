@@ -11,7 +11,8 @@ import { getTextFromStatus_Table } from "../../../../functions/LeaveNotice/Leave
 import { DayColors } from "../../../../constants/Misc.constant";
 import {
   LeaveNoticeChoice,
-  LeaveNoticeChoice_Thai,
+  LeaveNoticeChoiceKorean,
+  LeaveNoticeChoiceThai,
 } from "../../../../constants/LeaveNotices.constant";
 import Table_button from "../../../table/Table_button.component";
 import Table_button_download from "../../../table/Table_button_download.component";
@@ -29,16 +30,11 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
 
   const { t } = useTranslation();
 
-  const dayColor_createDateTime =
-    DayColors[getDayFromDate(leaveNotice.leave_notice_create_datetime)];
   const dayColor_startDateTime =
     DayColors[getDayFromDate(leaveNotice.leave_notice_start_datetime)];
   const dayColor_endDateTime =
     DayColors[getDayFromDate(leaveNotice.leave_notice_end_datetime)];
 
-  const localeDate_createDateTime = changeToLocaleDate(
-    leaveNotice.leave_notice_create_datetime
-  ).split(",")[0];
   const localeDate_startDateTime = changeToLocaleDate(
     leaveNotice.leave_notice_start_datetime
   ).split(",")[0];
@@ -87,7 +83,9 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
         {/* Leave notice choice */}
         <td className={`${style_table_content} | hidden md:table-cell`}>
           {i18n.language === "th"
-            ? LeaveNoticeChoice_Thai[leaveNotice.leave_notice_choice]
+            ? LeaveNoticeChoiceThai[leaveNotice.leave_notice_choice]
+            : i18n.language === "ko" ?
+            LeaveNoticeChoiceKorean[leaveNotice.leave_notice_choice]
             : LeaveNoticeChoice[leaveNotice.leave_notice_choice]}
         </td>
         {/* Leave notice for dates */}

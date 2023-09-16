@@ -1,13 +1,14 @@
 import { style_table_button } from "../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  text: string;
+  text?: string;
+  icon?: string;
   color: string;
   url: string;
 }
 
 const Table_button_download = (props: CurrentComponentProp) => {
-  const { text, color, url } = props;
+  const { text, icon, color, url } = props;
 
   return (
     <a
@@ -15,7 +16,7 @@ const Table_button_download = (props: CurrentComponentProp) => {
       target="_blank"
       className={`${color} ${style_table_button}`}
       href={url}>
-      {text}
+      {text ?? <i className={icon}></i>}
     </a>
   );
 };

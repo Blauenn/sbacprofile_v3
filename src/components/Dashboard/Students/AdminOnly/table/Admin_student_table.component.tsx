@@ -65,16 +65,16 @@ const Admin_student_table = (props: CurrentComponentProp) => {
             <th className={`${style_table_content} table-cell sm:hidden`}>
               {t("Admin_Students_table_header_name")}
             </th>
-            <th className={`${style_table_header} hidden sm:table-cell`}>
+            <th className={`${style_table_header} | hidden sm:table-cell`}>
               {t("Admin_Students_table_header_firstName")}
             </th>
-            <th className={`${style_table_header} hidden sm:table-cell`}>
+            <th className={`${style_table_header} | hidden sm:table-cell`}>
               {t("Admin_Students_table_header_lastName")}
             </th>
-            <th className={`${style_table_header} hidden 2xl:table-cell`}>
+            <th className={`${style_table_header} | hidden 2xl:table-cell`}>
               {t("Admin_Students_table_header_firstNameThai")}
             </th>
-            <th className={`${style_table_header} hidden 2xl:table-cell`}>
+            <th className={`${style_table_header} | hidden 2xl:table-cell`}>
               {t("Admin_Students_table_header_lastNameThai")}
             </th>
             <th className={style_table_header}>

@@ -1,7 +1,7 @@
 interface CurrentComponentProp {
   icon: string;
   text: string;
-  subtext: string;
+  subtext?: string;
 }
 
 const PageHeader = (props: CurrentComponentProp) => {

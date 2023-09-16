@@ -73,7 +73,7 @@ const Admin_student_table_row = (props: CurrentComponentProp) => {
               student={student}
             />
             <Table_button
-              text={t("Admin_Students_table_content_button_edit_title")}
+              text={t("Admin_Students_table_content_button_update_title")}
               color={MajorToBackgroundColor[student.student_major]}
               functionToRun={() => {
                 setModalOpen(true);

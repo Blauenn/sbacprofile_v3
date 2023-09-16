@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
-import { Modal, TextField } from "@mui/material";
+import { Modal } from "@mui/material";
 import { Major, Teacher } from "../../../../../interfaces/common.interface";
-import {
-  handleImageChange,
-  handleInputChange,
-} from "../../../../../functions/fields/handleFieldChanges.function";
+import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
@@ -22,7 +19,11 @@ import {
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
-import { style_modal_parent } from "../../../../../constants/styles/modal.style";
+import { style_modal_parent_large } from "../../../../../constants/styles/modal.style";
+import {
+  TextField_select,
+  TextField_text,
+} from "../../../../custom/Custom_TextFields";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -135,7 +136,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             onClose={handleModalClose}
             className="flex justify-center items-center"
             sx={{ backdropFilter: "blur(2px)" }}>
-            <div className={style_modal_parent}>
+            <div className={style_modal_parent_large}>
               <ModalCloseButton functionToRun={handleModalClose} />
               <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
                 <h1 className="text-2xl font-semibold mb-8">
@@ -200,60 +201,51 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                   </div>
                   <div className="col-span-1 grid grid-cols-2 gap-4">
                     {/* Teacher ID */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_ID_label")}
                       name="teacher_ID"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_ID}
+                      validation=""
                     />
                     {/* Teacher position */}
-                    <TextField
+                    <TextField_select
+                      // Disable if the user tries to demote the administrator. //
+                      disabled={teacherToUpdate.teacher_position === 6}
                       label={t("Admin_Teachers_crud_modal_position_label")}
                       name="teacher_position"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
-                      select
-                      SelectProps={{ native: true }}
-                      value={teacherToUpdate.teacher_position}>
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
+                      value={teacherToUpdate.teacher_position}
+                      validation="">
                       <option value="0">
                         {t("Admin_Teachers_crud_modal_position_option1")}
                       </option>
-                      <option value="1">
+                      <option value="3">
                         {t("Admin_Teachers_crud_modal_position_option2")}
                       </option>
-                      <option value="2">
+                      <option value="4">
                         {t("Admin_Teachers_crud_modal_position_option3")}
                       </option>
-                    </TextField>
+                      {teacherToUpdate.teacher_position === 6 ? (
+                        <option value="6">
+                          {t("Admin_Teachers_crud_modal_position_option4")}
+                        </option>
+                      ) : null}
+                    </TextField_select>
                   </div>
                   {/* Teacher major */}
-                  <TextField
+                  <TextField_select
                     label={t("Admin_Teachers_crud_modal_major_label")}
                     name="teacher_major"
                     className="col-span-1"
-                    onChange={(event) => {
-                      handleInputChange(
-                        event,
-                        teacherToUpdate,
-                        setteacherToUpdate
-                      );
-                    }}
-                    select
-                    SelectProps={{ native: true }}
-                    value={teacherToUpdate.teacher_major}>
+                    object={teacherToUpdate}
+                    setObject={setteacherToUpdate}
+                    value={teacherToUpdate.teacher_major}
+                    validation="">
                     <option value="0">Major</option>
                     {majors.map((major: Major) => (
                       <option key={major.major_ID} value={major.major_ID}>
@@ -262,22 +254,16 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                           : MajorName[major.major_ID]}
                       </option>
                     ))}
-                  </TextField>
+                  </TextField_select>
                   {/* Gender */}
-                  <TextField
+                  <TextField_select
                     label={t("Admin_Teachers_crud_modal_gender_label")}
                     name="teacher_gender"
                     className="col-span-1"
-                    onChange={(event) => {
-                      handleInputChange(
-                        event,
-                        teacherToUpdate,
-                        setteacherToUpdate
-                      );
-                    }}
-                    select
-                    SelectProps={{ native: true }}
-                    value={teacherToUpdate.teacher_gender}>
+                    object={teacherToUpdate}
+                    setObject={setteacherToUpdate}
+                    value={teacherToUpdate.teacher_gender}
+                    validation="">
                     <option value="0">
                       {t("Admin_Teachers_crud_modal_gender_option1")}
                     </option>
@@ -290,139 +276,103 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                     <option value="1">
                       {t("Admin_Teachers_crud_modal_gender_option4")}
                     </option>
-                  </TextField>
+                  </TextField_select>
                   <div className="col-span-1 grid grid-cols-2 gap-4">
                     {/* Teacher English first name */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_firstName_label")}
                       name="teacher_first_name"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_first_name}
+                      validation=""
                     />
                     {/* Teacher English last name */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_lastName_label")}
                       name="teacher_last_name"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_last_name}
+                      validation=""
                     />
                   </div>
                   <div className="col-span-1 grid grid-cols-2 gap-4">
                     {/* Teacher Thai first name */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_firstNameThai_label")}
                       name="teacher_first_name_thai"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_first_name_thai}
+                      validation=""
                     />
                     {/* Teacher Thai last name */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_lastNameThai_label")}
                       name="teacher_last_name_thai"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_last_name_thai}
+                      validation=""
                     />
                   </div>
                   <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
                     {/* Teacher English nickname */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_nickname_label")}
                       name="teacher_nickname"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_nickname}
+                      validation=""
                     />
                     {/* Teacher Thai nickname */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_nicknameThai_label")}
                       name="teacher_nickname_thai"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_nickname_thai}
+                      validation=""
                     />
                   </div>
                   {/* Teacher email */}
-                  <TextField
+                  <TextField_text
                     label={t("Admin_Teachers_crud_modal_email_label")}
                     name="teacher_email"
                     className="col-span-1"
-                    onChange={(event) => {
-                      handleInputChange(
-                        event,
-                        teacherToUpdate,
-                        setteacherToUpdate
-                      );
-                    }}
+                    object={teacherToUpdate}
+                    setObject={setteacherToUpdate}
                     value={teacherToUpdate.teacher_email}
+                    validation=""
                   />
                   <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
                     {/* Teacher phone */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_phone_label")}
                       name="teacher_phone"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_phone}
+                      validation=""
                     />
                     {/* Teacher Line ID */}
-                    <TextField
+                    <TextField_text
                       label={t("Admin_Teachers_crud_modal_lineID_label")}
                       name="teacher_line_ID"
                       className="col-span-1"
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          teacherToUpdate,
-                          setteacherToUpdate
-                        );
-                      }}
+                      object={teacherToUpdate}
+                      setObject={setteacherToUpdate}
                       value={teacherToUpdate.teacher_line_ID}
+                      validation=""
                     />
                   </div>
                   <Info_submit_button

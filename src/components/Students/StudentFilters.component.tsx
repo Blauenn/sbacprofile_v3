@@ -5,8 +5,16 @@ import { TextField } from "@mui/material";
 import { Classroom, Major } from "../../interfaces/common.interface";
 import StudentClassFilter from "./StudentClassFilter.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
-import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
-import { LevelName, LevelNameThai } from "../../constants/Levels.constant";
+import {
+  MajorName,
+  MajorNameKorean,
+  MajorNameThai,
+} from "../../constants/Majors.constant";
+import {
+  LevelName,
+  LevelNameKorean,
+  LevelNameThai,
+} from "../../constants/Levels.constant";
 
 interface StudentFilterProps {
   majors: any[];
@@ -112,6 +120,8 @@ const StudentFilters = (props: StudentFilterProps) => {
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
                 ? MajorNameThai[major.major_ID]
+                : i18n.language === "ko"
+                ? MajorNameKorean[major.major_ID]
                 : MajorName[major.major_ID]}
             </option>
           ))}
@@ -128,19 +138,39 @@ const StudentFilters = (props: StudentFilterProps) => {
           InputProps={{ sx: { borderRadius: 3 } }}>
           <option value="0">{t("profile_filters_option_all")}</option>
           <option value="1">
-            {i18n.language === "th" ? LevelNameThai[1] : LevelName[1]}
+            {i18n.language === "th"
+              ? LevelNameThai[1]
+              : i18n.language === "ko"
+              ? LevelNameKorean[1]
+              : LevelName[1]}
           </option>
           <option value="2">
-            {i18n.language === "th" ? LevelNameThai[2] : LevelName[2]}
+            {i18n.language === "th"
+              ? LevelNameThai[2]
+              : i18n.language === "ko"
+              ? LevelNameKorean[2]
+              : LevelName[2]}
           </option>
           <option value="3">
-            {i18n.language === "th" ? LevelNameThai[3] : LevelName[3]}
+            {i18n.language === "th"
+              ? LevelNameThai[3]
+              : i18n.language === "ko"
+              ? LevelNameKorean[3]
+              : LevelName[3]}
           </option>
           <option value="4">
-            {i18n.language === "th" ? LevelNameThai[4] : LevelName[4]}
+            {i18n.language === "th"
+              ? LevelNameThai[4]
+              : i18n.language === "ko"
+              ? LevelNameKorean[4]
+              : LevelName[4]}
           </option>
           <option value="5">
-            {i18n.language === "th" ? LevelNameThai[5] : LevelName[5]}
+            {i18n.language === "th"
+              ? LevelNameThai[5]
+              : i18n.language === "ko"
+              ? LevelNameKorean[5]
+              : LevelName[5]}
           </option>
         </TextField>
         {/* Class */}

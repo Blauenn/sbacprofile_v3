@@ -17,7 +17,11 @@ import ModalCloseButton from "../../../misc/common/ModalCloseButton.component";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
 import Info_addSuccess_message from "../../../Dashboard/Buttons/Info_addSuccess_message.component";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
-import { style_modal_parent } from "../../../../constants/styles/modal.style.tsx";
+import { style_modal_parent_large } from "../../../../constants/styles/modal.style.tsx";
+import {
+  TextField_multiline,
+  TextField_select,
+} from "../../../custom/Custom_TextFields.tsx";
 
 interface CurrentComponentProp {
   setLeaveNotices: any;
@@ -189,7 +193,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
             onClose={handleModalClose}
             className="flex justify-center items-center"
             sx={{ backdropFilter: "blur(2px)" }}>
-            <div className={style_modal_parent}>
+            <div className={style_modal_parent_large}>
               <ModalCloseButton functionToRun={handleModalClose} />
               <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
                 <h1 className="text-2xl font-semibold mb-8">
@@ -272,21 +276,16 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
                     </div>
                   )}
                   {/* Leave choice */}
-                  <TextField
+                  <TextField_select
                     label={t(
                       "LeaveNotices_students_create_modal_leaveChoice_label"
                     )}
                     name="leave_notice_choice"
                     className="col-span-1"
-                    select
-                    SelectProps={{ native: true }}
-                    onChange={(event) => {
-                      handleInputChange(
-                        event,
-                        leaveNoticeAddObject,
-                        setLeaveNoticeAddObject
-                      );
-                    }}>
+                    object={leaveNoticeAddObject}
+                    setObject={setLeaveNoticeAddObject}
+                    value="1"
+                    validation="">
                     <option value="1">
                       {t(
                         "LeaveNotices_students_create_modal_leaveChoice_option1"
@@ -302,30 +301,19 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
                         "LeaveNotices_students_create_modal_leaveChoice_option3"
                       )}
                     </option>
-                  </TextField>
+                  </TextField_select>
                   {/* Description */}
-                  <div className="flex flex-col gap-1">
-                    <TextField
-                      label={t(
-                        "LeaveNotices_students_create_modal_description_label"
-                      )}
-                      name="leave_notice_description"
-                      className="col-span-1"
-                      multiline
-                      maxRows={4}
-                      error={validationErrors.leave_notice_description !== ""}
-                      onChange={(event) => {
-                        handleInputChange(
-                          event,
-                          leaveNoticeAddObject,
-                          setLeaveNoticeAddObject
-                        );
-                      }}
-                    />
-                    <h1 className="text-sm text-red-500">
-                      {validationErrors.leave_notice_description}
-                    </h1>
-                  </div>
+                  <TextField_multiline
+                    label={t(
+                      "LeaveNotices_students_create_modal_description_label"
+                    )}
+                    name="leave_notice_description"
+                    className="col-span-1"
+                    maxRows={4}
+                    object={leaveNoticeAddObject}
+                    setObject={setLeaveNoticeAddObject}
+                    validation=""
+                  />
                   {/* File */}
                   <div className="flex flex-col gap-2">
                     <div className="border border-standardBlack border-opacity-25 rounded-xl w-full h-[100px]">

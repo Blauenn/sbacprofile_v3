@@ -31,6 +31,9 @@ const Admin_club_modal_create = (props: CurrentComponentProp) => {
               <i className="fa-solid fa-plus me-2"></i>
               {t("Admin_Clubs_create_modal_header")}
             </h1>
+            <div className="grid grid-cols-1 gap-4">
+              TODO: Please build this
+            </div>
           </div>
         </div>
       </Modal>

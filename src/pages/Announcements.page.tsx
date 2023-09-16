@@ -7,7 +7,7 @@ const Announcements = () => {
   return (
     <div>
       <PageHeader
-        icon="fa-solid fa-puzzle-piece"
+        icon="fa-solid fa-bullhorn"
         text={t("Announcements_header")}
       />
     </div>

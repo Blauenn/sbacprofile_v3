@@ -1,12 +1,12 @@
-/* Font - Sarabun */
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@100;400;600;800&display=swap');
+/* Font - Sarabun + Nanum Gothic */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@400;600&family=Nanum+Gothic:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: Sarabun, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Sarabun', 'Nanum Gothic', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 
   color-scheme: light dark;

@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { Major } from "../../interfaces/common.interface";
-import { MajorName, MajorNameThai } from "../../constants/Majors.constant";
+import { MajorName, MajorNameKorean, MajorNameThai } from "../../constants/Majors.constant";
 
 interface CurrentComponentProp {
   majors: Major[];
@@ -31,6 +31,8 @@ const TeacherFilters = (props: CurrentComponentProp) => {
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
                 ? MajorNameThai[major.major_ID]
+                : i18n.language === "ko"
+                ? MajorNameKorean[major.major_ID]
                 : MajorName[major.major_ID]}
             </option>
           ))}

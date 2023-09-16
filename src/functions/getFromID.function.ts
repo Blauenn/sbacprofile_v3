@@ -33,6 +33,15 @@ export const get_teacher_name_from_ID = (teacher_ID: number, teachers: any) => {
     return `${teacher.teacher_first_name} ${teacher.teacher_last_name}`;
   }
 };
+export const get_teacher_name_thai_from_ID = (teacher_ID: number, teachers: any) => {
+  const teacher: any = teachers.find(
+    (teacher: Teacher) => teacher.teacher_ID == teacher_ID
+  );
+
+  if (teacher) {
+    return `${teacher.teacher_first_name_thai} ${teacher.teacher_last_name_thai}`;
+  }
+};
 export const get_teacher_image_from_ID = (
   teacher_ID: number,
   teachers: any
@@ -62,4 +71,17 @@ export const get_clubMember_count_from_ID = (
   );
 
   return filteredClub.length;
+};
+
+export const get_student_count_from_classroom = (
+  classroomLevel: number,
+  classroomClass: number,
+  students: any
+) => {
+  const filteredStudentCount = students.filter(
+    (student: Student) =>
+      student.student_level == classroomLevel &&
+      student.student_class == classroomClass
+  );
+  return filteredStudentCount.length;
 };

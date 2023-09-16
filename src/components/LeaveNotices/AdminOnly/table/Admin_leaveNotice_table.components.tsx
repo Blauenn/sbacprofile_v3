@@ -48,7 +48,7 @@ const Admin_leaveNotice_table = (props: CurrentComponentProp) => {
             <th className={style_table_header}>
               {t("Admin_LeaveNotices_table_header_endDate")}
             </th>
-            <th className={style_table_header}>
+            <th className={`${style_table_header} | hidden sm:table-cell`}>
               {t("Admin_LeaveNotices_table_header_status")}
             </th>
             <th className={style_table_header}>
@@ -92,7 +92,7 @@ const Admin_leaveNotice_table = (props: CurrentComponentProp) => {
                 <th className={style_table_header}>
                   {t("Admin_LeaveNotices_table_header_endDate")}
                 </th>
-                <th className={style_table_header}>
+                <th className={`${style_table_header} | hidden sm:table-cell`}>
                   {t("Admin_LeaveNotices_table_header_status")}
                 </th>
                 <th className={style_table_header}>

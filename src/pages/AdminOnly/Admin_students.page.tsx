@@ -98,7 +98,6 @@ const Admin_students = () => {
           icon="fa-solid fa-graduation-cap"
           text={t("Admin_Students_create_button_title")}
         />
-        <Admin_student_modal_create open={modalOpen} onModalClose={onModalClose} />
       </div>
 
       <div className="flex flex-col gap-8">

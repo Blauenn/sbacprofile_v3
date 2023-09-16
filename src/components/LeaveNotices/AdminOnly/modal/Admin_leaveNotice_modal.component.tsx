@@ -36,7 +36,7 @@ const Admin_leaveNotice_modal = (props: CurrentComponentProp) => {
                   {t("LeaveNotices_students_view_modal_header")}
                 </h1>
                 <div className="grid grid-cols-1 gap-4">
-                  <h1>Please build this</h1>
+                  TODO: Please build this
                 </div>
               </div>
             </div>

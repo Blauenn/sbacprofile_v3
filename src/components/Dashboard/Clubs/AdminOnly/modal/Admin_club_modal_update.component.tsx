@@ -3,23 +3,26 @@ import { createPortal } from "react-dom";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@mui/material";
+import {
+  TextField_multiline,
+  TextField_select,
+  TextField_text,
+} from "../../../../custom/Custom_TextFields";
 import { Club, Major } from "../../../../../interfaces/common.interface";
-import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
-import TextField_text from "../../../../custom/TextFields/TextField_text.component";
-import TextField_select from "../../../../custom/TextFields/TextField_select.component";
-
-// Contexts //
-import { useContext_Majors } from "../../../../../context/Majors.context";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
+import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
+import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   MajorName,
+  MajorNameKorean,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
-import TextField_multiline from "../../../../custom/TextFields/TextField_multiline.component";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
 import { style_modal_parent } from "../../../../../constants/styles/modal.style";
+
+// Contexts //
+import { useContext_Majors } from "../../../../../context/Majors.context";
 
 interface CurrentComponentProp {
   club: Club;
@@ -107,15 +110,17 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
                       className="col-span-1"
                       object={clubToUpdate}
                       setObject={setClubToUpdate}
-                      select
-                      SelectProps={{ native: true }}
                       value={clubToUpdate.club_major}
                       validation={validationErrors.club_major}>
-                      <option value="0">Major</option>
+                      <option value="0">
+                        {t("Admin_Clubs_crud_modal_major_option1")}
+                      </option>
                       {majors.map((major: Major) => (
                         <option key={major.major_ID} value={major.major_ID}>
                           {i18n.language === "th"
                             ? MajorNameThai[major.major_ID]
+                            : i18n.language === "ko"
+                            ? MajorNameKorean[major.major_ID]
                             : MajorName[major.major_ID]}
                         </option>
                       ))}
@@ -138,8 +143,6 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
                     className="col-span-1"
                     object={clubToUpdate}
                     setObject={setClubToUpdate}
-                    select
-                    SelectProps={{ native: true }}
                     value={clubToUpdate.club_status}
                     validation={validationErrors.club_status}>
                     <option value="0">

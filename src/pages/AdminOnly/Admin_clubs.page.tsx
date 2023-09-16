@@ -63,7 +63,7 @@ const Admin_clubs = () => {
         <Info_create_button
           setModalOpen={setModalOpen}
           icon="fa-solid fa-puzzle-piece"
-          text={t("Create a club")}
+          text={t("Admin_Clubs_create_button_title")}
         />
         <Admin_club_modal_create open={modalOpen} onModalClose={onModalClose} />
       </div>

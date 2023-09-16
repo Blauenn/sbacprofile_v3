@@ -43,8 +43,8 @@ const Admin_teacher_table_row = (props: CurrentComponentProp) => {
             />
           </div>
         </td>
-        {/* Teacher English names */}
         {/* Small screens */}
+        {/* Teacher English names */}
         <td className={`${style_table_content} table-cell px-2 sm:hidden`}>
           {teacher.teacher_first_name} {teacher.teacher_last_name}
         </td>
@@ -66,12 +66,12 @@ const Admin_teacher_table_row = (props: CurrentComponentProp) => {
         <td className={style_table_content}>
           <div className="flex gap-x-2">
             <Admin_teacher_modal_update
+              teacher={teacher}
               open={modalOpen}
               onModalClose={onModalClose}
-              teacher={teacher}
             />
             <Table_button
-              text={t("Admin_Teachers_table_content_button_edit_title")}
+              text={t("Admin_Teachers_table_content_button_update_title")}
               color={MajorToBackgroundColor[teacher.teacher_major]}
               functionToRun={() => {
                 setModalOpen(true);

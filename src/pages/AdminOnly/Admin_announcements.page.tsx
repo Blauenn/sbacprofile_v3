@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
 import Admin_announcement_modal_create from "../../components/Dashboard/Announcements/AdminOnly/modal/Admin_announcement_modal_create.component";
+import { useContext_Announcements } from "../../context/Announcements.context";
+import { getData } from "../../functions/fetchFromAPI.function";
+import { API_ENDPOINT } from "../../constants/ENDPOINTS";
+import Admin_announcement_table from "../../components/Dashboard/Announcements/AdminOnly/table/Admin_announcement_table.component";
 
 const Admin_announcements = () => {
+  const { announcements, setAnnouncements } = useContext_Announcements();
+
   const { t } = useTranslation();
+
+  useEffect(() => {
+    // Announcements //
+    getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
+      setAnnouncements(result);
+    });
+  }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
   const onModalClose = () => {
@@ -26,6 +39,10 @@ const Admin_announcements = () => {
           open={modalOpen}
           onModalClose={onModalClose}
         />
+      </div>
+
+      <div className="flex flex-col gap-8">
+        <Admin_announcement_table announcements={announcements} />
       </div>
     </div>
   );

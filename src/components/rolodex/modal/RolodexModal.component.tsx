@@ -7,8 +7,8 @@ import { getData } from "../../../functions/fetchFromAPI.function";
 import ModalCloseButton from "../../misc/common/ModalCloseButton.component";
 import RolodexModal_contacts from "./RolodexModalContacts.component";
 import RolodexModal_image from "./RolodexModal_image.component";
-import { MajorName, MajorNameThai } from "../../../constants/Majors.constant";
-import { LevelName, LevelNameThai } from "../../../constants/Levels.constant";
+import { MajorName, MajorNameKorean, MajorNameThai, MajorToTextColor } from "../../../constants/Majors.constant";
+import { LevelName, LevelNameKorean, LevelNameThai } from "../../../constants/Levels.constant";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 import { style_modal_parent } from "../../../constants/styles/modal.style";
 
@@ -117,9 +117,11 @@ const RolodexModal = (props: CurrentComponentProp) => {
                     )}
                   </div>
                   <div className="mb-4 lg:mb-8">
-                    <h1 className="text-xl font-semibold">
+                    <h1 className={`text-xl font-semibold ${MajorToTextColor[object.major]}`}>
                       {i18n.language === "th"
                         ? MajorNameThai[object.major]
+                        : i18n.language === "ko"
+                        ? MajorNameKorean[object.major]
                         : MajorName[object.major]}
                     </h1>
                     {profile === "student" ? (
@@ -128,6 +130,8 @@ const RolodexModal = (props: CurrentComponentProp) => {
                           level:
                             i18n.language === "th"
                               ? LevelNameThai[object.level]
+                              : i18n.language === "ko"
+                              ? LevelNameKorean[object.level]
                               : LevelName[object.level],
                           classroom: object.class,
                         })}
@@ -144,6 +148,8 @@ const RolodexModal = (props: CurrentComponentProp) => {
                                   ? LevelNameThai[
                                       matchedClassroom.classroom_level
                                     ]
+                                    : i18n.language === "ko"
+                                    ? LevelNameKorean[matchedClassroom.classroom_level]
                                   : LevelName[matchedClassroom.classroom_level],
                               classroom: matchedClassroom.classroom_class,
                             })}

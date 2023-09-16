@@ -15,6 +15,7 @@ import { StudentsContextProvider } from "./context/Students.context";
 import { TeachersContextProvider } from "./context/Teachers.context";
 import { LeaveNoticesContextProvider } from "./context/LeaveNotices.context";
 import { ClubsContextProvider } from "./context/Clubs.context";
+import { AnnouncementsContextProvider } from "./context/Announcements.context";
 
 // Lazy page imports //
 const Login = lazy(() => import("./pages/Login.page"));
@@ -93,144 +94,148 @@ const Root = () => {
   return (
     <BrowserRouter>
       {isLoggedIn ? (
-        <ClubsContextProvider>
-          <LeaveNoticesContextProvider>
-            <MajorContextProvider>
-              <ClassroomContextProvider>
-                <StudentsContextProvider>
-                  <TeachersContextProvider>
-                    <div className="flex flex-row">
-                      <Sidebar />
+        <AnnouncementsContextProvider>
+          <ClubsContextProvider>
+            <LeaveNoticesContextProvider>
+              <MajorContextProvider>
+                <ClassroomContextProvider>
+                  <StudentsContextProvider>
+                    <TeachersContextProvider>
+                      <div className="flex flex-row">
+                        <Sidebar />
 
-                      <div className="relative ms-20 me-8 my-16 | sm:ms-32 sm:me-20 sm:my-20 | lg:ms-40 lg:me-28 | w-full">
-                        <Suspense fallback={<Loading />}>
-                          <Routes>
-                            {/* No URL */}
-                            <Route
-                              path=""
-                              element={<Navigate to="/home" replace />}
-                            />
-                            <Route
-                              path="/login"
-                              element={<Navigate to="/home" replace />}
-                            />
-                            {/* Page not found */}
-                            <Route path="*" element={<PageNotFound />}></Route>
+                        <div className="relative ms-20 me-8 my-16 | sm:ms-32 sm:me-20 sm:my-20 | lg:ms-40 lg:me-28 | w-full">
+                          <Suspense fallback={<Loading />}>
+                            <Routes>
+                              {/* No URL */}
+                              <Route
+                                path=""
+                                element={<Navigate to="/home" replace />}
+                              />
+                              <Route
+                                path="/login"
+                                element={<Navigate to="/home" replace />}
+                              />
+                              {/* Page not found */}
+                              <Route
+                                path="*"
+                                element={<PageNotFound />}></Route>
 
-                            {/* Home */}
-                            <Route path="/home" element={<Home />}></Route>
-                            {/* Announcements */}
-                            <Route
-                              path="/announcements"
-                              element={<Announcements />}></Route>
+                              {/* Home */}
+                              <Route path="/home" element={<Home />}></Route>
+                              {/* Announcements */}
+                              <Route
+                                path="/announcements"
+                                element={<Announcements />}></Route>
 
-                            {/* Admin only */}
-                            {/* Announcements */}
-                            <Route
-                              path="/admin/announcements"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_announcements />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Classrooms */}
-                            <Route
-                              path="/admin/classrooms"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_classrooms />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Students */}
-                            <Route
-                              path="/admin/students"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_students />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Teachers */}
-                            <Route
-                              path="/admin/teachers"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_teachers />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Clubs */}
-                            <Route
-                              path="/admin/clubs"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_clubs />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Leave notices */}
-                            <Route
-                              path="/admin/leaveNotices"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_leaveNotices />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
-                            {/* Request forms */}
-                            <Route
-                              path="/admin/requestForms"
-                              element={
-                                adminAccessOnly(userInfo.profile_position) ? (
-                                  <Admin_requestForms />
-                                ) : (
-                                  <PageNotFound />
-                                )
-                              }></Route>
+                              {/* Admin only */}
+                              {/* Announcements */}
+                              <Route
+                                path="/admin/announcements"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_announcements />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Classrooms */}
+                              <Route
+                                path="/admin/classrooms"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_classrooms />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Students */}
+                              <Route
+                                path="/admin/students"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_students />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Teachers */}
+                              <Route
+                                path="/admin/teachers"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_teachers />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Clubs */}
+                              <Route
+                                path="/admin/clubs"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_clubs />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Leave notices */}
+                              <Route
+                                path="/admin/leaveNotices"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_leaveNotices />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
+                              {/* Request forms */}
+                              <Route
+                                path="/admin/requestForms"
+                                element={
+                                  adminAccessOnly(userInfo.profile_position) ? (
+                                    <Admin_requestForms />
+                                  ) : (
+                                    <PageNotFound />
+                                  )
+                                }></Route>
 
-                            {/* Dashboard */}
-                            <Route
-                              path="/dashboard"
-                              element={<Dashboard />}></Route>
+                              {/* Dashboard */}
+                              <Route
+                                path="/dashboard"
+                                element={<Dashboard />}></Route>
 
-                            {/* Leave notices */}
-                            <Route
-                              path="/leaveNotices"
-                              element={<LeaveNotices />}></Route>
+                              {/* Leave notices */}
+                              <Route
+                                path="/leaveNotices"
+                                element={<LeaveNotices />}></Route>
 
-                            {/* Teachers */}
-                            <Route
-                              path="/teachers"
-                              element={<Teachers />}></Route>
-                            {/* Students */}
-                            <Route
-                              path="/students"
-                              element={<Students />}></Route>
-                            {/* Clubs */}
-                            <Route path="/clubs" element={<Clubs />}></Route>
+                              {/* Teachers */}
+                              <Route
+                                path="/teachers"
+                                element={<Teachers />}></Route>
+                              {/* Students */}
+                              <Route
+                                path="/students"
+                                element={<Students />}></Route>
+                              {/* Clubs */}
+                              <Route path="/clubs" element={<Clubs />}></Route>
 
-                            {/* Settings */}
-                            <Route
-                              path="/settings"
-                              element={<Settings />}></Route>
-                          </Routes>
-                        </Suspense>
+                              {/* Settings */}
+                              <Route
+                                path="/settings"
+                                element={<Settings />}></Route>
+                            </Routes>
+                          </Suspense>
+                        </div>
                       </div>
-                    </div>
-                  </TeachersContextProvider>
-                </StudentsContextProvider>
-              </ClassroomContextProvider>
-            </MajorContextProvider>
-          </LeaveNoticesContextProvider>
-        </ClubsContextProvider>
+                    </TeachersContextProvider>
+                  </StudentsContextProvider>
+                </ClassroomContextProvider>
+              </MajorContextProvider>
+            </LeaveNoticesContextProvider>
+          </ClubsContextProvider>
+        </AnnouncementsContextProvider>
       ) : (
         <Suspense>
           <Routes>

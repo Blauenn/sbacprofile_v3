@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
-import { Modal, TextField } from "@mui/material";
+import { Modal } from "@mui/material";
 import { Major, Student } from "../../../../../interfaces/common.interface";
 import {
   handleImageChange,
-  handleInputChange,
 } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
-import { handleStudentUpdate } from "../../../../../functions/Admin/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
 import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
@@ -18,13 +16,12 @@ import {
   MajorName,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
+import { style_modal_parent_large } from "../../../../../constants/styles/modal.style";
+import { TextField_select, TextField_text } from "../../../../custom/Custom_TextFields";
 
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Students } from "../../../../../context/Students.context";
-import TextField_text from "../../../../custom/TextFields/TextField_text.component";
-import TextField_select from "../../../../custom/TextFields/TextField_select.component";
-import { style_modal_parent } from "../../../../../constants/styles/modal.style";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -143,7 +140,7 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             onClose={handleModalClose}
             className="flex justify-center items-center"
             sx={{ backdropFilter: "blur(2px)" }}>
-            <div className={style_modal_parent}>
+            <div className={style_modal_parent_large}>
               <ModalCloseButton functionToRun={handleModalClose} />
               <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
                 <h1 className="text-2xl font-semibold mb-8">
@@ -224,8 +221,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                       className="col-span-1"
                       object={studentToUpdate}
                       setObject={setStudentToUpdate}
-                      select
-                      SelectProps={{ native: true }}
                       value={studentToUpdate.student_position}
                       validation={validationErrors.student_position}>
                       <option value="0">
@@ -246,8 +241,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                     className="col-span-1"
                     object={studentToUpdate}
                     setObject={setStudentToUpdate}
-                    select
-                    SelectProps={{ native: true }}
                     value={studentToUpdate.student_major}
                     validation={validationErrors.student_major}>
                     <option value="0">Major</option>
@@ -267,8 +260,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                       className="col-span-1"
                       object={studentToUpdate}
                       setObject={setStudentToUpdate}
-                      select
-                      SelectProps={{ native: true }}
                       value={studentToUpdate.student_level}
                       validation={validationErrors.student_level}>
                       <option value="0">
@@ -308,8 +299,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                     className="col-span-1"
                     object={studentToUpdate}
                     setObject={setStudentToUpdate}
-                    select
-                    SelectProps={{ native: true }}
                     value={studentToUpdate.student_gender}
                     validation={validationErrors.student_gender}>
                     <option value="0">

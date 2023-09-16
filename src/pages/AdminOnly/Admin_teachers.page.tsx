@@ -72,12 +72,12 @@ const Admin_teachers = () => {
       <PageHeaderReturn text={t("Admin_Teachers_header")} />
 
       <div className="mb-8">
+        <Admin_teacher_modal_create open={modalOpen} onModalClose={onModalClose} />
         <Info_create_button
           setModalOpen={setModalOpen}
           icon="fa-solid fa-chalkboard-user"
           text={t("Admin_Teachers_create_button_title")}
         />
-        <Admin_teacher_modal_create open={modalOpen} onModalClose={onModalClose} />
       </div>
 
       <div className="flex flex-col gap-8">

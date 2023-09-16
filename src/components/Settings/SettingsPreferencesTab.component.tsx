@@ -27,6 +27,7 @@ const SettingsPreferencesTab = () => {
           InputProps={{ sx: { borderRadius: 3 } }}>
           <option value="en">English</option>
           <option value="th">ไทย</option>
+          <option value="ko">한국어</option>
         </TextField>
       </div>
       {/* Theme */}

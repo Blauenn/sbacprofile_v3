@@ -77,7 +77,7 @@ export interface Announcement {
   announcement_title: string;
   announcement_description: string;
   announcement_image: string;
-  announcement_datetime: string;
+  announcement_create_datetime: string;
 }
 
 export interface Club {

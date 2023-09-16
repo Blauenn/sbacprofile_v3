@@ -1,16 +1,18 @@
+import { Modal } from "@mui/material";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { Modal } from "@mui/material";
+import { Classroom } from "../../../../interfaces/common.interface";
 import ModalCloseButton from "../../../misc/common/ModalCloseButton.component";
 import { style_modal_parent } from "../../../../constants/styles/modal.style";
 
 interface CurrentComponentProp {
+  classroom: Classroom;
   open: boolean;
   onModalClose: any;
 }
 
-const Student_leaveNotice_modal = (props: CurrentComponentProp) => {
-  const { open, onModalClose } = props;
+const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
+  const { classroom, open, onModalClose } = props;
 
   const { t } = useTranslation();
 
@@ -32,7 +34,8 @@ const Student_leaveNotice_modal = (props: CurrentComponentProp) => {
               <ModalCloseButton functionToRun={handleModalClose} />
               <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
                 <h1 className="text-2xl font-semibold mb-8">
-                  <i className="fa-solid fa-flag me-2"></i>{t("LeaveNotices_students_view_modal_header")}
+                  <i className="fa-solid fa-pencil me-2"></i>
+                  {t("Admin_Classrooms_update_modal_header")}
                 </h1>
                 <div className="grid grid-cols-1 gap-4">
                     TODO: Please build this
@@ -46,4 +49,4 @@ const Student_leaveNotice_modal = (props: CurrentComponentProp) => {
     : null;
 };
 
-export default Student_leaveNotice_modal;
+export default Admin_classroom_modal_update;
