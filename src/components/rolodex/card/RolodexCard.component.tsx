@@ -2,16 +2,8 @@ import { useState } from "react";
 import i18n from "i18next";
 import RolodexCard_robotIcon from "./RolodexCard_robotIcon.component";
 import RolodexCard_image from "./RolodexCard_image.component";
-import RolodexCard_contacts from "./RolodexCard_contacts.component";
 import RolodexModal from "../modal/RolodexModal.component";
-import {
-  MajorToBackgroundColor,
-  MajorToBorderColor,
-} from "../../../constants/Majors.constant";
-import {
-  ShortLevelName,
-  ShortLevelName_Thai,
-} from "../../../constants/Levels.constant";
+import { MajorToBackgroundColor } from "../../../constants/Majors.constant";
 import { RolodexCard_style } from "../../../constants/styles/rolodex.style";
 
 interface CurrentComponentProp {
@@ -68,21 +60,8 @@ const RolodexCard = (props: CurrentComponentProp) => {
   return (
     <>
       <div
-        className={`${RolodexCard_style} ${
-          MajorToBackgroundColor[remappedObject.major]
-        } ${MajorToBorderColor[remappedObject.major]}`}
+        className={`${RolodexCard_style}`}
         onClick={() => setModalOpen(true)}>
-        {profile === "student" ? (
-          <div className="absolute right-4 text-[12px] font-semibold opacity-75">
-            {i18n.language === "th"
-              ? `${ShortLevelName_Thai[remappedObject.level]}/${
-                  remappedObject.class
-                }`
-              : `${ShortLevelName[remappedObject.level]}/${
-                  remappedObject.class
-                }`}
-          </div>
-        ) : null}
         {/* If the user is artifical. */}
         {profile === "student" ? (
           remappedObject.ID.toString().startsWith("5") ? (
@@ -91,23 +70,24 @@ const RolodexCard = (props: CurrentComponentProp) => {
         ) : remappedObject.ID.toString().startsWith("4") ? (
           <RolodexCard_robotIcon />
         ) : null}
-        <RolodexCard_image image={remappedObject.image} />
-        <h1 className="text-sm mb-2">{remappedObject.ID}</h1>
-        <div className="w-5/6">
-          {i18n.language === "th" ? (
-            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
-              {remappedObject.first_name_thai}{" "}
-              {remappedObject.last_name_thai.substring(0, 5)}.
-            </h1>
-          ) : (
-            <h1 className="text-2xl text-center font-semibold mb-4 truncate block">
-              {remappedObject.first_name}{" "}
-              {remappedObject.last_name.substring(0, 3)}.
-            </h1>
-          )}
-        </div>
-        <div className="hidden md:block">
-          <RolodexCard_contacts object={remappedObject} />
+        <div className="w-full flex flex-col justify-center items-center py-2">
+          <RolodexCard_image
+            image={remappedObject.image}
+            majorColor={MajorToBackgroundColor[remappedObject.major]}
+          />
+          <div className="w-5/6">
+            {i18n.language === "th" ? (
+              <h1 className="text-2xl text-center truncate block">
+                {remappedObject.first_name_thai}{" "}
+                {remappedObject.last_name_thai.substring(0, 1)}.
+              </h1>
+            ) : (
+              <h1 className="text-2xl text-center truncate block">
+                {remappedObject.first_name}{" "}
+                {remappedObject.last_name.substring(0, 1)}.
+              </h1>
+            )}
+          </div>
         </div>
       </div>
       <RolodexModal

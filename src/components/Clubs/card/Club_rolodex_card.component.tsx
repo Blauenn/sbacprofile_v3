@@ -9,6 +9,7 @@ import {
 import { UserInfo } from "../../../interfaces/account.interface";
 import {
   get_student_image_from_ID,
+  get_student_major_from_ID,
   get_student_name_from_ID,
   get_teacher_image_from_ID,
   get_teacher_name_from_ID,
@@ -21,6 +22,7 @@ import {
   MajorToBackgroundColor,
   MajorToBorderColor,
 } from "../../../constants/Majors.constant";
+import { hover_transition } from "../../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
   club: Club;
@@ -59,9 +61,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
   return (
     <div>
       <div
-        className={`h-full relative flex flex-col bg-opacity-5 border border-opacity-25 rounded-xl overflow-hidden | transition-all duration-150 ease-in-out hover:scale-101 ${
-          MajorToBackgroundColor[club.club_major]
-        } ${MajorToBorderColor[club.club_major]}`}
+        className={`h-full relative flex flex-col bg-white shadow-sm rounded-xl overflow-hidden | ${hover_transition} hover:bg-slate-200 cursor-pointer`}
         onClick={() => setModalOpen(true)}>
         {club.club_image != "/assets/profilePic/clubs/default.jpg" ? (
           <div
@@ -86,15 +86,20 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                       title={get_teacher_name_from_ID(teacher, teachers)}
                       placement="bottom"
                       arrow>
-                      <img
-                        src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
-                          teacher,
-                          teachers
-                        )}`}
-                        className={`w-[40px] h-[40px] rounded-full border-2 flex-shrink-0 ${
-                          MajorToBorderColor[club.club_major]
-                        }`}
-                      />
+                      <div
+                        className={`${
+                          MajorToBackgroundColor[club.club_major]
+                        } w-[40px] h-[40px] rounded-full overflow-hidden`}>
+                        <img
+                          src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
+                            teacher,
+                            teachers
+                          )}`}
+                          className={`border-2 flex-shrink-0 ${
+                            MajorToBorderColor[club.club_major]
+                          }`}
+                        />
+                      </div>
                     </Tooltip>
                   ))
                 : null}
@@ -113,20 +118,35 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                           )}
                           placement="bottom"
                           arrow>
-                          <img
-                            src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                              clubMembership.club_student,
-                              students
-                            )}`}
-                            className={`w-[40px] h-[40px] rounded-full border-2 flex-shrink-0 ${
-                              club
-                                ? MajorToBorderColor[club.club_major]
-                                : "text-blue-500"
-                            }`}
-                            onError={(e) => {
-                              e.currentTarget.src = defaultImage;
-                            }}
-                          />
+                          <div
+                            className={`${
+                              MajorToBackgroundColor[
+                                get_student_major_from_ID(
+                                  clubMembership.club_student,
+                                  students
+                                )
+                              ]
+                            } w-[40px] h-[40px] rounded-full overflow-hidden`}>
+                            <img
+                              src={`${CDN_ENDPOINT}${get_student_image_from_ID(
+                                clubMembership.club_student,
+                                students
+                              )}`}
+                              className={`border-2 flex-shrink-0 ${
+                                club
+                                  ? MajorToBorderColor[
+                                      get_student_major_from_ID(
+                                        clubMembership.club_student,
+                                        students
+                                      )
+                                    ]
+                                  : "text-blue-500"
+                              }`}
+                              onError={(e) => {
+                                e.currentTarget.src = defaultImage;
+                              }}
+                            />
+                          </div>
                         </Tooltip>
                       ))
                     : null}

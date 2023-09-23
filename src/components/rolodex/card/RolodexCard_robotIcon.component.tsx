@@ -6,7 +6,7 @@ const RolodexCard_robotIcon = () => {
 
   return (
     <Tooltip title={t("RolodexCard_robotMessage")} placement="bottom" arrow>
-      <div className="absolute left-4 font-semibold opacity-75">
+      <div className="absolute left-4 font-semibold opacity-50">
         <i className="fa-solid fa-robot me-2"></i>
       </div>
     </Tooltip>

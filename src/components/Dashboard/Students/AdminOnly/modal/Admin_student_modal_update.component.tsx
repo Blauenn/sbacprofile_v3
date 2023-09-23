@@ -15,6 +15,7 @@ import {
   MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
+  MajorToBackgroundColor,
 } from "../../../../../constants/Majors.constant";
 import { style_modal_parent_large } from "../../../../../constants/styles/modal.style";
 import {
@@ -156,10 +157,15 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                       <label htmlFor="student_update_image">
                         {studentUpdateImage ? (
                           <>
-                            <img
-                              src={imagePreview || ""}
-                              className="w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] rounded-full | border border-standardBlack border-opacity-25"
-                            />
+                            <div
+                              className={`${
+                                MajorToBackgroundColor[student.student_major]
+                              } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                              <img
+                                src={imagePreview || ""}
+                                className="w-full | border border-standardBlack border-opacity-25"
+                              />
+                            </div>
                             <input
                               name="student_update_image"
                               id="student_update_image"
@@ -181,10 +187,15 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                           // Show the current student image...
                           // if image is not uploaded. //
                           <>
-                            <img
-                              src={`${CDN_ENDPOINT}${student.student_image}`}
-                              className="w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] rounded-full"
-                            />
+                            <div
+                              className={`${
+                                MajorToBackgroundColor[student.student_major]
+                              } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                              <img
+                                src={`${CDN_ENDPOINT}${student.student_image}`}
+                                className="w-full"
+                              />
+                            </div>
                             <input
                               name="student_update_image"
                               id="student_update_image"

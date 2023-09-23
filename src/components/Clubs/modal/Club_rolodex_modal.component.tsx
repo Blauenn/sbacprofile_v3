@@ -11,8 +11,10 @@ import { UserInfo } from "../../../interfaces/account.interface";
 import { getData } from "../../../functions/fetchFromAPI.function";
 import {
   get_student_image_from_ID,
+  get_student_major_from_ID,
   get_student_name_from_ID,
   get_teacher_image_from_ID,
+  get_teacher_major_from_ID,
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
 import { studentAccessOnly } from "../../../functions/permissionChecks.function";
@@ -170,16 +172,23 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                             <div
                               key={teacher}
                               className="flex flex-row items-center gap-2 border border-standardBlack border-opacity-25 rounded-xl px-2 py-1">
-                              <img
-                                src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
-                                  teacher,
-                                  teachers
-                                )}`}
-                                className="w-[40px] h-[40px] rounded-full"
-                                onError={(e) => {
-                                  e.currentTarget.src = defaultImage;
-                                }}
-                              />
+                              <div
+                                className={`${
+                                  MajorToBackgroundColor[
+                                    get_teacher_major_from_ID(teacher, teachers)
+                                  ]
+                                } w-[40px] h-[40px] rounded-full overflow-hidden`}>
+                                <img
+                                  src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
+                                    teacher,
+                                    teachers
+                                  )}`}
+                                  className="w-full"
+                                  onError={(e) => {
+                                    e.currentTarget.src = defaultImage;
+                                  }}
+                                />
+                              </div>
                               <h1 className="text-md">
                                 {get_teacher_name_from_ID(teacher, teachers)}
                               </h1>
@@ -210,20 +219,35 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                               )}
                               placement="bottom"
                               arrow>
-                              <img
-                                src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                                  clubMembership.club_student,
-                                  students
-                                )}`}
-                                className={`w-[40px] h-[40px] rounded-full border-2 ${
-                                  club
-                                    ? MajorToBorderColor[club.club_major]
-                                    : "text-blue-500"
-                                }`}
-                                onError={(e) => {
-                                  e.currentTarget.src = defaultImage;
-                                }}
-                              />
+                              <div
+                                className={`${
+                                  MajorToBackgroundColor[
+                                    get_student_major_from_ID(
+                                      clubMembership.club_student,
+                                      students
+                                    )
+                                  ]
+                                } w-[40px] h-[40px] rounded-full overflow-hidden`}>
+                                <img
+                                  src={`${CDN_ENDPOINT}${get_student_image_from_ID(
+                                    clubMembership.club_student,
+                                    students
+                                  )}`}
+                                  className={`border-2 flex-shrink-0 ${
+                                    club
+                                      ? MajorToBorderColor[
+                                          get_student_major_from_ID(
+                                            clubMembership.club_student,
+                                            students
+                                          )
+                                        ]
+                                      : "text-blue-500"
+                                  }`}
+                                  onError={(e) => {
+                                    e.currentTarget.src = defaultImage;
+                                  }}
+                                />
+                              </div>
                             </Tooltip>
                           ))}
                         </div>

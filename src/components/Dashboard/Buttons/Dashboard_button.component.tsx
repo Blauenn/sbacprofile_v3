@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { hover_transition } from "../../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
   url: string;
@@ -14,7 +15,7 @@ const Dashboard_button = (props: CurrentComponentProp) => {
   return (
     <div>
       <NavLink to={url}>
-        <div className="h-full border border-standardBlack border-opacity-25 rounded-xl px-4 py-2 | hover:bg-gray-200 cursor-pointer">
+        <div className={`h-full shadow-sm rounded-xl px-4 py-2 | bg-white hover:bg-slate-200 cursor-pointer ${hover_transition}`}>
           <h1 className="text-xl font-semibold">
             <i className={`${icon} me-4 ${color}`}></i>
             {title}

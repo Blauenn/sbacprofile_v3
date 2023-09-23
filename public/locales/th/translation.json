@@ -57,6 +57,7 @@
     "Admin_Announcements_table_header_title": "หัวข้อ",
     "Admin_Announcements_table_header_description": "คำอธิบาย",
     "Admin_Announcements_table_content_button_update_title": "แก้ไข",
+    "Admin_Announcements_table_noAnnouncements_message": "ไม่มีประกาศ",
 
     "Admin_Classrooms_header": "ห้องเรียน",
     "Admin_Classrooms_update_modal_header": "แก้ไขห้องเรียน",

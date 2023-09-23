@@ -57,6 +57,7 @@
     "Admin_Announcements_table_header_title": "제목",
     "Admin_Announcements_table_header_description": "설명",
     "Admin_Announcements_table_content_button_update_title": "편집",
+    "Admin_Announcements_table_noAnnouncements_message": "공지 없음",
 
     "Admin_Classrooms_header": "교실",
     "Admin_Classrooms_update_modal_header": "교실 업데이트",

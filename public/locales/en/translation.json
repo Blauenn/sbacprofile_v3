@@ -57,6 +57,7 @@
     "Admin_Announcements_table_header_title": "Title",
     "Admin_Announcements_table_header_description": "Description",
     "Admin_Announcements_table_content_button_update_title": "Update",
+    "Admin_Announcements_table_noAnnouncements_message": "No announcements",
 
     "Admin_Classrooms_header": "Classrooms",
     "Admin_Classrooms_update_modal_header": "Update classrooms",

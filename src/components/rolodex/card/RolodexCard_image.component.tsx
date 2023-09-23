@@ -3,13 +3,14 @@ import { defaultImage } from "../../../constants/Misc.constant";
 
 interface CurrentComponentProp {
   image: string;
+  majorColor: string;
 }
 
 const RolodexCard_image = (props: CurrentComponentProp) => {
-  const { image } = props;
+  const { image, majorColor } = props;
 
   return (
-    <div className="w-4/6 h-auto rounded-full">
+    <div className={`w-[120px] h-[120px] ${majorColor} rounded-full overflow-hidden mb-4`}>
       <img
         src={`${CDN_ENDPOINT}${image}`}
         loading="lazy"

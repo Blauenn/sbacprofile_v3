@@ -116,7 +116,7 @@ const StudentFilters = (props: StudentFilterProps) => {
           onChange={onMajorChangeHandler}
           className="w-full"
           SelectProps={{ native: true }}
-          InputProps={{ sx: { borderRadius: 3 } }}>
+          InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
           <option value="0">{t("profile_filters_option_all")}</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
@@ -139,7 +139,7 @@ const StudentFilters = (props: StudentFilterProps) => {
           onChange={onLevelChangeHandler}
           className="w-full"
           SelectProps={{ native: true }}
-          InputProps={{ sx: { borderRadius: 3 } }}>
+          InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
           <option value="0">{t("profile_filters_option_all")}</option>
           <option value="1">
             {i18n.language === "th"
@@ -199,7 +199,7 @@ const StudentFilters = (props: StudentFilterProps) => {
           label={t("profile_filters_label_search")}
           className="w-full"
           onChange={onSearchFieldChangeHandler}
-          InputProps={{ sx: { borderRadius: 3 } }}
+          InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}
         />
       </div>
     </div>

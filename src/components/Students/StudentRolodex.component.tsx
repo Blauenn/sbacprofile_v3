@@ -56,7 +56,7 @@ const StudentRolodex = (props: CurrentComponentProp) => {
       <div>
         {Object.entries(sortedStudentsByMajor).map(([major, students]) => (
           <div key={major} className="mb-12">
-            <h1 className="text-2xl lg:text-3xl | font-semibold xl:mx-16 mb-6">
+            <h1 className="text-xl lg:text-2xl | font-semibold xl:mx-16 mb-6">
               {i18n.language === "th"
                 ? MajorNameThai[parseInt(major)]
                 : i18n.language === "ko"
@@ -65,7 +65,7 @@ const StudentRolodex = (props: CurrentComponentProp) => {
                 ? MajorNameGerman[parseInt(major)]
                 : MajorName[parseInt(major)]}
             </h1>
-            <div className="grid-cols-1 min-[490px]:grid-cols-2 lg:grid-cols-4 xl:mx-16 | grid gap-4">
+            <div className="grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 xl:mx-16 | grid gap-4">
               {students.map((student: Student) => (
                 <RolodexCard
                   key={student.primary_student_ID}

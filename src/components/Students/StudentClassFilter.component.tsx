@@ -24,7 +24,7 @@ const StudentClassFilter = (props: ClassFilterProps) => {
         onChange={onChangeHandler}
         className="w-full"
         SelectProps={{ native: true }}
-        InputProps={{ sx: { borderRadius: 3 } }}>
+        InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
         <option value="0">{t("profile_filters_option_all")}</option>
         {sortedClasses.map((classroom: Classroom) => (
           <option

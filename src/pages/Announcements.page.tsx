@@ -10,6 +10,10 @@ const Announcements = () => {
         icon="fa-solid fa-bullhorn"
         text={t("Announcements_header")}
       />
+      
+      <div className="w-full shadow-sm px-4 py-2 rounded-xl bg-white">
+        UwU
+      </div>
     </div>
   );
 };

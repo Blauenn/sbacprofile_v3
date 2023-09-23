@@ -57,6 +57,7 @@
     "Admin_Announcements_table_header_title": "Titel",
     "Admin_Announcements_table_header_description": "Beschreibung",
     "Admin_Announcements_table_content_button_update_title": "Aktualisieren",
+    "Admin_Announcements_table_noAnnouncements_message": "Kein Ankündigungen",
 
     "Admin_Classrooms_header": "Klassenräume",
     "Admin_Classrooms_update_modal_header": "Klassenraum aktualisieren",

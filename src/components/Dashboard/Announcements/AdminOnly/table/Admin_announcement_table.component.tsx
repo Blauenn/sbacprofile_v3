@@ -6,6 +6,7 @@ import Admin_announcement_table_row from "./Admin_announcement_table_row.compone
 import {
   style_table_content,
   style_table_header,
+  style_table_parent,
 } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
@@ -29,7 +30,7 @@ const Admin_announcement_table = (props: CurrentComponentProp) => {
 
   if (announcements?.length > 0) {
     return (
-      <table className="border border-standardBlack border-opacity-25">
+      <table className={style_table_parent}>
         <thead>
           <tr>
             <th className={`${style_table_header} | hidden sm:table-cell`}>
@@ -69,7 +70,7 @@ const Admin_announcement_table = (props: CurrentComponentProp) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <table className="border border-standardBlack border-opacity-25">
+          <table className={style_table_parent}>
             <thead>
               <tr>
                 <th className={`${style_table_header} | hidden sm:table-cell`}>

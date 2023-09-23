@@ -11,6 +11,7 @@ import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 // Contexts //
 import { useContext_Account } from "../../../context/Account.context";
 import Sidebar_modal_logout from "./Sidebar_modal_logout.component";
+import { MajorToBackgroundColor } from "../../../constants/Majors.constant";
 
 const Sidebar = () => {
   const { accessToken, userInfo } = useContext_Account();
@@ -81,13 +82,14 @@ const Sidebar = () => {
                   arrow
                   disableInteractive>
                   <NavLink to="/dashboard">
-                    <img
-                      src={`${CDN_ENDPOINT}${profileImage}`}
-                      className="rounded-full"
-                      onError={(e) => {
-                        e.currentTarget.src = defaultImage;
-                      }}
-                    />
+                    <div className={`${MajorToBackgroundColor[userInfo.profile_major]} rounded-full overflow-hidden`}>
+                      <img
+                        src={`${CDN_ENDPOINT}${profileImage}`}
+                        onError={(e) => {
+                          e.currentTarget.src = defaultImage;
+                        }}
+                      />
+                    </div>
                   </NavLink>
                 </Tooltip>
               </li>

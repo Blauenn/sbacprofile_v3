@@ -16,6 +16,7 @@ import {
   MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
+  MajorToBackgroundColor,
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
@@ -151,10 +152,15 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                       <label htmlFor="teacher_update_image">
                         {teacherUpdateImage ? (
                           <>
-                            <img
-                              src={imagePreview || ""}
-                              className="w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] rounded-full | border border-standardBlack border-opacity-25"
-                            />
+                            <div
+                              className={`${
+                                MajorToBackgroundColor[teacher.teacher_major]
+                              } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                              <img
+                                src={imagePreview || ""}
+                                className="w-full | border border-standardBlack border-opacity-25"
+                              />
+                            </div>
                             <input
                               name="teacher_update_image"
                               id="teacher_update_image"
@@ -176,10 +182,15 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                           // Show the current teacher image...
                           // if image is not uploaded. //
                           <>
-                            <img
-                              src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-                              className="w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] rounded-full"
-                            />
+                            <div
+                              className={`${
+                                MajorToBackgroundColor[teacher.teacher_major]
+                              } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                              <img
+                                src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
+                                className="w-full"
+                              />
+                            </div>
                             <input
                               name="teacher_update_image"
                               id="teacher_update_image"

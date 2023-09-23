@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { CDN_ENDPOINT } from "../../constants/ENDPOINTS";
-import { MajorToBorderColor } from "../../constants/Majors.constant";
+import { MajorToBackgroundColor } from "../../constants/Majors.constant";
 
 // Contexts //
 import { useContext_Account } from "../../context/Account.context";
@@ -23,16 +23,15 @@ const Dashboard_selfInfo = () => {
 
   return (
     <div>
-      <div
-        className={`border ${
-          MajorToBorderColor[userInfo.profile_major]
-        } border-opacity-25 rounded-xl`}>
+      <div className={`bg-white shadow-sm rounded-xl`}>
         <div className="grid grid-cols-1 min-[500px]:grid-cols-5 xl:grid-cols-1 gap-2 min-[500px]:gap-8 xl:gap-2 px-8 py-4">
           <div className="col-span-2 flex flex-col items-center gap-2">
-            <img
-              src={`${CDN_ENDPOINT}${userInfo.profile_image}`}
-              className="w-full rounded-full"
-            />
+            <div className={`${MajorToBackgroundColor[userInfo.profile_major]} rounded-full overflow-hidden`}>
+              <img
+                src={`${CDN_ENDPOINT}${userInfo.profile_image}`}
+                className="w-full"
+              />
+            </div>
             <h1 className="text-sm font-semibold opacity-50">
               {userInfo.profile_ID}
             </h1>

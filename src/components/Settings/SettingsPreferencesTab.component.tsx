@@ -9,7 +9,7 @@ const SettingsPreferencesTab = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
       {/* Language */}
-      <div className="border border-standardBlack border-opacity-25 rounded-xl p-4">
+      <div className="bg-white shadow-sm rounded-xl p-4">
         <h1 className="text-2xl font-semibold mb-4">
           <i className="fa-solid fa-globe me-4"></i>
           {t("Settings_preferences_language_title")}
@@ -24,7 +24,7 @@ const SettingsPreferencesTab = () => {
           SelectProps={{ native: true }}
           defaultValue={i18n.language}
           onChange={(event) => {languageUpdate(event.target.value)}}
-          InputProps={{ sx: { borderRadius: 3 } }}>
+          InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
           <option value="en">English</option>
           <option value="de">Deutsch</option>
           <option value="th">ไทย</option>
@@ -32,7 +32,7 @@ const SettingsPreferencesTab = () => {
         </TextField>
       </div>
       {/* Theme */}
-      <div className="border border-standardBlack border-opacity-25 rounded-xl p-4">
+      <div className="bg-white shadow-sm rounded-xl p-4">
         <h1 className="text-2xl font-semibold mb-4">
           <i className="fa-solid fa-brush me-4"></i>
           {t("Settings_preferences_theme_title")}
@@ -45,7 +45,7 @@ const SettingsPreferencesTab = () => {
           select
           className="w-full"
           SelectProps={{ native: true }}
-          InputProps={{ sx: { borderRadius: 3 } }}>
+          InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
           <option value="1">{t("Settings_preferences_theme_option1")}</option>
           <option value="2">{t("Settings_preferences_theme_option2")}</option>
           <option value="3">{t("Settings_preferences_theme_option3")}</option>

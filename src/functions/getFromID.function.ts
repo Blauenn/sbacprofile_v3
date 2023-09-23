@@ -10,6 +10,18 @@ export const get_student_name_from_ID = (student_ID: number, students: any) => {
     return `${student.student_first_name} ${student.student_last_name}`;
   }
 };
+export const get_student_major_from_ID = (
+  student_ID: number,
+  students: any
+) => {
+  const student: any = students.find(
+    (student: Student) => student.student_ID == student_ID
+  );
+
+  if (student) {
+    return student.student_major;
+  }
+};
 export const get_student_image_from_ID = (
   student_ID: number,
   students: any
@@ -33,7 +45,22 @@ export const get_teacher_name_from_ID = (teacher_ID: number, teachers: any) => {
     return `${teacher.teacher_first_name} ${teacher.teacher_last_name}`;
   }
 };
-export const get_teacher_name_thai_from_ID = (teacher_ID: number, teachers: any) => {
+export const get_teacher_major_from_ID = (
+  teacher_ID: number,
+  teachers: any
+) => {
+  const teacher: any = teachers.find(
+    (teacher: Teacher) => teacher.teacher_ID == teacher_ID
+  );
+
+  if (teacher) {
+    return teacher.teacher_major;
+  }
+};
+export const get_teacher_name_thai_from_ID = (
+  teacher_ID: number,
+  teachers: any
+) => {
   const teacher: any = teachers.find(
     (teacher: Teacher) => teacher.teacher_ID == teacher_ID
   );
