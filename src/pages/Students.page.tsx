@@ -71,6 +71,7 @@ const Students = () => {
           (student: Student) => student.student_class == selectedClass
         )
       : filteredStudentLevel;
+      
   const filteredStudents = filteredStudentClass.filter((student: Student) => {
     if (hasNumber(searchField)) {
       return student.student_ID.toString().includes(searchField);

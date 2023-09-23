@@ -7,11 +7,13 @@ import StudentClassFilter from "./StudentClassFilter.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import {
   MajorName,
+  MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
 } from "../../constants/Majors.constant";
 import {
   LevelName,
+  LevelNameGerman,
   LevelNameKorean,
   LevelNameThai,
 } from "../../constants/Levels.constant";
@@ -122,6 +124,8 @@ const StudentFilters = (props: StudentFilterProps) => {
                 ? MajorNameThai[major.major_ID]
                 : i18n.language === "ko"
                 ? MajorNameKorean[major.major_ID]
+                : i18n.language === "de"
+                ? MajorNameGerman[major.major_ID]
                 : MajorName[major.major_ID]}
             </option>
           ))}
@@ -142,6 +146,8 @@ const StudentFilters = (props: StudentFilterProps) => {
               ? LevelNameThai[1]
               : i18n.language === "ko"
               ? LevelNameKorean[1]
+              : i18n.language === "de"
+              ? LevelNameGerman[1]
               : LevelName[1]}
           </option>
           <option value="2">
@@ -149,6 +155,8 @@ const StudentFilters = (props: StudentFilterProps) => {
               ? LevelNameThai[2]
               : i18n.language === "ko"
               ? LevelNameKorean[2]
+              : i18n.language === "de"
+              ? LevelNameGerman[2]
               : LevelName[2]}
           </option>
           <option value="3">
@@ -156,6 +164,8 @@ const StudentFilters = (props: StudentFilterProps) => {
               ? LevelNameThai[3]
               : i18n.language === "ko"
               ? LevelNameKorean[3]
+              : i18n.language === "de"
+              ? LevelNameGerman[3]
               : LevelName[3]}
           </option>
           <option value="4">
@@ -163,6 +173,8 @@ const StudentFilters = (props: StudentFilterProps) => {
               ? LevelNameThai[4]
               : i18n.language === "ko"
               ? LevelNameKorean[4]
+              : i18n.language === "de"
+              ? LevelNameGerman[4]
               : LevelName[4]}
           </option>
           <option value="5">
@@ -170,6 +182,8 @@ const StudentFilters = (props: StudentFilterProps) => {
               ? LevelNameThai[5]
               : i18n.language === "ko"
               ? LevelNameKorean[5]
+              : i18n.language === "de"
+              ? LevelNameGerman[5]
               : LevelName[5]}
           </option>
         </TextField>

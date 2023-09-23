@@ -14,7 +14,7 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    supportedLngs: ["en", "th", "ko"],
+    supportedLngs: ["en", "de", "th", "ko"],
     fallbackLng: "en",
 
     detection: {

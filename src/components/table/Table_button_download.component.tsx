@@ -4,17 +4,18 @@ interface CurrentComponentProp {
   text?: string;
   icon?: string;
   color: string;
+  extraClass?: string;
   url: string;
 }
 
 const Table_button_download = (props: CurrentComponentProp) => {
-  const { text, icon, color, url } = props;
+  const { text, icon, color, extraClass, url } = props;
 
   return (
     <a
       download
       target="_blank"
-      className={`${color} ${style_table_button}`}
+      className={`${color} ${style_table_button} ${extraClass}`}
       href={url}>
       {text ?? <i className={icon}></i>}
     </a>

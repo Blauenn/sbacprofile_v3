@@ -11,6 +11,7 @@ import { getTextFromStatus_Table } from "../../../../functions/LeaveNotice/Leave
 import { DayColors } from "../../../../constants/Misc.constant";
 import {
   LeaveNoticeChoice,
+  LeaveNoticeChoiceGerman,
   LeaveNoticeChoiceKorean,
   LeaveNoticeChoiceThai,
 } from "../../../../constants/LeaveNotices.constant";
@@ -84,8 +85,10 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
         <td className={`${style_table_content} | hidden md:table-cell`}>
           {i18n.language === "th"
             ? LeaveNoticeChoiceThai[leaveNotice.leave_notice_choice]
-            : i18n.language === "ko" ?
-            LeaveNoticeChoiceKorean[leaveNotice.leave_notice_choice]
+            : i18n.language === "ko"
+            ? LeaveNoticeChoiceKorean[leaveNotice.leave_notice_choice]
+            : i18n.language === "de"
+            ? LeaveNoticeChoiceGerman[leaveNotice.leave_notice_choice]
             : LeaveNoticeChoice[leaveNotice.leave_notice_choice]}
         </td>
         {/* Leave notice for dates */}

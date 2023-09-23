@@ -43,6 +43,8 @@
     "Admin_Announcements_create_modal_submit_button_title": "สร้างประกาศ",
     "Admin_Announcements_create_modal_submit_success_message": "ประกาศถูกสร้างขึ้นแล้ว",
     "Admin_Announcements_update_modal_header": "แก้ไขประกาศ",
+    "Admin_Announcements_update_modal_submit_button_title": "แก้ไขประกาศ",
+    "Admin_Announcements_update_modal_submit_success_message": "ประกาศถูกแก้ไขแล้ว",
     "Admin_Announcements_crud_modal_status_label": "สถานะ",
     "Admin_Announcements_crud_modal_status_option1": "แสดง",
     "Admin_Announcements_crud_modal_status_option2": "ไม่แสดง",
@@ -292,6 +294,12 @@
     "PageNotFound_button": "กลับไปหน้าแรก",
 
     "Loading_message": "กำลังโหลด...",
+
+    "Login_title": "เข้าสู่ระบบ",
+    "Login_email_label": "อีเมล",
+    "Login_password_label": "รหัสผ่าน",
+    "Login_invalidCredentials_message": "ข้อมูลไม่ถูกต้อง",
+    "Login_submit_button_title": "เข้าสู่ระบบ",
 
     "Logout_title": "ลงชื่อออก",
     "Logout_description": "คุณแน่ใจว่าจะลงชื่อออกหรือไม่",

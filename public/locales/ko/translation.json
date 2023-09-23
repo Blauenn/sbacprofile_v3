@@ -43,6 +43,8 @@
     "Admin_Announcements_create_modal_submit_button_title": "공지 사항 만들기",
     "Admin_Announcements_create_modal_submit_success_message": "공지사항이 생성되었습니다.",
     "Admin_Announcements_update_modal_header": "공지사항 업데이트",
+    "Admin_Announcements_update_modal_submit_button_title": "공지사항 업데이트",
+    "Admin_Announcements_update_modal_submit_success_message": "공지사항이 업데이트되었습니다.",
     "Admin_Announcements_crud_modal_status_label": "상태",
     "Admin_Announcements_crud_modal_status_option1": "표시됨",
     "Admin_Announcements_crud_modal_status_option2": "숨겨진",
@@ -292,6 +294,12 @@
     "PageNotFound_button": "홈페이지로 돌아가기.",
 
     "Loading_message": "로드 중...",
+
+    "Login_title": "로그인",
+    "Login_email_label": "이메일",
+    "Login_password_label": "비밀번호",
+    "Login_invalidCredentials_message": "잘못된 자격 증명",
+    "Login_submit_button_title": "로그인",
 
     "Logout_title": "로그 아웃",
     "Logout_description": "정말로 로그아웃하시겠습니까?",

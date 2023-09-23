@@ -12,10 +12,11 @@ import { Club, Major } from "../../../../../interfaces/common.interface";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
+import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   MajorName,
+  MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
@@ -121,6 +122,8 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
                             ? MajorNameThai[major.major_ID]
                             : i18n.language === "ko"
                             ? MajorNameKorean[major.major_ID]
+                            : i18n.language === "de"
+                            ? MajorNameGerman[major.major_ID]
                             : MajorName[major.major_ID]}
                         </option>
                       ))}

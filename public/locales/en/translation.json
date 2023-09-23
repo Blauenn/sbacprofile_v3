@@ -41,8 +41,10 @@
     "Admin_Announcements_create_button_title": "Create an announcement",
     "Admin_Announcements_create_modal_header": "Create an announcement",
     "Admin_Announcements_create_modal_submit_button_title": "Create announcement",
-    "Admin_Announcements_create_modal_submit_success_message": "Announcement has been created",
+    "Admin_Announcements_create_modal_submit_success_message": "Announcement has been created.",
     "Admin_Announcements_update_modal_header": "Update an announcement",
+    "Admin_Announcements_update_modal_submit_button_title": "Update announcement",
+    "Admin_Announcements_update_modal_submit_success_message": "Announcement has been updated.",
     "Admin_Announcements_crud_modal_status_label": "Status",
     "Admin_Announcements_crud_modal_status_option1": "Shown",
     "Admin_Announcements_crud_modal_status_option2": "Hidden",
@@ -292,6 +294,12 @@
     "PageNotFound_button": "Return to home page.",
 
     "Loading_message": "Loading...",
+
+    "Login_title": "Login",
+    "Login_email_label": "Email address",
+    "Login_password_label": "Password",
+    "Login_invalidCredentials_message": "Invalid credentials",
+    "Login_submit_button_title": "Login",
 
     "Logout_title": "Logout",
     "Logout_description": "Are you sure you want to logout?",

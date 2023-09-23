@@ -2,6 +2,7 @@ import { useState } from "react";
 import i18n from "i18next";
 import {
   LevelName,
+  LevelNameGerman,
   LevelNameKorean,
   LevelNameThai,
 } from "../../../../constants/Levels.constant";
@@ -51,6 +52,10 @@ const Admin_classroom_table_row = (props: CurrentComponentProp) => {
               }`
             : i18n.language === "ko"
             ? `${LevelNameKorean[classroom.classroom_level]}/${
+                classroom.classroom_class
+              }`
+            : i18n.language === "de"
+            ? `${LevelNameGerman[classroom.classroom_level]}/${
                 classroom.classroom_class
               }`
             : `${LevelName[classroom.classroom_level]}/${

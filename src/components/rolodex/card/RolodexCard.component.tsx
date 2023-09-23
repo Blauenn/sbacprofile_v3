@@ -4,7 +4,6 @@ import RolodexCard_robotIcon from "./RolodexCard_robotIcon.component";
 import RolodexCard_image from "./RolodexCard_image.component";
 import RolodexCard_contacts from "./RolodexCard_contacts.component";
 import RolodexModal from "../modal/RolodexModal.component";
-import { RolodexCard_style } from "../../../constants/styles/rolodex.style";
 import {
   MajorToBackgroundColor,
   MajorToBorderColor,
@@ -13,6 +12,7 @@ import {
   ShortLevelName,
   ShortLevelName_Thai,
 } from "../../../constants/Levels.constant";
+import { RolodexCard_style } from "../../../constants/styles/rolodex.style";
 
 interface CurrentComponentProp {
   profile: string;
@@ -106,7 +106,9 @@ const RolodexCard = (props: CurrentComponentProp) => {
             </h1>
           )}
         </div>
-        <RolodexCard_contacts object={remappedObject} />
+        <div className="hidden md:block">
+          <RolodexCard_contacts object={remappedObject} />
+        </div>
       </div>
       <RolodexModal
         profile={profile}

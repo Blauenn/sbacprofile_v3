@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@mui/material";
-import { Announcement } from "../../../../../interfaces/common.interface";
-import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
-import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
-import { style_modal_parent } from "../../../../../constants/styles/modal.style";
-import FileResetButton from "../../../../misc/common/FileResetButton.component";
-import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import {
   TextField_multiline,
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
+import { Announcement } from "../../../../../interfaces/common.interface";
+import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
+import { getData } from "../../../../../functions/fetchFromAPI.function";
+import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
+import FileResetButton from "../../../../misc/common/FileResetButton.component";
+import Info_success_message from "../../../Buttons/Info_success_message.component";
+import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
+import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import { style_modal_parent } from "../../../../../constants/styles/modal.style";
+
+// Contexts //
+import { useContext_Announcements } from "../../../../../context/Announcements.context";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -21,6 +26,8 @@ interface CurrentComponentProp {
 
 const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
+
+  const { setAnnouncements } = useContext_Announcements();
 
   const { t } = useTranslation();
 
@@ -85,7 +92,10 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
     if (status) {
       setIsSubmitting(false);
       setIsCreateSuccess(true);
-      console.log("Success");
+      // Fetch announcements //
+      getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
+        setAnnouncements(result);
+      });
     } else {
       setIsSubmitting(false);
       setIsCreateSuccess(false);
@@ -111,7 +121,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
               {/* Announcement image */}
               <div className="flex flex-col gap-2">
                 {announcementImage ? (
-                  <div className="border border-standardBlack border-opacity-25 rounded-xl w-full h-auto overflow-auto">
+                  <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
                     <div className="relative">
                       <FileResetButton functionToRun={handleImageCancel} />
                       <label htmlFor="announcement_image">
@@ -205,7 +215,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                 onClickFunction={setObjectAndSubmit}
               />
               {/* Success message */}
-              <Info_addSuccess_message
+              <Info_success_message
                 message={t(
                   "Admin_Announcements_create_modal_submit_success_message"
                 )}

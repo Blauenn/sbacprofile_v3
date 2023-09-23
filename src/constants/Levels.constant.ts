@@ -5,6 +5,13 @@ export const LevelName: any = {
   4: "Higher 1",
   5: "Higher 2",
 };
+export const LevelNameGerman: any = {
+  1: "Berufsabschluss 1",
+  2: "Berufsabschluss 2",
+  3: "Berufsabschluss 3",
+  4: "Diplom 1",
+  5: "Diplom 2",
+};
 export const LevelNameThai: any = {
   1: "ปวช. 1",
   2: "ปวช. 2",

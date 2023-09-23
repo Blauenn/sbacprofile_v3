@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { handleInputChange } from "../functions/fields/handleFieldChanges.function";
 import { handleLogin } from "../functions/Login/Login.function";
@@ -11,6 +12,8 @@ interface CurrentComponentProp {
 
 const Login = (props: CurrentComponentProp) => {
   const { setAccessToken, setUserInfo, setIsLoggedIn } = props;
+
+  const { t } = useTranslation();
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isLoginFailed, setIsLoginFailed] = useState(false);
@@ -25,7 +28,7 @@ const Login = (props: CurrentComponentProp) => {
     <div>
       <div className="flex justify-center">
         <div className="border border-standardBlack border-opacity-25 rounded-xl p-8 mt-8">
-          <h1 className="text-3xl font-semibold mb-8">Login</h1>
+          <h1 className="text-3xl font-semibold mb-8">{t("Login_title")}</h1>
           <form
             id="login_form"
             onSubmit={(event) => {
@@ -42,7 +45,7 @@ const Login = (props: CurrentComponentProp) => {
             className="flex flex-col items-center w-[256px] sm:w-[512px]">
             <div className="flex flex-col items-center gap-4 w-full">
               <TextField
-                label="Email address"
+                label={t("Login_email_label")}
                 value={loginObject.login_email}
                 onChange={(event) => {
                   handleInputChange(event, loginObject, setLoginObject);
@@ -52,7 +55,7 @@ const Login = (props: CurrentComponentProp) => {
                 InputProps={{ sx: { borderRadius: 3 } }}
               />
               <TextField
-                label="Password"
+                label={t("Login_password_label")}
                 value={loginObject.login_password}
                 onChange={(event) => {
                   handleInputChange(event, loginObject, setLoginObject);
@@ -66,7 +69,7 @@ const Login = (props: CurrentComponentProp) => {
                 <div className="flex justify-start w-full mb-4">
                   <h1 className="text-lg font-semibold">
                     <i className="fa-solid fa-circle-exclamation text-red-500 me-2"></i>
-                    Invalid credentials
+                    {t("Login_invalidCredentials_message")}
                   </h1>
                 </div>
               ) : null}
@@ -85,7 +88,7 @@ const Login = (props: CurrentComponentProp) => {
                     loginObject.login_password == ""
                   }
                   type="submit">
-                  Login
+                  {t("Login_submit_button_title")}
                 </button>
               </div>
             </div>

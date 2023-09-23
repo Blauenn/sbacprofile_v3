@@ -4,7 +4,12 @@ import { Student } from "../../interfaces/common.interface";
 import RolodexCard from "../rolodex/card/RolodexCard.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
-import { MajorName, MajorNameKorean, MajorNameThai } from "../../constants/Majors.constant";
+import {
+  MajorName,
+  MajorNameGerman,
+  MajorNameKorean,
+  MajorNameThai,
+} from "../../constants/Majors.constant";
 
 interface CurrentComponentProp {
   filteredStudents: Student[];
@@ -56,6 +61,8 @@ const StudentRolodex = (props: CurrentComponentProp) => {
                 ? MajorNameThai[parseInt(major)]
                 : i18n.language === "ko"
                 ? MajorNameKorean[parseInt(major)]
+                : i18n.language === "de"
+                ? MajorNameGerman[parseInt(major)]
                 : MajorName[parseInt(major)]}
             </h1>
             <div className="grid-cols-1 min-[490px]:grid-cols-2 lg:grid-cols-4 xl:mx-16 | grid gap-4">

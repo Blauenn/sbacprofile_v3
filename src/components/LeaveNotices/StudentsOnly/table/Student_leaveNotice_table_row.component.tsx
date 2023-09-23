@@ -1,6 +1,7 @@
 import { useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import { LeaveNotice } from "../../../../interfaces/common.interface.ts";
 import {
   changeToDate,
   changeToLocaleDate,
@@ -11,13 +12,11 @@ import Table_button from "../../../table/Table_button.component";
 import Table_button_download from "../../../table/Table_button_download.component";
 import Student_leaveNotice_modal from "../modal/Student_leaveNotice_modal.component";
 import {
-  LeaveNoticeChoice,
-  LeaveNoticeChoice_Thai,
+  LeaveNoticeChoice, LeaveNoticeChoiceThai,
 } from "../../../../constants/LeaveNotices.constant";
 import { DayColors } from "../../../../constants/Misc.constant";
-import { style_table_content } from "../../../../constants/styles/tables.style.tsx";
 import { CDN_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
-import { LeaveNotice } from "../../../../interfaces/common.interface.ts";
+import { style_table_content } from "../../../../constants/styles/tables.style.tsx";
 
 interface CurrentComponentProp {
   leaveNotice: LeaveNotice;
@@ -74,7 +73,7 @@ const Student_leaveNotice_table_row = (props: CurrentComponentProp) => {
         {/* Leave notice choice */}
         <td className={`${style_table_content} | hidden md:table-cell`}>
           {i18n.language === "th"
-            ? LeaveNoticeChoice_Thai[leaveNotice.leave_notice_choice]
+            ? LeaveNoticeChoiceThai[leaveNotice.leave_notice_choice]
             : LeaveNoticeChoice[leaveNotice.leave_notice_choice]}
         </td>
         {/* Leave notice for dates */}

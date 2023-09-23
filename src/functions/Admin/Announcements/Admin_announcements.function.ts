@@ -1,9 +1,10 @@
 import { z } from "zod";
 import dayjs from "dayjs";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
+import { Announcement } from "../../../interfaces/common.interface";
 
 export const handleAnnouncementCreate = async (
-  announcementAddObject: any,
+  announcementCreateObject: any,
   announcementImage: any,
   announcementImageName: string,
   setValidationErrors: any,
@@ -24,7 +25,9 @@ export const handleAnnouncementCreate = async (
   };
 
   // Perform validation and collect error messages. //
-  const validationResult = AnnouncementSchema.safeParse(announcementAddObject);
+  const validationResult = AnnouncementSchema.safeParse(
+    announcementCreateObject
+  );
 
   // If validation fails. //
   // Don't submit. //
@@ -53,35 +56,35 @@ export const handleAnnouncementCreate = async (
 
   // If the validation passes. //
   // Announcement information. //
-  const announcementAddObjectObject = {
-    announcement_status: announcementAddObject.announcement_status,
-    announcement_title: announcementAddObject.announcement_title,
-    announcement_description: announcementAddObject.announcement_description,
+  const announcementCreateObjectToPost = {
+    announcement_status: announcementCreateObject.announcement_status,
+    announcement_title: announcementCreateObject.announcement_title,
+    announcement_description: announcementCreateObject.announcement_description,
     announcement_image: `/assets/files/announcements/${announcementImageName}`,
     announcement_create_datetime: currentDate,
   };
-  const announcementAddObjectJSON = JSON.stringify(announcementAddObjectObject);
+  const announcementCreateObjectJSON = JSON.stringify(
+    announcementCreateObjectToPost
+  );
 
   // Announcement image. //
-  const announcementAddImage = new FormData();
+  const announcementCreateImage = new FormData();
   if (announcementImage != null) {
-    announcementAddImage.append("image", announcementImage);
+    announcementCreateImage.append("image", announcementImage);
   }
-  announcementAddImage.append("filename", `${announcementImageName}`);
+  announcementCreateImage.append("filename", `${announcementImageName}`);
 
   // Upload the announcement information. //
   try {
     const response = await fetch(`${API_ENDPOINT}/api/v1/announcement/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: announcementAddObjectJSON,
+      body: announcementCreateObjectJSON,
     });
 
     if (response.status) {
-      console.log("Upload success.");
       callback(true);
     } else {
-      console.log("Upload failed.");
       callback(false);
     }
   } catch (error) {
@@ -93,7 +96,112 @@ export const handleAnnouncementCreate = async (
     try {
       await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
         method: "POST",
-        body: announcementAddImage,
+        body: announcementCreateImage,
+      });
+    } catch (error) {
+      callback(false);
+    }
+  }
+};
+
+export const handleAnnouncementUpdate = async (
+  announcementUpdateObject: Announcement,
+  announcementImage: any,
+  announcementImageName: string,
+  setValidationErrors: any,
+  callback: (status: boolean) => void
+) => {
+  const AnnouncementSchema = z.object({
+    announcement_status: z.number(),
+    announcement_title: z.string().nonempty(),
+    announcement_description: z.string().nonempty(),
+    announcement_image: z.string(),
+  });
+
+  const validationErrors: any = {
+    announcement_title: "",
+    announcement_description: "",
+    announcement_status: "",
+  };
+
+  // Perform validation and collect error messages. //
+  const validationResult = AnnouncementSchema.safeParse(
+    announcementUpdateObject
+  );
+
+  // If validation fails. //
+  // Don't submit. //
+  if (!validationResult.success) {
+    validationResult.error.issues.forEach((issue) => {
+      // Add custom error messages based on which validation fails. //
+      switch (issue.path[0]) {
+        case "announcement_title":
+          validationErrors.announcement_title =
+            "The title should not be empty.";
+          break;
+        case "announcement_description":
+          validationErrors.announcement_description =
+            "The description should not be empty.";
+          break;
+        default:
+          break;
+      }
+    });
+    setValidationErrors(validationErrors);
+    callback(false);
+    return;
+  } else {
+    setValidationErrors(validationErrors);
+  }
+
+  // If the validation passes. //
+  // Announcement information. //
+  const announcementUpdateObjectToPost = {
+    id: announcementUpdateObject.announcement_ID,
+    announcementInfo: {
+      announcement_status: announcementUpdateObject.announcement_status,
+      announcement_title: announcementUpdateObject.announcement_title,
+      announcement_description:
+        announcementUpdateObject.announcement_description,
+      announcement_image: `/assets/files/announcements/${announcementImageName}`,
+      announcement_create_datetime: announcementUpdateObject.announcement_create_datetime,
+    },
+  };
+  const announcementUpdateObjectJSON = JSON.stringify(
+    announcementUpdateObjectToPost
+  );
+  console.log(announcementUpdateObjectJSON)
+
+  // Announcement image. //
+  const announcementUpdateImage = new FormData();
+  if (announcementImage != null) {
+    announcementUpdateImage.append("image", announcementImage);
+  }
+  announcementUpdateImage.append("filename", `${announcementImageName}`);
+
+  // Upload the announcement information. //
+  try {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/announcement/update`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: announcementUpdateObjectJSON,
+    });
+
+    if (response.status) {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  } catch (error) {
+    callback(false);
+  }
+
+  // Upload the image information into a CDN. //
+  if (announcementImage != null) {
+    try {
+      await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
+        method: "POST",
+        body: announcementUpdateImage,
       });
     } catch (error) {
       callback(false);

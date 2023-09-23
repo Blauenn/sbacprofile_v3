@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@mui/material";
-import { TextField_select, TextField_text } from "../../../../custom/Custom_TextFields";
+import {
+  TextField_select,
+  TextField_text,
+} from "../../../../custom/Custom_TextFields";
 import { Major } from "../../../../../interfaces/common.interface";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
@@ -10,6 +13,8 @@ import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   MajorName,
+  MajorNameGerman,
+  MajorNameKorean,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
 import { style_modal_parent } from "../../../../../constants/styles/modal.style";
@@ -148,6 +153,10 @@ const Admin_student_modal_create = (props: CurrentComponentProp) => {
                   <option key={major.major_ID} value={major.major_ID}>
                     {i18n.language === "th"
                       ? MajorNameThai[major.major_ID]
+                      : i18n.language === "ko"
+                      ? MajorNameKorean[major.major_ID]
+                      : i18n.language === "de"
+                      ? MajorNameGerman[major.major_ID]
                       : MajorName[major.major_ID]}
                   </option>
                 ))}

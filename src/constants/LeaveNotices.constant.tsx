@@ -3,6 +3,11 @@ export const LeaveNoticeChoice: any = {
   2: "Private matter",
   3: "Others",
 };
+export const LeaveNoticeChoiceGerman: any = {
+  1: "Krankheitsbedingte Abwesenheit",
+  2: "Privatangelegenheit",
+  3: "Andere",
+};
 export const LeaveNoticeChoiceThai: any = {
   1: "ลาป่วย",
   2: "ลากิจ",

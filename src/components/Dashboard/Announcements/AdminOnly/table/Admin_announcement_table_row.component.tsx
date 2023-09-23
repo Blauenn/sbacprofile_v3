@@ -5,8 +5,11 @@ import Table_button_download from "../../../../table/Table_button_download.compo
 import { style_table_content } from "../../../../../constants/styles/tables.style";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import Table_button from "../../../../table/Table_button.component";
+import {
+  changeToLocaleDate,
+  getDayFromDate,
+} from "../../../../../functions/getDates.function";
 import Admin_announcement_modal_update from "../modal/Admin_announcement_modal_update.component";
-import { changeToLocaleDate, getDayFromDate } from "../../../../../functions/getDates.function";
 import { DayColors } from "../../../../../constants/Misc.constant";
 
 interface CurrentComponentProp {
@@ -48,7 +51,8 @@ const Admin_announcement_table_row = (props: CurrentComponentProp) => {
           </h1>
         </td>
         {/* Announcement create datetime */}
-        <td className={`${style_table_content} ${dayColor_createDateTime} | hidden md:table-cell`}>
+        <td
+          className={`${style_table_content} ${dayColor_createDateTime} | hidden md:table-cell`}>
           {localeDate_createDateTime}
         </td>
         {/* Announcement view and image */}
@@ -70,6 +74,7 @@ const Admin_announcement_table_row = (props: CurrentComponentProp) => {
               <Table_button_download
                 icon="fa-solid fa-image"
                 color="bg-primary"
+                extraClass="hidden sm:block"
                 url={`${CDN_ENDPOINT}${announcement.announcement_image}`}
               />
             ) : null}

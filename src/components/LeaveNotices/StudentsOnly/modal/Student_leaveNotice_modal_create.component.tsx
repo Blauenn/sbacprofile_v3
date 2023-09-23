@@ -15,7 +15,7 @@ import { getData } from "../../../../functions/fetchFromAPI.function";
 import { handleLeaveNoticeSubmit } from "../../../../functions/LeaveNotice/LeaveNotice.function.tsx";
 import ModalCloseButton from "../../../misc/common/ModalCloseButton.component";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Dashboard/Buttons/Info_addSuccess_message.component";
+import Info_addSuccess_message from "../../../Dashboard/Buttons/Info_success_message.component.tsx";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
 import { style_modal_parent_large } from "../../../../constants/styles/modal.style.tsx";
 import {

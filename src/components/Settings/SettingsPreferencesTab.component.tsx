@@ -26,6 +26,7 @@ const SettingsPreferencesTab = () => {
           onChange={(event) => {languageUpdate(event.target.value)}}
           InputProps={{ sx: { borderRadius: 3 } }}>
           <option value="en">English</option>
+          <option value="de">Deutsch</option>
           <option value="th">ไทย</option>
           <option value="ko">한국어</option>
         </TextField>

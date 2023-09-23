@@ -3,7 +3,7 @@ interface CurrentComponentProp {
   isSuccess: boolean;
 }
 
-const Info_addSuccess_message = (props: CurrentComponentProp) => {
+const Info_success_message = (props: CurrentComponentProp) => {
   const { message, isSuccess } = props;
 
   return (
@@ -20,4 +20,4 @@ const Info_addSuccess_message = (props: CurrentComponentProp) => {
   );
 };
 
-export default Info_addSuccess_message;
+export default Info_success_message;

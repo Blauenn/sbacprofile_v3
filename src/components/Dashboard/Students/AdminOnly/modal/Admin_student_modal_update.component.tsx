@@ -4,20 +4,23 @@ import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 import { Modal } from "@mui/material";
 import { Major, Student } from "../../../../../interfaces/common.interface";
-import {
-  handleImageChange,
-} from "../../../../../functions/fields/handleFieldChanges.function";
+import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import ModalCloseButton from "../../../../misc/common/ModalCloseButton.component";
-import Info_addSuccess_message from "../../../Buttons/Info_addSuccess_message.component";
+import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   MajorName,
+  MajorNameGerman,
+  MajorNameKorean,
   MajorNameThai,
 } from "../../../../../constants/Majors.constant";
 import { style_modal_parent_large } from "../../../../../constants/styles/modal.style";
-import { TextField_select, TextField_text } from "../../../../custom/Custom_TextFields";
+import {
+  TextField_select,
+  TextField_text,
+} from "../../../../custom/Custom_TextFields";
 
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
@@ -248,6 +251,10 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                       <option key={major.major_ID} value={major.major_ID}>
                         {i18n.language === "th"
                           ? MajorNameThai[major.major_ID]
+                          : i18n.language === "ko"
+                          ? MajorNameKorean[major.major_ID]
+                          : i18n.language === "de"
+                          ? MajorNameGerman[major.major_ID]
                           : MajorName[major.major_ID]}
                       </option>
                     ))}
