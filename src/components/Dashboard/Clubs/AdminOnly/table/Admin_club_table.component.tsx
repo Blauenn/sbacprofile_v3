@@ -45,7 +45,7 @@ const Admin_club_table = (props: CurrentComponentProp) => {
             <th className={`${style_table_header} | hidden md:table-cell`}>
               {t("Admin_Clubs_table_header_major")}
             </th>
-            <th className={style_table_header}>
+            <th className={`${style_table_header} | hidden sm:table-cell`}>
               {t("Admin_Clubs_table_header_teachers")}
             </th>
             <th className={`${style_table_header} | hidden md:table-cell`}>

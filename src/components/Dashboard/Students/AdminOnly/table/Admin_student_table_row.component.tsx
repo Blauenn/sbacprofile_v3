@@ -37,14 +37,15 @@ const Admin_student_table_row = (props: CurrentComponentProp) => {
             <img
               loading="lazy"
               src={`${CDN_ENDPOINT}${student.student_image}`}
-              className="w-[50px] h-auto rounded-full"
+              className={`w-[50px] h-auto rounded-full | ${
+                MajorToBackgroundColor[student.student_major]
+              }`}
               onError={(e) => {
                 e.currentTarget.src = defaultImage;
               }}
             />
           </div>
         </td>
-        {/* TODO: Add Thai name displays */}
         {/* Student English names */}
         {/* Small screens */}
         <td className={`${style_table_content} table-cell px-2 sm:hidden`}>

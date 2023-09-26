@@ -97,7 +97,7 @@ const Admin_student_table = (props: CurrentComponentProp) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <table className="border border-standardBlack border-opacity-25">
+          <table className={style_table_parent}>
             <thead>
               <tr>
                 <th className={`${style_table_header} | hidden md:table-cell`}>

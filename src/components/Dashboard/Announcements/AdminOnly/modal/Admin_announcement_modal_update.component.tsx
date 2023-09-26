@@ -20,6 +20,7 @@ import { style_modal_parent_large } from "../../../../../constants/styles/modal.
 
 // Contexts //
 import { useContext_Announcements } from "../../../../../context/Announcements.context";
+import Custom_Modal from "../../../../custom/Custom_Modal";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -127,175 +128,153 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
     }
   };
 
-  const modal = document.getElementById("modal");
-
-  return modal
-    ? createPortal(
-        <>
-          <Modal
-            open={open}
-            onClose={handleModalClose}
-            className="flex justify-center items-center"
-            sx={{ backdropFilter: "blur(2px)" }}>
-            <div className={style_modal_parent_large}>
-              <ModalCloseButton functionToRun={handleModalClose} />
-              <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
-                <h1 className="text-2xl font-semibold mb-8">
-                  <i className="fa-solid fa-pencil me-2"></i>
-                  {t("Admin_Announcements_update_modal_header")}
-                </h1>
-                <div className="grid grid-cols-1 gap-4">
-                  {/* Announcement image */}
-                  {announcementImage ? (
-                    <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
-                      <div className="relative">
-                        <FileResetButton functionToRun={handleImageCancel} />
-                        <label htmlFor="announcement_image">
-                          <div className="flex justify-center items-center h-full">
-                            <img
-                              src={announcementImagePreview}
-                              className="w-full h-auto"
-                            />
-                          </div>
-                          <input
-                            type="file"
-                            name="announcement_image"
-                            id="announcement_image"
-                            accept=".jpg, .jpeg, .png"
-                            hidden
-                            onChange={(event) => {
-                              handleImageChange(
-                                event,
-                                setAnnouncementImagePreview,
-                                setAnnouncementImage,
-                                setAnnouncementImageName,
-                                setFileSizeNotice
-                              );
-                            }}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  ) : announcement.announcement_image !== "" ? (
-                    <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
-                      <div className="relative">
-                        <FileResetButton functionToRun={handleImageCancel} />
-                        <label htmlFor="announcement_image">
-                          <div className="flex justify-center items-center h-full">
-                            <img
-                              src={`${CDN_ENDPOINT}${announcement.announcement_image}`}
-                            />
-                          </div>
-                          <input
-                            type="file"
-                            name="announcement_image"
-                            id="announcement_image"
-                            accept=".jpg, .jpeg, .png"
-                            hidden
-                            onChange={(event) => {
-                              handleImageChange(
-                                event,
-                                setAnnouncementImagePreview,
-                                setAnnouncementImage,
-                                setAnnouncementImageName,
-                                setFileSizeNotice
-                              );
-                            }}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="border border-standardBlack border-opacity-25 rounded-xl w-full min-h-[200px] overflow-auto">
-                      <label htmlFor="announcement_image">
-                        <div className="flex flex-row justify-center items-center gap-4 w-full h-full">
-                          <i className="fa-solid fa-image text-4xl"></i>
-                          <h1 className="text-xl">
-                            {t("Admin_Announcements_crud_modal_file_label")}
-                          </h1>
-                        </div>
-                        <input
-                          type="file"
-                          name="announcement_image"
-                          id="announcement_image"
-                          accept=".jpg, .jpeg, .png"
-                          hidden
-                          onChange={(event) => {
-                            handleImageChange(
-                              event,
-                              setAnnouncementImagePreview,
-                              setAnnouncementImage,
-                              setAnnouncementImageName,
-                              setFileSizeNotice
-                            );
-                          }}
-                        />
-                      </label>
-                    </div>
-                  )}
-                  {/* Announcement status */}
-                  <TextField_select
-                    label={t("Admin_Announcements_crud_modal_status_label")}
-                    name="announcement_status"
-                    className="col-span-1"
-                    object={announcementUpdateObject}
-                    setObject={setAnnouncementsUpdateObject}
-                    value={announcementUpdateObject.announcement_status}
-                    validation={validationErrors.announcement_status}>
-                    <option value="1">
-                      {t("Admin_Announcements_crud_modal_status_option1")}
-                    </option>
-                    <option value="2">
-                      {t("Admin_Announcements_crud_modal_status_option2")}
-                    </option>
-                  </TextField_select>
-                  {/* Announcement title */}
-                  <TextField_text
-                    label={t("Admin_Announcements_crud_modal_title_label")}
-                    name="announcement_title"
-                    className="col-span-1"
-                    object={announcementUpdateObject}
-                    setObject={setAnnouncementsUpdateObject}
-                    value={announcementUpdateObject.announcement_title}
-                    validation={validationErrors.announcement_title}
-                  />
-                  {/* Announcement description */}
-                  <TextField_multiline
-                    label={t(
-                      "Admin_Announcements_crud_modal_description_label"
-                    )}
-                    name="announcement_description"
-                    className="col-span-1"
-                    maxRows={4}
-                    object={announcementUpdateObject}
-                    setObject={setAnnouncementsUpdateObject}
-                    value={announcementUpdateObject.announcement_description}
-                    validation={validationErrors.announcement_description}
-                  />
-                  {/* Submit button */}
-                  <Info_submit_button
-                    text={t(
-                      "Admin_Announcements_update_modal_submit_button_title"
-                    )}
-                    icon="fa-solid fa-bullhorn"
-                    isSubmitting={isSubmitting}
-                    onClickFunction={setObjectAndSubmit}
-                  />
-                  {/* Success message */}
-                  <Info_success_message
-                    message={t(
-                      "Admin_Announcements_update_modal_submit_success_message"
-                    )}
-                    isSuccess={isUpdateSuccess}
+  return (
+    <Custom_Modal
+      open={open}
+      onModalClose={handleModalClose}
+      icon="fa-solid fa-pencil"
+      title={t("Admin_Announcements_update_modal_header")}>
+      <div className="grid grid-cols-1 gap-4">
+        {/* Announcement image */}
+        {announcementImage ? (
+          <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
+            <div className="relative">
+              <FileResetButton functionToRun={handleImageCancel} />
+              <label htmlFor="announcement_image">
+                <div className="flex justify-center items-center h-full">
+                  <img
+                    src={announcementImagePreview}
+                    className="w-full h-auto"
                   />
                 </div>
-              </div>
+                <input
+                  type="file"
+                  name="announcement_image"
+                  id="announcement_image"
+                  accept=".jpg, .jpeg, .png"
+                  hidden
+                  onChange={(event) => {
+                    handleImageChange(
+                      event,
+                      setAnnouncementImagePreview,
+                      setAnnouncementImage,
+                      setAnnouncementImageName,
+                      setFileSizeNotice
+                    );
+                  }}
+                />
+              </label>
             </div>
-          </Modal>
-        </>,
-        modal
-      )
-    : null;
+          </div>
+        ) : announcement.announcement_image !== "" ? (
+          <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
+            <div className="relative">
+              <FileResetButton functionToRun={handleImageCancel} />
+              <label htmlFor="announcement_image">
+                <div className="flex justify-center items-center h-full">
+                  <img
+                    src={`${CDN_ENDPOINT}${announcement.announcement_image}`}
+                  />
+                </div>
+                <input
+                  type="file"
+                  name="announcement_image"
+                  id="announcement_image"
+                  accept=".jpg, .jpeg, .png"
+                  hidden
+                  onChange={(event) => {
+                    handleImageChange(
+                      event,
+                      setAnnouncementImagePreview,
+                      setAnnouncementImage,
+                      setAnnouncementImageName,
+                      setFileSizeNotice
+                    );
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+        ) : (
+          <div className="border border-standardBlack border-opacity-25 rounded-xl w-full min-h-[200px] overflow-auto">
+            <label htmlFor="announcement_image">
+              <div className="flex flex-row justify-center items-center gap-4 w-full h-full">
+                <i className="fa-solid fa-image text-4xl"></i>
+                <h1 className="text-xl">
+                  {t("Admin_Announcements_crud_modal_file_label")}
+                </h1>
+              </div>
+              <input
+                type="file"
+                name="announcement_image"
+                id="announcement_image"
+                accept=".jpg, .jpeg, .png"
+                hidden
+                onChange={(event) => {
+                  handleImageChange(
+                    event,
+                    setAnnouncementImagePreview,
+                    setAnnouncementImage,
+                    setAnnouncementImageName,
+                    setFileSizeNotice
+                  );
+                }}
+              />
+            </label>
+          </div>
+        )}
+        {/* Announcement status */}
+        <TextField_select
+          label={t("Admin_Announcements_crud_modal_status_label")}
+          name="announcement_status"
+          className="col-span-1"
+          object={announcementUpdateObject}
+          setObject={setAnnouncementsUpdateObject}
+          value={announcementUpdateObject.announcement_status}
+          validation={validationErrors.announcement_status}>
+          <option value="1">
+            {t("Admin_Announcements_crud_modal_status_option1")}
+          </option>
+          <option value="2">
+            {t("Admin_Announcements_crud_modal_status_option2")}
+          </option>
+        </TextField_select>
+        {/* Announcement title */}
+        <TextField_text
+          label={t("Admin_Announcements_crud_modal_title_label")}
+          name="announcement_title"
+          className="col-span-1"
+          object={announcementUpdateObject}
+          setObject={setAnnouncementsUpdateObject}
+          value={announcementUpdateObject.announcement_title}
+          validation={validationErrors.announcement_title}
+        />
+        {/* Announcement description */}
+        <TextField_multiline
+          label={t("Admin_Announcements_crud_modal_description_label")}
+          name="announcement_description"
+          className="col-span-1"
+          maxRows={4}
+          object={announcementUpdateObject}
+          setObject={setAnnouncementsUpdateObject}
+          value={announcementUpdateObject.announcement_description}
+          validation={validationErrors.announcement_description}
+        />
+        {/* Submit button */}
+        <Info_submit_button
+          text={t("Admin_Announcements_update_modal_submit_button_title")}
+          icon="fa-solid fa-bullhorn"
+          isSubmitting={isSubmitting}
+          onClickFunction={setObjectAndSubmit}
+        />
+        {/* Success message */}
+        <Info_success_message
+          message={t("Admin_Announcements_update_modal_submit_success_message")}
+          isSuccess={isUpdateSuccess}
+        />
+      </div>
+    </Custom_Modal>
+  );
 };
 
 export default Admin_announcement_modal_update;

@@ -15,10 +15,16 @@ const Dashboard_button = (props: CurrentComponentProp) => {
   return (
     <div>
       <NavLink to={url}>
-        <div className={`h-full shadow-sm rounded-xl px-4 py-2 | bg-white hover:bg-slate-200 cursor-pointer ${hover_transition}`}>
+        <div
+          className={`h-full shadow-sm rounded-xl px-4 py-2 | bg-white hover:bg-slate-200 cursor-pointer ${hover_transition}`}>
           <h1 className="text-xl font-semibold">
             <i className={`${icon} me-4 ${color}`}></i>
-            {title}
+            {/* If it does not overflow */}
+            <b className="font-semibold md:hidden 2xl:inline-block">{title}</b>
+            {/* If it overflows */}
+            <b className="font-semibold hidden md:inline-block 2xl:hidden">
+              {title.length > 8 ? `${title.substring(0, 8)}...` : title}
+            </b>
           </h1>
           <h1 className="text-lg opacity-50">{description}</h1>
         </div>

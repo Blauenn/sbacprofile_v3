@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { Modal, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import dayjs from "dayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { FileIcon } from "react-file-icon";
+import {
+  TextField_multiline,
+  TextField_select,
+} from "../../../custom/Custom_TextFields.tsx";
+import Custom_Modal from "../../../custom/Custom_Modal.tsx";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import {
   handleFileInputChange,
@@ -13,15 +17,9 @@ import {
 } from "../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../functions/fetchFromAPI.function";
 import { handleLeaveNoticeSubmit } from "../../../../functions/LeaveNotice/LeaveNotice.function.tsx";
-import ModalCloseButton from "../../../misc/common/ModalCloseButton.component";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
 import Info_addSuccess_message from "../../../Dashboard/Buttons/Info_success_message.component.tsx";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
-import { style_modal_parent_large } from "../../../../constants/styles/modal.style.tsx";
-import {
-  TextField_multiline,
-  TextField_select,
-} from "../../../custom/Custom_TextFields.tsx";
 
 interface CurrentComponentProp {
   setLeaveNotices: any;
@@ -183,233 +181,183 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
     );
   };
 
-  const modal = document.getElementById("modal");
-
-  return modal
-    ? createPortal(
-        <>
-          <Modal
-            open={open}
-            onClose={handleModalClose}
-            className="flex justify-center items-center"
-            sx={{ backdropFilter: "blur(2px)" }}>
-            <div className={style_modal_parent_large}>
-              <ModalCloseButton functionToRun={handleModalClose} />
-              <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">
-                <h1 className="text-2xl font-semibold mb-8">
-                  <i className="fa-solid fa-plus me-2"></i>
-                  {t("LeaveNotices_students_create_modal_header")}
-                </h1>
-                <div className="grid grid-cols-1 gap-4">
-                  {/* Leave duration */}
-                  <TextField
-                    label={t(
-                      "LeaveNotices_students_create_modal_leaveDuration_label"
-                    )}
-                    name="leave_notice_duration"
-                    className="col-span-1"
-                    select
-                    defaultValue={leaveDuration}
-                    SelectProps={{ native: true }}
-                    onChange={(event) => {
-                      handleLeaveDurationChange(event);
-                    }}>
-                    <option value="1">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveDuration_option1"
-                      )}
-                    </option>
-                    <option value="2">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveDuration_option2"
-                      )}
-                    </option>
-                    <option value="3">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveDuration_option3"
-                      )}
-                    </option>
-                    <option value="4">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveDuration_option4"
-                      )}
-                    </option>
-                  </TextField>
-                  {/* Date of leave */}
-                  {leaveDuration != 4 ? (
-                    // Either morning, afternoon or entire day is selected //
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
-                        label={t(
-                          "LeaveNotices_students_create_modal_dateOfLeave_label"
-                        )}
-                        className="col-span-1"
-                        value={startDate}
-                        onChange={(newValue) => setStartDate(dayjs(newValue))}
+  return (
+    <Custom_Modal
+      open={open}
+      onModalClose={handleModalClose}
+      icon="fa-solid fa-plus"
+      title={t("LeaveNotices_students_create_modal_header")}>
+      <div className="grid grid-cols-1 gap-4">
+        {/* Leave duration */}
+        <TextField
+          label={t("LeaveNotices_students_create_modal_leaveDuration_label")}
+          name="leave_notice_duration"
+          className="col-span-1"
+          select
+          defaultValue={leaveDuration}
+          SelectProps={{ native: true }}
+          onChange={(event) => {
+            handleLeaveDurationChange(event);
+          }}>
+          <option value="1">
+            {t("LeaveNotices_students_create_modal_leaveDuration_option1")}
+          </option>
+          <option value="2">
+            {t("LeaveNotices_students_create_modal_leaveDuration_option2")}
+          </option>
+          <option value="3">
+            {t("LeaveNotices_students_create_modal_leaveDuration_option3")}
+          </option>
+          <option value="4">
+            {t("LeaveNotices_students_create_modal_leaveDuration_option4")}
+          </option>
+        </TextField>
+        {/* Date of leave */}
+        {leaveDuration != 4 ? (
+          // Either morning, afternoon or entire day is selected //
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label={t("LeaveNotices_students_create_modal_dateOfLeave_label")}
+              className="col-span-1"
+              value={startDate}
+              onChange={(newValue) => setStartDate(dayjs(newValue))}
+            />
+          </LocalizationProvider>
+        ) : (
+          //  Longer is selected //
+          //  Dates //
+          <div className="col-span-1 flex flex-row items-center gap-4">
+            {/* Start date */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={t("LeaveNotices_students_create_modal_startDate_label")}
+                value={startDate}
+                onChange={(newValue) => setStartDate(dayjs(newValue))}
+              />
+            </LocalizationProvider>
+            <i className="fa-solid fa-arrow-right"></i>
+            {/* End date */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={t("LeaveNotices_students_create_modal_endDate_label")}
+                value={endDate}
+                onChange={(newValue) => setEndDate(dayjs(newValue))}
+              />
+            </LocalizationProvider>
+          </div>
+        )}
+        {/* Leave choice */}
+        <TextField_select
+          label={t("LeaveNotices_students_create_modal_leaveChoice_label")}
+          name="leave_notice_choice"
+          className="col-span-1"
+          object={leaveNoticeAddObject}
+          setObject={setLeaveNoticeAddObject}
+          value="1"
+          validation="">
+          <option value="1">
+            {t("LeaveNotices_students_create_modal_leaveChoice_option1")}
+          </option>
+          <option value="2">
+            {t("LeaveNotices_students_create_modal_leaveChoice_option2")}
+          </option>
+          <option value="3">
+            {t("LeaveNotices_students_create_modal_leaveChoice_option3")}
+          </option>
+        </TextField_select>
+        {/* Description */}
+        <TextField_multiline
+          label={t("LeaveNotices_students_create_modal_description_label")}
+          name="leave_notice_description"
+          className="col-span-1"
+          maxRows={4}
+          object={leaveNoticeAddObject}
+          setObject={setLeaveNoticeAddObject}
+          validation={validationErrors.leave_notice_description}
+        />
+        {/* File */}
+        <div className="flex flex-col gap-2">
+          <div className="border border-standardBlack border-opacity-25 rounded-xl w-full h-[100px]">
+            <label htmlFor="leave_notice_attached_file">
+              {leaveNoticeFile ? (
+                <>
+                  <div className="flex flex-row justify-center items-center gap-4 w-full h-full px-8">
+                    <div className="w-[75px]">
+                      <FileIcon
+                        extension={leaveNoticeFileName.split(".").pop()}
+                        color="pink"
                       />
-                    </LocalizationProvider>
-                  ) : (
-                    //  Longer is selected //
-                    //  Dates //
-                    <div className="col-span-1 flex flex-row items-center gap-4">
-                      {/* Start date */}
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={t(
-                            "LeaveNotices_students_create_modal_startDate_label"
-                          )}
-                          value={startDate}
-                          onChange={(newValue) => setStartDate(dayjs(newValue))}
-                        />
-                      </LocalizationProvider>
-                      <i className="fa-solid fa-arrow-right"></i>
-                      {/* End date */}
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={t(
-                            "LeaveNotices_students_create_modal_endDate_label"
-                          )}
-                          value={endDate}
-                          onChange={(newValue) => setEndDate(dayjs(newValue))}
-                        />
-                      </LocalizationProvider>
                     </div>
-                  )}
-                  {/* Leave choice */}
-                  <TextField_select
-                    label={t(
-                      "LeaveNotices_students_create_modal_leaveChoice_label"
-                    )}
-                    name="leave_notice_choice"
-                    className="col-span-1"
-                    object={leaveNoticeAddObject}
-                    setObject={setLeaveNoticeAddObject}
-                    value="1"
-                    validation="">
-                    <option value="1">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveChoice_option1"
-                      )}
-                    </option>
-                    <option value="2">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveChoice_option2"
-                      )}
-                    </option>
-                    <option value="3">
-                      {t(
-                        "LeaveNotices_students_create_modal_leaveChoice_option3"
-                      )}
-                    </option>
-                  </TextField_select>
-                  {/* Description */}
-                  <TextField_multiline
-                    label={t(
-                      "LeaveNotices_students_create_modal_description_label"
-                    )}
-                    name="leave_notice_description"
-                    className="col-span-1"
-                    maxRows={4}
-                    object={leaveNoticeAddObject}
-                    setObject={setLeaveNoticeAddObject}
-                    validation=""
-                  />
-                  {/* File */}
-                  <div className="flex flex-col gap-2">
-                    <div className="border border-standardBlack border-opacity-25 rounded-xl w-full h-[100px]">
-                      <label htmlFor="leave_notice_attached_file">
-                        {leaveNoticeFile ? (
-                          <>
-                            <div className="flex flex-row justify-center items-center gap-4 w-full h-full px-8">
-                              <div className="w-[75px]">
-                                <FileIcon
-                                  extension={leaveNoticeFileName
-                                    .split(".")
-                                    .pop()}
-                                  color="pink"
-                                />
-                              </div>
-                              <h1 className="text-xl truncate">
-                                {leaveNoticeFileName}
-                              </h1>
-                            </div>
-                            <input
-                              type="file"
-                              name="leave_notice_attached_file"
-                              id="leave_notice_attached_file"
-                              hidden
-                              onChange={(event) => {
-                                handleFileInputChange(
-                                  'input[name="leave_notice_attached_file"]',
-                                  event,
-                                  setLeaveNoticeFile,
-                                  setLeaveNoticeFileName,
-                                  setFileSizeNotice
-                                );
-                              }}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <div className="flex flex-row justify-center items-center gap-4 w-full h-full">
-                              <i className="fa-solid fa-folder text-4xl"></i>
-                              <h1 className="text-xl">
-                                {t(
-                                  "LeaveNotices_students_create_modal_file_label"
-                                )}
-                              </h1>
-                            </div>
-                            <input
-                              type="file"
-                              name="leave_notice_attached_file"
-                              id="leave_notice_attached_file"
-                              hidden
-                              onChange={(event) => {
-                                handleFileInputChange(
-                                  'input[name="leave_notice_attached_file"]',
-                                  event,
-                                  setLeaveNoticeFile,
-                                  setLeaveNoticeFileName,
-                                  setFileSizeNotice
-                                );
-                              }}
-                            />
-                          </>
-                        )}
-                      </label>
-                    </div>
-                    {fileSizeNotice && (
-                      <h1 className="text-sm text-red-500 mb-2">
-                        {t(
-                          "LeaveNotices_students_create_modal_file_fileSizeNotice_message"
-                        )}
-                      </h1>
-                    )}
+                    <h1 className="text-xl truncate">{leaveNoticeFileName}</h1>
                   </div>
-                  {/* Submit button */}
-                  <Info_submit_button
-                    text={t(
-                      "LeaveNotices_students_create_modal_submit_button_title"
-                    )}
-                    icon="fa-solid fa-flag"
-                    isSubmitting={isSubmitting}
-                    onClickFunction={setObjectAndSubmit}
+                  <input
+                    type="file"
+                    name="leave_notice_attached_file"
+                    id="leave_notice_attached_file"
+                    hidden
+                    onChange={(event) => {
+                      handleFileInputChange(
+                        'input[name="leave_notice_attached_file"]',
+                        event,
+                        setLeaveNoticeFile,
+                        setLeaveNoticeFileName,
+                        setFileSizeNotice
+                      );
+                    }}
                   />
-                  {/* Success message */}
-                  <Info_addSuccess_message
-                    message={t(
-                      "LeaveNotices_students_create_modal_submit_success_message"
-                    )}
-                    isSuccess={isCreateSuccess}
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-row justify-center items-center gap-4 w-full h-full">
+                    <i className="fa-solid fa-folder text-4xl"></i>
+                    <h1 className="text-xl">
+                      {t("LeaveNotices_students_create_modal_file_label")}
+                    </h1>
+                  </div>
+                  <input
+                    type="file"
+                    name="leave_notice_attached_file"
+                    id="leave_notice_attached_file"
+                    hidden
+                    onChange={(event) => {
+                      handleFileInputChange(
+                        'input[name="leave_notice_attached_file"]',
+                        event,
+                        setLeaveNoticeFile,
+                        setLeaveNoticeFileName,
+                        setFileSizeNotice
+                      );
+                    }}
                   />
-                </div>
-              </div>
-            </div>
-          </Modal>
-        </>,
-        modal
-      )
-    : null;
+                </>
+              )}
+            </label>
+          </div>
+          {fileSizeNotice && (
+            <h1 className="text-sm text-red-500 mb-2">
+              {t(
+                "LeaveNotices_students_create_modal_file_fileSizeNotice_message"
+              )}
+            </h1>
+          )}
+        </div>
+        {/* Submit button */}
+        <Info_submit_button
+          text={t("LeaveNotices_students_create_modal_submit_button_title")}
+          icon="fa-solid fa-flag"
+          isSubmitting={isSubmitting}
+          onClickFunction={setObjectAndSubmit}
+        />
+        {/* Success message */}
+        <Info_addSuccess_message
+          message={t(
+            "LeaveNotices_students_create_modal_submit_success_message"
+          )}
+          isSuccess={isCreateSuccess}
+        />
+      </div>
+    </Custom_Modal>
+  );
 };
 
 export default Student_leaveNotice_modal_create;

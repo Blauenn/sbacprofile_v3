@@ -21,7 +21,7 @@ const SettingsTab = (props: CurrentProp) => {
           activeTab == tabIndex ? "border-primary" : ""
         }`}>
         <h1 className={`${activeTab == tabIndex ? "text-primary" : null}`}>
-          <i className={`${icon} me-2`}></i>
+          <i className={`${icon} me-2 } hidden sm:inline-block`}></i>
           {text}
         </h1>
       </div>

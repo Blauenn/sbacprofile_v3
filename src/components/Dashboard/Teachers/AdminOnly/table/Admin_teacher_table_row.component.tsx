@@ -36,7 +36,9 @@ const Admin_teacher_table_row = (props: CurrentComponentProp) => {
             <img
               loading="lazy"
               src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-              className="w-[50px] h-auto rounded-full"
+              className={`w-[50px] h-auto rounded-full ${
+                MajorToBackgroundColor[teacher.teacher_major]
+              }`}
               onError={(e) => {
                 e.currentTarget.src = defaultImage;
               }}

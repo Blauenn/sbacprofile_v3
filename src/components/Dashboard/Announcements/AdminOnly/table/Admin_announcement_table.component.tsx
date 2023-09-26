@@ -74,10 +74,14 @@ const Admin_announcement_table = (props: CurrentComponentProp) => {
             <thead>
               <tr>
                 <th className={`${style_table_header} | hidden sm:table-cell`}>
-                  Status
+                  {t("Admin_Announcements_table_header_status")}
                 </th>
-                <th className={`${style_table_header}`}>Title</th>
-                <th className={`${style_table_header}`}>Description</th>
+                <th className={`${style_table_header}`}>
+                  {t("Admin_Announcements_table_header_title")}
+                </th>
+                <th className={`${style_table_header}`}>
+                  {t("Admin_Announcements_table_header_description")}
+                </th>
                 <th className={`${style_table_header} | hidden md:table-cell`}>
                   <i className="fa-solid fa-clock"></i>
                 </th>

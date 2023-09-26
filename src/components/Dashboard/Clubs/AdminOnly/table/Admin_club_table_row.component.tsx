@@ -44,8 +44,8 @@ const Admin_club_table_row = (props: CurrentComponentProp) => {
       <td className={`${style_table_content} | hidden md:table-cell`}>
         {MajorNameAbbreviation[club.club_major]}
       </td>
-      {/* Club teacher */}
-      <td className={`${style_table_content}`}>
+      {/* Club teachers */}
+      <td className={`${style_table_content} | hidden sm:table-cell`}>
         {club.club_teacher.teachers[0] != 0 ? (
           club.club_teacher.teachers.map(
             (teacher: number, index: number, array: number[]) => (

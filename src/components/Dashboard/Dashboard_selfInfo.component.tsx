@@ -68,20 +68,20 @@ const Dashboard_selfInfo = () => {
             <div className="flex flex-col gap-2">
               {/* Email */}
               <h1 className="text-xl">
-                <i className="fa-solid fa-at me-4"></i>
+                <i className="fa-solid fa-at me-4 | hidden sm:inline-block"></i>
                 {formattedEmail}
               </h1>
               {/* Phone */}
               {formattedPhoneNumber != "--" ? (
                 <h1 className="text-xl">
-                  <i className="fa-solid fa-phone me-4"></i>
+                  <i className="fa-solid fa-phone me-4 | hidden sm:inline-block"></i>
                   {formattedPhoneNumber}
                 </h1>
               ) : null}
               {/* Line ID */}
               {formattedLineID != "" ? (
                 <h1 className="text-xl">
-                  <i className="fa-brands fa-line me-4"></i>
+                  <i className="fa-brands fa-line me-4 | hidden sm:inline-block"></i>
                   {formattedLineID}
                 </h1>
               ) : null}
