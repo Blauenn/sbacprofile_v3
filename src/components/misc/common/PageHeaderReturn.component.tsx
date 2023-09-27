@@ -10,14 +10,14 @@ const PageHeaderReturn = (props: CurrentComponentProp) => {
 
   return (
     <div className="flex flex-row justify-between items-center mb-8">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl | font-semibold">
+      <h1 className="text-2xl sm:text-3xl | font-semibold">
         <NavLink to={"/dashboard"}>
           <i className="fa-solid fa-chevron-left me-4"></i>
           {text}
         </NavLink>
       </h1>
       {subtext != "" ? (
-        <h1 className="text-3xl opacity-75">{subtext}</h1>
+        <h1 className="text-2xl opacity-75">{subtext}</h1>
       ) : null}
     </div>
   );

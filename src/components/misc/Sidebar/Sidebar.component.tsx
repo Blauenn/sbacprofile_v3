@@ -82,7 +82,10 @@ const Sidebar = () => {
                   arrow
                   disableInteractive>
                   <NavLink to="/dashboard">
-                    <div className={`${MajorToBackgroundColor[userInfo.profile_major]} rounded-full overflow-hidden`}>
+                    <div
+                      className={`${
+                        MajorToBackgroundColor[userInfo.profile_major]
+                      } rounded-full overflow-hidden`}>
                       <img
                         src={`${CDN_ENDPOINT}${profileImage}`}
                         onError={(e) => {

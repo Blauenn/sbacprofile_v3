@@ -135,107 +135,109 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
       overflow={true}>
       <div className="grid grid-cols-1 gap-4">
         <div className="col-span-1 mb-4">
-          <div className="flex justify-center mx-12">
-            <label htmlFor="teacher_update_image">
-              {teacherUpdateImage ? (
-                <>
-                  <div
-                    className={`${
-                      MajorToBackgroundColor[teacher.teacher_major]
-                    } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                    <img
-                      src={imagePreview || ""}
-                      className="w-full | border border-standardBlack border-opacity-25"
+          <div className="flex flex-row justify-between gap-2 w-full">
+            <div className="flex justify-center mx-12">
+              <label htmlFor="teacher_update_image">
+                {teacherUpdateImage ? (
+                  <>
+                    <div
+                      className={`${
+                        MajorToBackgroundColor[teacher.teacher_major]
+                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                      <img
+                        src={imagePreview || ""}
+                        className="w-full | border border-standardBlack border-opacity-25"
+                      />
+                    </div>
+                    <input
+                      name="teacher_update_image"
+                      id="teacher_update_image"
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      hidden
+                      onChange={(event) => {
+                        handleImageChange(
+                          event,
+                          setImagePreview,
+                          setteacherUpdateImage,
+                          setteacherUpdateImageName,
+                          setFileSizeNotice
+                        );
+                      }}
                     />
-                  </div>
-                  <input
-                    name="teacher_update_image"
-                    id="teacher_update_image"
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    hidden
-                    onChange={(event) => {
-                      handleImageChange(
-                        event,
-                        setImagePreview,
-                        setteacherUpdateImage,
-                        setteacherUpdateImageName,
-                        setFileSizeNotice
-                      );
-                    }}
-                  />
-                </>
-              ) : (
-                // Show the current teacher image...
-                // if image is not uploaded. //
-                <>
-                  <div
-                    className={`${
-                      MajorToBackgroundColor[teacher.teacher_major]
-                    } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                    <img
-                      src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-                      className="w-full"
+                  </>
+                ) : (
+                  // Show the current teacher image...
+                  // if image is not uploaded. //
+                  <>
+                    <div
+                      className={`${
+                        MajorToBackgroundColor[teacher.teacher_major]
+                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                      <img
+                        src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
+                        className="w-full"
+                      />
+                    </div>
+                    <input
+                      name="teacher_update_image"
+                      id="teacher_update_image"
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      hidden
+                      onChange={(event) => {
+                        handleImageChange(
+                          event,
+                          setImagePreview,
+                          setteacherUpdateImage,
+                          setteacherUpdateImageName,
+                          setFileSizeNotice
+                        );
+                      }}
                     />
-                  </div>
-                  <input
-                    name="teacher_update_image"
-                    id="teacher_update_image"
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    hidden
-                    onChange={(event) => {
-                      handleImageChange(
-                        event,
-                        setImagePreview,
-                        setteacherUpdateImage,
-                        setteacherUpdateImageName,
-                        setFileSizeNotice
-                      );
-                    }}
-                  />
-                </>
-              )}
-            </label>
+                  </>
+                )}
+              </label>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              {/* Teacher ID */}
+              <TextField_text
+                label={t("Admin_Teachers_crud_modal_ID_label")}
+                name="teacher_ID"
+                className="col-span-1"
+                object={teacherToUpdate}
+                setObject={setteacherToUpdate}
+                value={teacherToUpdate.teacher_ID}
+                validation=""
+              />
+              {/* Teacher position */}
+              <TextField_select
+                // Disable if the user tries to demote the administrator. //
+                disabled={teacherToUpdate.teacher_position === 6}
+                label={t("Admin_Teachers_crud_modal_position_label")}
+                name="teacher_position"
+                className="col-span-1"
+                object={teacherToUpdate}
+                setObject={setteacherToUpdate}
+                value={teacherToUpdate.teacher_position}
+                validation="">
+                <option value="0">
+                  {t("Admin_Teachers_crud_modal_position_option1")}
+                </option>
+                <option value="3">
+                  {t("Admin_Teachers_crud_modal_position_option2")}
+                </option>
+                <option value="4">
+                  {t("Admin_Teachers_crud_modal_position_option3")}
+                </option>
+                {teacherToUpdate.teacher_position === 6 ? (
+                  <option value="6">
+                    {t("Admin_Teachers_crud_modal_position_option4")}
+                  </option>
+                ) : null}
+              </TextField_select>
+            </div>
           </div>
-        </div>
-        <div className="col-span-1 grid grid-cols-2 gap-4">
-          {/* Teacher ID */}
-          <TextField_text
-            label={t("Admin_Teachers_crud_modal_ID_label")}
-            name="teacher_ID"
-            className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_ID}
-            validation=""
-          />
-          {/* Teacher position */}
-          <TextField_select
-            // Disable if the user tries to demote the administrator. //
-            disabled={teacherToUpdate.teacher_position === 6}
-            label={t("Admin_Teachers_crud_modal_position_label")}
-            name="teacher_position"
-            className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_position}
-            validation="">
-            <option value="0">
-              {t("Admin_Teachers_crud_modal_position_option1")}
-            </option>
-            <option value="3">
-              {t("Admin_Teachers_crud_modal_position_option2")}
-            </option>
-            <option value="4">
-              {t("Admin_Teachers_crud_modal_position_option3")}
-            </option>
-            {teacherToUpdate.teacher_position === 6 ? (
-              <option value="6">
-                {t("Admin_Teachers_crud_modal_position_option4")}
-              </option>
-            ) : null}
-          </TextField_select>
         </div>
         {/* Teacher major */}
         <TextField_select

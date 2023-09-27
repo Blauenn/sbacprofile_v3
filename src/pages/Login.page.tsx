@@ -27,7 +27,7 @@ const Login = (props: CurrentComponentProp) => {
   return (
     <div>
       <div className="flex justify-center">
-        <div className="border border-standardBlack border-opacity-25 rounded-xl p-8 mt-8">
+        <div className="border border-standardBlack border-opacity-25 bg-white rounded-xl p-8 mt-8">
           <h1 className="text-3xl font-semibold mb-8">{t("Login_title")}</h1>
           <form
             id="login_form"

@@ -141,100 +141,102 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
       overflow={true}>
       <div className="grid grid-cols-1 gap-4">
         <div className="col-span-1 mb-4">
-          <div className="flex justify-center mx-12">
-            <label htmlFor="student_update_image">
-              {studentUpdateImage ? (
-                <>
-                  <div
-                    className={`${
-                      MajorToBackgroundColor[student.student_major]
-                    } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                    <img
-                      src={imagePreview || ""}
-                      className="w-full | border border-standardBlack border-opacity-25"
+          <div className="flex flex-row justify-between gap-2 w-full">
+            <div className="flex justify-center mx-12">
+              <label htmlFor="student_update_image">
+                {studentUpdateImage ? (
+                  <>
+                    <div
+                      className={`${
+                        MajorToBackgroundColor[student.student_major]
+                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                      <img
+                        src={imagePreview || ""}
+                        className="w-full | border border-standardBlack border-opacity-25"
+                      />
+                    </div>
+                    <input
+                      name="student_update_image"
+                      id="student_update_image"
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      hidden
+                      onChange={(event) => {
+                        handleImageChange(
+                          event,
+                          setImagePreview,
+                          setStudentUpdateImage,
+                          setStudentUpdateImageName,
+                          setFileSizeNotice
+                        );
+                      }}
                     />
-                  </div>
-                  <input
-                    name="student_update_image"
-                    id="student_update_image"
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    hidden
-                    onChange={(event) => {
-                      handleImageChange(
-                        event,
-                        setImagePreview,
-                        setStudentUpdateImage,
-                        setStudentUpdateImageName,
-                        setFileSizeNotice
-                      );
-                    }}
-                  />
-                </>
-              ) : (
-                // Show the current student image...
-                // if image is not uploaded. //
-                <>
-                  <div
-                    className={`${
-                      MajorToBackgroundColor[student.student_major]
-                    } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                    <img
-                      src={`${CDN_ENDPOINT}${student.student_image}`}
-                      className="w-full"
+                  </>
+                ) : (
+                  // Show the current student image...
+                  // if image is not uploaded. //
+                  <>
+                    <div
+                      className={`${
+                        MajorToBackgroundColor[student.student_major]
+                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                      <img
+                        src={`${CDN_ENDPOINT}${student.student_image}`}
+                        className="w-full"
+                      />
+                    </div>
+                    <input
+                      name="student_update_image"
+                      id="student_update_image"
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      hidden
+                      onChange={(event) => {
+                        handleImageChange(
+                          event,
+                          setImagePreview,
+                          setStudentUpdateImage,
+                          setStudentUpdateImageName,
+                          setFileSizeNotice
+                        );
+                      }}
                     />
-                  </div>
-                  <input
-                    name="student_update_image"
-                    id="student_update_image"
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    hidden
-                    onChange={(event) => {
-                      handleImageChange(
-                        event,
-                        setImagePreview,
-                        setStudentUpdateImage,
-                        setStudentUpdateImageName,
-                        setFileSizeNotice
-                      );
-                    }}
-                  />
-                </>
-              )}
-            </label>
+                  </>
+                )}
+              </label>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              {/* Student position */}
+              <TextField_select
+                label={t("Admin_Students_crud_modal_position_label")}
+                name="student_position"
+                className="col-span-1"
+                object={studentToUpdate}
+                setObject={setStudentToUpdate}
+                value={studentToUpdate.student_position}
+                validation={validationErrors.student_position}>
+                <option value="0">
+                  {t("Admin_Students_crud_modal_position_option1")}
+                </option>
+                <option value="1">
+                  {t("Admin_Students_crud_modal_position_option2")}
+                </option>
+                <option value="2">
+                  {t("Admin_Students_crud_modal_position_option3")}
+                </option>
+              </TextField_select>
+              {/* Student ID */}
+              <TextField_text
+                label={t("Admin_Students_crud_modal_ID_label")}
+                name="student_ID"
+                className="col-span-1"
+                object={studentToUpdate}
+                setObject={setStudentToUpdate}
+                value={studentToUpdate.student_ID}
+                validation={validationErrors.student_ID}
+              />
+            </div>
           </div>
-        </div>
-        <div className="col-span-1 grid grid-cols-2 gap-4">
-          {/* Student ID */}
-          <TextField_text
-            label={t("Admin_Students_crud_modal_ID_label")}
-            name="student_ID"
-            className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_ID}
-            validation={validationErrors.student_ID}
-          />
-          {/* Student position */}
-          <TextField_select
-            label={t("Admin_Students_crud_modal_position_label")}
-            name="student_position"
-            className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_position}
-            validation={validationErrors.student_position}>
-            <option value="0">
-              {t("Admin_Students_crud_modal_position_option1")}
-            </option>
-            <option value="1">
-              {t("Admin_Students_crud_modal_position_option2")}
-            </option>
-            <option value="2">
-              {t("Admin_Students_crud_modal_position_option3")}
-            </option>
-          </TextField_select>
         </div>
         {/* Student major */}
         <TextField_select

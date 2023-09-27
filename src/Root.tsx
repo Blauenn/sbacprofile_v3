@@ -69,27 +69,24 @@ const Root = () => {
     // Fetch all notifications. //
     // Fetch notifications. //
 
-    // Log the user out if user state is empty. //
-    if (accessToken == undefined && userInfo == undefined) {
-      setIsLoggedIn(false);
-    }
-
     const storedAccessToken = localStorage.getItem("accessToken");
 
     if (storedAccessToken) {
       setAccessToken(storedAccessToken);
       setIsLoggedIn(true);
 
-      getDataAuthenticated(
-        `${API_ENDPOINT}/api/v1/profile/getProfile`,
-        storedAccessToken,
-        (result: any) => {
-          setUserInfo(result);
-          localStorage.setItem("userInfo", result);
-        }
-      );
+      if (accessToken != "") {
+        getDataAuthenticated(
+          `${API_ENDPOINT}/api/v1/profile/getProfile`,
+          accessToken,
+          (result: any) => {
+            setUserInfo(result);
+            localStorage.setItem("userInfo", result);
+          }
+        );
+      }
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <BrowserRouter>
