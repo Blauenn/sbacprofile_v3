@@ -76,6 +76,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
 
   const setObjectAndSubmit = () => {
     setIsSubmitting(true);
+
     handleAnnouncementCreate(
       announcementAddObject,
       announcementImage,
@@ -83,6 +84,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       setValidationErrors,
       callback
     );
+    
     setIsSubmitting(false);
   };
 
@@ -105,7 +107,8 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       open={open}
       onModalClose={handleModalClose}
       icon="fa-solid fa-plus"
-      title={t("Admin_Announcements_create_modal_header")}>
+      title={t("Admin_Announcements_create_modal_header")}
+      overflow>
       <div className="grid grid-cols-1 gap-4">
         {/* Announcement image */}
         <div className="flex flex-col gap-2">
@@ -131,8 +134,8 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                         event,
                         setAnnouncementImagePreview,
                         setAnnouncementImage,
-                        setAnnouncementImageName,
-                        setFileSizeNotice
+                        setFileSizeNotice,
+                        setAnnouncementImageName
                       );
                     }}
                   />
@@ -159,8 +162,8 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                       event,
                       setAnnouncementImagePreview,
                       setAnnouncementImage,
-                      setAnnouncementImageName,
-                      setFileSizeNotice
+                      setFileSizeNotice,
+                      setAnnouncementImageName
                     );
                   }}
                 />

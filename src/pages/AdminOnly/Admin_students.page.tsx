@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../../interfaces/common.interface";
 import { getData } from "../../functions/fetchFromAPI.function";
-import { hasNumber } from "../../functions/stringChecks.function";
+import { hasNumber } from "../../functions/stringManipulation.function";
 import Admin_student_table from "../../components/Dashboard/Students/AdminOnly/table/Admin_student_table.component";
 import StudentFilters from "../../components/Students/StudentFilters.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";

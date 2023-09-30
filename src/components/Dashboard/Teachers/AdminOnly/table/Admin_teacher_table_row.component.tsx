@@ -32,13 +32,13 @@ const Admin_teacher_table_row = (props: CurrentComponentProp) => {
         </td>
         {/* Teacher image */}
         <td className={`${style_table_content} | hidden lg:table-cell`}>
-          <div className="">
+          <div
+            className={`flex justify-center items-center w-[50px] h-[50px] | ${
+              MajorToBackgroundColor[teacher.teacher_major]
+            } rounded-full overflow-hidden`}>
             <img
               loading="lazy"
               src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-              className={`w-[50px] h-auto rounded-full ${
-                MajorToBackgroundColor[teacher.teacher_major]
-              }`}
               onError={(e) => {
                 e.currentTarget.src = defaultImage;
               }}

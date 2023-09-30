@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { Teacher } from "../../../interfaces/common.interface";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 export const handleTeacherUpdate = async (
-  teacherToUpdate: Teacher,
+  teacherToUpdate: any,
   teacherUpdateImage: any,
   setValidationErrors: any,
   setIsSubmitting: any,
@@ -13,13 +12,45 @@ export const handleTeacherUpdate = async (
   // Disable the submit button. //
   setIsSubmitting(true);
 
+  const updatedTeacherToUpdate = {
+    primary_teacher_ID: teacherToUpdate.primary_teacher_ID,
+    teacher_ID: parseInt(teacherToUpdate.teacher_ID, 10),
+    teacher_position: parseInt(teacherToUpdate.teacher_position, 10),
+    teacher_first_name: teacherToUpdate.teacher_first_name,
+    teacher_last_name: teacherToUpdate.teacher_last_name,
+    teacher_nickname: teacherToUpdate.teacher_nickname,
+    teacher_first_name_thai: teacherToUpdate.teacher_first_name_thai,
+    teacher_last_name_thai: teacherToUpdate.teacher_last_name_thai,
+    teacher_nickname_thai: teacherToUpdate.teacher_nickname_thai,
+    teacher_major: parseInt(teacherToUpdate.teacher_major, 10),
+    teacher_gender: parseInt(teacherToUpdate.teacher_gender, 10),
+    teacher_phone: teacherToUpdate.teacher_phone,
+    teacher_line_ID: teacherToUpdate.teacher_line_ID,
+    teacher_image: teacherToUpdate.teacher_image,
+    teacher_email: teacherToUpdate.teacher_email,
+  };
+
   const englishAlphabetRegex = /^[A-Za-z]+$/; // English alphabets only //
   const thaiAlphabetRegex = /^[ก-๏\s]+$/; // Thai alphabets only //
+  const emailRegex = /\S+@\S+\.\S+/; // Email regex //
   const numberRegex = /^\d+$/; // Numbers only //
 
   const TeacherSchema = z.object({
-    teacher_ID: z.number(),
-    teacher_position: z.number(),
+    teacher_ID: z.number().refine((value) => {
+      if (!value) {
+        return false;
+      }
+      if (!numberRegex.test(value.toString())) {
+        return false;
+      }
+      if (value.toString().length !== 8) {
+        return false;
+      }
+      return true;
+    }),
+    teacher_position: z
+      .number()
+      .refine((value) => value !== 0, { message: "Please select a position" }),
     teacher_first_name: z
       .string()
       .nonempty()
@@ -34,7 +65,7 @@ export const handleTeacherUpdate = async (
       }),
     teacher_nickname: z
       .string()
-      .refine((value) => englishAlphabetRegex.test(value), {
+      .refine((value) => !value || englishAlphabetRegex.test(value), {
         message: "Nickname must contain only English alphabets.",
       }),
     teacher_first_name_thai: z
@@ -51,18 +82,15 @@ export const handleTeacherUpdate = async (
       }),
     teacher_nickname_thai: z
       .string()
-      .refine((value) => thaiAlphabetRegex.test(value), {
+      .refine((value) => !value || thaiAlphabetRegex.test(value), {
         message: "Thai nickname must contain only Thai alphabets.",
       }),
-    teacher_gender: z.number(),
-    teacher_major: z.number(),
-    teacher_level: z.number(),
-    teacher_class: z
-      .string()
-      .nonempty()
-      .refine((value) => numberRegex.test(value), {
-        message: "Class must only contain numbers.",
-      }),
+    teacher_gender: z.number().refine((value) => value !== 0, {
+      message: "Please select a gender.",
+    }),
+    teacher_major: z.number().refine((value) => value !== 0, {
+      message: "Please select a major.",
+    }),
     teacher_phone: z
       .string()
       .optional()
@@ -71,7 +99,12 @@ export const handleTeacherUpdate = async (
       }),
     teacher_line_ID: z.string(),
     teacher_image: z.string(),
-    teacher_email: z.string().nonempty(),
+    teacher_email: z
+      .string()
+      .nonempty()
+      .refine((value) => emailRegex.test(value), {
+        message: "Invalid email address.",
+      }),
   });
 
   const validationErrors: any = {
@@ -85,21 +118,18 @@ export const handleTeacherUpdate = async (
     teacher_nickname_thai: "",
     teacher_gender: "",
     teacher_major: "",
-    teacher_level: "",
-    teacher_class: "",
     teacher_phone: "",
     teacher_line_ID: "",
     teacher_email: "",
   };
 
   // Perform validation. //
-  const validationResult = TeacherSchema.safeParse(teacherToUpdate);
+  const validationResult = TeacherSchema.safeParse(updatedTeacherToUpdate);
 
   // If validation fails. //
-  // Don't submit. //
   if (!validationResult.success) {
     validationResult.error.issues.forEach((issue: any) => {
-      // Add custom error messages based on which validation fails.
+      // Add custom error messages based on which validation fails. //
       switch (issue.path[0]) {
         case "teacher_ID":
           validationErrors.teacher_ID =
@@ -140,12 +170,6 @@ export const handleTeacherUpdate = async (
         case "teacher_major":
           validationErrors.teacher_major = issue.message || "Major is invalid.";
           break;
-        case "teacher_level":
-          validationErrors.teacher_level = issue.message || "Level is invalid.";
-          break;
-        case "teacher_class":
-          validationErrors.teacher_class = issue.message || "Class is invalid.";
-          break;
         case "teacher_phone":
           validationErrors.teacher_phone = issue.message || "Phone is invalid.";
           break;
@@ -180,8 +204,8 @@ export const handleTeacherUpdate = async (
       teacherUpdateImageForm.append("image", teacherUpdateImage);
     }
     teacherUpdateImageFileName = `${
-      teacherToUpdate.teacher_ID
-    }_${teacherToUpdate.teacher_first_name.toLowerCase()}.${profileImageExtension}`;
+      updatedTeacherToUpdate.teacher_ID
+    }_${updatedTeacherToUpdate.teacher_first_name.toLowerCase()}.${profileImageExtension}`;
     teacherUpdateImageForm.append("filename", teacherUpdateImageFileName);
 
     // Upload the image into the CDN. //
@@ -191,31 +215,32 @@ export const handleTeacherUpdate = async (
         body: teacherUpdateImageForm,
       });
     } catch (error) {
-      console.log(error);
       setIsUpdateSuccess(false);
     }
   }
 
   const teacherToUpdateObject = {
-    id: teacherToUpdate.primary_teacher_ID,
+    id: updatedTeacherToUpdate.primary_teacher_ID,
     teacherInfo: {
-      teacher_ID: teacherToUpdate.teacher_ID,
-      teacher_position: teacherToUpdate.teacher_position,
-      teacher_first_name: teacherToUpdate.teacher_first_name,
-      teacher_last_name: teacherToUpdate.teacher_last_name,
-      teacher_nickname: teacherToUpdate.teacher_nickname,
-      teacher_first_name_thai: teacherToUpdate.teacher_first_name_thai,
-      teacher_last_name_thai: teacherToUpdate.teacher_last_name_thai,
-      teacher_nickname_thai: teacherToUpdate.teacher_nickname_thai,
-      teacher_major: teacherToUpdate.teacher_major,
-      teacher_gender: teacherToUpdate.teacher_gender,
-      teacher_phone: teacherToUpdate.teacher_phone,
-      teacher_line_ID: teacherToUpdate.teacher_line_ID,
-      teacher_email: teacherToUpdate.teacher_email.toString().toLowerCase(),
+      teacher_ID: updatedTeacherToUpdate.teacher_ID,
+      teacher_position: updatedTeacherToUpdate.teacher_position,
+      teacher_first_name: updatedTeacherToUpdate.teacher_first_name,
+      teacher_last_name: updatedTeacherToUpdate.teacher_last_name,
+      teacher_nickname: updatedTeacherToUpdate.teacher_nickname,
+      teacher_first_name_thai: updatedTeacherToUpdate.teacher_first_name_thai,
+      teacher_last_name_thai: updatedTeacherToUpdate.teacher_last_name_thai,
+      teacher_nickname_thai: updatedTeacherToUpdate.teacher_nickname_thai,
+      teacher_major: updatedTeacherToUpdate.teacher_major,
+      teacher_gender: updatedTeacherToUpdate.teacher_gender,
+      teacher_phone: updatedTeacherToUpdate.teacher_phone,
+      teacher_line_ID: updatedTeacherToUpdate.teacher_line_ID,
+      teacher_email: updatedTeacherToUpdate.teacher_email
+        .toString()
+        .toLowerCase(),
       teacher_image:
         teacherUpdateImage && typeof teacherUpdateImage === "object"
           ? `/assets/profilePic/teachers/${teacherUpdateImageFileName}`
-          : teacherToUpdate.teacher_image,
+          : updatedTeacherToUpdate.teacher_image,
     },
   };
   const teacherUpdateJSON = JSON.stringify(teacherToUpdateObject);
@@ -232,7 +257,6 @@ export const handleTeacherUpdate = async (
       setIsUpdateSuccess(true);
       callback();
     } else {
-      console.log("Error:", response.status, response.statusText);
       setIsUpdateSuccess(false);
     }
   } catch (error) {

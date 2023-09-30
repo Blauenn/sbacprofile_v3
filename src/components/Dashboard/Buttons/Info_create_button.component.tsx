@@ -1,3 +1,5 @@
+import { hover_transition } from "../../../constants/styles/transitions.style";
+
 interface CurrentComponentProp {
   text: string;
   icon: string;
@@ -13,7 +15,7 @@ const Info_create_button = (props: CurrentComponentProp) => {
         onClick={() => {
           setModalOpen(true);
         }}
-        className="col-span-4 md:col-span-2 xl:col-span-1 bg-primary text-white rounded-xl px-4 py-2 w-full">
+        className={`col-span-4 md:col-span-2 xl:col-span-1 border border-primary text-primary hover:bg-primary hover:text-white rounded-xl px-4 py-2 w-full ${hover_transition}`}>
         <i className={`${icon} me-4`}></i>
         {text}
       </button>

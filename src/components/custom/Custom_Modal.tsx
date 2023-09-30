@@ -42,7 +42,7 @@ const Custom_Modal = (props: CurrentComponentProp) => {
                 </div>
                 <button
                   onClick={onModalClose}
-                  className="flex justify-center items-center bg-red-600 hover:bg-red-700 rounded-full w-[25px] h-[25px]"></button>
+                  className="flex justify-center items-center bg-red-600 hover:bg-red-700 rounded-full w-[20px] h-[20px]"></button>
               </div>
               <div className="flex flex-col sm:flex-row">
                 <div className="flex flex-col py-8 px-4 w-full lg:gap-x-4">

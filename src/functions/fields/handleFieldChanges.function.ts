@@ -54,8 +54,8 @@ export const handleImageChange = (
   event: any,
   setImagePreview: any,
   setImage: any,
-  setImageName: any,
-  setFileSizeNotice: any
+  setFileSizeNotice: any,
+  setImageName?: any
 ) => {
   if (event.target.files[0]) {
     const maxSizeInBytes = 20 * 1024 * 1024; // 20MB in bytes. //
@@ -67,7 +67,9 @@ export const handleImageChange = (
     if (!allowedExtensions.includes(fileName.split(".").pop())) {
       setImagePreview("");
       setImage(null);
-      setImageName("")
+      if (setImageName) {
+        setImageName("");
+      }
       return;
     }
 
@@ -108,6 +110,8 @@ export const handleImageChange = (
     }${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}`;
     // Combine the formatted date, unique ID and file extension. //
     const leaveNoticeFileName = `${formattedDate}_${uniqueID}.${fileExtension}`;
-    setImageName(leaveNoticeFileName);
+    if (setImageName) {
+      setImageName(leaveNoticeFileName);
+    }
   }
 };

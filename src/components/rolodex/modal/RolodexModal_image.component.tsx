@@ -10,13 +10,15 @@ const RolodexModal_image = (props: CurrentComponentProp) => {
   const { image, majorColor } = props;
 
   return (
-    <img
-      src={`${CDN_ENDPOINT}${image}`}
-      onError={(e) => {
-        e.currentTarget.src = defaultImage;
-      }}
-      className={`max-w-[500px] max-h-[500px] w-5/6 sm:w-4/6 lg:w-5/6 | ${majorColor} rounded-full overflow-hidden w-full`}
-    />
+    <div
+      className={`flex justify-center items-center w-[220px] h-[220px] | ${majorColor} rounded-full overflow-hidden`}>
+      <img
+        src={`${CDN_ENDPOINT}${image}`}
+        onError={(e) => {
+          e.currentTarget.src = defaultImage;
+        }}
+      />
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { UserInfo } from "../../../../../interfaces/account.interface";
 import { Club } from "../../../../../interfaces/common.interface";
 import Loading from "../../../../misc/Loading.component";
 import Admin_club_table_row from "./Admin_club_table_row.component";
@@ -11,16 +10,14 @@ import {
 } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  fetchClubs: any;
   clubs: Club[];
   // TODO: Make this interface work. //
   clubMemberships: any;
   teachers: any;
-  userInfo: UserInfo;
 }
 
 const Admin_club_table = (props: CurrentComponentProp) => {
-  const { fetchClubs, clubs, clubMemberships, teachers, userInfo } = props;
+  const { clubs, clubMemberships, teachers } = props;
 
   const { t } = useTranslation();
 

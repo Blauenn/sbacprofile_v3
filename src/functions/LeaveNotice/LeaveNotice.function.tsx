@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { LeaveNotice } from "../../interfaces/common.interface";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";

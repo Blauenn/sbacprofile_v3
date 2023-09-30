@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { Major, Student } from "../../../../../interfaces/common.interface";
+import Custom_Modal from "../../../../custom/Custom_Modal";
+import { Major } from "../../../../../interfaces/common.interface";
 import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import { handleStudentUpdate } from "../../../../../functions/Admin/Students/Admin_students.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
+import Info_success_message from "../../../Buttons/Info_success_message.component";
 import {
   MajorName,
   MajorNameGerman,
@@ -23,12 +24,11 @@ import {
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Students } from "../../../../../context/Students.context";
-import Custom_Modal from "../../../../custom/Custom_Modal";
 
 interface CurrentComponentProp {
   open: boolean;
   onModalClose: any;
-  student: Student;
+  student: any;
 }
 
 const Admin_student_modal_update = (props: CurrentComponentProp) => {
@@ -49,7 +49,7 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
     }
   }, []);
 
-  const [studentToUpdate, setStudentToUpdate] = useState<Student>({
+  const [studentToUpdate, setStudentToUpdate] = useState({
     primary_student_ID: student.primary_student_ID,
     student_ID: student.student_ID,
     student_position: student.student_position,
@@ -69,7 +69,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
     student_email: student.student_email,
   });
   const [studentUpdateImage, setStudentUpdateImage] = useState(null);
-  const [studentUpdateImageName, setStudentUpdateImageName] = useState("");
   const [fileSizeNotice, setFileSizeNotice] = useState(false);
 
   // To store any validation errors. //
@@ -117,10 +116,42 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
       student_email: student.student_email,
     });
     setStudentUpdateImage(null);
-    setStudentUpdateImageName("");
     setFileSizeNotice(false);
     setImagePreview(null);
     onModalClose();
+  };
+
+  const setObjectAndSubmit = () => {
+    setIsSubmitting(true);
+
+    const updatedStudentToUpdate = {
+      primary_student_ID: studentToUpdate.primary_student_ID,
+      student_ID: parseInt(studentToUpdate.student_ID, 10),
+      student_position: parseInt(studentToUpdate.student_position, 10),
+      student_first_name: studentToUpdate.student_first_name,
+      student_last_name: studentToUpdate.student_last_name,
+      student_nickname: studentToUpdate.student_nickname,
+      student_first_name_thai: studentToUpdate.student_first_name_thai,
+      student_last_name_thai: studentToUpdate.student_last_name_thai,
+      student_nickname_thai: studentToUpdate.student_nickname_thai,
+      student_major: parseInt(studentToUpdate.student_major, 10),
+      student_gender: parseInt(studentToUpdate.student_gender, 10),
+      student_level: parseInt(studentToUpdate.student_level, 10),
+      student_class: studentToUpdate.student_class,
+      student_phone: studentToUpdate.student_phone,
+      student_line_ID: studentToUpdate.student_line_ID,
+      student_image: studentToUpdate.student_image,
+      student_email: studentToUpdate.student_email,
+    };
+
+    handleStudentUpdate(
+      updatedStudentToUpdate,
+      studentUpdateImage,
+      setValidationErrors,
+      setIsSubmitting,
+      setIsUpdateSuccess,
+      callback
+    );
   };
 
   const callback = async () => {
@@ -144,65 +175,70 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           <div className="flex flex-row justify-between gap-2 w-full">
             <div className="flex justify-center mx-12">
               <label htmlFor="student_update_image">
-                {studentUpdateImage ? (
-                  <>
-                    <div
-                      className={`${
-                        MajorToBackgroundColor[student.student_major]
-                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                      <img
-                        src={imagePreview || ""}
-                        className="w-full | border border-standardBlack border-opacity-25"
+                <div className="flex flex-col items-center gap-2">
+                  {studentUpdateImage ? (
+                    <>
+                      <div
+                        className={`${
+                          MajorToBackgroundColor[student.student_major]
+                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                        <img
+                          src={imagePreview || ""}
+                          className="w-full | border border-standardBlack border-opacity-25"
+                        />
+                      </div>
+                      <input
+                        name="student_update_image"
+                        id="student_update_image"
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        hidden
+                        onChange={(event) => {
+                          handleImageChange(
+                            event,
+                            setImagePreview,
+                            setStudentUpdateImage,
+                            setFileSizeNotice
+                          );
+                        }}
                       />
-                    </div>
-                    <input
-                      name="student_update_image"
-                      id="student_update_image"
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      hidden
-                      onChange={(event) => {
-                        handleImageChange(
-                          event,
-                          setImagePreview,
-                          setStudentUpdateImage,
-                          setStudentUpdateImageName,
-                          setFileSizeNotice
-                        );
-                      }}
-                    />
-                  </>
-                ) : (
-                  // Show the current student image...
-                  // if image is not uploaded. //
-                  <>
-                    <div
-                      className={`${
-                        MajorToBackgroundColor[student.student_major]
-                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                      <img
-                        src={`${CDN_ENDPOINT}${student.student_image}`}
-                        className="w-full"
+                    </>
+                  ) : (
+                    // Show the current student image...
+                    // if image is not uploaded. //
+                    <>
+                      <div
+                        className={`${
+                          MajorToBackgroundColor[student.student_major]
+                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                        <img
+                          src={`${CDN_ENDPOINT}${student.student_image}`}
+                          className="w-full"
+                        />
+                      </div>
+                      <input
+                        name="student_update_image"
+                        id="student_update_image"
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        hidden
+                        onChange={(event) => {
+                          handleImageChange(
+                            event,
+                            setImagePreview,
+                            setStudentUpdateImage,
+                            setFileSizeNotice
+                          );
+                        }}
                       />
-                    </div>
-                    <input
-                      name="student_update_image"
-                      id="student_update_image"
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      hidden
-                      onChange={(event) => {
-                        handleImageChange(
-                          event,
-                          setImagePreview,
-                          setStudentUpdateImage,
-                          setStudentUpdateImageName,
-                          setFileSizeNotice
-                        );
-                      }}
-                    />
-                  </>
-                )}
+                    </>
+                  )}
+                  {fileSizeNotice && (
+                    <h1 className="text-sm text-red-500 mb-2">
+                      {t("fileSizeNotice_20MB")}
+                    </h1>
+                  )}
+                </div>
               </label>
             </div>
             <div className="flex flex-col justify-center gap-4">
@@ -425,19 +461,11 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           icon="fa-solid fa-pencil"
           isSubmitting={isSubmitting}
           onClickFunction={() => {
-            setIsSubmitting(true);
-            handleStudentUpdate(
-              studentToUpdate,
-              studentUpdateImage,
-              setValidationErrors,
-              setIsSubmitting,
-              setIsUpdateSuccess,
-              callback
-            );
+            setObjectAndSubmit();
           }}
         />
         {/* Success message */}
-        <Info_addSuccess_message
+        <Info_success_message
           message={t("Admin_Students_update_modal_submit_success_message")}
           isSuccess={isUpdateSuccess}
         />

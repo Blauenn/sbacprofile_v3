@@ -34,7 +34,7 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
         arrow
         onClick={() => handleCopy(object.email, setCopied)}>
         <h1
-          className={`"lg:mb-4 text-xl font-semibold cursor-pointer" ${
+          className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
             MajorContactsHover[object.major]
           } mb-2 truncate`}>
           <i className="me-4 fa-solid fa-at"></i>
@@ -54,7 +54,7 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
           arrow
           onClick={() => handleCopy(object.phone, setCopied)}>
           <h1
-            className={`"lg:mb-4 text-xl font-semibold cursor-pointer" ${
+            className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
               MajorContactsHover[object.major]
             } mb-2`}>
             <i className="me-4 fa-solid fa-phone"></i>
@@ -75,7 +75,7 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
           arrow
           onClick={() => handleCopy(object.line_ID, setCopied)}>
           <h1
-            className={`"lg:mb-4 text-xl font-semibold cursor-pointer" ${
+            className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
               MajorContactsHover[object.major]
             }`}>
             <i className="me-4 fa-brands fa-line"></i>

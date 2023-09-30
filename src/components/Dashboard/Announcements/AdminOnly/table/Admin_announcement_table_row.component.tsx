@@ -11,6 +11,7 @@ import {
 } from "../../../../../functions/getDates.function";
 import Admin_announcement_modal_update from "../modal/Admin_announcement_modal_update.component";
 import { DayColors } from "../../../../../constants/Misc.constant";
+import { get_announcement_status_text } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 
 interface CurrentComponentProp {
   announcement: Announcement;
@@ -38,7 +39,7 @@ const Admin_announcement_table_row = (props: CurrentComponentProp) => {
       <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
         {/* Announcement status */}
         <td className={`${style_table_content} | hidden sm:table-cell`}>
-          {announcement.announcement_status}
+          {get_announcement_status_text(announcement.announcement_status)}
         </td>
         {/* Announcement title */}
         <td className={`${style_table_content}`}>
@@ -70,7 +71,7 @@ const Admin_announcement_table_row = (props: CurrentComponentProp) => {
                 setModalOpen(true);
               }}
             />
-            {announcement.announcement_image != "" ? (
+            {announcement.announcement_image !== "/assets/files/announcements/" ? (
               <Table_button_download
                 icon="fa-solid fa-image"
                 color="bg-primary"

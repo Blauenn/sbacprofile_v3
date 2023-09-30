@@ -51,7 +51,6 @@
     "Admin_Announcements_crud_modal_title_label": "Title",
     "Admin_Announcements_crud_modal_description_label": "Description",
     "Admin_Announcements_crud_modal_file_label": "Upload an image",
-    "Admin_Announcements_crud_modal_file_fileSizeNotice_message": "File can't be over 20MB.",
     
     "Admin_Announcements_table_header_status": "Status",
     "Admin_Announcements_table_header_title": "Title",
@@ -212,7 +211,6 @@
     "LeaveNotices_students_create_modal_leaveChoice_option3": "Others",
     "LeaveNotices_students_create_modal_description_label": "Description",
     "LeaveNotices_students_create_modal_file_label": "Upload a file",
-    "LeaveNotices_students_create_modal_file_fileSizeNotice_message": "File can't be over 20MB.",
     "LeaveNotices_students_create_modal_submit_button_title": "Submit leave notice",
     "LeaveNotices_students_create_modal_submit_success_message": "Leave notice has been submitted.",
     
@@ -305,5 +303,7 @@
     "Logout_title": "Logout",
     "Logout_description": "Are you sure you want to logout?",
     "Logout_confirmButton": "Logout",
-    "Logout_cancelButton": "No"
+    "Logout_cancelButton": "No",
+
+    "fileSizeNotice_20MB": "File can't be over 20MB."
 }

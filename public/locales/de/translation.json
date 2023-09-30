@@ -51,7 +51,6 @@
     "Admin_Announcements_crud_modal_title_label": "Titel",
     "Admin_Announcements_crud_modal_description_label": "Beschreibung",
     "Admin_Announcements_crud_modal_file_label": "Bild hochladen",
-    "Admin_Announcements_crud_modal_file_fileSizeNotice_message": "Die Datei darf nicht größer als 20 MB sein.",
     
     "Admin_Announcements_table_header_status": "Status",
     "Admin_Announcements_table_header_title": "Titel",
@@ -213,7 +212,6 @@
     "LeaveNotices_students_create_modal_leaveChoice_option3": "Andere",
     "LeaveNotices_students_create_modal_description_label": "Beschreibung",
     "LeaveNotices_students_create_modal_file_label": "Datei hochladen",
-    "LeaveNotices_students_create_modal_file_fileSizeNotice_message": "Die Datei darf nicht größer als 20 MB sein.",
     "LeaveNotices_students_create_modal_submit_button_title": "Abwesenheitsmitteilung erstellen",
     "LeaveNotices_students_create_modal_submit_success_message": "Die Abwesenheitsmitteilung wurde erstellt.",
     
@@ -306,5 +304,7 @@
     "Logout_title": "Abmelden",
     "Logout_description": "Sind Sie sicher, dass Sie sich abmelden möchten?",
     "Logout_confirmButton": "Abmelden",
-    "Logout_cancelButton": "Nein"
+    "Logout_cancelButton": "Nein",
+
+    "fileSizeNotice_20MB": "Die Datei darf nicht größer als 20 MB sein."
 }

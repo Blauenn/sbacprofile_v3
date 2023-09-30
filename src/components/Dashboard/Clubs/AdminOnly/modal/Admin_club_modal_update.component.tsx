@@ -7,7 +7,7 @@ import {
   TextField_select,
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
-import { Club, Major } from "../../../../../interfaces/common.interface";
+import { Major } from "../../../../../interfaces/common.interface";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
@@ -20,10 +20,12 @@ import {
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
+import { useContext_Clubs } from "../../../../../context/Clubs.context";
 import { useContext_Majors } from "../../../../../context/Majors.context";
+import { handleClubUpdate } from "../../../../../functions/Admin/Clubs/Admin_clubs.function";
 
 interface CurrentComponentProp {
-  club: Club;
+  club: any;
   open: boolean;
   onModalClose: any;
 }
@@ -31,11 +33,13 @@ interface CurrentComponentProp {
 const Admin_club_modal_update = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
 
+  const { setClubs } = useContext_Clubs();
   const { majors, setMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   const [clubToUpdate, setClubToUpdate] = useState({
+    club_ID: club.club_ID,
     club_name: club.club_name,
     club_major: club.club_major,
     club_teacher: club.club_teacher,
@@ -46,6 +50,7 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
   });
 
   const [validationErrors, setValidationErrors] = useState({
+    club_ID: "",
     club_name: "",
     club_major: "",
     club_teacher: "",
@@ -70,6 +75,49 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
 
   const handleModalClose = () => {
     onModalClose();
+  };
+
+  const setObjectAndSubmit = () => {
+    setIsSubmitting(true);
+
+    const updatedClubToUpdate = {
+      club_ID: clubToUpdate.club_ID,
+      club_name: clubToUpdate.club_name,
+      club_major: parseInt(clubToUpdate.club_major, 10),
+      club_teacher: JSON.stringify(clubToUpdate.club_teacher),
+      club_status: parseInt(clubToUpdate.club_status, 10),
+      club_description: clubToUpdate.club_description,
+      club_image: clubToUpdate.club_image,
+      club_capacity: parseInt(clubToUpdate.club_capacity, 10),
+    };
+
+    handleClubUpdate(
+      updatedClubToUpdate,
+      setValidationErrors,
+      setIsSubmitting,
+      setIsUpdateSuccess,
+      callback
+    );
+  };
+
+  const callback = async () => {
+    await getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
+      // Change the value of the club_teacher from string into an object. //
+      const remappedClub = result.map((club: any) => {
+        const parsedTeacher = JSON.parse(club.club_teacher);
+        return { ...club, club_teacher: parsedTeacher };
+      });
+
+      // Sort in alphabetical order. //
+      const sortedResults = remappedClub.sort((a: any, b: any) => {
+        return a.club_name.localeCompare(b.club_name);
+      });
+
+      setClubs(sortedResults);
+    });
+
+    setIsSubmitting(false);
+    setIsUpdateSuccess(true);
   };
 
   return (
@@ -171,7 +219,7 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
           icon="fa-solid fa-pencil"
           isSubmitting={isSubmitting}
           onClickFunction={() => {
-            console.log(clubToUpdate);
+            setObjectAndSubmit();
           }}
         />
         {/* Success message */}

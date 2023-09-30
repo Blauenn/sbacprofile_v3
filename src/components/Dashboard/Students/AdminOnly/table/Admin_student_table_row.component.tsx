@@ -33,13 +33,13 @@ const Admin_student_table_row = (props: CurrentComponentProp) => {
         </td>
         {/* Student image */}
         <td className={`${style_table_content} | hidden lg:table-cell`}>
-          <div className="">
+          <div
+            className={`flex justify-center items-center w-[50px] h-[50px] | ${
+              MajorToBackgroundColor[student.student_major]
+            } rounded-full overflow-hidden`}>
             <img
               loading="lazy"
               src={`${CDN_ENDPOINT}${student.student_image}`}
-              className={`w-[50px] h-auto rounded-full | ${
-                MajorToBackgroundColor[student.student_major]
-              }`}
               onError={(e) => {
                 e.currentTarget.src = defaultImage;
               }}

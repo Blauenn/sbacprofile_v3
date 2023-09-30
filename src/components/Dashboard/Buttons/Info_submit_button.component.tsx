@@ -1,3 +1,5 @@
+import { hover_transition } from "../../../constants/styles/transitions.style";
+
 interface CurrentComponentProp {
   text: string;
   icon: string;
@@ -13,8 +15,10 @@ const Info_submit_button = (props: CurrentComponentProp) => {
       type="button"
       disabled={isSubmitting}
       className={`${
-        isSubmitting ? "bg-gray-500" : "bg-primary hover:bg-violet-700"
-      } text-white rounded-full px-6 py-2`}
+        isSubmitting
+          ? "border border-gray-500 bg-gray-500 text-white"
+          : "border border-primary hover:bg-primary text-primary hover:text-white"
+      }  rounded-full px-6 py-2 ${hover_transition}`}
       onClick={() => {
         onClickFunction();
       }}>

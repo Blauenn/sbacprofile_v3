@@ -51,7 +51,6 @@
     "Admin_Announcements_crud_modal_title_label": "หัวข้อ",
     "Admin_Announcements_crud_modal_description_label": "คำอธิบาย",
     "Admin_Announcements_crud_modal_file_label": "อัปโหลดรูปภาพ",
-    "Admin_Announcements_crud_modal_file_fileSizeNotice_message": "ไฟล์จะมีขนาดมากกว่า 20MB ไม่ได้",
     
     "Admin_Announcements_table_header_status": "สถานะ",
     "Admin_Announcements_table_header_title": "หัวข้อ",
@@ -212,7 +211,6 @@
     "LeaveNotices_students_create_modal_leaveChoice_option3": "อื่นๆ",
     "LeaveNotices_students_create_modal_description_label": "คำอธิบาย",
     "LeaveNotices_students_create_modal_file_label": "อัปโหลดไฟล์",
-    "LeaveNotices_students_create_modal_file_fileSizeNotice_message": "ไฟล์จะมีขนาดมากกว่า 20MB ไม่ได้",
     "LeaveNotices_students_create_modal_submit_button_title": "ส่งคำขอการลา",
     "LeaveNotices_students_create_modal_submit_success_message": "คำขอการลาถูกส่งแล้ว",
 
@@ -305,5 +303,7 @@
     "Logout_title": "ลงชื่อออก",
     "Logout_description": "คุณแน่ใจว่าจะลงชื่อออกหรือไม่",
     "Logout_confirmButton": "ลงชื่อออก",
-    "Logout_cancelButton": "ไม่"
+    "Logout_cancelButton": "ไม่",
+    
+    "fileSizeNotice_20MB": "ไฟล์จะมีขนาดมากกว่า 20MB ไม่ได้"
 }

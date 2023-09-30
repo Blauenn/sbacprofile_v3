@@ -8,12 +8,10 @@ import { getData } from "../../functions/fetchFromAPI.function";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //
-import { useContext_Account } from "../../context/Account.context";
 import { useContext_Clubs } from "../../context/Clubs.context";
 import { useContext_Teachers } from "../../context/Teachers.context";
 
 const Admin_clubs = () => {
-  const { userInfo } = useContext_Account();
   const { clubs, setClubs, clubMemberships, setClubMemberships } =
     useContext_Clubs();
   const { teachers, setTeachers } = useContext_Teachers();
@@ -69,11 +67,9 @@ const Admin_clubs = () => {
       </div>
 
       <Admin_club_table
-        fetchClubs={fetchClubs}
         clubs={clubs}
         clubMemberships={clubMemberships}
         teachers={teachers}
-        userInfo={userInfo}
       />
     </div>
   );

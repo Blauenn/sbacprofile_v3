@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Classroom } from "../../../../interfaces/common.interface";
 import Custom_Modal from "../../../custom/Custom_Modal";
+import { LevelName } from "../../../../constants/Levels.constant";
 
 interface CurrentComponentProp {
   classroom: Classroom;
@@ -24,7 +25,9 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
       icon="fa-solid fa-pencil"
       title={t("Admin_Classrooms_update_modal_header")}>
       <div className="grid grid-cols-1 gap-4">
-        <h1>TODO: Please build this</h1>
+        <h1>
+          {LevelName[classroom.classroom_level]}/{classroom.classroom_class}
+        </h1>
       </div>
     </Custom_Modal>
   );

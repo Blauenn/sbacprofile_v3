@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { Major, Teacher } from "../../../../../interfaces/common.interface";
+import { Major } from "../../../../../interfaces/common.interface";
 import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
@@ -28,7 +28,7 @@ import { useContext_Teachers } from "../../../../../context/Teachers.context";
 interface CurrentComponentProp {
   open: boolean;
   onModalClose: any;
-  teacher: Teacher;
+  teacher: any;
 }
 
 const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
@@ -49,7 +49,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
     }
   }, []);
 
-  const [teacherToUpdate, setteacherToUpdate] = useState<Teacher>({
+  const [teacherToUpdate, setteacherToUpdate] = useState({
     primary_teacher_ID: teacher.primary_teacher_ID,
     teacher_ID: teacher.teacher_ID,
     teacher_position: teacher.teacher_position,
@@ -67,7 +67,6 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
     teacher_email: teacher.teacher_email,
   });
   const [teacherUpdateImage, setteacherUpdateImage] = useState(null);
-  const [teacherUpdateImageName, setteacherUpdateImageName] = useState("");
   const [fileSizeNotice, setFileSizeNotice] = useState(false);
 
   // To store any validation errors. //
@@ -111,10 +110,22 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
       teacher_email: teacher.teacher_email,
     });
     setteacherUpdateImage(null);
-    setteacherUpdateImageName("");
     setFileSizeNotice(false);
     setImagePreview(null);
     onModalClose();
+  };
+
+  const setObjectAndSubmit = () => {
+    setIsSubmitting(true);
+
+    handleTeacherUpdate(
+      teacherToUpdate,
+      teacherUpdateImage,
+      setValidationErrors,
+      setIsSubmitting,
+      setIsUpdateSuccess,
+      callback
+    );
   };
 
   const callback = async () => {
@@ -138,78 +149,73 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           <div className="flex flex-row justify-between gap-2 w-full">
             <div className="flex justify-center mx-12">
               <label htmlFor="teacher_update_image">
-                {teacherUpdateImage ? (
-                  <>
-                    <div
-                      className={`${
-                        MajorToBackgroundColor[teacher.teacher_major]
-                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                      <img
-                        src={imagePreview || ""}
-                        className="w-full | border border-standardBlack border-opacity-25"
+                <div className="flex flex-col items-center gap-2">
+                  {teacherUpdateImage ? (
+                    <>
+                      <div
+                        className={`${
+                          MajorToBackgroundColor[teacher.teacher_major]
+                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                        <img
+                          src={imagePreview || ""}
+                          className="w-full | border border-standardBlack border-opacity-25"
+                        />
+                      </div>
+                      <input
+                        name="teacher_update_image"
+                        id="teacher_update_image"
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        hidden
+                        onChange={(event) => {
+                          handleImageChange(
+                            event,
+                            setImagePreview,
+                            setteacherUpdateImage,
+                            setFileSizeNotice
+                          );
+                        }}
                       />
-                    </div>
-                    <input
-                      name="teacher_update_image"
-                      id="teacher_update_image"
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      hidden
-                      onChange={(event) => {
-                        handleImageChange(
-                          event,
-                          setImagePreview,
-                          setteacherUpdateImage,
-                          setteacherUpdateImageName,
-                          setFileSizeNotice
-                        );
-                      }}
-                    />
-                  </>
-                ) : (
-                  // Show the current teacher image...
-                  // if image is not uploaded. //
-                  <>
-                    <div
-                      className={`${
-                        MajorToBackgroundColor[teacher.teacher_major]
-                      } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                      <img
-                        src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-                        className="w-full"
+                    </>
+                  ) : (
+                    // Show the current teacher image...
+                    // if image is not uploaded. //
+                    <>
+                      <div
+                        className={`${
+                          MajorToBackgroundColor[teacher.teacher_major]
+                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
+                        <img
+                          src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
+                          className="w-full"
+                        />
+                      </div>
+                      <input
+                        name="teacher_update_image"
+                        id="teacher_update_image"
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        hidden
+                        onChange={(event) => {
+                          handleImageChange(
+                            event,
+                            setImagePreview,
+                            setteacherUpdateImage,
+                            setFileSizeNotice
+                          );
+                        }}
                       />
-                    </div>
-                    <input
-                      name="teacher_update_image"
-                      id="teacher_update_image"
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      hidden
-                      onChange={(event) => {
-                        handleImageChange(
-                          event,
-                          setImagePreview,
-                          setteacherUpdateImage,
-                          setteacherUpdateImageName,
-                          setFileSizeNotice
-                        );
-                      }}
-                    />
-                  </>
-                )}
+                    </>
+                  )}
+                  {fileSizeNotice && (
+                    <h1 className="text-sm text-red-500 mb-2">
+                      {t("fileSizeNotice_20MB")}
+                    </h1>
+                  )}
+                </div>
               </label>
             </div>
             <div className="flex flex-col justify-center gap-4">
-              {/* Teacher ID */}
-              <TextField_text
-                label={t("Admin_Teachers_crud_modal_ID_label")}
-                name="teacher_ID"
-                className="col-span-1"
-                object={teacherToUpdate}
-                setObject={setteacherToUpdate}
-                value={teacherToUpdate.teacher_ID}
-                validation=""
-              />
               {/* Teacher position */}
               <TextField_select
                 // Disable if the user tries to demote the administrator. //
@@ -220,7 +226,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                 object={teacherToUpdate}
                 setObject={setteacherToUpdate}
                 value={teacherToUpdate.teacher_position}
-                validation="">
+                validation={validationErrors.teacher_position}>
                 <option value="0">
                   {t("Admin_Teachers_crud_modal_position_option1")}
                 </option>
@@ -236,6 +242,16 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                   </option>
                 ) : null}
               </TextField_select>
+              {/* Teacher ID */}
+              <TextField_text
+                label={t("Admin_Teachers_crud_modal_ID_label")}
+                name="teacher_ID"
+                className="col-span-1"
+                object={teacherToUpdate}
+                setObject={setteacherToUpdate}
+                value={teacherToUpdate.teacher_ID}
+                validation={validationErrors.teacher_ID}
+              />
             </div>
           </div>
         </div>
@@ -247,7 +263,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           object={teacherToUpdate}
           setObject={setteacherToUpdate}
           value={teacherToUpdate.teacher_major}
-          validation="">
+          validation={validationErrors.teacher_major}>
           <option value="0">Major</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
@@ -269,7 +285,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           object={teacherToUpdate}
           setObject={setteacherToUpdate}
           value={teacherToUpdate.teacher_gender}
-          validation="">
+          validation={validationErrors.teacher_gender}>
           <option value="0">
             {t("Admin_Teachers_crud_modal_gender_option1")}
           </option>
@@ -292,7 +308,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_first_name}
-            validation=""
+            validation={validationErrors.teacher_first_name}
           />
           {/* Teacher English last name */}
           <TextField_text
@@ -302,7 +318,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_last_name}
-            validation=""
+            validation={validationErrors.teacher_last_name}
           />
         </div>
         <div className="col-span-1 grid grid-cols-2 gap-4">
@@ -314,7 +330,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_first_name_thai}
-            validation=""
+            validation={validationErrors.teacher_first_name_thai}
           />
           {/* Teacher Thai last name */}
           <TextField_text
@@ -324,7 +340,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_last_name_thai}
-            validation=""
+            validation={validationErrors.teacher_last_name_thai}
           />
         </div>
         <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
@@ -336,7 +352,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_nickname}
-            validation=""
+            validation={validationErrors.teacher_nickname}
           />
           {/* Teacher Thai nickname */}
           <TextField_text
@@ -346,7 +362,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_nickname_thai}
-            validation=""
+            validation={validationErrors.teacher_nickname_thai}
           />
         </div>
         {/* Teacher email */}
@@ -357,7 +373,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           object={teacherToUpdate}
           setObject={setteacherToUpdate}
           value={teacherToUpdate.teacher_email}
-          validation=""
+          validation={validationErrors.teacher_email}
         />
         <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
           {/* Teacher phone */}
@@ -368,7 +384,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_phone}
-            validation=""
+            validation={validationErrors.teacher_phone}
           />
           {/* Teacher Line ID */}
           <TextField_text
@@ -378,7 +394,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             object={teacherToUpdate}
             setObject={setteacherToUpdate}
             value={teacherToUpdate.teacher_line_ID}
-            validation=""
+            validation={validationErrors.teacher_line_ID}
           />
         </div>
         <Info_submit_button
@@ -386,15 +402,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           icon="fa-solid fa-pencil"
           isSubmitting={isSubmitting}
           onClickFunction={() => {
-            setIsSubmitting(true);
-            handleTeacherUpdate(
-              teacherToUpdate,
-              teacherUpdateImage,
-              setValidationErrors,
-              setIsSubmitting,
-              setIsUpdateSuccess,
-              callback
-            );
+            setObjectAndSubmit();
           }}
         />
         {/* Success message */}

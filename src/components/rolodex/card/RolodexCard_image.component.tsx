@@ -10,11 +10,10 @@ const RolodexCard_image = (props: CurrentComponentProp) => {
   const { image, majorColor } = props;
 
   return (
-    <div className={`w-[120px] h-[120px] ${majorColor} rounded-full overflow-hidden mb-4`}>
+    <div className={`flex justify-center items-center w-[120px] h-[120px] ${majorColor} rounded-full overflow-hidden mb-4`}>
       <img
         src={`${CDN_ENDPOINT}${image}`}
         loading="lazy"
-        className="rounded-full w-full h-auto mb-1"
         onError={(e) => {
           e.currentTarget.src = defaultImage;
         }}

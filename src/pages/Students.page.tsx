@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
-import { hasNumber } from "../functions/stringChecks.function";
+import { hasNumber } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import StudentRolodex from "../components/Students/StudentRolodex.component";
 import StudentFilters from "../components/Students/StudentFilters.component";

@@ -51,7 +51,6 @@
     "Admin_Announcements_crud_modal_title_label": "제목",
     "Admin_Announcements_crud_modal_description_label": "설명",
     "Admin_Announcements_crud_modal_file_label": "이미지 업로드",
-    "Admin_Announcements_crud_modal_file_fileSizeNotice_message": "파일은 20MB를 초과할 수 없습니다.",
     
     "Admin_Announcements_table_header_status": "상태",
     "Admin_Announcements_table_header_title": "제목",
@@ -212,7 +211,6 @@
     "LeaveNotices_students_create_modal_leaveChoice_option3": "기타",
     "LeaveNotices_students_create_modal_description_label": "설명",
     "LeaveNotices_students_create_modal_file_label": "파일을 올리다",
-    "LeaveNotices_students_create_modal_file_fileSizeNotice_message": "파일은 20MB를 초과할 수 없습니다.",
     "LeaveNotices_students_create_modal_submit_button_title": "휴가 통지서 제출",
     "LeaveNotices_students_create_modal_submit_success_message": "휴직신고가 제출되었습니다.",
     
@@ -305,5 +303,7 @@
     "Logout_title": "로그 아웃",
     "Logout_description": "정말로 로그아웃하시겠습니까?",
     "Logout_confirmButton": "로그 아웃",
-    "Logout_cancelButton": "아니요"
+    "Logout_cancelButton": "아니요",
+
+    "fileSizeNotice_20MB": "파일은 20MB를 초과할 수 없습니다."
 }

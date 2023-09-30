@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
-import { Modal, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
+import Custom_Modal from "../../custom/Custom_Modal";
 import {
   Club,
   ClubMembership,
@@ -18,7 +18,6 @@ import {
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
 import { studentAccessOnly } from "../../../functions/permissionChecks.function";
-import ModalCloseButton from "../../misc/common/ModalCloseButton.component";
 import {
   MajorName,
   MajorToBackgroundColor,
@@ -26,8 +25,6 @@ import {
 } from "../../../constants/Majors.constant";
 import { defaultImage } from "../../../constants/Misc.constant";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
-import { style_modal_parent } from "../../../constants/styles/modal.style";
-import Custom_Modal from "../../custom/Custom_Modal";
 
 interface CurrentComponentProp {
   club: Club;

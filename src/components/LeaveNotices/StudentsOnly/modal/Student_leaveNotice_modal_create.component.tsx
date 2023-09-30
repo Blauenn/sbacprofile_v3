@@ -13,7 +13,6 @@ import Custom_Modal from "../../../custom/Custom_Modal.tsx";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import {
   handleFileInputChange,
-  handleInputChange,
 } from "../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../functions/fetchFromAPI.function";
 import { handleLeaveNoticeSubmit } from "../../../../functions/LeaveNotice/LeaveNotice.function.tsx";

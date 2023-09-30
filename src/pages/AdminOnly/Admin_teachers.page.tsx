@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Teacher } from "../../interfaces/common.interface";
-import { hasNumber } from "../../functions/stringChecks.function";
+import { hasNumber } from "../../functions/stringManipulation.function";
 import { getData } from "../../functions/fetchFromAPI.function";
 import TeacherFilters from "../../components/Teachers/TeacherFilters.component";
 import Admin_teacher_table from "../../components/Dashboard/Teachers/AdminOnly/table/Admin_teacher_table.component";

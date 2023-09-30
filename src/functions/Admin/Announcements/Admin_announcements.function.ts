@@ -3,6 +3,18 @@ import dayjs from "dayjs";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 import { Announcement } from "../../../interfaces/common.interface";
 
+export const get_announcement_status_text = (status: number | undefined) => {
+  let status_text;
+
+  if (status === 1) {
+    status_text = "Shown";
+  } else {
+    status_text = "Hidden";
+  }
+
+  return status_text;
+};
+
 export const handleAnnouncementCreate = async (
   announcementCreateObject: any,
   announcementImage: any,
@@ -164,13 +176,13 @@ export const handleAnnouncementUpdate = async (
       announcement_description:
         announcementUpdateObject.announcement_description,
       announcement_image: `/assets/files/announcements/${announcementImageName}`,
-      announcement_create_datetime: announcementUpdateObject.announcement_create_datetime,
+      announcement_create_datetime:
+        announcementUpdateObject.announcement_create_datetime,
     },
   };
   const announcementUpdateObjectJSON = JSON.stringify(
     announcementUpdateObjectToPost
   );
-  console.log(announcementUpdateObjectJSON)
 
   // Announcement image. //
   const announcementUpdateImage = new FormData();
