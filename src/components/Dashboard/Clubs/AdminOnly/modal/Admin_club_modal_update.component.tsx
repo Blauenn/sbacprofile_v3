@@ -38,7 +38,7 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
 
   const { t } = useTranslation();
 
-  const [clubToUpdate, setClubToUpdate] = useState({
+  const [clubUpdateObject, setClubUpdateObject] = useState({
     club_ID: club.club_ID,
     club_name: club.club_name,
     club_major: club.club_major,
@@ -74,6 +74,28 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
   }, []);
 
   const handleModalClose = () => {
+    setClubUpdateObject({
+      club_ID: club.club_ID,
+      club_name: club.club_name,
+      club_major: club.club_major,
+      club_teacher: club.club_teacher,
+      club_status: club.club_status,
+      club_description: club.club_description,
+      club_image: club.club_image,
+      club_capacity: club.club_capacity,
+    });
+    setValidationErrors({
+      club_ID: "",
+      club_name: "",
+      club_major: "",
+      club_teacher: "",
+      club_status: "",
+      club_description: "",
+      club_image: "",
+      club_capacity: "",
+    });
+    setIsSubmitting(false);
+    setIsUpdateSuccess(false);
     onModalClose();
   };
 
@@ -81,14 +103,14 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
     setIsSubmitting(true);
 
     const updatedClubToUpdate = {
-      club_ID: clubToUpdate.club_ID,
-      club_name: clubToUpdate.club_name,
-      club_major: parseInt(clubToUpdate.club_major, 10),
-      club_teacher: JSON.stringify(clubToUpdate.club_teacher),
-      club_status: parseInt(clubToUpdate.club_status, 10),
-      club_description: clubToUpdate.club_description,
-      club_image: clubToUpdate.club_image,
-      club_capacity: parseInt(clubToUpdate.club_capacity, 10),
+      club_ID: clubUpdateObject.club_ID,
+      club_name: clubUpdateObject.club_name,
+      club_major: parseInt(clubUpdateObject.club_major, 10),
+      club_teacher: JSON.stringify(clubUpdateObject.club_teacher),
+      club_status: parseInt(clubUpdateObject.club_status, 10),
+      club_description: clubUpdateObject.club_description,
+      club_image: clubUpdateObject.club_image,
+      club_capacity: parseInt(clubUpdateObject.club_capacity, 10),
     };
 
     handleClubUpdate(
@@ -132,9 +154,9 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Clubs_crud_modal_name_label")}
           name="club_name"
           className="col-span-1"
-          object={clubToUpdate}
-          setObject={setClubToUpdate}
-          value={clubToUpdate.club_name}
+          object={clubUpdateObject}
+          setObject={setClubUpdateObject}
+          value={clubUpdateObject.club_name}
           validation={validationErrors.club_name}
         />
         <div className="grid grid-cols-2 gap-4">
@@ -143,9 +165,9 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Clubs_crud_modal_major_label")}
             name="club_major"
             className="col-span-1"
-            object={clubToUpdate}
-            setObject={setClubToUpdate}
-            value={clubToUpdate.club_major}
+            object={clubUpdateObject}
+            setObject={setClubUpdateObject}
+            value={clubUpdateObject.club_major}
             validation={validationErrors.club_major}>
             <option value="0">
               {t("Admin_Clubs_crud_modal_major_option1")}
@@ -167,9 +189,9 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Clubs_crud_modal_capacity_label")}
             name="club_capacity"
             className="col-span-1"
-            object={clubToUpdate}
-            setObject={setClubToUpdate}
-            value={clubToUpdate.club_capacity}
+            object={clubUpdateObject}
+            setObject={setClubUpdateObject}
+            value={clubUpdateObject.club_capacity}
             validation={validationErrors.club_capacity}
           />
         </div>
@@ -178,9 +200,9 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Clubs_crud_modal_status_label")}
           name="club_status"
           className="col-span-1"
-          object={clubToUpdate}
-          setObject={setClubToUpdate}
-          value={clubToUpdate.club_status}
+          object={clubUpdateObject}
+          setObject={setClubUpdateObject}
+          value={clubUpdateObject.club_status}
           validation={validationErrors.club_status}>
           <option value="0">
             {t("Admin_Clubs_crud_modal_status_option1")}
@@ -201,9 +223,9 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
           name="club_description"
           className="col-span-1"
           maxRows={4}
-          object={clubToUpdate}
-          setObject={setClubToUpdate}
-          value={clubToUpdate.club_description}
+          object={clubUpdateObject}
+          setObject={setClubUpdateObject}
+          value={clubUpdateObject.club_description}
           validation={validationErrors.club_description}
         />
         {/* Club teachers */}

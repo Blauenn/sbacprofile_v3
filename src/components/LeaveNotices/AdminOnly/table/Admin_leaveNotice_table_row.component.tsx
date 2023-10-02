@@ -126,6 +126,7 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
           <div className="flex gap-x-2">
             {/* View info button */}
             <Admin_leaveNotice_modal
+              leaveNotice={leaveNotice}
               open={modalOpen}
               onModalClose={onModalClose}
             />

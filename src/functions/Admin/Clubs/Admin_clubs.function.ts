@@ -1,16 +1,11 @@
 import { z } from "zod";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
-export const handleClubUpdate = async (
-  clubToUpdate: any,
+const validateClubObject = (
+  clubObject: any,
   setValidationErrors: any,
-  setIsSubmitting: any,
-  setIsUpdateSuccess: any,
-  callback: any
+  setIsSubmitting: any
 ) => {
-  // Disable the submit button. //
-  setIsSubmitting(true);
-
   const ClubSchema = z.object({
     club_ID: z.number(),
     club_name: z.string().nonempty(),
@@ -34,7 +29,7 @@ export const handleClubUpdate = async (
   };
 
   // Perform validation. //
-  const validationResult = ClubSchema.safeParse(clubToUpdate);
+  const validationResult = ClubSchema.safeParse(clubObject);
 
   // If validation fails. //
   if (!validationResult.success) {
@@ -75,45 +70,65 @@ export const handleClubUpdate = async (
     });
     setValidationErrors(validationErrors);
     setIsSubmitting(false);
-    return;
+    return false;
   } else {
     setValidationErrors(validationErrors);
+    return true;
   }
+};
+
+export const handleClubUpdate = async (
+  clubToUpdate: any,
+  setValidationErrors: any,
+  setIsSubmitting: any,
+  setIsUpdateSuccess: any,
+  callback: any
+) => {
+  // Disable the submit button. //
+  setIsSubmitting(true);
+
+  const validation = validateClubObject(
+    clubToUpdate,
+    setValidationErrors,
+    setIsSubmitting
+  );
 
   // If validation passes. //
-  // Update the club. //
-  const clubToUpdateObject = {
-    id: clubToUpdate.club_ID,
-    clubInfo: {
-      club_name: clubToUpdate.club_name,
-      club_major: clubToUpdate.club_major,
-      club_teacher: clubToUpdate.club_teacher,
-      club_description: clubToUpdate.club_description,
-      club_status: clubToUpdate.club_status,
-      club_capacity: clubToUpdate.club_capacity,
-    },
-  };
-  const clubUpdateJSON = JSON.stringify(clubToUpdateObject);
+  if (validation) {
+    // Update the club. //
+    const clubToUpdateObject = {
+      id: clubToUpdate.club_ID,
+      clubInfo: {
+        club_name: clubToUpdate.club_name,
+        club_major: clubToUpdate.club_major,
+        club_teacher: clubToUpdate.club_teacher,
+        club_description: clubToUpdate.club_description,
+        club_status: clubToUpdate.club_status,
+        club_capacity: clubToUpdate.club_capacity,
+      },
+    };
+    const clubUpdateJSON = JSON.stringify(clubToUpdateObject);
 
-  // Update the club information. //
-  try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/club/update`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: clubUpdateJSON,
-    });
+    // Update the club information. //
+    try {
+      const response = await fetch(`${API_ENDPOINT}/api/v1/club/update`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: clubUpdateJSON,
+      });
 
-    if (response.ok) {
-      setIsUpdateSuccess(true);
-      callback();
-    } else {
-      console.log("Error:", response.status, response.statusText);
+      if (response.ok) {
+        setIsUpdateSuccess(true);
+        callback();
+      } else {
+        console.log("Error:", response.status, response.statusText);
+        setIsUpdateSuccess(false);
+      }
+    } catch (error) {
       setIsUpdateSuccess(false);
     }
-  } catch (error) {
-    setIsUpdateSuccess(false);
-  }
 
-  setIsSubmitting(false);
-  callback();
+    setIsSubmitting(false);
+    callback();
+  }
 };

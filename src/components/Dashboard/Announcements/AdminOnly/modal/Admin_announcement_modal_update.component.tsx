@@ -11,7 +11,6 @@ import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleAnnouncementUpdate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_success_message from "../../../Buttons/Info_success_message.component";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
@@ -30,7 +29,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
 
   const { t } = useTranslation();
 
-  const [announcementUpdateObject, setAnnouncementsUpdateObject] = useState({
+  const [announcementUpdateObject, setAnnouncementUpdateObject] = useState({
     announcement_ID: announcement.announcement_ID,
     announcement_status: announcement.announcement_status,
     announcement_title: announcement.announcement_title,
@@ -64,13 +63,21 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
   };
 
   const handleModalClose = () => {
-    setAnnouncementsUpdateObject({
+    setAnnouncementUpdateObject({
       announcement_ID: announcement.announcement_ID,
       announcement_status: announcement.announcement_status,
       announcement_title: announcement.announcement_title,
       announcement_description: announcement.announcement_description,
       announcement_create_datetime: announcement.announcement_create_datetime,
       announcement_image: announcement.announcement_image,
+    });
+    setValidationErrors({
+      announcement_ID: "",
+      announcement_status: "",
+      announcement_title: "",
+      announcement_description: "",
+      announcement_create_datetime: "",
+      announcement_image: "",
     });
     setAnnouncementImagePreview("");
     setAnnouncementImage(null);
@@ -89,20 +96,6 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
   const setObjectAndSubmit = () => {
     setIsSubmitting(true);
 
-    const updatedAnnouncementToUpdate = {
-      announcement_ID: announcementUpdateObject.announcement_ID,
-      announcement_status: parseInt(
-        announcementUpdateObject.announcement_status,
-        10
-      ),
-      announcement_title: announcementUpdateObject.announcement_title,
-      announcement_description:
-        announcementUpdateObject.announcement_description,
-      announcement_create_datetime:
-        announcementUpdateObject.announcement_create_datetime,
-      announcement_image: announcementUpdateObject.announcement_image,
-    };
-
     // Check if the image is updated or not. //
     let imageNameToUpdate;
 
@@ -113,7 +106,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
     }
 
     handleAnnouncementUpdate(
-      updatedAnnouncementToUpdate,
+      announcementUpdateObject,
       announcementImage,
       imageNameToUpdate,
       setValidationErrors,
@@ -142,6 +135,9 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
       onModalClose={handleModalClose}
       icon="fa-solid fa-pencil"
       title={t("Admin_Announcements_update_modal_header")}
+      altIcon="fa-solid fa-circle-check text-green-500"
+      altTitle={t("Admin_Announcements_update_modal_submit_success_message")}
+      useAltTitle={isUpdateSuccess}
       overflow>
       <div className="grid grid-cols-1 gap-4">
         {/* Announcement image */}
@@ -245,7 +241,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
           name="announcement_status"
           className="col-span-1"
           object={announcementUpdateObject}
-          setObject={setAnnouncementsUpdateObject}
+          setObject={setAnnouncementUpdateObject}
           value={announcementUpdateObject.announcement_status}
           validation={validationErrors.announcement_status}>
           <option value="1">
@@ -261,7 +257,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
           name="announcement_title"
           className="col-span-1"
           object={announcementUpdateObject}
-          setObject={setAnnouncementsUpdateObject}
+          setObject={setAnnouncementUpdateObject}
           value={announcementUpdateObject.announcement_title}
           validation={validationErrors.announcement_title}
         />
@@ -272,7 +268,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
           className="col-span-1"
           maxRows={4}
           object={announcementUpdateObject}
-          setObject={setAnnouncementsUpdateObject}
+          setObject={setAnnouncementUpdateObject}
           value={announcementUpdateObject.announcement_description}
           validation={validationErrors.announcement_description}
         />
@@ -284,11 +280,6 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
           onClickFunction={() => {
             setObjectAndSubmit();
           }}
-        />
-        {/* Success message */}
-        <Info_success_message
-          message={t("Admin_Announcements_update_modal_submit_success_message")}
-          isSuccess={isUpdateSuccess}
         />
       </div>
     </Custom_Modal>

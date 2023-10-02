@@ -46,7 +46,7 @@ const Admin_announcement_table_row = (props: CurrentComponentProp) => {
           {announcement.announcement_title}
         </td>
         {/* Announcement description */}
-        <td className={`${style_table_content} max-w-1/5`}>
+        <td className={`${style_table_content} max-w-1/5 | hidden sm:table-cell`}>
           <h1 className="line-clamp-2">
             {announcement.announcement_description}
           </h1>

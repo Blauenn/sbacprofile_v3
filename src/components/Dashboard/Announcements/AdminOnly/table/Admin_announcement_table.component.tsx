@@ -39,7 +39,7 @@ const Admin_announcement_table = (props: CurrentComponentProp) => {
             <th className={`${style_table_header}`}>
               {t("Admin_Announcements_table_header_title")}
             </th>
-            <th className={`${style_table_header}`}>
+            <th className={`${style_table_header} | hidden sm:table-cell`}>
               {t("Admin_Announcements_table_header_description")}
             </th>
             <th className={`${style_table_header} | hidden md:table-cell`}>
@@ -79,7 +79,7 @@ const Admin_announcement_table = (props: CurrentComponentProp) => {
                 <th className={`${style_table_header}`}>
                   {t("Admin_Announcements_table_header_title")}
                 </th>
-                <th className={`${style_table_header}`}>
+                <th className={`${style_table_header} | hidden sm:table-cell`}>
                   {t("Admin_Announcements_table_header_description")}
                 </th>
                 <th className={`${style_table_header} | hidden md:table-cell`}>

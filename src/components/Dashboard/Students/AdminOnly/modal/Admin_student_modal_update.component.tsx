@@ -1,38 +1,36 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import {
+  TextField_select,
+  TextField_text,
+} from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
+import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
 import { Major } from "../../../../../interfaces/common.interface";
-import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
 import { handleStudentUpdate } from "../../../../../functions/Admin/Students/Admin_students.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import Info_success_message from "../../../Buttons/Info_success_message.component";
 import {
   MajorName,
   MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
-  MajorToBackgroundColor,
 } from "../../../../../constants/Majors.constant";
-import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
-import {
-  TextField_select,
-  TextField_text,
-} from "../../../../custom/Custom_TextFields";
+import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Students } from "../../../../../context/Students.context";
 
 interface CurrentComponentProp {
+  student: any;
   open: boolean;
   onModalClose: any;
-  student: any;
 }
 
 const Admin_student_modal_update = (props: CurrentComponentProp) => {
-  const { open, onModalClose, student } = props;
+  const { student, open, onModalClose } = props;
 
   const { setStudents } = useContext_Students();
   const { majors, setMajors } = useContext_Majors();
@@ -41,7 +39,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
 
   useEffect(() => {
     // Majors //
-    // Only fetch when empty //
     if (majors.length === 0) {
       getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
         setMajors(result);
@@ -49,7 +46,7 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
     }
   }, []);
 
-  const [studentToUpdate, setStudentToUpdate] = useState({
+  const [studentUpdateObject, setStudentUpdateObject] = useState({
     primary_student_ID: student.primary_student_ID,
     student_ID: student.student_ID,
     student_position: student.student_position,
@@ -68,10 +65,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
     student_image: student.student_image,
     student_email: student.student_email,
   });
-  const [studentUpdateImage, setStudentUpdateImage] = useState(null);
-  const [fileSizeNotice, setFileSizeNotice] = useState(false);
-
-  // To store any validation errors. //
   const [validationErrors, setValidationErrors] = useState({
     student_ID: "",
     student_position: "",
@@ -89,14 +82,16 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
     student_line_ID: "",
     student_email: "",
   });
+  const [studentUpdateImage, setStudentUpdateImage] = useState(null);
 
   const [imagePreview, setImagePreview] = useState(null);
+  const [fileSizeNotice, setFileSizeNotice] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
   const handleModalClose = () => {
-    setStudentToUpdate({
+    setStudentUpdateObject({
       primary_student_ID: student.primary_student_ID,
       student_ID: student.student_ID,
       student_position: student.student_position,
@@ -115,52 +110,54 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
       student_image: student.student_image,
       student_email: student.student_email,
     });
+    setValidationErrors({
+      student_ID: "",
+      student_position: "",
+      student_first_name: "",
+      student_last_name: "",
+      student_nickname: "",
+      student_first_name_thai: "",
+      student_last_name_thai: "",
+      student_nickname_thai: "",
+      student_gender: "",
+      student_major: "",
+      student_level: "",
+      student_class: "",
+      student_phone: "",
+      student_line_ID: "",
+      student_email: "",
+    });
     setStudentUpdateImage(null);
-    setFileSizeNotice(false);
+
     setImagePreview(null);
+    setFileSizeNotice(false);
+
+    setIsSubmitting(false);
+    setIsUpdateSuccess(false);
+
     onModalClose();
   };
 
-  const setObjectAndSubmit = () => {
+  const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
-    const updatedStudentToUpdate = {
-      primary_student_ID: studentToUpdate.primary_student_ID,
-      student_ID: parseInt(studentToUpdate.student_ID, 10),
-      student_position: parseInt(studentToUpdate.student_position, 10),
-      student_first_name: studentToUpdate.student_first_name,
-      student_last_name: studentToUpdate.student_last_name,
-      student_nickname: studentToUpdate.student_nickname,
-      student_first_name_thai: studentToUpdate.student_first_name_thai,
-      student_last_name_thai: studentToUpdate.student_last_name_thai,
-      student_nickname_thai: studentToUpdate.student_nickname_thai,
-      student_major: parseInt(studentToUpdate.student_major, 10),
-      student_gender: parseInt(studentToUpdate.student_gender, 10),
-      student_level: parseInt(studentToUpdate.student_level, 10),
-      student_class: studentToUpdate.student_class,
-      student_phone: studentToUpdate.student_phone,
-      student_line_ID: studentToUpdate.student_line_ID,
-      student_image: studentToUpdate.student_image,
-      student_email: studentToUpdate.student_email,
-    };
-
-    handleStudentUpdate(
-      updatedStudentToUpdate,
+    const submissionStatus = await handleStudentUpdate(
+      studentUpdateObject,
       studentUpdateImage,
-      setValidationErrors,
-      setIsSubmitting,
-      setIsUpdateSuccess,
-      callback
+      setValidationErrors
     );
-  };
 
-  const callback = async () => {
-    await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-      setStudents(result);
-    });
-
-    setIsSubmitting(false);
-    setIsUpdateSuccess(true);
+    if (submissionStatus) {
+      await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
+        setStudents(result);
+      });
+      
+      setIsSubmitting(false);
+      setIsUpdateSuccess(true);
+    } else {
+      setIsSubmitting(false);
+      setIsUpdateSuccess(false);
+    }
   };
 
   return (
@@ -169,70 +166,26 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
       onModalClose={handleModalClose}
       icon="fa-solid fa-pencil"
       title={t("Admin_Students_update_modal_header")}
+      altIcon="fa-solid fa-circle-check text-green-500"
+      altTitle={t("Admin_Students_update_modal_submit_success_message")}
+      useAltTitle={isUpdateSuccess}
       overflow={true}>
       <div className="grid grid-cols-1 gap-4">
         <div className="col-span-1 mb-4">
-          <div className="flex flex-row justify-between gap-2 w-full">
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-2 w-full">
             <div className="flex justify-center mx-12">
               <label htmlFor="student_update_image">
                 <div className="flex flex-col items-center gap-2">
-                  {studentUpdateImage ? (
-                    <>
-                      <div
-                        className={`${
-                          MajorToBackgroundColor[student.student_major]
-                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                        <img
-                          src={imagePreview || ""}
-                          className="w-full | border border-standardBlack border-opacity-25"
-                        />
-                      </div>
-                      <input
-                        name="student_update_image"
-                        id="student_update_image"
-                        type="file"
-                        accept=".jpg, .jpeg, .png"
-                        hidden
-                        onChange={(event) => {
-                          handleImageChange(
-                            event,
-                            setImagePreview,
-                            setStudentUpdateImage,
-                            setFileSizeNotice
-                          );
-                        }}
-                      />
-                    </>
-                  ) : (
-                    // Show the current student image...
-                    // if image is not uploaded. //
-                    <>
-                      <div
-                        className={`${
-                          MajorToBackgroundColor[student.student_major]
-                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                        <img
-                          src={`${CDN_ENDPOINT}${student.student_image}`}
-                          className="w-full"
-                        />
-                      </div>
-                      <input
-                        name="student_update_image"
-                        id="student_update_image"
-                        type="file"
-                        accept=".jpg, .jpeg, .png"
-                        hidden
-                        onChange={(event) => {
-                          handleImageChange(
-                            event,
-                            setImagePreview,
-                            setStudentUpdateImage,
-                            setFileSizeNotice
-                          );
-                        }}
-                      />
-                    </>
-                  )}
+                  <ImageField_profile
+                    imageObject={studentUpdateImage}
+                    fieldName="student_update_image"
+                    profile_image={student.student_image}
+                    profile_major={student.student_major}
+                    imagePreview={imagePreview || ""}
+                    setImagePreview={setImagePreview}
+                    setImage={setStudentUpdateImage}
+                    setFileSizeNotice={setFileSizeNotice}
+                  />
                   {fileSizeNotice && (
                     <h1 className="text-sm text-red-500 mb-2">
                       {t("fileSizeNotice_20MB")}
@@ -247,9 +200,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                 label={t("Admin_Students_crud_modal_position_label")}
                 name="student_position"
                 className="col-span-1"
-                object={studentToUpdate}
-                setObject={setStudentToUpdate}
-                value={studentToUpdate.student_position}
+                object={studentUpdateObject}
+                setObject={setStudentUpdateObject}
+                value={studentUpdateObject.student_position}
                 validation={validationErrors.student_position}>
                 <option value="0">
                   {t("Admin_Students_crud_modal_position_option1")}
@@ -266,9 +219,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
                 label={t("Admin_Students_crud_modal_ID_label")}
                 name="student_ID"
                 className="col-span-1"
-                object={studentToUpdate}
-                setObject={setStudentToUpdate}
-                value={studentToUpdate.student_ID}
+                object={studentUpdateObject}
+                setObject={setStudentUpdateObject}
+                value={studentUpdateObject.student_ID}
                 validation={validationErrors.student_ID}
               />
             </div>
@@ -279,9 +232,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Students_crud_modal_major_label")}
           name="student_major"
           className="col-span-1"
-          object={studentToUpdate}
-          setObject={setStudentToUpdate}
-          value={studentToUpdate.student_major}
+          object={studentUpdateObject}
+          setObject={setStudentUpdateObject}
+          value={studentUpdateObject.student_major}
           validation={validationErrors.student_major}>
           <option value="0">Major</option>
           {majors.map((major: Major) => (
@@ -302,9 +255,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_level_label")}
             name="student_level"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_level}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_level}
             validation={validationErrors.student_level}>
             <option value="0">
               {t("Admin_Students_crud_modal_level_option1")}
@@ -330,9 +283,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_class_label")}
             name="student_class"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_class}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_class}
             validation={validationErrors.student_class}
           />
         </div>
@@ -341,9 +294,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Students_crud_modal_gender_label")}
           name="student_gender"
           className="col-span-1"
-          object={studentToUpdate}
-          setObject={setStudentToUpdate}
-          value={studentToUpdate.student_gender}
+          object={studentUpdateObject}
+          setObject={setStudentUpdateObject}
+          value={studentUpdateObject.student_gender}
           validation={validationErrors.student_gender}>
           <option value="0">
             {t("Admin_Students_crud_modal_gender_option1")}
@@ -364,9 +317,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_firstName_label")}
             name="student_first_name"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_first_name}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_first_name}
             validation={validationErrors.student_first_name}
           />
           {/* Student English last name */}
@@ -374,9 +327,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_lastName_label")}
             name="student_last_name"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_last_name}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_last_name}
             validation={validationErrors.student_last_name}
           />
         </div>
@@ -386,9 +339,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_firstNameThai_label")}
             name="student_first_name_thai"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_first_name_thai}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_first_name_thai}
             validation={validationErrors.student_first_name_thai}
           />
           {/* Student Thai last name */}
@@ -396,9 +349,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_lastNameThai_label")}
             name="student_last_name_thai"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_last_name_thai}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_last_name_thai}
             validation={validationErrors.student_last_name_thai}
           />
         </div>
@@ -408,9 +361,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_nickname_label")}
             name="student_nickname"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_nickname}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_nickname}
             validation={validationErrors.student_nickname}
           />
           {/* Student Thai nickname */}
@@ -418,9 +371,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_nicknameThai_label")}
             name="student_nickname_thai"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_nickname_thai}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_nickname_thai}
             validation={validationErrors.student_nickname_thai}
           />
         </div>
@@ -429,9 +382,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Students_crud_modal_email_label")}
           name="student_email"
           className="col-span-1"
-          object={studentToUpdate}
-          setObject={setStudentToUpdate}
-          value={studentToUpdate.student_email}
+          object={studentUpdateObject}
+          setObject={setStudentUpdateObject}
+          value={studentUpdateObject.student_email}
           validation={validationErrors.student_email}
         />
         <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
@@ -440,9 +393,9 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_phone_label")}
             name="student_phone"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_phone}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_phone}
             validation={validationErrors.student_phone}
           />
           {/* Student Line ID */}
@@ -450,12 +403,13 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Students_crud_modal_lineID_label")}
             name="student_line_ID"
             className="col-span-1"
-            object={studentToUpdate}
-            setObject={setStudentToUpdate}
-            value={studentToUpdate.student_line_ID}
+            object={studentUpdateObject}
+            setObject={setStudentUpdateObject}
+            value={studentUpdateObject.student_line_ID}
             validation={validationErrors.student_line_ID}
           />
         </div>
+        {/* Submit button */}
         <Info_submit_button
           text={t("Admin_Students_update_modal_submit_button_title")}
           icon="fa-solid fa-pencil"
@@ -463,11 +417,6 @@ const Admin_student_modal_update = (props: CurrentComponentProp) => {
           onClickFunction={() => {
             setObjectAndSubmit();
           }}
-        />
-        {/* Success message */}
-        <Info_success_message
-          message={t("Admin_Students_update_modal_submit_success_message")}
-          isSuccess={isUpdateSuccess}
         />
       </div>
     </Custom_Modal>

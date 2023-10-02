@@ -11,7 +11,6 @@ import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
-import Info_success_message from "../../../Buttons/Info_success_message.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
@@ -108,6 +107,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       onModalClose={handleModalClose}
       icon="fa-solid fa-plus"
       title={t("Admin_Announcements_create_modal_header")}
+      altIcon="fa-solid fa-circle-check text-green-500"
+      altTitle={t("Admin_Announcements_create_modal_submit_success_message")}
+      useAltTitle={isCreateSuccess}
       overflow>
       <div className="grid grid-cols-1 gap-4">
         {/* Announcement image */}
@@ -203,11 +205,6 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
           icon="fa-solid fa-bullhorn"
           isSubmitting={isSubmitting}
           onClickFunction={setObjectAndSubmit}
-        />
-        {/* Success message */}
-        <Info_success_message
-          message={t("Admin_Announcements_create_modal_submit_success_message")}
-          isSuccess={isCreateSuccess}
         />
       </div>
     </Custom_Modal>

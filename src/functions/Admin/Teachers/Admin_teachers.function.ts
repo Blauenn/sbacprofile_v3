@@ -1,40 +1,17 @@
 import { z } from "zod";
+import { capitalizeFirstLetter } from "../../stringManipulation.function";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
-export const handleTeacherUpdate = async (
-  teacherToUpdate: any,
-  teacherUpdateImage: any,
+const englishAlphabetRegex = /^[A-Za-z]+$/; // English alphabets only //
+const thaiAlphabetRegex = /^[ก-๏\s]+$/; // Thai alphabets only //
+const emailRegex = /\S+@\S+\.\S+/; // Email regex //
+const numberRegex = /^\d+$/; // Numbers only //
+
+const validateTeacherObject = (
+  teacherObject: any,
   setValidationErrors: any,
-  setIsSubmitting: any,
-  setIsUpdateSuccess: any,
-  callback: any
+  teacherImage?: any
 ) => {
-  // Disable the submit button. //
-  setIsSubmitting(true);
-
-  const updatedTeacherToUpdate = {
-    primary_teacher_ID: teacherToUpdate.primary_teacher_ID,
-    teacher_ID: parseInt(teacherToUpdate.teacher_ID, 10),
-    teacher_position: parseInt(teacherToUpdate.teacher_position, 10),
-    teacher_first_name: teacherToUpdate.teacher_first_name,
-    teacher_last_name: teacherToUpdate.teacher_last_name,
-    teacher_nickname: teacherToUpdate.teacher_nickname,
-    teacher_first_name_thai: teacherToUpdate.teacher_first_name_thai,
-    teacher_last_name_thai: teacherToUpdate.teacher_last_name_thai,
-    teacher_nickname_thai: teacherToUpdate.teacher_nickname_thai,
-    teacher_major: parseInt(teacherToUpdate.teacher_major, 10),
-    teacher_gender: parseInt(teacherToUpdate.teacher_gender, 10),
-    teacher_phone: teacherToUpdate.teacher_phone,
-    teacher_line_ID: teacherToUpdate.teacher_line_ID,
-    teacher_image: teacherToUpdate.teacher_image,
-    teacher_email: teacherToUpdate.teacher_email,
-  };
-
-  const englishAlphabetRegex = /^[A-Za-z]+$/; // English alphabets only //
-  const thaiAlphabetRegex = /^[ก-๏\s]+$/; // Thai alphabets only //
-  const emailRegex = /\S+@\S+\.\S+/; // Email regex //
-  const numberRegex = /^\d+$/; // Numbers only //
-
   const TeacherSchema = z.object({
     teacher_ID: z.number().refine((value) => {
       if (!value) {
@@ -124,7 +101,12 @@ export const handleTeacherUpdate = async (
   };
 
   // Perform validation. //
-  const validationResult = TeacherSchema.safeParse(updatedTeacherToUpdate);
+  const validationResult = TeacherSchema.safeParse(teacherObject);
+
+  // Check if the image is uploaded. //
+  if (!teacherImage) {
+    validationErrors.teacher_image = "Image is required.";
+  }
 
   // If validation fails. //
   if (!validationResult.success) {
@@ -185,84 +167,215 @@ export const handleTeacherUpdate = async (
       }
     });
     setValidationErrors(validationErrors);
-    setIsSubmitting(false);
-    return;
+    return false;
   } else {
     setValidationErrors(validationErrors);
+    return true;
   }
+};
+
+const uploadTeacherImage = async (
+  teacherObject: any,
+  teacherImageObject: any
+) => {
+  let teacherImageFileExtension;
+  const fileName = teacherImageObject.name.toLowerCase();
+  teacherImageFileExtension = fileName.split(".").pop();
+
+  const teacherImageObjectForm = new FormData();
+  if (teacherImageObject != null) {
+    teacherImageObjectForm.append("image", teacherImageObject);
+  }
+  const teacherImageFileName = `${
+    teacherObject.teacher_ID
+  }_${teacherObject.teacher_first_name.toLowerCase()}.${teacherImageFileExtension}`;
+  teacherImageObjectForm.append("filename", teacherImageFileName);
+
+  // Upload the image into the CDN. //
+  try {
+    await fetch(`${API_ENDPOINT}/api/v1/upload/image/teacher`, {
+      method: "POST",
+      body: teacherImageObjectForm,
+    });
+    // Return the uploaded image file name //
+    return teacherImageFileName;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const handleTeacherCreate = async (
+  teacherCreateObject: any,
+  teacherCreateImage: any,
+  setValidationErrors: any
+) => {
+  const updatedTeacherToCreate = {
+    primary_teacher_ID: teacherCreateObject.primary_teacher_ID,
+    teacher_ID: parseInt(teacherCreateObject.teacher_ID, 10),
+    teacher_position: parseInt(teacherCreateObject.teacher_position, 10),
+    teacher_first_name: teacherCreateObject.teacher_first_name,
+    teacher_last_name: teacherCreateObject.teacher_last_name,
+    teacher_nickname: teacherCreateObject.teacher_nickname,
+    teacher_first_name_thai: teacherCreateObject.teacher_first_name_thai,
+    teacher_last_name_thai: teacherCreateObject.teacher_last_name_thai,
+    teacher_nickname_thai: teacherCreateObject.teacher_nickname_thai,
+    teacher_major: parseInt(teacherCreateObject.teacher_major, 10),
+    teacher_gender: parseInt(teacherCreateObject.teacher_gender, 10),
+    teacher_phone: teacherCreateObject.teacher_phone,
+    teacher_line_ID: teacherCreateObject.teacher_line_ID,
+    teacher_image: teacherCreateObject.teacher_image,
+    teacher_email: teacherCreateObject.teacher_email,
+  };
+
+  // Perform the validation //
+  const validation = validateTeacherObject(
+    updatedTeacherToCreate,
+    setValidationErrors,
+    teacherCreateImage
+  );
 
   // If validation passes. //
-  // Update the teacher. //
-  // Teacher image //
-  let teacherUpdateImageFileName;
-  if (teacherUpdateImage && typeof teacherUpdateImage === "object") {
-    const fileName = teacherUpdateImage.name.toLowerCase();
-    const profileImageExtension = fileName.split(".").pop();
-
-    const teacherUpdateImageForm = new FormData();
-    if (teacherUpdateImage != null) {
-      teacherUpdateImageForm.append("image", teacherUpdateImage);
+  if (validation) {
+    // Create the teacher. //
+    // Teacher image //
+    let teacherImageFileName;
+    if (teacherCreateImage) {
+      // After the image is uploaded, the image name will be returned. //
+      teacherImageFileName = uploadTeacherImage(
+        teacherCreateObject,
+        teacherCreateImage
+      );
     }
-    teacherUpdateImageFileName = `${
-      updatedTeacherToUpdate.teacher_ID
-    }_${updatedTeacherToUpdate.teacher_first_name.toLowerCase()}.${profileImageExtension}`;
-    teacherUpdateImageForm.append("filename", teacherUpdateImageFileName);
 
-    // Upload the image into the CDN. //
-    try {
-      await fetch(`${API_ENDPOINT}/api/v1/upload/image/teacher`, {
-        method: "POST",
-        body: teacherUpdateImageForm,
-      });
-    } catch (error) {
-      setIsUpdateSuccess(false);
-    }
-  }
-
-  const teacherToUpdateObject = {
-    id: updatedTeacherToUpdate.primary_teacher_ID,
-    teacherInfo: {
-      teacher_ID: updatedTeacherToUpdate.teacher_ID,
-      teacher_position: updatedTeacherToUpdate.teacher_position,
-      teacher_first_name: updatedTeacherToUpdate.teacher_first_name,
-      teacher_last_name: updatedTeacherToUpdate.teacher_last_name,
-      teacher_nickname: updatedTeacherToUpdate.teacher_nickname,
-      teacher_first_name_thai: updatedTeacherToUpdate.teacher_first_name_thai,
-      teacher_last_name_thai: updatedTeacherToUpdate.teacher_last_name_thai,
-      teacher_nickname_thai: updatedTeacherToUpdate.teacher_nickname_thai,
-      teacher_major: updatedTeacherToUpdate.teacher_major,
-      teacher_gender: updatedTeacherToUpdate.teacher_gender,
-      teacher_phone: updatedTeacherToUpdate.teacher_phone,
-      teacher_line_ID: updatedTeacherToUpdate.teacher_line_ID,
-      teacher_email: updatedTeacherToUpdate.teacher_email
+    // Teacher information //
+    // Get the user input from the state. //
+    const teacherToAddObject = {
+      teacher_ID: updatedTeacherToCreate.teacher_ID,
+      teacher_position: updatedTeacherToCreate.teacher_position,
+      teacher_first_name: capitalizeFirstLetter(
+        updatedTeacherToCreate.teacher_first_name
+      ),
+      teacher_last_name: capitalizeFirstLetter(
+        updatedTeacherToCreate.teacher_last_name
+      ),
+      teacher_nickname: capitalizeFirstLetter(
+        updatedTeacherToCreate.teacher_nickname
+      ),
+      teacher_first_name_thai: updatedTeacherToCreate.teacher_first_name_thai,
+      teacher_last_name_thai: updatedTeacherToCreate.teacher_last_name_thai,
+      teacher_nickname_thai: updatedTeacherToCreate.teacher_nickname_thai,
+      teacher_gender: updatedTeacherToCreate.teacher_gender,
+      teacher_major: updatedTeacherToCreate.teacher_major,
+      teacher_phone: updatedTeacherToCreate.teacher_phone,
+      teacher_line_ID: updatedTeacherToCreate.teacher_line_ID,
+      teacher_email: updatedTeacherToCreate.teacher_email
         .toString()
         .toLowerCase(),
-      teacher_image:
-        teacherUpdateImage && typeof teacherUpdateImage === "object"
-          ? `/assets/profilePic/teachers/${teacherUpdateImageFileName}`
-          : updatedTeacherToUpdate.teacher_image,
-    },
-  };
-  const teacherUpdateJSON = JSON.stringify(teacherToUpdateObject);
+      teacher_image: `/assets/profilePic/teachers/${teacherImageFileName}`,
+    };
+    const teacherAddJSON = JSON.stringify(teacherToAddObject);
 
-  // Update the teacher information in the table. //
-  try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/update`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: teacherUpdateJSON,
-    });
+    try {
+      const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: teacherAddJSON,
+      });
 
-    if (response.ok) {
-      setIsUpdateSuccess(true);
-      callback();
-    } else {
-      setIsUpdateSuccess(false);
+      if (response.status) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
     }
-  } catch (error) {
-    setIsUpdateSuccess(false);
   }
+};
 
-  setIsSubmitting(false);
-  callback();
+export const handleTeacherUpdate = async (
+  teacherUpdateObject: any,
+  teacherUpdateImage: any,
+  setValidationErrors: any
+) => {
+  const updatedTeacherToUpdate = {
+    primary_teacher_ID: teacherUpdateObject.primary_teacher_ID,
+    teacher_ID: parseInt(teacherUpdateObject.teacher_ID, 10),
+    teacher_position: parseInt(teacherUpdateObject.teacher_position, 10),
+    teacher_first_name: teacherUpdateObject.teacher_first_name,
+    teacher_last_name: teacherUpdateObject.teacher_last_name,
+    teacher_nickname: teacherUpdateObject.teacher_nickname,
+    teacher_first_name_thai: teacherUpdateObject.teacher_first_name_thai,
+    teacher_last_name_thai: teacherUpdateObject.teacher_last_name_thai,
+    teacher_nickname_thai: teacherUpdateObject.teacher_nickname_thai,
+    teacher_major: parseInt(teacherUpdateObject.teacher_major, 10),
+    teacher_gender: parseInt(teacherUpdateObject.teacher_gender, 10),
+    teacher_phone: teacherUpdateObject.teacher_phone,
+    teacher_line_ID: teacherUpdateObject.teacher_line_ID,
+    teacher_image: teacherUpdateObject.teacher_image,
+    teacher_email: teacherUpdateObject.teacher_email,
+  };
+
+  // Perform the validation //
+  const validation = validateTeacherObject(
+    updatedTeacherToUpdate,
+    setValidationErrors
+  );
+
+  // If validation passes. //
+  if (validation) {
+    // Update the teacher. //
+    // Teacher image //
+    let teacherImageFileName;
+    if (teacherUpdateImage) {
+      // After the image is uploaded, the image name will be returned. //
+      teacherImageFileName = uploadTeacherImage(
+        teacherUpdateObject,
+        teacherUpdateImage
+      );
+    }
+
+    const teacherUpdateObjectObject = {
+      id: updatedTeacherToUpdate.primary_teacher_ID,
+      teacherInfo: {
+        teacher_ID: updatedTeacherToUpdate.teacher_ID,
+        teacher_position: updatedTeacherToUpdate.teacher_position,
+        teacher_first_name: updatedTeacherToUpdate.teacher_first_name,
+        teacher_last_name: updatedTeacherToUpdate.teacher_last_name,
+        teacher_nickname: updatedTeacherToUpdate.teacher_nickname,
+        teacher_first_name_thai: updatedTeacherToUpdate.teacher_first_name_thai,
+        teacher_last_name_thai: updatedTeacherToUpdate.teacher_last_name_thai,
+        teacher_nickname_thai: updatedTeacherToUpdate.teacher_nickname_thai,
+        teacher_major: updatedTeacherToUpdate.teacher_major,
+        teacher_gender: updatedTeacherToUpdate.teacher_gender,
+        teacher_phone: updatedTeacherToUpdate.teacher_phone,
+        teacher_line_ID: updatedTeacherToUpdate.teacher_line_ID,
+        teacher_email: updatedTeacherToUpdate.teacher_email
+          .toString()
+          .toLowerCase(),
+        teacher_image:
+          teacherUpdateImage && typeof teacherUpdateImage === "object"
+            ? `/assets/profilePic/teachers/${teacherImageFileName}`
+            : updatedTeacherToUpdate.teacher_image,
+      },
+    };
+    const teacherUpdateJSON = JSON.stringify(teacherUpdateObjectObject);
+
+    // Update the teacher information in the table. //
+    try {
+      const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/update`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: teacherUpdateJSON,
+      });
+
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
 };

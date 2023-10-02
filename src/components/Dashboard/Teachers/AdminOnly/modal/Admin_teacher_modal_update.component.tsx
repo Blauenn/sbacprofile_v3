@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import Custom_Modal from "../../../../custom/Custom_Modal";
-import { Major } from "../../../../../interfaces/common.interface";
-import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
-import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import {
   TextField_select,
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
-import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
-import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import Custom_Modal from "../../../../custom/Custom_Modal";
+import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
+import { Major } from "../../../../../interfaces/common.interface";
+import { getData } from "../../../../../functions/fetchFromAPI.function";
+import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
+import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   MajorName,
   MajorNameGerman,
   MajorNameKorean,
   MajorNameThai,
-  MajorToBackgroundColor,
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
@@ -41,7 +39,6 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
 
   useEffect(() => {
     // Majors //
-    // Only fetch when empty //
     if (majors.length === 0) {
       getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
         setMajors(result);
@@ -49,7 +46,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
     }
   }, []);
 
-  const [teacherToUpdate, setteacherToUpdate] = useState({
+  const [teacherUpdateObject, setTeacherUpdateObject] = useState({
     primary_teacher_ID: teacher.primary_teacher_ID,
     teacher_ID: teacher.teacher_ID,
     teacher_position: teacher.teacher_position,
@@ -66,10 +63,6 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
     teacher_image: teacher.teacher_image,
     teacher_email: teacher.teacher_email,
   });
-  const [teacherUpdateImage, setteacherUpdateImage] = useState(null);
-  const [fileSizeNotice, setFileSizeNotice] = useState(false);
-
-  // To store any validation errors. //
   const [validationErrors, setValidationErrors] = useState({
     teacher_ID: "",
     teacher_position: "",
@@ -85,14 +78,16 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
     teacher_line_ID: "",
     teacher_email: "",
   });
+  const [teacherUpdateImage, setTeacherUpdateImage] = useState(null);
 
   const [imagePreview, setImagePreview] = useState(null);
+  const [fileSizeNotice, setFileSizeNotice] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
   const handleModalClose = () => {
-    setteacherToUpdate({
+    setTeacherUpdateObject({
       primary_teacher_ID: teacher.primary_teacher_ID,
       teacher_ID: teacher.teacher_ID,
       teacher_position: teacher.teacher_position,
@@ -109,32 +104,52 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
       teacher_image: teacher.teacher_image,
       teacher_email: teacher.teacher_email,
     });
-    setteacherUpdateImage(null);
-    setFileSizeNotice(false);
+    setValidationErrors({
+      teacher_ID: "",
+      teacher_position: "",
+      teacher_first_name: "",
+      teacher_last_name: "",
+      teacher_nickname: "",
+      teacher_first_name_thai: "",
+      teacher_last_name_thai: "",
+      teacher_nickname_thai: "",
+      teacher_gender: "",
+      teacher_major: "",
+      teacher_phone: "",
+      teacher_line_ID: "",
+      teacher_email: "",
+    });
+    setTeacherUpdateImage(null);
+
     setImagePreview(null);
+    setFileSizeNotice(false);
+
+    setIsUpdateSuccess(false);
+    setIsSubmitting(false);
+
     onModalClose();
   };
 
-  const setObjectAndSubmit = () => {
+  const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
-    handleTeacherUpdate(
-      teacherToUpdate,
+    const submissionStatus = await handleTeacherUpdate(
+      teacherUpdateObject,
       teacherUpdateImage,
-      setValidationErrors,
-      setIsSubmitting,
-      setIsUpdateSuccess,
-      callback
+      setValidationErrors
     );
-  };
 
-  const callback = async () => {
-    await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-      setTeachers(result);
-    });
+    if (submissionStatus) {
+      await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
+        setTeachers(result);
+      });
 
-    setIsSubmitting(false);
-    setIsUpdateSuccess(true);
+      setIsSubmitting(false);
+      setIsUpdateSuccess(true);
+    } else {
+      setIsSubmitting(false);
+      setIsUpdateSuccess(false);
+    }
   };
 
   return (
@@ -143,70 +158,26 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
       onModalClose={handleModalClose}
       icon="fa-solid fa-plus"
       title={t("Admin_Teachers_update_modal_header")}
-      overflow={true}>
+      altIcon="fa-solid fa-circle-check text-green-500"
+      altTitle={t("Admin_Teachers_update_modal_submit_success_message")}
+      useAltTitle={isUpdateSuccess}
+      overflow>
       <div className="grid grid-cols-1 gap-4">
         <div className="col-span-1 mb-4">
-          <div className="flex flex-row justify-between gap-2 w-full">
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-2 w-full">
             <div className="flex justify-center mx-12">
               <label htmlFor="teacher_update_image">
                 <div className="flex flex-col items-center gap-2">
-                  {teacherUpdateImage ? (
-                    <>
-                      <div
-                        className={`${
-                          MajorToBackgroundColor[teacher.teacher_major]
-                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                        <img
-                          src={imagePreview || ""}
-                          className="w-full | border border-standardBlack border-opacity-25"
-                        />
-                      </div>
-                      <input
-                        name="teacher_update_image"
-                        id="teacher_update_image"
-                        type="file"
-                        accept=".jpg, .jpeg, .png"
-                        hidden
-                        onChange={(event) => {
-                          handleImageChange(
-                            event,
-                            setImagePreview,
-                            setteacherUpdateImage,
-                            setFileSizeNotice
-                          );
-                        }}
-                      />
-                    </>
-                  ) : (
-                    // Show the current teacher image...
-                    // if image is not uploaded. //
-                    <>
-                      <div
-                        className={`${
-                          MajorToBackgroundColor[teacher.teacher_major]
-                        } w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden`}>
-                        <img
-                          src={`${CDN_ENDPOINT}${teacher.teacher_image}`}
-                          className="w-full"
-                        />
-                      </div>
-                      <input
-                        name="teacher_update_image"
-                        id="teacher_update_image"
-                        type="file"
-                        accept=".jpg, .jpeg, .png"
-                        hidden
-                        onChange={(event) => {
-                          handleImageChange(
-                            event,
-                            setImagePreview,
-                            setteacherUpdateImage,
-                            setFileSizeNotice
-                          );
-                        }}
-                      />
-                    </>
-                  )}
+                  <ImageField_profile
+                    imageObject={teacherUpdateImage}
+                    fieldName="teacher_update_image"
+                    profile_image={teacher.teacher_image}
+                    profile_major={teacher.teacher_major}
+                    imagePreview={imagePreview || ""}
+                    setImagePreview={setImagePreview}
+                    setImage={setTeacherUpdateImage}
+                    setFileSizeNotice={setFileSizeNotice}
+                  />
                   {fileSizeNotice && (
                     <h1 className="text-sm text-red-500 mb-2">
                       {t("fileSizeNotice_20MB")}
@@ -219,13 +190,13 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
               {/* Teacher position */}
               <TextField_select
                 // Disable if the user tries to demote the administrator. //
-                disabled={teacherToUpdate.teacher_position === 6}
+                disabled={teacherUpdateObject.teacher_position === 6}
                 label={t("Admin_Teachers_crud_modal_position_label")}
                 name="teacher_position"
                 className="col-span-1"
-                object={teacherToUpdate}
-                setObject={setteacherToUpdate}
-                value={teacherToUpdate.teacher_position}
+                object={teacherUpdateObject}
+                setObject={setTeacherUpdateObject}
+                value={teacherUpdateObject.teacher_position}
                 validation={validationErrors.teacher_position}>
                 <option value="0">
                   {t("Admin_Teachers_crud_modal_position_option1")}
@@ -236,7 +207,7 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                 <option value="4">
                   {t("Admin_Teachers_crud_modal_position_option3")}
                 </option>
-                {teacherToUpdate.teacher_position === 6 ? (
+                {teacherUpdateObject.teacher_position === 6 ? (
                   <option value="6">
                     {t("Admin_Teachers_crud_modal_position_option4")}
                   </option>
@@ -247,9 +218,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
                 label={t("Admin_Teachers_crud_modal_ID_label")}
                 name="teacher_ID"
                 className="col-span-1"
-                object={teacherToUpdate}
-                setObject={setteacherToUpdate}
-                value={teacherToUpdate.teacher_ID}
+                object={teacherUpdateObject}
+                setObject={setTeacherUpdateObject}
+                value={teacherUpdateObject.teacher_ID}
                 validation={validationErrors.teacher_ID}
               />
             </div>
@@ -260,9 +231,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Teachers_crud_modal_major_label")}
           name="teacher_major"
           className="col-span-1"
-          object={teacherToUpdate}
-          setObject={setteacherToUpdate}
-          value={teacherToUpdate.teacher_major}
+          object={teacherUpdateObject}
+          setObject={setTeacherUpdateObject}
+          value={teacherUpdateObject.teacher_major}
           validation={validationErrors.teacher_major}>
           <option value="0">Major</option>
           {majors.map((major: Major) => (
@@ -282,9 +253,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Teachers_crud_modal_gender_label")}
           name="teacher_gender"
           className="col-span-1"
-          object={teacherToUpdate}
-          setObject={setteacherToUpdate}
-          value={teacherToUpdate.teacher_gender}
+          object={teacherUpdateObject}
+          setObject={setTeacherUpdateObject}
+          value={teacherUpdateObject.teacher_gender}
           validation={validationErrors.teacher_gender}>
           <option value="0">
             {t("Admin_Teachers_crud_modal_gender_option1")}
@@ -305,9 +276,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_firstName_label")}
             name="teacher_first_name"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_first_name}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_first_name}
             validation={validationErrors.teacher_first_name}
           />
           {/* Teacher English last name */}
@@ -315,9 +286,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_lastName_label")}
             name="teacher_last_name"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_last_name}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_last_name}
             validation={validationErrors.teacher_last_name}
           />
         </div>
@@ -327,9 +298,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_firstNameThai_label")}
             name="teacher_first_name_thai"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_first_name_thai}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_first_name_thai}
             validation={validationErrors.teacher_first_name_thai}
           />
           {/* Teacher Thai last name */}
@@ -337,9 +308,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_lastNameThai_label")}
             name="teacher_last_name_thai"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_last_name_thai}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_last_name_thai}
             validation={validationErrors.teacher_last_name_thai}
           />
         </div>
@@ -349,9 +320,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_nickname_label")}
             name="teacher_nickname"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_nickname}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_nickname}
             validation={validationErrors.teacher_nickname}
           />
           {/* Teacher Thai nickname */}
@@ -359,9 +330,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_nicknameThai_label")}
             name="teacher_nickname_thai"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_nickname_thai}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_nickname_thai}
             validation={validationErrors.teacher_nickname_thai}
           />
         </div>
@@ -370,9 +341,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Teachers_crud_modal_email_label")}
           name="teacher_email"
           className="col-span-1"
-          object={teacherToUpdate}
-          setObject={setteacherToUpdate}
-          value={teacherToUpdate.teacher_email}
+          object={teacherUpdateObject}
+          setObject={setTeacherUpdateObject}
+          value={teacherUpdateObject.teacher_email}
           validation={validationErrors.teacher_email}
         />
         <div className="col-span-1 grid grid-cols-2 gap-4 mb-4">
@@ -381,9 +352,9 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_phone_label")}
             name="teacher_phone"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_phone}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_phone}
             validation={validationErrors.teacher_phone}
           />
           {/* Teacher Line ID */}
@@ -391,12 +362,13 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Teachers_crud_modal_lineID_label")}
             name="teacher_line_ID"
             className="col-span-1"
-            object={teacherToUpdate}
-            setObject={setteacherToUpdate}
-            value={teacherToUpdate.teacher_line_ID}
+            object={teacherUpdateObject}
+            setObject={setTeacherUpdateObject}
+            value={teacherUpdateObject.teacher_line_ID}
             validation={validationErrors.teacher_line_ID}
           />
         </div>
+        {/* Submit button */}
         <Info_submit_button
           text={t("Admin_Teachers_update_modal_submit_button_title")}
           icon="fa-solid fa-pencil"
@@ -404,11 +376,6 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           onClickFunction={() => {
             setObjectAndSubmit();
           }}
-        />
-        {/* Success message */}
-        <Info_addSuccess_message
-          message={t("Admin_Teachers_update_modal_submit_success_message")}
-          isSuccess={isUpdateSuccess}
         />
       </div>
     </Custom_Modal>
