@@ -1,4 +1,4 @@
-import { style_table_button } from "../../constants/styles/tables.style";
+import { table_button_style } from "../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
   text?: string;
@@ -15,7 +15,7 @@ const Table_button_download = (props: CurrentComponentProp) => {
     <a
       download
       target="_blank"
-      className={`${color} ${style_table_button} ${extraClass}`}
+      className={`${color} ${table_button_style} ${extraClass}`}
       href={url}>
       {text ?? <i className={icon}></i>}
     </a>

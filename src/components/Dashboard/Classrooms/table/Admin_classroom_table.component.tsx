@@ -8,9 +8,9 @@ import {
 import Loading from "../../../misc/Loading.component";
 import Admin_classroom_table_row from "./Admin_classroom_table_row.component";
 import {
-  style_table_content,
-  style_table_header,
-  style_table_parent,
+  table_content_style,
+  table_header_style,
+  table_parent_style,
 } from "../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
@@ -36,22 +36,22 @@ const Admin_classroom_table = (props: CurrentComponentProp) => {
 
   if (classrooms.length > 0) {
     return (
-      <table className={style_table_parent}>
+      <table className={table_parent_style}>
         <thead>
           <tr>
-            <th className={style_table_header}>
+            <th className={table_header_style}>
               {t("Admin_Classrooms_table_header_class")}
             </th>
-            <th className={`${style_table_header} | hidden xl:table-cell`}>
+            <th className={`${table_header_style} | hidden xl:table-cell`}>
               {t("Admin_Classrooms_table_header_major")}
             </th>
-            <th className={`${style_table_header} hidden sm:table-cell`}>
+            <th className={`${table_header_style} hidden sm:table-cell`}>
               {t("Admin_Classrooms_table_header_studentCount")}
             </th>
-            <th className={`${style_table_header} hidden xl:table-cell`}>
+            <th className={`${table_header_style} hidden xl:table-cell`}>
               {t("Admin_Classrooms_table_header_teachers")}
             </th>
-            <th className={style_table_header}>
+            <th className={table_header_style}>
               <i className="fa-solid fa-pencil"></i>
             </th>
           </tr>
@@ -76,29 +76,29 @@ const Admin_classroom_table = (props: CurrentComponentProp) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <table className={style_table_parent}>
+          <table className={table_parent_style}>
             <thead>
               <tr>
-                <th className={style_table_header}>
+                <th className={table_header_style}>
                   {t("Admin_Classrooms_table_header_class")}
                 </th>
-                <th className={`${style_table_header} | hidden sm:table-cell`}>
+                <th className={`${table_header_style} | hidden sm:table-cell`}>
                   {t("Admin_Classrooms_table_header_major")}
                 </th>
-                <th className={style_table_header}>
+                <th className={table_header_style}>
                   {t("Admin_Classrooms_table_header_students")}
                 </th>
-                <th className={style_table_header}>
+                <th className={table_header_style}>
                   {t("Admin_Classrooms_table_header_teachers")}
                 </th>
-                <th className={style_table_header}>
+                <th className={table_header_style}>
                   <i className="fa-solid fa-pencil"></i>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className={style_table_content}>
+                <td className={table_content_style}>
                   {t("Admin_Classrooms_table_noClassrooms_message")}
                 </td>
               </tr>

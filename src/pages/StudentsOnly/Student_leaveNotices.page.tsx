@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getData } from "../../functions/fetchFromAPI.function";
-import Student_leaveNotice_modal_create from "../../components/LeaveNotices/StudentsOnly/modal/Student_leaveNotice_modal_create.component";
-import Student_leaveNotice_table from "../../components/LeaveNotices/StudentsOnly/table/Student_leaveNotice_table.component";
+import Student_leaveNotices_modal_create from "../../components/LeaveNotices/StudentsOnly/modal/Student_leaveNotices_modal_create.component";
+import Student_leaveNotices_table from "../../components/LeaveNotices/StudentsOnly/table/Student_leaveNotices_table.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
@@ -49,9 +49,8 @@ const Student_leaveNotices = () => {
           icon="fa-solid fa-flag"
           text={t("LeaveNotices_students_create_button_title")}
         />
-        <Student_leaveNotice_modal_create
+        <Student_leaveNotices_modal_create
           setLeaveNotices={setLeaveNotices}
-          userProfileID={userInfo.profile_ID}
           open={modalOpen}
           onModalClose={onModalClose}
         />
@@ -61,7 +60,7 @@ const Student_leaveNotices = () => {
         <h1 className="text-2xl font-semibold">
           {t("LeaveNotices_students_myLeaveNotices_title")}
         </h1>
-        <Student_leaveNotice_table
+        <Student_leaveNotices_table
           leaveNotices={leaveNotices}
           userInfo={userInfo}
         />

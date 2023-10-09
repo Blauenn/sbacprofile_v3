@@ -6,18 +6,18 @@ import { getData } from "../../../functions/fetchFromAPI.function";
 import RolodexModal_contacts from "./RolodexModalContacts.component";
 import RolodexModal_image from "./RolodexModal_image.component";
 import {
-  MajorName,
-  MajorNameGerman,
-  MajorNameKorean,
-  MajorNameThai,
-  MajorToBackgroundColor,
-  MajorToTextColor,
+  Major_Name,
+  Major_Name_German,
+  Major_Name_Korean,
+  Major_Name_Thai,
+  Major_To_Background_Color,
+  Major_To_Text_Color,
 } from "../../../constants/Majors.constant";
 import {
-  LevelName,
-  LevelNameGerman,
-  LevelNameKorean,
-  LevelNameThai,
+  Level_Name,
+  Level_Name_German,
+  Level_Name_Korean,
+  Level_Name_Thai,
 } from "../../../constants/Levels.constant";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
@@ -101,7 +101,7 @@ const RolodexModal = (props: CurrentComponentProp) => {
         <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
           <RolodexModal_image
             image={object.image}
-            majorColor={MajorToBackgroundColor[object.major]}
+            majorColor={Major_To_Background_Color[object.major]}
           />
           <h1 className="font-semibold opacity-75">{object.ID}</h1>
         </div>
@@ -138,27 +138,27 @@ const RolodexModal = (props: CurrentComponentProp) => {
             <div>
               <h1
                 className={`text-lg font-semibold ${
-                  MajorToTextColor[object.major]
+                  Major_To_Text_Color[object.major]
                 }`}>
                 {i18n.language === "th"
-                  ? MajorNameThai[object.major]
+                  ? Major_Name_Thai[object.major]
                   : i18n.language === "ko"
-                  ? MajorNameKorean[object.major]
+                  ? Major_Name_Korean[object.major]
                   : i18n.language === "de"
-                  ? MajorNameGerman[object.major]
-                  : MajorName[object.major]}
+                  ? Major_Name_German[object.major]
+                  : Major_Name[object.major]}
               </h1>
               {profile === "student" ? (
                 <h1 className="text-lg">
                   {t("profile_rolodex_studentClass", {
                     level:
                       i18n.language === "th"
-                        ? LevelNameThai[object.level]
+                        ? Level_Name_Thai[object.level]
                         : i18n.language === "ko"
-                        ? LevelNameKorean[object.level]
+                        ? Level_Name_Korean[object.level]
                         : i18n.language === "de"
-                        ? LevelNameGerman[object.level]
-                        : LevelName[object.level],
+                        ? Level_Name_German[object.level]
+                        : Level_Name[object.level],
                     classroom: object.class,
                   })}
                 </h1>
@@ -169,12 +169,12 @@ const RolodexModal = (props: CurrentComponentProp) => {
                       {t("profile_rolodex_teacherClass", {
                         level:
                           i18n.language === "th"
-                            ? LevelNameThai[matchedClassroom.classroom_level]
+                            ? Level_Name_Thai[matchedClassroom.classroom_level]
                             : i18n.language === "ko"
-                            ? LevelNameKorean[matchedClassroom.classroom_level]
+                            ? Level_Name_Korean[matchedClassroom.classroom_level]
                             : i18n.language === "de"
-                            ? LevelNameGerman[matchedClassroom.classroom_level]
-                            : LevelName[matchedClassroom.classroom_level],
+                            ? Level_Name_German[matchedClassroom.classroom_level]
+                            : Level_Name[matchedClassroom.classroom_level],
                         classroom: matchedClassroom.classroom_class,
                       })}
                     </h1>

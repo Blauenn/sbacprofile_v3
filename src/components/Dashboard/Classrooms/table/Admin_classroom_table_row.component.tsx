@@ -1,16 +1,16 @@
 import { useState } from "react";
 import i18n from "i18next";
 import {
-  LevelName,
-  LevelNameGerman,
-  LevelNameKorean,
-  LevelNameThai,
+  Level_Name,
+  Level_Name_German,
+  Level_Name_Korean,
+  Level_Name_Thai,
 } from "../../../../constants/Levels.constant";
 import {
-  MajorNameAbbreviation,
-  MajorToBackgroundColor,
+  Major_Name_Abbreviation,
+  Major_To_Background_Color,
 } from "../../../../constants/Majors.constant";
-import { style_table_content } from "../../../../constants/styles/tables.style";
+import { table_content_style } from "../../../../constants/styles/tables.style";
 import {
   get_student_count_from_classroom,
   get_teacher_name_from_ID,
@@ -45,29 +45,29 @@ const Admin_classroom_table_row = (props: CurrentComponentProp) => {
     <>
       <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
         {/* Classroom */}
-        <td className={`${style_table_content}`}>
+        <td className={`${table_content_style}`}>
           {i18n.language === "th"
-            ? `${LevelNameThai[classroom.classroom_level]}/${
+            ? `${Level_Name_Thai[classroom.classroom_level]}/${
                 classroom.classroom_class
               }`
             : i18n.language === "ko"
-            ? `${LevelNameKorean[classroom.classroom_level]}/${
+            ? `${Level_Name_Korean[classroom.classroom_level]}/${
                 classroom.classroom_class
               }`
             : i18n.language === "de"
-            ? `${LevelNameGerman[classroom.classroom_level]}/${
+            ? `${Level_Name_German[classroom.classroom_level]}/${
                 classroom.classroom_class
               }`
-            : `${LevelName[classroom.classroom_level]}/${
+            : `${Level_Name[classroom.classroom_level]}/${
                 classroom.classroom_class
               }`}
         </td>
         {/* Classroom major */}
-        <td className={`${style_table_content} | hidden xl:table-cell`}>
-          {MajorNameAbbreviation[classroom.classroom_major]}
+        <td className={`${table_content_style} | hidden xl:table-cell`}>
+          {Major_Name_Abbreviation[classroom.classroom_major]}
         </td>
         {/* Classroom student count */}
-        <td className={`${style_table_content} | hidden sm:table-cell`}>
+        <td className={`${table_content_style} | hidden sm:table-cell`}>
           {get_student_count_from_classroom(
             classroom.classroom_level,
             classroom.classroom_class,
@@ -76,7 +76,7 @@ const Admin_classroom_table_row = (props: CurrentComponentProp) => {
         </td>
         {/* Classroom homeroom teacher */}
         {classroom.classroom_homeroom_teacher != 0 ? (
-          <td className={`${style_table_content} | hidden xl:table-cell`}>
+          <td className={`${table_content_style} | hidden xl:table-cell`}>
             {get_teacher_name_from_ID(
               classroom.classroom_homeroom_teacher,
               teachers
@@ -84,11 +84,11 @@ const Admin_classroom_table_row = (props: CurrentComponentProp) => {
           </td>
         ) : (
           <td
-            className={`${style_table_content} opacity-50 | hidden xl:table-cell`}>
+            className={`${table_content_style} opacity-50 | hidden xl:table-cell`}>
             No teachers
           </td>
         )}
-        <td className={style_table_content}>
+        <td className={table_content_style}>
           <div className="flex gap-x-2">
             <Admin_classroom_modal_update
               classroom={classroom}
@@ -97,7 +97,7 @@ const Admin_classroom_table_row = (props: CurrentComponentProp) => {
             />
             <Table_button
               text={t("Admin_Classrooms_table_content_button_update_title")}
-              color={MajorToBackgroundColor[classroom.classroom_major]}
+              color={Major_To_Background_Color[classroom.classroom_major]}
               functionToRun={() => {
                 setModalOpen(true);
               }}

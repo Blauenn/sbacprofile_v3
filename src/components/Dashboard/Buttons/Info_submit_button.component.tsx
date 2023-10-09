@@ -3,21 +3,25 @@ import { hover_transition } from "../../../constants/styles/transitions.style";
 interface CurrentComponentProp {
   text: string;
   icon: string;
+  color?: string;
   isSubmitting: boolean;
+  disabled?: boolean;
   onClickFunction: () => void;
 }
 
 const Info_submit_button = (props: CurrentComponentProp) => {
-  const { text, icon, isSubmitting, onClickFunction } = props;
+  const { text, icon, color, isSubmitting, disabled, onClickFunction } = props;
 
   return (
     <button
       type="button"
-      disabled={isSubmitting}
+      disabled={disabled ?? isSubmitting}
       className={`${
-        isSubmitting
+        disabled || isSubmitting
           ? "border border-gray-500 bg-gray-500 text-white"
-          : "border border-primary hover:bg-primary text-primary hover:text-white"
+          : `border ${
+              color ?? "border-primary hover:bg-primary text-primary"
+            } hover:text-white`
       }  rounded-full px-6 py-2 ${hover_transition}`}
       onClick={() => {
         onClickFunction();

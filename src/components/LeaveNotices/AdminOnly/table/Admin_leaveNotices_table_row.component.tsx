@@ -3,53 +3,53 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import {
-  changeToDate,
-  changeToLocaleDate,
-  getDayFromDate,
+  change_to_date,
+  change_to_locale_date,
+  get_day_from_date,
 } from "../../../../functions/getDates.function";
-import { getTextFromStatus_Table } from "../../../../functions/LeaveNotice/LeaveNotice.function";
-import { DayColors } from "../../../../constants/Misc.constant";
+import { get_text_from_status_table } from "../../../../functions/LeaveNotices/LeaveNotices.function";
+import { Day_Colors } from "../../../../constants/Misc.constant";
 import {
-  LeaveNoticeChoice,
-  LeaveNoticeChoiceGerman,
-  LeaveNoticeChoiceKorean,
-  LeaveNoticeChoiceThai,
+  LeaveNotice_Choice,
+  LeaveNotice_Choice_German,
+  LeaveNotice_Choice_Korean,
+  LeaveNotice_Choice_Thai,
 } from "../../../../constants/LeaveNotices.constant";
 import Table_button from "../../../table/Table_button.component";
 import Table_button_download from "../../../table/Table_button_download.component";
-import Admin_leaveNotice_modal from "../modal/Admin_leaveNotice_modal.component";
+import Admin_leaveNotice_modal from "../modal/Admin_leaveNotices_modal.component";
 import { CDN_ENDPOINT } from "../../../../constants/ENDPOINTS";
-import { style_table_content } from "../../../../constants/styles/tables.style";
+import { table_content_style } from "../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
   leaveNotice: LeaveNotice;
   index: number;
 }
 
-const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
+const Admin_leaveNotices_table_row = (props: CurrentComponentProp) => {
   const { leaveNotice, index } = props;
 
   const { t } = useTranslation();
 
   const dayColor_startDateTime =
-    DayColors[getDayFromDate(leaveNotice.leave_notice_start_datetime)];
+    Day_Colors[get_day_from_date(leaveNotice.leave_notice_start_datetime)];
   const dayColor_endDateTime =
-    DayColors[getDayFromDate(leaveNotice.leave_notice_end_datetime)];
+    Day_Colors[get_day_from_date(leaveNotice.leave_notice_end_datetime)];
 
-  const localeDate_startDateTime = changeToLocaleDate(
+  const localeDate_startDateTime = change_to_locale_date(
     leaveNotice.leave_notice_start_datetime
   ).split(",")[0];
-  const localeDate_endDateTime = changeToLocaleDate(
+  const localeDate_endDateTime = change_to_locale_date(
     leaveNotice.leave_notice_end_datetime
   ).split(",")[0];
 
-  const dateToISOString_startDateTime = changeToDate(
+  const dateToISOString_startDateTime = change_to_date(
     leaveNotice.leave_notice_start_datetime
   )
     .toISOString()
     .split("T")[0];
 
-  const dateToISOString_endDateTime = changeToDate(
+  const dateToISOString_endDateTime = change_to_date(
     leaveNotice.leave_notice_end_datetime
   )
     .toISOString()
@@ -65,38 +65,40 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
       <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
         {/* Leave notice ID */}
         <td
-          className={`${style_table_content} font-family-monospace | hidden lg:table-cell`}>
+          className={`${table_content_style} font-family-monospace | hidden lg:table-cell`}>
           <h1>{leaveNotice.leave_notice_ID}</h1>
         </td>
         {/* Leave notice create datetime */}
         <td
-          className={`${style_table_content} ${
-            DayColors[getDayFromDate(leaveNotice.leave_notice_create_datetime)]
+          className={`${table_content_style} ${
+            Day_Colors[
+              get_day_from_date(leaveNotice.leave_notice_create_datetime)
+            ]
           } | hidden xl:table-cell`}>
           <h1>
             {
-              changeToLocaleDate(
+              change_to_locale_date(
                 leaveNotice.leave_notice_create_datetime
               ).split(",")[0]
             }
           </h1>
         </td>
         {/* Leave notice choice */}
-        <td className={`${style_table_content} | hidden md:table-cell`}>
+        <td className={`${table_content_style} | hidden md:table-cell`}>
           {i18n.language === "th"
-            ? LeaveNoticeChoiceThai[leaveNotice.leave_notice_choice]
+            ? LeaveNotice_Choice_Thai[leaveNotice.leave_notice_choice]
             : i18n.language === "ko"
-            ? LeaveNoticeChoiceKorean[leaveNotice.leave_notice_choice]
+            ? LeaveNotice_Choice_Korean[leaveNotice.leave_notice_choice]
             : i18n.language === "de"
-            ? LeaveNoticeChoiceGerman[leaveNotice.leave_notice_choice]
-            : LeaveNoticeChoice[leaveNotice.leave_notice_choice]}
+            ? LeaveNotice_Choice_German[leaveNotice.leave_notice_choice]
+            : LeaveNotice_Choice[leaveNotice.leave_notice_choice]}
         </td>
         {/* Leave notice for dates */}
         {dateToISOString_startDateTime === dateToISOString_endDateTime ? (
           <>
             {/* Leave notice start and end datetime altogether */}
             <td
-              className={`${style_table_content} text-center ${dayColor_startDateTime}`}
+              className={`${table_content_style} text-center ${dayColor_startDateTime}`}
               colSpan={2}>
               <h1>{localeDate_startDateTime}</h1>
             </td>
@@ -104,7 +106,7 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
         ) : (
           <>
             {/* Leave notice start and end datetime */}
-            <td className={`${style_table_content}`} colSpan={2}>
+            <td className={`${table_content_style}`} colSpan={2}>
               <div className="flex flex-row items-center gap-4">
                 <h1 className={dayColor_startDateTime}>
                   {localeDate_startDateTime}
@@ -118,11 +120,11 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
           </>
         )}
         {/* Leave notice status */}
-        <td className={`${style_table_content} | hidden sm:table-cell`}>
-          {getTextFromStatus_Table(leaveNotice, t)}
+        <td className={`${table_content_style} | hidden sm:table-cell`}>
+          {get_text_from_status_table(leaveNotice, t)}
         </td>
         {/* Buttons */}
-        <td className={style_table_content}>
+        <td className={table_content_style}>
           <div className="flex gap-x-2">
             {/* View info button */}
             <Admin_leaveNotice_modal
@@ -152,4 +154,4 @@ const Admin_leaveNotice_table_row = (props: CurrentComponentProp) => {
   );
 };
 
-export default Admin_leaveNotice_table_row;
+export default Admin_leaveNotices_table_row;

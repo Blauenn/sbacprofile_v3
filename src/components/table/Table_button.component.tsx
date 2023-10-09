@@ -1,4 +1,4 @@
-import { style_table_button } from "../../constants/styles/tables.style";
+import { table_button_style } from "../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
   text?: string;
@@ -16,7 +16,7 @@ const Table_button = (props: CurrentComponentProp) => {
         functionToRun();
       }}
       type="button"
-      className={`${color} ${style_table_button}`}>
+      className={`${color} ${table_button_style}`}>
       {text ?? <i className={icon}></i>}
     </button>
   );

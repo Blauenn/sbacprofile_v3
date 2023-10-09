@@ -1,4 +1,4 @@
-export const MajorName: any = {
+export const Major_Name: any = {
   1: "Accounting",
   2: "Business Computer",
   3: "Computer Graphic",
@@ -8,7 +8,7 @@ export const MajorName: any = {
   7: "Marketing",
   8: "Tourism",
 };
-export const MajorNameGerman: any = {
+export const Major_Name_German: any = {
   1: "Buchhaltung",
   2: "Arbeitscomputer",
   3: "Computergrafik",
@@ -18,7 +18,7 @@ export const MajorNameGerman: any = {
   7: "Marketing",
   8: "Touristik",
 };
-export const MajorNameThai: any = {
+export const Major_Name_Thai: any = {
   1: "การบัญชี",
   2: "คอมพิวเตอร์ธุรกิจ",
   3: "คอมพิวเตอร์กราฟิก",
@@ -28,7 +28,7 @@ export const MajorNameThai: any = {
   7: "การตลาด",
   8: "การท่องเที่ยว",
 };
-export const MajorNameKorean: any = {
+export const Major_Name_Korean: any = {
   1: "회계",
   2: "비즈니스 컴퓨터",
   3: "컴퓨터 그래픽",
@@ -39,7 +39,7 @@ export const MajorNameKorean: any = {
   8: "관광",
 };
 
-export const MajorNameAbbreviation: any = {
+export const Major_Name_Abbreviation: any = {
   1: "AC",
   2: "BC",
   3: "CG",
@@ -50,7 +50,7 @@ export const MajorNameAbbreviation: any = {
   8: "TS",
 };
 
-export const MajorContactsHover: any = {
+export const Major_Contacts_Hover: any = {
   1: "hover:text-majorAC",
   2: "hover:text-majorBC",
   3: "hover:text-majorCG",
@@ -61,7 +61,7 @@ export const MajorContactsHover: any = {
   8: "hover:text-majorTS",
 };
 
-export const MajorToTextColor: any = {
+export const Major_To_Text_Color: any = {
   1: "text-majorAC",
   2: "text-majorBC",
   3: "text-majorCG",
@@ -72,7 +72,7 @@ export const MajorToTextColor: any = {
   8: "text-majorTS",
 };
 
-export const MajorToBorderColor: any = {
+export const Major_To_Border_Color: any = {
   1: "border-majorAC",
   2: "border-majorBC",
   3: "border-majorCG",
@@ -83,7 +83,7 @@ export const MajorToBorderColor: any = {
   8: "border-majorTS",
 };
 
-export const MajorToBackgroundColor: any = {
+export const Major_To_Background_Color: any = {
   1: "bg-majorAC",
   2: "bg-majorBC",
   3: "bg-majorCG",
@@ -92,4 +92,14 @@ export const MajorToBackgroundColor: any = {
   6: "bg-majorIT",
   7: "bg-majorMK",
   8: "bg-majorTS",
+};
+export const Major_To_Background_Color_Hover: any = {
+  1: "hover:bg-majorAC",
+  2: "hover:bg-majorBC",
+  3: "hover:bg-majorCG",
+  4: "hover:bg-majorFL",
+  5: "hover:bg-majorHT",
+  6: "hover:bg-majorIT",
+  7: "hover:bg-majorMK",
+  8: "hover:bg-majorTS",
 };

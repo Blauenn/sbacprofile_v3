@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { hover_transition } from "../../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
   text: string;
@@ -10,7 +11,7 @@ const PageHeaderReturn = (props: CurrentComponentProp) => {
 
   return (
     <div className="flex flex-row justify-between items-center mb-8">
-      <h1 className="text-2xl sm:text-3xl | font-semibold">
+      <h1 className={`text-2xl sm:text-3xl hover:text-primary | font-semibold ${hover_transition}`}>
         <NavLink to={"/dashboard"}>
           <i className="fa-solid fa-chevron-left me-4"></i>
           {text}

@@ -1,20 +1,20 @@
-import { dayNames } from "../constants/DayNames.constant";
+import { Day_Names } from "../constants/DayNames.constant";
 
 // Get the day of the given date and use the day number to assign class. For easier day recognition. //
-export const getDayFromDate = (date: any) => {
+export const get_day_from_date = (date: any) => {
   const dateObject = new Date(date);
   const day = dateObject.getDay() + 1;
 
   return day;
 };
-export const getDayNameFromDate = (date: any) => {
-  const dateNumber = getDayFromDate(date);
+export const get_day_name_from_date = (date: any) => {
+  const dateNumber = get_day_from_date(date);
 
-  return dayNames[dateNumber];
+  return Day_Names[dateNumber];
 };
 
 // Change ISO date to a more readable date. //
-export const changeToLocaleDate = (dateToChange: any) => {
+export const change_to_locale_date = (dateToChange: any) => {
   const dateObject = new Date(dateToChange);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -28,12 +28,12 @@ export const changeToLocaleDate = (dateToChange: any) => {
 };
 
 // Get a date string and turn it into ISO date. //
-export const changeToDate = (dateToChange: any) => {
+export const change_to_date = (dateToChange: any) => {
   return new Date(dateToChange);
 };
 
 // Get the amount of date between 2 dates. //
-export const getDayAmountBetweenDates = (date1: string, date2: string) => {
+export const get_day_amount_between_dates = (date1: string, date2: string) => {
   const startDate = new Date(date1);
   const endDate = new Date(date2);
 

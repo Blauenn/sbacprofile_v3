@@ -15,12 +15,12 @@ import {
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
 import Club_rolodex_modal from "../modal/Club_rolodex_modal.component";
-import { defaultImage } from "../../../constants/Misc.constant";
+import { Default_Image } from "../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 import {
-  MajorName,
-  MajorToBackgroundColor,
-  MajorToBorderColor,
+  Major_Name,
+  Major_To_Background_Color,
+  Major_To_Border_Color,
 } from "../../../constants/Majors.constant";
 import { hover_transition } from "../../../constants/styles/transitions.style";
 
@@ -73,7 +73,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
         <div className="px-4 py-4">
           <h1 className="text-2xl font-semibold">{club.club_name}</h1>
           <h1 className="text-lg opacity-50 mb-4">
-            {MajorName[club.club_major]}
+            {Major_Name[club.club_major]}
           </h1>
           {/* Members icons */}
           <div className="flex flex-row gap-2 sm:gap-[2px] overflow-x-hidden">
@@ -88,7 +88,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                       arrow>
                       <div
                         className={`${
-                          MajorToBackgroundColor[club.club_major]
+                          Major_To_Background_Color[club.club_major]
                         } w-[40px] h-[40px] rounded-full overflow-hidden`}>
                         <img
                           src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
@@ -96,7 +96,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                             teachers
                           )}`}
                           className={`border-2 flex-shrink-0 ${
-                            MajorToBorderColor[club.club_major]
+                            Major_To_Border_Color[club.club_major]
                           }`}
                         />
                       </div>
@@ -120,7 +120,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                           arrow>
                           <div
                             className={`${
-                              MajorToBackgroundColor[
+                              Major_To_Background_Color[
                                 get_student_major_from_ID(
                                   clubMembership.club_student,
                                   students
@@ -134,7 +134,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                               )}`}
                               className={`border-2 flex-shrink-0 ${
                                 club
-                                  ? MajorToBorderColor[
+                                  ? Major_To_Border_Color[
                                       get_student_major_from_ID(
                                         clubMembership.club_student,
                                         students
@@ -143,7 +143,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                                   : "text-blue-500"
                               }`}
                               onError={(e) => {
-                                e.currentTarget.src = defaultImage;
+                                e.currentTarget.src = Default_Image;
                               }}
                             />
                           </div>

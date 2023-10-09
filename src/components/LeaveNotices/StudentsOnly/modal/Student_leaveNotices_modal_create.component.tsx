@@ -10,52 +10,50 @@ import {
   TextField_select,
 } from "../../../custom/Custom_TextFields.tsx";
 import Custom_Modal from "../../../custom/Custom_Modal.tsx";
-import { LeaveNotice } from "../../../../interfaces/common.interface";
-import {
-  handleFileInputChange,
-} from "../../../../functions/fields/handleFieldChanges.function";
-import { getData } from "../../../../functions/fetchFromAPI.function";
-import { handleLeaveNoticeSubmit } from "../../../../functions/LeaveNotice/LeaveNotice.function.tsx";
-import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
-import Info_addSuccess_message from "../../../Dashboard/Buttons/Info_success_message.component.tsx";
+import { handle_file_input_change } from "../../../../functions/fields/handleFieldChanges.function.ts";
+import { getData } from "../../../../functions/fetchFromAPI.function.ts";
+import { handleLeaveNoticeCreate } from "../../../../functions/LeaveNotices/LeaveNotices.function.tsx";
+import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component.tsx";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
+
+// Contexts //
+import { useContext_Account } from "../../../../context/Account.context.tsx";
 
 interface CurrentComponentProp {
   setLeaveNotices: any;
-  userProfileID: number;
   open: boolean;
   onModalClose: any;
 }
 
 const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
-  const { setLeaveNotices, userProfileID, open, onModalClose } = props;
+  const { setLeaveNotices, open, onModalClose } = props;
+
+  const { userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
-  const [leaveNoticeAddObject, setLeaveNoticeAddObject] = useState<LeaveNotice>(
-    {
-      leave_notice_student_ID: userProfileID,
-      leave_notice_description: "",
-      leave_notice_choice: 1,
-      leave_notice_start_datetime: "",
-      leave_notice_end_datetime: "",
-      leave_notice_duration: 3,
-      leave_notice_create_datetime: "",
-      leave_notice_attached_file: "",
-      leave_notice_teacher_ID: 0,
-      leave_notice_teacher_status: 1,
-      leave_notice_teacher_description: "",
-      leave_notice_teacher_change_datetime: "",
-      leave_notice_head_ID: 0,
-      leave_notice_head_status: 1,
-      leave_notice_head_description: "",
-      leave_notice_head_change_datetime: "",
-    }
-  );
+  const [leaveNoticeCreateObject, setLeaveNoticeCreateObject] = useState({
+    leave_notice_student_ID: userInfo.profile_ID,
+    leave_notice_description: "",
+    leave_notice_choice: 1,
+    leave_notice_start_datetime: "",
+    leave_notice_end_datetime: "",
+    leave_notice_duration: 3,
+    leave_notice_create_datetime: "",
+    leave_notice_attached_file: "",
+    leave_notice_teacher_ID: 0,
+    leave_notice_teacher_status: 1,
+    leave_notice_teacher_description: "",
+    leave_notice_teacher_change_datetime: "",
+    leave_notice_head_ID: 0,
+    leave_notice_head_status: 1,
+    leave_notice_head_description: "",
+    leave_notice_head_change_datetime: "",
+  });
   const [leaveNoticeFile, setLeaveNoticeFile] = useState(null);
   const [leaveNoticeFileName, setLeaveNoticeFileName] = useState("");
   const [fileSizeNotice, setFileSizeNotice] = useState(false);
-  // To store any validation errors. //
+
   const [validationErrors, setValidationErrors] = useState({
     leave_notice_description: "",
   });
@@ -72,15 +70,9 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
     setLeaveDuration(selectedValue);
   };
 
-  const fetchLeaveNotice = () => {
-    getData(`${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`, (result: any) =>
-      setLeaveNotices(result)
-    );
-  };
-
   // Clear all values when the modal is closed. //
   const handleModalClose = () => {
-    setLeaveNoticeAddObject({
+    setLeaveNoticeCreateObject({
       leave_notice_student_ID: 0,
       leave_notice_description: "",
       leave_notice_choice: 1,
@@ -98,20 +90,25 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
       leave_notice_head_description: "",
       leave_notice_head_change_datetime: "",
     });
+    setValidationErrors({ leave_notice_description: "" });
     setLeaveNoticeFile(null);
     setLeaveNoticeFileName("");
     setFileSizeNotice(false);
-    setValidationErrors({ leave_notice_description: "" });
+
     setLeaveDuration(3);
     setStartDate(dayjs());
     setEndDate(dayjs().add(1, "day"));
+
     setIsCreateSuccess(false);
     setIsSubmitting(false);
+
     onModalClose();
   };
 
   // Put the value in the state into the object and submit. //
-  const setObjectAndSubmit = () => {
+  const setObjectAndSubmit = async () => {
+    setIsSubmitting(true);
+
     let startDateForUpload: string;
     let endDateForUpload: string;
 
@@ -155,13 +152,13 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
 
     // Parse leave_notice_choice to a number //
     const leaveNoticeChoiceAsNumber = parseInt(
-      leaveNoticeAddObject.leave_notice_choice.toString(),
+      leaveNoticeCreateObject.leave_notice_choice.toString(),
       10
     );
 
     // Put all the value in other states into the...
     // main state to submit. //
-    setLeaveNoticeAddObject((prevLeaveNotice) => ({
+    setLeaveNoticeCreateObject((prevLeaveNotice) => ({
       ...prevLeaveNotice,
       leave_notice_choice: leaveNoticeChoiceAsNumber,
       leave_notice_start_datetime: startDateForUpload,
@@ -169,15 +166,25 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
       leave_notice_create_datetime: currentDateForUpload,
     }));
 
-    handleLeaveNoticeSubmit(
-      leaveNoticeAddObject,
+    const submissionStatus = await handleLeaveNoticeCreate(
+      leaveNoticeCreateObject,
       leaveNoticeFile,
       leaveNoticeFileName,
-      setValidationErrors,
-      setIsSubmitting,
-      setIsCreateSuccess,
-      fetchLeaveNotice
+      setValidationErrors
     );
+
+    if (submissionStatus) {
+      getData(
+        `${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`,
+        (result: any) => setLeaveNotices(result)
+      );
+
+      setIsSubmitting(false);
+      setIsCreateSuccess(true);
+    } else {
+      setIsSubmitting(false);
+      setIsCreateSuccess(false);
+    }
   };
 
   return (
@@ -185,7 +192,10 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
       open={open}
       onModalClose={handleModalClose}
       icon="fa-solid fa-plus"
-      title={t("LeaveNotices_students_create_modal_header")}>
+      title={t("LeaveNotices_students_create_modal_header")}
+      altIcon="fa-solid fa-circle-check text-green-500"
+      altTitle={t("LeaveNotices_students_create_modal_submit_success_message")}
+      useAltTitle={isCreateSuccess}>
       <div className="grid grid-cols-1 gap-4">
         {/* Leave duration */}
         <TextField
@@ -250,8 +260,8 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
           label={t("LeaveNotices_students_create_modal_leaveChoice_label")}
           name="leave_notice_choice"
           className="col-span-1"
-          object={leaveNoticeAddObject}
-          setObject={setLeaveNoticeAddObject}
+          object={leaveNoticeCreateObject}
+          setObject={setLeaveNoticeCreateObject}
           value="1"
           validation="">
           <option value="1">
@@ -270,8 +280,8 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
           name="leave_notice_description"
           className="col-span-1"
           maxRows={4}
-          object={leaveNoticeAddObject}
-          setObject={setLeaveNoticeAddObject}
+          object={leaveNoticeCreateObject}
+          setObject={setLeaveNoticeCreateObject}
           validation={validationErrors.leave_notice_description}
         />
         {/* File */}
@@ -295,7 +305,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
                     id="leave_notice_attached_file"
                     hidden
                     onChange={(event) => {
-                      handleFileInputChange(
+                      handle_file_input_change(
                         'input[name="leave_notice_attached_file"]',
                         event,
                         setLeaveNoticeFile,
@@ -319,7 +329,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
                     id="leave_notice_attached_file"
                     hidden
                     onChange={(event) => {
-                      handleFileInputChange(
+                      handle_file_input_change(
                         'input[name="leave_notice_attached_file"]',
                         event,
                         setLeaveNoticeFile,
@@ -346,13 +356,6 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
           icon="fa-solid fa-flag"
           isSubmitting={isSubmitting}
           onClickFunction={setObjectAndSubmit}
-        />
-        {/* Success message */}
-        <Info_addSuccess_message
-          message={t(
-            "LeaveNotices_students_create_modal_submit_success_message"
-          )}
-          isSuccess={isCreateSuccess}
         />
       </div>
     </Custom_Modal>

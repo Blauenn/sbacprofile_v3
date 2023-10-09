@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Teacher } from "../../interfaces/common.interface";
-import { hasNumber } from "../../functions/stringManipulation.function";
+import { has_number } from "../../functions/stringManipulation.function";
 import { getData } from "../../functions/fetchFromAPI.function";
 import TeacherFilters from "../../components/Teachers/TeacherFilters.component";
 import Admin_teacher_table from "../../components/Dashboard/Teachers/AdminOnly/table/Admin_teacher_table.component";
@@ -53,7 +53,7 @@ const Admin_teachers = () => {
       : teachers;
 
   const filteredTeachers = filteredTeacherMajor.filter((teacher: Teacher) => {
-    if (hasNumber(searchField)) {
+    if (has_number(searchField)) {
       return teacher.teacher_ID.toString().includes(searchField);
     } else {
       return (teacher.teacher_first_name + teacher.teacher_last_name)

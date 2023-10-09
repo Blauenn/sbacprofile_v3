@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
-import { hasNumber } from "../functions/stringManipulation.function";
+import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import StudentRolodex from "../components/Students/StudentRolodex.component";
 import StudentFilters from "../components/Students/StudentFilters.component";
@@ -73,7 +73,7 @@ const Students = () => {
       : filteredStudentLevel;
       
   const filteredStudents = filteredStudentClass.filter((student: Student) => {
-    if (hasNumber(searchField)) {
+    if (has_number(searchField)) {
       return student.student_ID.toString().includes(searchField);
     } else {
       return (student.student_first_name + student.student_last_name)

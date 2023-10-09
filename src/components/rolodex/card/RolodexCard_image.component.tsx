@@ -1,5 +1,5 @@
 import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
-import { defaultImage } from "../../../constants/Misc.constant";
+import { Default_Image } from "../../../constants/Misc.constant";
 
 interface CurrentComponentProp {
   image: string;
@@ -15,7 +15,7 @@ const RolodexCard_image = (props: CurrentComponentProp) => {
         src={`${CDN_ENDPOINT}${image}`}
         loading="lazy"
         onError={(e) => {
-          e.currentTarget.src = defaultImage;
+          e.currentTarget.src = Default_Image;
         }}
       />
     </div>

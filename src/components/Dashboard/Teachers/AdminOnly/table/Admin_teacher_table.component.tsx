@@ -4,9 +4,9 @@ import { Teacher } from "../../../../../interfaces/common.interface";
 import Loading from "../../../../misc/Loading.component";
 import Admin_teacher_table_row from "./Admin_teacher_table_row.component";
 import {
-  style_table_content,
-  style_table_header,
-  style_table_parent,
+  table_content_style,
+  table_header_style,
+  table_parent_style,
 } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
@@ -49,31 +49,31 @@ const Admin_teacher_table = (props: CurrentComponentProp) => {
     });
 
     return (
-      <table className={style_table_parent}>
+      <table className={table_parent_style}>
         <thead>
           <tr>
-            <th className={`${style_table_header} | hidden md:table-cell`}>
+            <th className={`${table_header_style} | hidden md:table-cell`}>
               {t("Admin_Teachers_table_header_studentID")}
             </th>
-            <th className={`${style_table_header} | hidden lg:table-cell`}>
+            <th className={`${table_header_style} | hidden lg:table-cell`}>
               {t("Admin_Teachers_table_header_image")}
             </th>
-            <th className={`${style_table_content} table-cell sm:hidden`}>
+            <th className={`${table_content_style} table-cell sm:hidden`}>
               {t("Admin_Teachers_table_header_name")}
             </th>
-            <th className={`${style_table_header} hidden sm:table-cell`}>
+            <th className={`${table_header_style} hidden sm:table-cell`}>
               {t("Admin_Teachers_table_header_firstName")}
             </th>
-            <th className={`${style_table_header} hidden sm:table-cell`}>
+            <th className={`${table_header_style} hidden sm:table-cell`}>
               {t("Admin_Teachers_table_header_lastName")}
             </th>
-            <th className={`${style_table_header} hidden 2xl:table-cell`}>
+            <th className={`${table_header_style} hidden 2xl:table-cell`}>
               {t("Admin_Teachers_table_header_firstNameThai")}
             </th>
-            <th className={`${style_table_header} hidden 2xl:table-cell`}>
+            <th className={`${table_header_style} hidden 2xl:table-cell`}>
               {t("Admin_Teachers_table_header_lastNameThai")}
             </th>
-            <th className={style_table_header}>
+            <th className={table_header_style}>
               <i className="fa-solid fa-pencil"></i>
             </th>
           </tr>
@@ -93,38 +93,38 @@ const Admin_teacher_table = (props: CurrentComponentProp) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <table className={style_table_parent}>
+          <table className={table_parent_style}>
             <thead>
               <tr>
-                <th className={`${style_table_header} | hidden md:table-cell`}>
+                <th className={`${table_header_style} | hidden md:table-cell`}>
                   {t("Admin_Teachers_table_header_studentID")}
                 </th>
-                <th className={`${style_table_header} | hidden lg:table-cell`}>
+                <th className={`${table_header_style} | hidden lg:table-cell`}>
                   {t("Admin_Teachers_table_header_image")}
                 </th>
-                <th className={`${style_table_content} table-cell sm:hidden`}>
+                <th className={`${table_content_style} table-cell sm:hidden`}>
                   {t("Admin_Teachers_table_header_name")}
                 </th>
-                <th className={`${style_table_header} hidden sm:table-cell`}>
+                <th className={`${table_header_style} hidden sm:table-cell`}>
                   {t("Admin_Teachers_table_header_firstName")}
                 </th>
-                <th className={`${style_table_header} hidden sm:table-cell`}>
+                <th className={`${table_header_style} hidden sm:table-cell`}>
                   {t("Admin_Teachers_table_header_lastName")}
                 </th>
-                <th className={`${style_table_header} hidden 2xl:table-cell`}>
+                <th className={`${table_header_style} hidden 2xl:table-cell`}>
                   {t("Admin_Teachers_table_header_firstNameThai")}
                 </th>
-                <th className={`${style_table_header} hidden 2xl:table-cell`}>
+                <th className={`${table_header_style} hidden 2xl:table-cell`}>
                   {t("Admin_Teachers_table_header_lastNameThai")}
                 </th>
-                <th className={style_table_header}>
+                <th className={table_header_style}>
                   <i className="fa-solid fa-pencil"></i>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className={style_table_content}>
+                <td className={table_content_style}>
                   {t("Admin_Teachers_table_noTeachers_message")}
                 </td>
               </tr>

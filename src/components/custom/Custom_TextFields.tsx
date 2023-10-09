@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { handleInputChange } from "../../functions/fields/handleFieldChanges.function";
+import { handle_input_change } from "../../functions/fields/handleFieldChanges.function";
 
 interface TextFieldTextProp {
   label: string;
@@ -12,7 +12,7 @@ interface TextFieldTextProp {
 }
 
 interface TextFieldSelectProp {
-  disabled?: boolean
+  disabled?: boolean;
   label: string;
   name: string;
   className: string;
@@ -45,10 +45,11 @@ export const TextField_text = (props: TextFieldTextProp) => {
         name={name}
         className={className}
         onChange={(event) => {
-          handleInputChange(event, object, setObject);
+          handle_input_change(event, object, setObject);
         }}
         value={value}
         error={validation !== ""}
+        InputProps={{ sx: { background: "#FFFFFF" } }}
       />
       {validation !== "" ? (
         <h1 className="text-sm text-red-500">{validation}</h1>
@@ -78,12 +79,13 @@ export const TextField_select = (props: TextFieldSelectProp) => {
         name={name}
         className={className}
         onChange={(event) => {
-          handleInputChange(event, object, setObject);
+          handle_input_change(event, object, setObject);
         }}
         select
         SelectProps={{ native: true }}
         value={value}
-        error={validation !== ""}>
+        error={validation !== ""}
+        InputProps={{ sx: { background: "#FFFFFF" } }}>
         {children}
       </TextField>
       {validation !== "" ? (
@@ -114,10 +116,11 @@ export const TextField_multiline = (props: TextFieldMultiline) => {
         multiline
         maxRows={maxRows ?? 1}
         onChange={(event) => {
-          handleInputChange(event, object, setObject);
+          handle_input_change(event, object, setObject);
         }}
         value={value}
         error={validation !== ""}
+        InputProps={{ sx: { background: "#FFFFFF" } }}
       />
       {validation !== "" ? (
         <h1 className="text-sm text-red-500">{validation}</h1>

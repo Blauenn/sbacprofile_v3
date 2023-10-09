@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
-import { handleInputChange } from "../functions/fields/handleFieldChanges.function";
+import { handle_input_change } from "../functions/fields/handleFieldChanges.function";
 import { handleLogin } from "../functions/Login/Login.function";
 
 interface CurrentComponentProp {
@@ -48,7 +48,7 @@ const Login = (props: CurrentComponentProp) => {
                 label={t("Login_email_label")}
                 value={loginObject.login_email}
                 onChange={(event) => {
-                  handleInputChange(event, loginObject, setLoginObject);
+                  handle_input_change(event, loginObject, setLoginObject);
                 }}
                 name="login_email"
                 className="w-full"
@@ -58,7 +58,7 @@ const Login = (props: CurrentComponentProp) => {
                 label={t("Login_password_label")}
                 value={loginObject.login_password}
                 onChange={(event) => {
-                  handleInputChange(event, loginObject, setLoginObject);
+                  handle_input_change(event, loginObject, setLoginObject);
                 }}
                 name="login_password"
                 type="password"

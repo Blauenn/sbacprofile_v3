@@ -1,7 +1,7 @@
-import { getColorFromStatus_Timeline } from "../../functions/LeaveNotice/LeaveNotice.function.tsx";
+import { get_color_from_status_timeline } from "../../functions/LeaveNotices/LeaveNotices.function.tsx";
 import {
-  getDayFromDate,
-  getDayNameFromDate,
+  get_day_from_date,
+  get_day_name_from_date,
 } from "../../functions/getDates.function";
 import { LeaveNotice } from "../../interfaces/common.interface";
 
@@ -18,9 +18,9 @@ const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
         {leaveNotice.leave_notice_description != "" ? (
           leaveNotice.leave_notice_description
         ) : (
-          <h1 className="opacity-50">{`For ${getDayNameFromDate(
+          <h1 className="opacity-50">{`For ${get_day_name_from_date(
             leaveNotice.leave_notice_start_datetime
-          )} ${getDayFromDate(leaveNotice.leave_notice_start_datetime)}`}</h1>
+          )} ${get_day_from_date(leaveNotice.leave_notice_start_datetime)}`}</h1>
         )}
       </h1>
       <div className="flex flex-col">
@@ -28,22 +28,22 @@ const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
           <i className={`text-lg fa-solid fa-pen-to-square text-green-500`}></i>
           <i className={`fa-solid fa-arrow-right text-green-500`}></i>
           <i
-            className={`text-lg fa-solid fa-chalkboard-user | ${getColorFromStatus_Timeline(
+            className={`text-lg fa-solid fa-chalkboard-user | ${get_color_from_status_timeline(
               leaveNotice.leave_notice_teacher_status,
               "text"
             )}`}></i>
           <i
-            className={`fa-solid fa-arrow-right | ${getColorFromStatus_Timeline(
+            className={`fa-solid fa-arrow-right | ${get_color_from_status_timeline(
               leaveNotice.leave_notice_teacher_status,
               "text"
             )}`}></i>
           <i
-            className={`text-lg fa-solid fa-crown | ${getColorFromStatus_Timeline(
+            className={`text-lg fa-solid fa-crown | ${get_color_from_status_timeline(
               leaveNotice.leave_notice_head_status,
               "text"
             )}`}></i>
           <i
-            className={`fa-solid fa-arrow-right | ${getColorFromStatus_Timeline(
+            className={`fa-solid fa-arrow-right | ${get_color_from_status_timeline(
               leaveNotice.leave_notice_head_status,
               "text"
             )}`}></i>
@@ -51,7 +51,7 @@ const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
             className={`text-lg fa-solid fa-circle-check | ${
               leaveNotice.leave_notice_teacher_status == 2 &&
               leaveNotice.leave_notice_head_status == 2
-                ? getColorFromStatus_Timeline(2, "text")
+                ? get_color_from_status_timeline(2, "text")
                 : "opacity-25"
             }`}></i>
         </div>

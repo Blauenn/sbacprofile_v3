@@ -12,18 +12,20 @@ import {
   TextField_text,
 } from "../../../custom/Custom_TextFields";
 import { getData } from "../../../../functions/fetchFromAPI.function";
+import { handleClassroomUpdate } from "../../../../functions/Admin/Classrooms/Admin_classrooms.function";
 import Info_submit_button from "../../Buttons/Info_submit_button.component";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 import {
-  MajorName,
-  MajorNameGerman,
-  MajorNameKorean,
-  MajorNameThai,
+  Major_Name,
+  Major_Name_German,
+  Major_Name_Korean,
+  Major_Name_Thai,
 } from "../../../../constants/Majors.constant";
 
 // Contexts //
 import { useContext_Teachers } from "../../../../context/Teachers.context";
 import { useContext_Majors } from "../../../../context/Majors.context";
+import { useContext_Classrooms } from "../../../../context/Classrooms.context";
 
 interface CurrentComponentProp {
   classroom: Classroom;
@@ -34,6 +36,7 @@ interface CurrentComponentProp {
 const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
   const { classroom, open, onModalClose } = props;
 
+  const { setClassrooms } = useContext_Classrooms();
   const { teachers, setTeachers } = useContext_Teachers();
   const { majors, setMajors } = useContext_Majors();
 
@@ -54,7 +57,7 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
     }
   }, []);
 
-  const [classroomToUpdate, setClassroomToUpdate] = useState({
+  const [classroomUpdateObject, setClassroomUpdateObject] = useState({
     classroom_ID: classroom.classroom_ID,
     classroom_level: classroom.classroom_level,
     classroom_class: classroom.classroom_class,
@@ -63,7 +66,6 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
   });
 
   const [validationErrors, setValidationErrors] = useState({
-    classroom_ID: "",
     classroom_level: "",
     classroom_class: "",
     classroom_major: "",
@@ -74,10 +76,46 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
   const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
   const handleModalClose = () => {
+    setClassroomUpdateObject({
+      classroom_ID: classroom.classroom_ID,
+      classroom_level: classroom.classroom_level,
+      classroom_class: classroom.classroom_class,
+      classroom_major: classroom.classroom_major,
+      classroom_homeroom_teacher: classroom.classroom_homeroom_teacher,
+    });
+    setValidationErrors({
+      classroom_level: "",
+      classroom_class: "",
+      classroom_major: "",
+      classroom_homeroom_teacher: "",
+    });
+
+    setIsSubmitting(false);
+    setIsUpdateSuccess(false);
+
     onModalClose();
   };
 
-  const setObjectAndSubmit = () => {};
+  const setObjectAndSubmit = async () => {
+    setIsSubmitting(true);
+
+    const submissionStatus = await handleClassroomUpdate(
+      classroomUpdateObject,
+      setValidationErrors
+    );
+
+    if (submissionStatus) {
+      await getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) => {
+        setClassrooms(result);
+      });
+
+      setIsSubmitting(false);
+      setIsUpdateSuccess(true);
+    } else {
+      setIsSubmitting(false);
+      setIsUpdateSuccess(false);
+    }
+  };
 
   return (
     <Custom_Modal
@@ -95,9 +133,9 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Classrooms_crud_modal_level_label")}
             name="classroom_level"
             className="col-span-1"
-            object={classroomToUpdate}
-            setObject={setClassroomToUpdate}
-            value={classroomToUpdate.classroom_level}
+            object={classroomUpdateObject}
+            setObject={setClassroomUpdateObject}
+            value={classroomUpdateObject.classroom_level}
             validation={validationErrors.classroom_level}>
             <option value="0">
               {t("Admin_Classrooms_crud_modal_level_option1")}
@@ -123,9 +161,9 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
             label={t("Admin_Classrooms_crud_modal_class_label")}
             name="classroom_class"
             className="col-span-1"
-            object={classroomToUpdate}
-            setObject={setClassroomToUpdate}
-            value={classroomToUpdate.classroom_class}
+            object={classroomUpdateObject}
+            setObject={setClassroomUpdateObject}
+            value={classroomUpdateObject.classroom_class}
             validation={validationErrors.classroom_class}
           />
         </div>
@@ -134,31 +172,31 @@ const Admin_classroom_modal_update = (props: CurrentComponentProp) => {
           label={t("Admin_Classrooms_crud_modal_major_label")}
           name="classroom_major"
           className="col-span-1"
-          object={classroomToUpdate}
-          setObject={setClassroomToUpdate}
-          value={classroomToUpdate.classroom_major}
+          object={classroomUpdateObject}
+          setObject={setClassroomUpdateObject}
+          value={classroomUpdateObject.classroom_major}
           validation={validationErrors.classroom_major}>
           <option value="0">Major</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
-                ? MajorNameThai[major.major_ID]
+                ? Major_Name_Thai[major.major_ID]
                 : i18n.language === "ko"
-                ? MajorNameKorean[major.major_ID]
+                ? Major_Name_Korean[major.major_ID]
                 : i18n.language === "de"
-                ? MajorNameGerman[major.major_ID]
-                : MajorName[major.major_ID]}
+                ? Major_Name_German[major.major_ID]
+                : Major_Name[major.major_ID]}
             </option>
           ))}
         </TextField_select>
         {/* Classroom homeroom teacher */}
         <TextField_select
           label={t("Admin_Classrooms_crud_modal_teachers_label")}
-          name="student_major"
+          name="classroom_homeroom_teacher"
           className="col-span-1"
-          object={classroomToUpdate}
-          setObject={setClassroomToUpdate}
-          value={classroomToUpdate.classroom_homeroom_teacher}
+          object={classroomUpdateObject}
+          setObject={setClassroomUpdateObject}
+          value={classroomUpdateObject.classroom_homeroom_teacher}
           validation={validationErrors.classroom_homeroom_teacher}>
           <option value="0">No teacher</option>
           {teachers.map((teacher: Teacher) => (

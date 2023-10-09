@@ -3,8 +3,8 @@ import { Tooltip } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
 import { Announcement } from "../../interfaces/common.interface";
 import {
-  changeToDate,
-  changeToLocaleDate,
+  change_to_date,
+  change_to_locale_date,
 } from "../../functions/getDates.function";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
@@ -61,7 +61,7 @@ const Announcement_rolodex = (props: CurrentComponentProp) => {
                   </h1>
                 </div>
                 <Tooltip
-                  title={changeToLocaleDate(
+                  title={change_to_locale_date(
                     announcement.announcement_create_datetime
                   )}
                   placement="top-start"
@@ -69,7 +69,7 @@ const Announcement_rolodex = (props: CurrentComponentProp) => {
                   <h1 className="text-md opacity-50">
                     <i className="fa-regular fa-clock me-2"></i>
                     {formatDistanceToNow(
-                      changeToDate(announcement.announcement_create_datetime),
+                      change_to_date(announcement.announcement_create_datetime),
                       { addSuffix: true }
                     ).replace("about ", "")}
                   </h1>

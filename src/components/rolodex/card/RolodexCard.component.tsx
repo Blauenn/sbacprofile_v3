@@ -3,8 +3,8 @@ import i18n from "i18next";
 import RolodexCard_robotIcon from "./RolodexCard_robotIcon.component";
 import RolodexCard_image from "./RolodexCard_image.component";
 import RolodexModal from "../modal/RolodexModal.component";
-import { MajorToBackgroundColor } from "../../../constants/Majors.constant";
-import { RolodexCard_style } from "../../../constants/styles/rolodex.style";
+import { Major_To_Background_Color } from "../../../constants/Majors.constant";
+import { hover_transition } from "../../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
   profile: string;
@@ -57,10 +57,12 @@ const RolodexCard = (props: CurrentComponentProp) => {
     };
   }
 
+  const rolodex_card_style = `relative flex items-center flex-col bg-white shadow-sm rounded-xl py-4 | ${hover_transition} hover:bg-slate-200 cursor-pointer`;
+
   return (
     <>
       <div
-        className={`${RolodexCard_style}`}
+        className={`${rolodex_card_style}`}
         onClick={() => setModalOpen(true)}>
         {/* If the user is artifical. */}
         {profile === "student" ? (
@@ -73,7 +75,7 @@ const RolodexCard = (props: CurrentComponentProp) => {
         <div className="w-full flex flex-col justify-center items-center py-2">
           <RolodexCard_image
             image={remappedObject.image}
-            majorColor={MajorToBackgroundColor[remappedObject.major]}
+            majorColor={Major_To_Background_Color[remappedObject.major]}
           />
           <div className="w-5/6">
             {i18n.language === "th" ? (

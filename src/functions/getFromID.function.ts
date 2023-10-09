@@ -1,3 +1,4 @@
+import { Level_Name } from "../constants/Levels.constant";
 import { Club, Student, Teacher } from "../interfaces/common.interface";
 
 // Students //
@@ -20,6 +21,18 @@ export const get_student_major_from_ID = (
 
   if (student) {
     return student.student_major;
+  }
+};
+export const get_student_classroom_from_ID = (
+  student_ID: number,
+  students: any
+) => {
+  const student: any = students.find(
+    (student: Student) => student.student_ID == student_ID
+  );
+
+  if (student) {
+    return `${Level_Name[student.student_level]}/${student.student_class}`;
   }
 };
 export const get_student_image_from_ID = (
@@ -111,4 +124,14 @@ export const get_student_count_from_classroom = (
       student.student_class == classroomClass
   );
   return filteredStudentCount.length;
+};
+
+export const get_classroom_from_student_ID = (student_ID: number, students: any) => {
+  const foundStudent = students.find(
+    (student: Student) => student.student_ID == student_ID
+  );
+
+  return foundStudent
+    ? `${foundStudent.student_level}/${foundStudent.student_class}`
+    : "0/0";
 };

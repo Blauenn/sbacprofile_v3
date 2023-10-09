@@ -1,5 +1,5 @@
 // Copy function //
-export const handleCopy = (content: any, setCopied: any) => {
+export const handle_copy = (content: any, setCopied: any) => {
   navigator.clipboard.writeText(content);
   setCopied(true);
 

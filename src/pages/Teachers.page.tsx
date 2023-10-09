@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Teacher } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
-import { hasNumber } from "../functions/stringManipulation.function";
+import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import TeacherRolodex from "../components/Teachers/TeacherRolodex.component";
 import TeacherFilters from "../components/Teachers/TeacherFilters.component";
@@ -52,7 +52,7 @@ const Teachers = () => {
       : teachers;
 
   const filteredTeachers = filteredTeacherMajor.filter((teacher: Teacher) => {
-    if (hasNumber(searchField)) {
+    if (has_number(searchField)) {
       return teacher.teacher_ID.toString().includes(searchField);
     } else {
       return (teacher.teacher_first_name + teacher.teacher_last_name)

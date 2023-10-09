@@ -1,12 +1,12 @@
-export const studentAccessOnly = (userPosition: number) => {
+export const student_access_only = (userPosition: number) => {
   return userPosition === 1 || userPosition === 2;
 };
-export const teacherAccessOnly = (userPosition: number) => {
+export const teacher_access_only = (userPosition: number) => {
   return userPosition === 3 || userPosition === 4;
 };
-export const headAccessOnly = (userPosition: number) => {
+export const head_access_only = (userPosition: number) => {
   return userPosition === 4;
 };
-export const adminAccessOnly = (userPosition: number) => {
+export const admin_access_only = (userPosition: number) => {
   return userPosition === 5 || userPosition === 6;
 };

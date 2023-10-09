@@ -5,10 +5,10 @@ import RolodexCard from "../rolodex/card/RolodexCard.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
 import {
-  MajorName,
-  MajorNameGerman,
-  MajorNameKorean,
-  MajorNameThai,
+  Major_Name,
+  Major_Name_German,
+  Major_Name_Korean,
+  Major_Name_Thai,
 } from "../../constants/Majors.constant";
 
 interface CurrentComponentProp {
@@ -58,12 +58,12 @@ const StudentRolodex = (props: CurrentComponentProp) => {
           <div key={major} className="mb-12">
             <h1 className="text-xl lg:text-2xl | font-semibold xl:mx-16 mb-6">
               {i18n.language === "th"
-                ? MajorNameThai[parseInt(major)]
+                ? Major_Name_Thai[parseInt(major)]
                 : i18n.language === "ko"
-                ? MajorNameKorean[parseInt(major)]
+                ? Major_Name_Korean[parseInt(major)]
                 : i18n.language === "de"
-                ? MajorNameGerman[parseInt(major)]
-                : MajorName[parseInt(major)]}
+                ? Major_Name_German[parseInt(major)]
+                : Major_Name[parseInt(major)]}
             </h1>
             <div className="grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 xl:mx-16 | grid gap-4">
               {students.map((student: Student) => (

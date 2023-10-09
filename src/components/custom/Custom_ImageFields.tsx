@@ -1,6 +1,6 @@
 import { CDN_ENDPOINT } from "../../constants/ENDPOINTS";
-import { MajorToBackgroundColor } from "../../constants/Majors.constant";
-import { handleImageChange } from "../../functions/fields/handleFieldChanges.function";
+import { Major_To_Background_Color } from "../../constants/Majors.constant";
+import { handle_image_change } from "../../functions/fields/handleFieldChanges.function";
 
 const ImageField_profile_image_styles =
   "flex justify-center items-center border border-opacity-25 border-standardBlack w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden";
@@ -37,7 +37,7 @@ export const ImageField_profile = (props: ImageFieldProfileProps) => {
         </div>
       ) : profile_image && profile_major ? (
         <div
-          className={`${ImageField_profile_image_styles} ${MajorToBackgroundColor[profile_major]}`}>
+          className={`${ImageField_profile_image_styles} ${Major_To_Background_Color[profile_major]}`}>
           <img src={`${CDN_ENDPOINT}${profile_image}`} />
         </div>
       ) : (
@@ -53,7 +53,7 @@ export const ImageField_profile = (props: ImageFieldProfileProps) => {
         accept=".jpg, .jpeg, .png"
         hidden
         onChange={(event) => {
-          handleImageChange(
+          handle_image_change(
             event,
             setImagePreview,
             setImage,

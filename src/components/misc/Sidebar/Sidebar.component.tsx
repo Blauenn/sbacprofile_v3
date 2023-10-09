@@ -5,13 +5,13 @@ import { Tooltip } from "@mui/material";
 import SidebarLink from "./SidebarLink.component";
 import { getDataAuthenticated } from "../../../functions/fetchFromAPI.function";
 import { hover_transition } from "../../../constants/styles/transitions.style";
-import { defaultImage } from "../../../constants/Misc.constant";
+import { Default_Image } from "../../../constants/Misc.constant";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Account } from "../../../context/Account.context";
 import Sidebar_modal_logout from "./Sidebar_modal_logout.component";
-import { MajorToBackgroundColor } from "../../../constants/Majors.constant";
+import { Major_To_Background_Color } from "../../../constants/Majors.constant";
 
 const Sidebar = () => {
   const { accessToken, userInfo } = useContext_Account();
@@ -84,12 +84,12 @@ const Sidebar = () => {
                   <NavLink to="/dashboard">
                     <div
                       className={`${
-                        MajorToBackgroundColor[userInfo.profile_major]
+                        Major_To_Background_Color[userInfo.profile_major]
                       } rounded-full overflow-hidden`}>
                       <img
                         src={`${CDN_ENDPOINT}${profileImage}`}
                         onError={(e) => {
-                          e.currentTarget.src = defaultImage;
+                          e.currentTarget.src = Default_Image;
                         }}
                       />
                     </div>

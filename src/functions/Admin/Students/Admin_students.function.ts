@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { capitalizeFirstLetter } from "../../stringManipulation.function";
+import { capitalize_first_letter } from "../../stringManipulation.function";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 const englishAlphabetRegex = /^[A-Za-z]+$/; // English alphabets only //
@@ -134,7 +134,6 @@ const validateStudentObject = (
   // If validation fails. //
   if (!validationResult.success) {
     validationResult.error.issues.forEach((issue: any) => {
-      // Add custom error messages based on which validation fails. //
       switch (issue.path[0]) {
         case "student_ID":
           validationErrors.student_ID = "Student ID is invalid.";
@@ -238,17 +237,17 @@ export const handleStudentCreate = async (
   setValidationErrors: any
 ) => {
   const updatedStudentToCreate = {
-    student_ID: parseInt(studentCreateObject.student_ID, 10),
-    student_position: parseInt(studentCreateObject.student_position, 10),
+    student_ID: parseInt(studentCreateObject.student_ID),
+    student_position: parseInt(studentCreateObject.student_position),
     student_first_name: studentCreateObject.student_first_name,
     student_last_name: studentCreateObject.student_last_name,
     student_nickname: studentCreateObject.student_nickname,
     student_first_name_thai: studentCreateObject.student_first_name_thai,
     student_last_name_thai: studentCreateObject.student_last_name_thai,
     student_nickname_thai: studentCreateObject.student_nickname_thai,
-    student_major: parseInt(studentCreateObject.student_major, 10),
-    student_gender: parseInt(studentCreateObject.student_gender, 10),
-    student_level: parseInt(studentCreateObject.student_level, 10),
+    student_major: parseInt(studentCreateObject.student_major),
+    student_gender: parseInt(studentCreateObject.student_gender),
+    student_level: parseInt(studentCreateObject.student_level),
     student_class: studentCreateObject.student_class,
     student_phone: studentCreateObject.student_phone,
     student_line_ID: studentCreateObject.student_line_ID,
@@ -281,13 +280,13 @@ export const handleStudentCreate = async (
     const studentToAddObject = {
       student_ID: updatedStudentToCreate.student_ID,
       student_position: updatedStudentToCreate.student_position,
-      student_first_name: capitalizeFirstLetter(
+      student_first_name: capitalize_first_letter(
         updatedStudentToCreate.student_first_name
       ),
-      student_last_name: capitalizeFirstLetter(
+      student_last_name: capitalize_first_letter(
         updatedStudentToCreate.student_last_name
       ),
-      student_nickname: capitalizeFirstLetter(
+      student_nickname: capitalize_first_letter(
         updatedStudentToCreate.student_nickname
       ),
       student_first_name_thai: updatedStudentToCreate.student_first_name_thai,
@@ -331,17 +330,17 @@ export const handleStudentUpdate = async (
 ) => {
   const updatedStudentToUpdate = {
     primary_student_ID: studentUpdateObject.primary_student_ID,
-    student_ID: parseInt(studentUpdateObject.student_ID, 10),
-    student_position: parseInt(studentUpdateObject.student_position, 10),
+    student_ID: parseInt(studentUpdateObject.student_ID),
+    student_position: parseInt(studentUpdateObject.student_position),
     student_first_name: studentUpdateObject.student_first_name,
     student_last_name: studentUpdateObject.student_last_name,
     student_nickname: studentUpdateObject.student_nickname,
     student_first_name_thai: studentUpdateObject.student_first_name_thai,
     student_last_name_thai: studentUpdateObject.student_last_name_thai,
     student_nickname_thai: studentUpdateObject.student_nickname_thai,
-    student_major: parseInt(studentUpdateObject.student_major, 10),
-    student_gender: parseInt(studentUpdateObject.student_gender, 10),
-    student_level: parseInt(studentUpdateObject.student_level, 10),
+    student_major: parseInt(studentUpdateObject.student_major),
+    student_gender: parseInt(studentUpdateObject.student_gender),
+    student_level: parseInt(studentUpdateObject.student_level),
     student_class: studentUpdateObject.student_class,
     student_phone: studentUpdateObject.student_phone,
     student_line_ID: studentUpdateObject.student_line_ID,
@@ -352,7 +351,7 @@ export const handleStudentUpdate = async (
   // Perform the validation //
   const validation = validateStudentObject(
     updatedStudentToUpdate,
-    setValidationErrors,
+    setValidationErrors
   );
 
   // If validation passes. //

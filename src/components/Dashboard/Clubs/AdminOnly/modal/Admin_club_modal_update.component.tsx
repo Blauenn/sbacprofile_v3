@@ -13,10 +13,10 @@ import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import Info_addSuccess_message from "../../../Buttons/Info_success_message.component";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
-  MajorName,
-  MajorNameGerman,
-  MajorNameKorean,
-  MajorNameThai,
+  Major_Name,
+  Major_Name_German,
+  Major_Name_Korean,
+  Major_Name_Thai,
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
@@ -175,12 +175,12 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
             {majors.map((major: Major) => (
               <option key={major.major_ID} value={major.major_ID}>
                 {i18n.language === "th"
-                  ? MajorNameThai[major.major_ID]
+                  ? Major_Name_Thai[major.major_ID]
                   : i18n.language === "ko"
-                  ? MajorNameKorean[major.major_ID]
+                  ? Major_Name_Korean[major.major_ID]
                   : i18n.language === "de"
-                  ? MajorNameGerman[major.major_ID]
-                  : MajorName[major.major_ID]}
+                  ? Major_Name_German[major.major_ID]
+                  : Major_Name[major.major_ID]}
               </option>
             ))}
           </TextField_select>

@@ -1,24 +1,10 @@
 import { z } from "zod";
 import dayjs from "dayjs";
-import { Announcement } from "../../../interfaces/common.interface";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
-
-export const get_announcement_status_text = (status: number | undefined) => {
-  let status_text;
-
-  if (status === 1) {
-    status_text = "Shown";
-  } else {
-    status_text = "Hidden";
-  }
-
-  return status_text;
-};
 
 const validateAnnoucementObject = (
   announcementObject: any,
-  setValidationErrors: any,
-  callback: any
+  setValidationErrors: any
 ) => {
   const AnnouncementSchema = z.object({
     announcement_status: z.number(),
@@ -55,7 +41,6 @@ const validateAnnoucementObject = (
       }
     });
     setValidationErrors(validationErrors);
-    callback(false);
     return false;
   } else {
     setValidationErrors(validationErrors);
@@ -63,23 +48,45 @@ const validateAnnoucementObject = (
   }
 };
 
+const uploadAnnouncementImage = async (
+  announcementImage: any,
+  announcementImageName: string
+) => {
+  const announcementCreateImage = new FormData();
+  announcementCreateImage.append("image", announcementImage);
+  announcementCreateImage.append("filename", `${announcementImageName}`);
+
+  try {
+    await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
+      method: "POST",
+      body: announcementCreateImage,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const handleAnnouncementCreate = async (
   announcementCreateObject: any,
-  announcementImage: any,
+  announcementImageObject: any,
   announcementImageName: string,
-  setValidationErrors: any,
-  callback: (status: boolean) => void
+  setValidationErrors: any
 ) => {
   const currentDate = dayjs();
 
   const validation = validateAnnoucementObject(
     announcementCreateObject,
-    setValidationErrors,
-    callback
+    setValidationErrors
   );
 
   // If the validation passes. //
   if (validation) {
+    // Announcement image. //
+    if (announcementImageObject != null) {
+      uploadAnnouncementImage(announcementImageObject, announcementImageName);
+    }
+
     // Announcement information. //
     const announcementCreateObjectToPost = {
       announcement_status: announcementCreateObject.announcement_status,
@@ -93,13 +100,6 @@ export const handleAnnouncementCreate = async (
       announcementCreateObjectToPost
     );
 
-    // Announcement image. //
-    const announcementCreateImage = new FormData();
-    if (announcementImage != null) {
-      announcementCreateImage.append("image", announcementImage);
-    }
-    announcementCreateImage.append("filename", `${announcementImageName}`);
-
     // Upload the announcement information. //
     try {
       const response = await fetch(
@@ -112,34 +112,21 @@ export const handleAnnouncementCreate = async (
       );
 
       if (response.status) {
-        callback(true);
+        return true;
       } else {
-        callback(false);
+        return false;
       }
     } catch (error) {
-      callback(false);
-    }
-
-    // Upload the image information into a CDN. //
-    if (announcementImage != null) {
-      try {
-        await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
-          method: "POST",
-          body: announcementCreateImage,
-        });
-      } catch (error) {
-        callback(false);
-      }
+      return false;
     }
   }
 };
 
 export const handleAnnouncementUpdate = async (
   announcementUpdateObject: any,
-  announcementImage: any,
+  announcementImageObject: any,
   announcementImageName: string,
-  setValidationErrors: any,
-  callback: (status: boolean) => void
+  setValidationErrors: any
 ) => {
   const updatedAnnouncementToUpdate = {
     announcement_ID: announcementUpdateObject.announcement_ID,
@@ -156,12 +143,16 @@ export const handleAnnouncementUpdate = async (
 
   const validation = validateAnnoucementObject(
     updatedAnnouncementToUpdate,
-    setValidationErrors,
-    callback
+    setValidationErrors
   );
 
   // If the validation passes. //
   if (validation) {
+    // Announcement image. //
+    if (announcementImageObject != null) {
+      uploadAnnouncementImage(announcementImageObject, announcementImageName);
+    }
+
     // Announcement information. //
     const announcementUpdateObjectToPost = {
       id: updatedAnnouncementToUpdate.announcement_ID,
@@ -179,13 +170,6 @@ export const handleAnnouncementUpdate = async (
       announcementUpdateObjectToPost
     );
 
-    // Announcement image. //
-    const announcementUpdateImage = new FormData();
-    if (announcementImage != null) {
-      announcementUpdateImage.append("image", announcementImage);
-    }
-    announcementUpdateImage.append("filename", `${announcementImageName}`);
-
     // Upload the announcement information. //
     try {
       const response = await fetch(
@@ -198,24 +182,24 @@ export const handleAnnouncementUpdate = async (
       );
 
       if (response.status) {
-        callback(true);
+        return true;
       } else {
-        callback(false);
+        return false;
       }
     } catch (error) {
-      callback(false);
-    }
-
-    // Upload the image information into a CDN. //
-    if (announcementImage != null) {
-      try {
-        await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
-          method: "POST",
-          body: announcementUpdateImage,
-        });
-      } catch (error) {
-        callback(false);
-      }
+      return false;
     }
   }
+};
+
+export const get_announcement_status_text = (status: number | undefined) => {
+  let status_text;
+
+  if (status === 1) {
+    status_text = "Shown";
+  } else {
+    status_text = "Hidden";
+  }
+
+  return status_text;
 };

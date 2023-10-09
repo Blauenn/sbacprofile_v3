@@ -17,13 +17,13 @@ import {
   get_teacher_major_from_ID,
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
-import { studentAccessOnly } from "../../../functions/permissionChecks.function";
+import { student_access_only } from "../../../functions/permissionChecks.function";
 import {
-  MajorName,
-  MajorToBackgroundColor,
-  MajorToBorderColor,
+  Major_Name,
+  Major_To_Background_Color,
+  Major_To_Border_Color,
 } from "../../../constants/Majors.constant";
-import { defaultImage } from "../../../constants/Misc.constant";
+import { Default_Image } from "../../../constants/Misc.constant";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 interface CurrentComponentProp {
@@ -143,7 +143,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
         </div>
         <h1 className="text-3xl font-semibold mb-2">{club.club_name}</h1>
         <h1 className="text-xl opacity-50 mb-4">
-          {MajorName[club.club_major]}
+          {Major_Name[club.club_major]}
         </h1>
         {club.club_description != "" ? (
           <p className="text-lg mb-8">{club.club_description}</p>
@@ -161,7 +161,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                     className="flex flex-row items-center gap-2 border border-standardBlack border-opacity-25 rounded-xl px-2 py-1">
                     <div
                       className={`${
-                        MajorToBackgroundColor[
+                        Major_To_Background_Color[
                           get_teacher_major_from_ID(teacher, teachers)
                         ]
                       } w-[40px] h-[40px] rounded-full overflow-hidden`}>
@@ -172,7 +172,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                         )}`}
                         className="w-full"
                         onError={(e) => {
-                          e.currentTarget.src = defaultImage;
+                          e.currentTarget.src = Default_Image;
                         }}
                       />
                     </div>
@@ -208,7 +208,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                     arrow>
                     <div
                       className={`${
-                        MajorToBackgroundColor[
+                        Major_To_Background_Color[
                           get_student_major_from_ID(
                             clubMembership.club_student,
                             students
@@ -222,7 +222,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                         )}`}
                         className={`border-2 flex-shrink-0 ${
                           club
-                            ? MajorToBorderColor[
+                            ? Major_To_Border_Color[
                                 get_student_major_from_ID(
                                   clubMembership.club_student,
                                   students
@@ -231,7 +231,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                             : "text-blue-500"
                         }`}
                         onError={(e) => {
-                          e.currentTarget.src = defaultImage;
+                          e.currentTarget.src = Default_Image;
                         }}
                       />
                     </div>
@@ -247,14 +247,14 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
             </div>
           )
         ) : null}
-        {userInfo && studentAccessOnly(userInfo.profile_position) ? (
+        {userInfo && student_access_only(userInfo.profile_position) ? (
           !selfClubCheck() ? (
             <div className="mt-4">
               <button
                 onClick={() => handleClubJoin(club.club_ID)}
                 type="button"
                 className={`text-white ${
-                  MajorToBackgroundColor[club.club_major]
+                  Major_To_Background_Color[club.club_major]
                 } rounded-xl px-4 py-2`}>
                 Join club
               </button>

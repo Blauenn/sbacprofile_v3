@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
-import { handleCopy } from "../../../functions/copy.function";
-import { MajorContactsHover } from "../../../constants/Majors.constant";
+import { handle_copy } from "../../../functions/copy.function";
+import { Major_Contacts_Hover } from "../../../constants/Majors.constant";
 
 interface CurrentComponentProp {
   object: any;
@@ -32,10 +32,10 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
         }
         placement="top-start"
         arrow
-        onClick={() => handleCopy(object.email, setCopied)}>
+        onClick={() => handle_copy(object.email, setCopied)}>
         <h1
           className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
-            MajorContactsHover[object.major]
+            Major_Contacts_Hover[object.major]
           } mb-2 truncate`}>
           <i className="me-4 fa-solid fa-at"></i>
           {object.email}
@@ -52,10 +52,10 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
           }
           placement="top-start"
           arrow
-          onClick={() => handleCopy(object.phone, setCopied)}>
+          onClick={() => handle_copy(object.phone, setCopied)}>
           <h1
             className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
-              MajorContactsHover[object.major]
+              Major_Contacts_Hover[object.major]
             } mb-2`}>
             <i className="me-4 fa-solid fa-phone"></i>
             {object.phone ? `${formattedPhoneNumber}` : "Not Given"}
@@ -73,10 +73,10 @@ const RolodexModal_contacts = (props: CurrentComponentProp) => {
           }
           placement="top-start"
           arrow
-          onClick={() => handleCopy(object.line_ID, setCopied)}>
+          onClick={() => handle_copy(object.line_ID, setCopied)}>
           <h1
             className={`"lg:mb-4 text-lg font-semibold cursor-pointer" ${
-              MajorContactsHover[object.major]
+              Major_Contacts_Hover[object.major]
             }`}>
             <i className="me-4 fa-brands fa-line"></i>
             {object.line_ID ? object.line_ID.toLowerCase() : "Not Given"}

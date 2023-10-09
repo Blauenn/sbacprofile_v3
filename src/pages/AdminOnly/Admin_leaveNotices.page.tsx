@@ -7,11 +7,11 @@ import { useEffect } from "react";
 import { getData } from "../../functions/fetchFromAPI.function";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import { useContext_Students } from "../../context/Students.context";
-import Admin_leaveNotice_table from "../../components/LeaveNotices/AdminOnly/table/Admin_leaveNotice_table.components";
+import Admin_leaveNotice_table from "../../components/LeaveNotices/AdminOnly/table/Admin_leaveNotices_table.components";
 
-const Admin_leaveNotices = () => { 
+const Admin_leaveNotices = () => {
   const { leaveNotices, setLeaveNotices } = useContext_LeaveNotices();
-  const { setStudents } = useContext_Students();
+  const { setStudents, setStudentCount } = useContext_Students();
 
   const { t } = useTranslation();
 
@@ -19,9 +19,11 @@ const Admin_leaveNotices = () => {
     getData(`${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`, (result: any) =>
       setLeaveNotices(result)
     );
-    getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) =>
-      setStudents(result)
-    );
+    // Students //
+    getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
+      setStudents(result);
+      setStudentCount(result.length);
+    });
   }, []);
 
   return (

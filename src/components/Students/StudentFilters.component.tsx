@@ -6,16 +6,16 @@ import { Classroom, Major } from "../../interfaces/common.interface";
 import StudentClassFilter from "./StudentClassFilter.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 import {
-  MajorName,
-  MajorNameGerman,
-  MajorNameKorean,
-  MajorNameThai,
+  Major_Name,
+  Major_Name_German,
+  Major_Name_Korean,
+  Major_Name_Thai,
 } from "../../constants/Majors.constant";
 import {
-  LevelName,
-  LevelNameGerman,
-  LevelNameKorean,
-  LevelNameThai,
+  Level_Name,
+  Level_Name_German,
+  Level_Name_Korean,
+  Level_Name_Thai,
 } from "../../constants/Levels.constant";
 
 interface StudentFilterProps {
@@ -121,12 +121,12 @@ const StudentFilters = (props: StudentFilterProps) => {
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
-                ? MajorNameThai[major.major_ID]
+                ? Major_Name_Thai[major.major_ID]
                 : i18n.language === "ko"
-                ? MajorNameKorean[major.major_ID]
+                ? Major_Name_Korean[major.major_ID]
                 : i18n.language === "de"
-                ? MajorNameGerman[major.major_ID]
-                : MajorName[major.major_ID]}
+                ? Major_Name_German[major.major_ID]
+                : Major_Name[major.major_ID]}
             </option>
           ))}
         </TextField>
@@ -143,48 +143,48 @@ const StudentFilters = (props: StudentFilterProps) => {
           <option value="0">{t("profile_filters_option_all")}</option>
           <option value="1">
             {i18n.language === "th"
-              ? LevelNameThai[1]
+              ? Level_Name_Thai[1]
               : i18n.language === "ko"
-              ? LevelNameKorean[1]
+              ? Level_Name_Korean[1]
               : i18n.language === "de"
-              ? LevelNameGerman[1]
-              : LevelName[1]}
+              ? Level_Name_German[1]
+              : Level_Name[1]}
           </option>
           <option value="2">
             {i18n.language === "th"
-              ? LevelNameThai[2]
+              ? Level_Name_Thai[2]
               : i18n.language === "ko"
-              ? LevelNameKorean[2]
+              ? Level_Name_Korean[2]
               : i18n.language === "de"
-              ? LevelNameGerman[2]
-              : LevelName[2]}
+              ? Level_Name_German[2]
+              : Level_Name[2]}
           </option>
           <option value="3">
             {i18n.language === "th"
-              ? LevelNameThai[3]
+              ? Level_Name_Thai[3]
               : i18n.language === "ko"
-              ? LevelNameKorean[3]
+              ? Level_Name_Korean[3]
               : i18n.language === "de"
-              ? LevelNameGerman[3]
-              : LevelName[3]}
+              ? Level_Name_German[3]
+              : Level_Name[3]}
           </option>
           <option value="4">
             {i18n.language === "th"
-              ? LevelNameThai[4]
+              ? Level_Name_Thai[4]
               : i18n.language === "ko"
-              ? LevelNameKorean[4]
+              ? Level_Name_Korean[4]
               : i18n.language === "de"
-              ? LevelNameGerman[4]
-              : LevelName[4]}
+              ? Level_Name_German[4]
+              : Level_Name[4]}
           </option>
           <option value="5">
             {i18n.language === "th"
-              ? LevelNameThai[5]
+              ? Level_Name_Thai[5]
               : i18n.language === "ko"
-              ? LevelNameKorean[5]
+              ? Level_Name_Korean[5]
               : i18n.language === "de"
-              ? LevelNameGerman[5]
-              : LevelName[5]}
+              ? Level_Name_German[5]
+              : Level_Name[5]}
           </option>
         </TextField>
         {/* Class */}

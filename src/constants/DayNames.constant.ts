@@ -1,4 +1,4 @@
-export const dayNames: { [key: number]: string } = {
+export const Day_Names: { [key: number]: string } = {
   1: "Sunday",
   2: "Monday",
   3: "Tuesday",

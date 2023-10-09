@@ -6,7 +6,7 @@ import {
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
+import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleAnnouncementUpdate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
@@ -37,15 +37,6 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
     announcement_create_datetime: announcement.announcement_create_datetime,
     announcement_image: announcement.announcement_image,
   });
-
-  const [announcementImagePreview, setAnnouncementImagePreview] = useState("");
-  const [announcementImage, setAnnouncementImage] = useState(null);
-  const [announcementImageName, setAnnouncementImageName] = useState("");
-  const [fileSizeNotice, setFileSizeNotice] = useState(false);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
-
   const [validationErrors, setValidationErrors] = useState({
     announcement_ID: "",
     announcement_status: "",
@@ -54,9 +45,17 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
     announcement_create_datetime: "",
     announcement_image: "",
   });
+  const [announcementImage, setAnnouncementImage] = useState(null);
+  const [announcementImageName, setAnnouncementImageName] = useState("");
+
+  const [imagePreview, setImagePreview] = useState("");
+  const [fileSizeNotice, setFileSizeNotice] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
   const handleImageCancel = () => {
-    setAnnouncementImagePreview("");
+    setImagePreview("");
     setAnnouncementImage(null);
     setAnnouncementImageName("");
     setFileSizeNotice(false);
@@ -79,12 +78,15 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
       announcement_create_datetime: "",
       announcement_image: "",
     });
-    setAnnouncementImagePreview("");
     setAnnouncementImage(null);
     setAnnouncementImageName("");
+
+    setImagePreview("");
     setFileSizeNotice(false);
+
     setIsSubmitting(false);
     setIsUpdateSuccess(false);
+
     onModalClose();
   };
 
@@ -93,7 +95,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
     ""
   );
 
-  const setObjectAndSubmit = () => {
+  const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
     // Check if the image is updated or not. //
@@ -105,24 +107,20 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
       imageNameToUpdate = originalImageName;
     }
 
-    handleAnnouncementUpdate(
+    const submissionStatus = await handleAnnouncementUpdate(
       announcementUpdateObject,
       announcementImage,
       imageNameToUpdate,
-      setValidationErrors,
-      callback
+      setValidationErrors
     );
-    setIsSubmitting(false);
-  };
 
-  const callback = (status: boolean) => {
-    if (status) {
-      setIsSubmitting(false);
-      setIsUpdateSuccess(true);
-      // Fetch announcements //
+    if (submissionStatus) {
       getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
         setAnnouncements(result);
       });
+
+      setIsSubmitting(false);
+      setIsUpdateSuccess(true);
     } else {
       setIsSubmitting(false);
       setIsUpdateSuccess(false);
@@ -148,10 +146,7 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
                 <FileResetButton functionToRun={handleImageCancel} />
                 <label htmlFor="announcement_image">
                   <div className="flex justify-center items-center h-full">
-                    <img
-                      src={announcementImagePreview}
-                      className="w-full h-auto"
-                    />
+                    <img src={imagePreview} className="w-full h-auto" />
                   </div>
                   <input
                     type="file"
@@ -160,9 +155,9 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
                     accept=".jpg, .jpeg, .png"
                     hidden
                     onChange={(event) => {
-                      handleImageChange(
+                      handle_image_change(
                         event,
-                        setAnnouncementImagePreview,
+                        setImagePreview,
                         setAnnouncementImage,
                         setFileSizeNotice,
                         setAnnouncementImageName
@@ -189,9 +184,9 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
                     accept=".jpg, .jpeg, .png"
                     hidden
                     onChange={(event) => {
-                      handleImageChange(
+                      handle_image_change(
                         event,
-                        setAnnouncementImagePreview,
+                        setImagePreview,
                         setAnnouncementImage,
                         setFileSizeNotice,
                         setAnnouncementImageName
@@ -217,9 +212,9 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
                   accept=".jpg, .jpeg, .png"
                   hidden
                   onChange={(event) => {
-                    handleImageChange(
+                    handle_image_change(
                       event,
-                      setAnnouncementImagePreview,
+                      setImagePreview,
                       setAnnouncementImage,
                       setFileSizeNotice,
                       setAnnouncementImageName
@@ -272,16 +267,16 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
           value={announcementUpdateObject.announcement_description}
           validation={validationErrors.announcement_description}
         />
-        {/* Submit button */}
-        <Info_submit_button
-          text={t("Admin_Announcements_update_modal_submit_button_title")}
-          icon="fa-solid fa-bullhorn"
-          isSubmitting={isSubmitting}
-          onClickFunction={() => {
-            setObjectAndSubmit();
-          }}
-        />
       </div>
+      {/* Submit button */}
+      <Info_submit_button
+        text={t("Admin_Announcements_update_modal_submit_button_title")}
+        icon="fa-solid fa-bullhorn"
+        isSubmitting={isSubmitting}
+        onClickFunction={() => {
+          setObjectAndSubmit();
+        }}
+      />
     </Custom_Modal>
   );
 };

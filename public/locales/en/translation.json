@@ -225,19 +225,29 @@
     "LeaveNotices_students_create_modal_file_label": "Upload a file",
     "LeaveNotices_students_create_modal_submit_button_title": "Submit leave notice",
     "LeaveNotices_students_create_modal_submit_success_message": "Leave notice has been submitted.",
+
+    "LeaveNotices_teachers_evaluate_modal_header": "Evaluate leave notice",
     
     "LeaveNotices_students_myLeaveNotices_title": "My leave notices",
     "LeaveNotices_students_view_modal_header": "Leave notice",
+    "LeaveNotices_teachers_myLeaveNotices_title": "Students leave notices",
+    "LeaveNotices_teachers_view_modal_header": "Leave notice",
     
-    "LeaveNotices_students_table_header_submitDate": "Submit date",
-    "LeaveNotices_students_table_header_type": "Type",
-    "LeaveNotices_students_table_header_startDate": "Start date",
-    "LeaveNotices_students_table_header_endDate": "End date",
-    "LeaveNotices_students_table_header_status": "Status",
-    "LeaveNotices_students_table_content_button_view_title": "View",
-    "LeaveNotices_students_table_content_button_file_title": "File",
-    "LeaveNotices_students_table_noLeaveNotices_message": "No leave notices",
-
+    "LeaveNotices_table_header_submitDate": "Submit date",
+    "LeaveNotices_table_header_type": "Type",
+    "LeaveNotices_table_header_startDate": "Start date",
+    "LeaveNotices_table_header_endDate": "End date",
+    "LeaveNotices_table_header_status": "Status",
+    "LeaveNotices_table_content_button_view_title": "View",
+    "LeaveNotices_table_content_button_file_title": "File",
+    "LeaveNotices_table_noLeaveNotices_message": "No leave notices",
+    
+    "LeaveNotices_evaluate_button_title": "Evaluate",
+    "LeaveNotices_evaluate_button_approve_title": "Approve",
+    "LeaveNotices_evaluate_button_edit_title": "Request edit",
+    "LeaveNotices_evaluate_button_reject_title": "Reject",
+    "LeaveNotices_evaluate_modal_submit_success_message": "Leave notice has been evaluated.",
+    
     "LeaveNotices_status_timeline_pending": "Pending",
     "LeaveNotices_status_timeline_changesNeeded": "Changes needed",
     "LeaveNotices_status_timeline_rejected": "Rejected",

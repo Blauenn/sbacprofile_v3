@@ -1,8 +1,8 @@
-export const handleInputChange = (event: any, object: any, setObject: any) => {
+export const handle_input_change = (event: any, object: any, setObject: any) => {
   setObject({ ...object, [event.target.name]: event.target.value });
 };
 
-export const handleFileInputChange = (
+export const handle_file_input_change = (
   fieldQuery: string,
   event: any,
   setLeaveNoticeFile: any,
@@ -50,7 +50,7 @@ export const handleFileInputChange = (
   }
 };
 
-export const handleImageChange = (
+export const handle_image_change = (
   event: any,
   setImagePreview: any,
   setImage: any,

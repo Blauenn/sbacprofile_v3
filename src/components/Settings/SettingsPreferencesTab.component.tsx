@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
-import { languageUpdate } from "../../functions/Settings/LanguageUpdate.function";
+import { language_update } from "../../functions/Settings/LanguageUpdate.function";
 
 const SettingsPreferencesTab = () => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ const SettingsPreferencesTab = () => {
           className="w-full"
           SelectProps={{ native: true }}
           defaultValue={i18n.language}
-          onChange={(event) => {languageUpdate(event.target.value)}}
+          onChange={(event) => {language_update(event.target.value)}}
           InputProps={{ sx: { borderRadius: 3, background: "#FFFFFF" } }}>
           <option value="en">English</option>
           <option value="de">Deutsch</option>

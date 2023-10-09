@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
-import { handleInputChange } from "../../functions/fields/handleFieldChanges.function";
-import { passwordUpdate } from "../../functions/Settings/PasswordUpdate.function";
+import { handle_input_change } from "../../functions/fields/handleFieldChanges.function";
+import { accountPasswordUpdate } from "../../functions/Settings/PasswordUpdate.function";
 
 interface CurrentComponentProp {
   userEmail: string;
@@ -38,7 +38,7 @@ const SettingsAccountTab = (props: CurrentComponentProp) => {
             label={t("Settings_account_password_label_currentPassword")}
             value={settingsPassword.current_password}
             onChange={(event) => {
-              handleInputChange(event, settingsPassword, setSettingsPassword);
+              handle_input_change(event, settingsPassword, setSettingsPassword);
             }}
             name="current_password"
             className="w-full"
@@ -51,7 +51,7 @@ const SettingsAccountTab = (props: CurrentComponentProp) => {
             label={t("Settings_account_password_label_newPassword")}
             value={settingsPassword.new_password}
             onChange={(event) => {
-              handleInputChange(event, settingsPassword, setSettingsPassword);
+              handle_input_change(event, settingsPassword, setSettingsPassword);
             }}
             name="new_password"
             className="w-full"
@@ -64,7 +64,7 @@ const SettingsAccountTab = (props: CurrentComponentProp) => {
             label={t("Settings_account_password_label_confirmPassword")}
             value={settingsPassword.confirm_password}
             onChange={(event) => {
-              handleInputChange(event, settingsPassword, setSettingsPassword);
+              handle_input_change(event, settingsPassword, setSettingsPassword);
             }}
             name="confirm_password"
             className="w-full"
@@ -91,7 +91,7 @@ const SettingsAccountTab = (props: CurrentComponentProp) => {
         <div className="grid grid-cols-1 justify-end">
           <button
             onClick={() => {
-              passwordUpdate(
+              accountPasswordUpdate(
                 userEmail,
                 settingsPassword,
                 setIsUpdating,

@@ -15,7 +15,7 @@ const settingsPassword_schema = z.object({
   confirm_password: z.string().nonempty().min(8),
 });
 
-export const passwordUpdate = (
+export const accountPasswordUpdate = (
   userEmail: any,
   settingsPasswordObject: SettingsPassword,
   setIsUpdating: any,

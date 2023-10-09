@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { capitalizeFirstLetter } from "../../stringManipulation.function";
+import { capitalize_first_letter } from "../../stringManipulation.function";
 import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 const englishAlphabetRegex = /^[A-Za-z]+$/; // English alphabets only //
@@ -252,13 +252,13 @@ export const handleTeacherCreate = async (
     const teacherToAddObject = {
       teacher_ID: updatedTeacherToCreate.teacher_ID,
       teacher_position: updatedTeacherToCreate.teacher_position,
-      teacher_first_name: capitalizeFirstLetter(
+      teacher_first_name: capitalize_first_letter(
         updatedTeacherToCreate.teacher_first_name
       ),
-      teacher_last_name: capitalizeFirstLetter(
+      teacher_last_name: capitalize_first_letter(
         updatedTeacherToCreate.teacher_last_name
       ),
-      teacher_nickname: capitalizeFirstLetter(
+      teacher_nickname: capitalize_first_letter(
         updatedTeacherToCreate.teacher_nickname
       ),
       teacher_first_name_thai: updatedTeacherToCreate.teacher_first_name_thai,

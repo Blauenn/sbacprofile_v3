@@ -6,7 +6,7 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { Announcement } from "../../../../../interfaces/common.interface";
-import { handleImageChange } from "../../../../../functions/fields/handleFieldChanges.function";
+import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
@@ -36,21 +36,22 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       announcement_image: "",
       announcement_create_datetime: "",
     });
-  const [announcementImagePreview, setAnnouncementImagePreview] = useState("");
+  const [validationErrors, setValidationErrors] = useState({
+    announcement_status: "",
+    announcement_title: "",
+    announcement_description: "",
+  });
   const [announcementImage, setAnnouncementImage] = useState(null);
   const [announcementImageName, setAnnouncementImageName] = useState("");
+
+  const [imagePreview, setImagePreview] = useState("");
   const [fileSizeNotice, setFileSizeNotice] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCreateSuccess, setIsCreateSuccess] = useState(false);
 
-  const [validationErrors, setValidationErrors] = useState({
-    announcement_title: "",
-    announcement_description: "",
-  });
-
   const handleImageCancel = () => {
-    setAnnouncementImagePreview("");
+    setImagePreview("");
     setAnnouncementImage(null);
     setAnnouncementImageName("");
     setFileSizeNotice(false);
@@ -64,37 +65,40 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       announcement_image: "",
       announcement_create_datetime: "",
     });
-    setAnnouncementImagePreview("");
+    setValidationErrors({
+      announcement_status: "",
+      announcement_title: "",
+      announcement_description: "",
+    });
     setAnnouncementImage(null);
     setAnnouncementImageName("");
+
+    setImagePreview("");
     setFileSizeNotice(false);
+
     setIsSubmitting(false);
     setIsCreateSuccess(false);
+    
     onModalClose();
   };
 
-  const setObjectAndSubmit = () => {
+  const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
-    handleAnnouncementCreate(
+    const submissionStatus = await handleAnnouncementCreate(
       announcementAddObject,
       announcementImage,
       announcementImageName,
-      setValidationErrors,
-      callback
+      setValidationErrors
     );
-    
-    setIsSubmitting(false);
-  };
 
-  const callback = (status: boolean) => {
-    if (status) {
-      setIsSubmitting(false);
-      setIsCreateSuccess(true);
-      // Fetch announcements //
+    if (submissionStatus) {
       getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
         setAnnouncements(result);
       });
+
+      setIsSubmitting(false);
+      setIsCreateSuccess(true);
     } else {
       setIsSubmitting(false);
       setIsCreateSuccess(false);
@@ -120,10 +124,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                 <FileResetButton functionToRun={handleImageCancel} />
                 <label htmlFor="announcement_image">
                   <div className="flex justify-center items-center h-full">
-                    <img
-                      src={announcementImagePreview}
-                      className="w-full h-auto"
-                    />
+                    <img src={imagePreview} className="w-full h-auto" />
                   </div>
                   <input
                     type="file"
@@ -132,9 +133,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                     accept=".jpg, .jpeg, .png"
                     hidden
                     onChange={(event) => {
-                      handleImageChange(
+                      handle_image_change(
                         event,
-                        setAnnouncementImagePreview,
+                        setImagePreview,
                         setAnnouncementImage,
                         setFileSizeNotice,
                         setAnnouncementImageName
@@ -160,9 +161,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                   accept=".jpg, .jpeg, .png"
                   hidden
                   onChange={(event) => {
-                    handleImageChange(
+                    handle_image_change(
                       event,
-                      setAnnouncementImagePreview,
+                      setImagePreview,
                       setAnnouncementImage,
                       setFileSizeNotice,
                       setAnnouncementImageName
