@@ -1,22 +1,20 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { getData } from "../functions/fetchFromAPI.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import Club_rolodex from "../components/Clubs/Club_rolodex.component";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
-import { useContext_Account } from "../context/Account.context";
 import { useContext_Clubs } from "../context/Clubs.context";
 import { useContext_Students } from "../context/Students.context";
 import { useContext_Teachers } from "../context/Teachers.context";
-import { getData } from "../functions/fetchFromAPI.function";
-import { API_ENDPOINT } from "../constants/ENDPOINTS";
-import { useEffect } from "react";
 
 const Clubs = () => {
-  const { userInfo } = useContext_Account();
   const { clubs, setClubs, clubMemberships, setClubMemberships } =
     useContext_Clubs();
-  const { students, setStudents } = useContext_Students();
-  const { teachers, setTeachers } = useContext_Teachers();
+  const { setStudents } = useContext_Students();
+  const { setTeachers } = useContext_Teachers();
 
   const { t } = useTranslation();
 
@@ -70,9 +68,6 @@ const Clubs = () => {
         clubs={clubs}
         clubMemberships={clubMemberships}
         setClubMemberships={setClubMemberships}
-        teachers={teachers}
-        students={students}
-        userInfo={userInfo}
       />
     </div>
   );

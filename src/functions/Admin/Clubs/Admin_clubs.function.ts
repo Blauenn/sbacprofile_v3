@@ -64,14 +64,99 @@ const validateClubObject = (clubObject: any, setValidationErrors: any) => {
   }
 };
 
+export const uploadClubImage = async (
+  clubImage: any,
+  clubImageName: string
+) => {
+  const clubImageForm = new FormData();
+  clubImageForm.append("image", clubImage);
+  clubImageForm.append("filename", `${clubImageName}`);
+
+  try {
+    await fetch(`${API_ENDPOINT}/api/v1/upload/image/club`, {
+      method: "POST",
+      body: clubImageForm,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const handleClubCreate = async (
+  clubCreateObject: any,
+  clubImageObject: any,
+  clubImageName: string,
+  setValidationErrors: any
+) => {
+  const updatedClubUpdateObject = {
+    club_name: clubCreateObject.club_name,
+    club_major: parseInt(clubCreateObject.club_major, 10),
+    club_status: parseInt(clubCreateObject.club_status, 10),
+    club_description: clubCreateObject.club_description,
+    club_image: clubCreateObject.club_image,
+    club_capacity: parseInt(clubCreateObject.club_capacity, 10),
+  };
+
+  const validation = validateClubObject(
+    updatedClubUpdateObject,
+    setValidationErrors
+  );
+
+  // If the validation passes. //
+  if (validation) {
+    // Club image //
+    if (clubImageObject != null) {
+      uploadClubImage(clubImageObject, clubImageName);
+    }
+
+    // Club information //
+    const clubToCreateObject = {
+      club_name: updatedClubUpdateObject.club_name,
+      club_major: updatedClubUpdateObject.club_major,
+      club_teacher: '{"teachers":[]}',
+      club_description: updatedClubUpdateObject.club_description,
+      club_image: `/assets/profilePic/clubs/${clubImageName}`,
+      club_status: updatedClubUpdateObject.club_status,
+      club_capacity: updatedClubUpdateObject.club_capacity,
+    };
+    const clubToCreateObjectJSON = JSON.stringify(clubToCreateObject);
+    console.log(clubToCreateObjectJSON);
+
+    // Upload the club information. //
+    try {
+      const response = await fetch(`${API_ENDPOINT}/api/v1/club/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: clubToCreateObjectJSON,
+      });
+
+      if (response.status) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+};
+
 export const handleClubUpdate = async (
   clubUpdateObject: any,
+  clubImageObject: any,
+  clubImageName: string,
   setValidationErrors: any
 ) => {
   const validation = validateClubObject(clubUpdateObject, setValidationErrors);
 
   // If validation passes. //
   if (validation) {
+    // Club image //
+    if (clubImageObject != null) {
+      uploadClubImage(clubImageObject, clubImageName);
+    }
+
     // Update the club. //
     const clubToUpdateObject = {
       id: clubUpdateObject.club_ID,
@@ -82,6 +167,7 @@ export const handleClubUpdate = async (
         club_description: clubUpdateObject.club_description,
         club_status: clubUpdateObject.club_status,
         club_capacity: clubUpdateObject.club_capacity,
+        club_image: `/assets/profilePic/clubs/${clubImageName}`,
       },
     };
     const clubToUpdateJSON = JSON.stringify(clubToUpdateObject);

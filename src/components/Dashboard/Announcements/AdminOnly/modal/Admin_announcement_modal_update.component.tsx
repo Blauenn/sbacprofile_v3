@@ -100,7 +100,6 @@ const Admin_announcement_modal_update = (props: CurrentComponentProp) => {
 
     // Check if the image is updated or not. //
     let imageNameToUpdate;
-
     if (announcementImage) {
       imageNameToUpdate = announcementImageName;
     } else {

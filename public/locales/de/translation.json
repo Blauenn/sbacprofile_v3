@@ -184,6 +184,7 @@
     "Admin_Clubs_create_modal_header": "Club erstellen",
     "Admin_Clubs_create_modal_submit_button_title": "Club erstellen",
     "Admin_Clubs_create_modal_submit_success_message": "Der Club wurde erstellt.",
+    "Admin_Clubs_update_modal_teacher_label": "Lehrer verwalten",
     "Admin_Clubs_update_button_title": "Club aktualisieren",
     "Admin_Clubs_update_modal_header": "Club aktualisieren",
     "Admin_Clubs_update_modal_submit_button_title": "Club aktualisieren",
@@ -198,8 +199,15 @@
     "Admin_Clubs_crud_modal_status_option3": "Nicht anschließbar",
     "Admin_Clubs_crud_modal_status_option4": "Inaktiv",
     "Admin_Clubs_crud_modal_description_label": "Beschreibung",
+    "Admin_Clubs_crud_modal_file_label": "Bild hochladen",
+    "Admin_Clubs_crud_modal_noTeachers_message": "Kein Lehrer",
     "Admin_Clubs_create_modal_teachers_label": "Lehrer",
     "Admin_Clubs_update_modal_teachers_label": "Lehrer",
+
+    "Admin_Clubs_update_teachers_modal_header": "Lehrer verwalten",
+    "Admin_Clubs_update_teachers_currentTeachers_label": "Aktuelle Lehrer",
+    "Admin_Clubs_update_teachers_allTeachers_label": "Alle Lehrer",
+    "Admin_Clubs_update_teachers_submit_button_title": "Änderungen speichern",
 
     "Admin_Clubs_table_header_name": "Name",
     "Admin_Clubs_table_header_major": "Hauptfach",

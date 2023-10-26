@@ -41,7 +41,7 @@ const Admin_club_table_row = (props: CurrentComponentProp) => {
       </td>
       {/* Club teachers */}
       <td className={`${table_content_style} | hidden sm:table-cell`}>
-        {club.club_teacher.teachers[0] != 0 ? (
+        {club.club_teacher.teachers.length != 0 ? (
           club.club_teacher.teachers.map(
             (teacher: number, index: number, array: number[]) => (
               <h1 key={teacher}>

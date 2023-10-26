@@ -184,6 +184,7 @@
     "Admin_Clubs_create_modal_header": "สร้างชมรม",
     "Admin_Clubs_create_modal_submit_button_title": "สร้างชมรม",
     "Admin_Clubs_create_modal_submit_success_message": "ชมรมถูกสร้างแล้ว",
+    "Admin_Clubs_update_modal_teacher_label": "แก้ไขอาจารย์",
     "Admin_Clubs_update_button_title": "แก้ไขชมรม",
     "Admin_Clubs_update_modal_header": "แก้ไขชมรม",
     "Admin_Clubs_update_modal_submit_button_title": "แก้ไขชมรม",
@@ -198,8 +199,15 @@
     "Admin_Clubs_crud_modal_status_option3": "ไม่สามารถเข้าได้",
     "Admin_Clubs_crud_modal_status_option4": "ปิด",
     "Admin_Clubs_crud_modal_description_label": "คำอธิบาย",
+    "Admin_Clubs_crud_modal_file_label": "อัปโหลดไฟล์รูปภาพ",
+    "Admin_Clubs_crud_modal_noTeachers_message": "ไม่มีอาจารย์",
     "Admin_Clubs_create_modal_teachers_label": "อาจารย์",
     "Admin_Clubs_update_modal_teachers_label": "อาจารย์",
+
+    "Admin_Clubs_update_teachers_modal_header": "แก้ไขอาจารย์",
+    "Admin_Clubs_update_teachers_currentTeachers_label": "อาจารย์ประจำชมรม",
+    "Admin_Clubs_update_teachers_allTeachers_label": "อาจารย์ทั้งหมด",
+    "Admin_Clubs_update_teachers_submit_button_title": "แก้ไข",
 
     "Admin_Clubs_table_header_name": "Name",
     "Admin_Clubs_table_header_major": "สาขา",

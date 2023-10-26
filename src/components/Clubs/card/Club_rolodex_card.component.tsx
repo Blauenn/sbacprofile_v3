@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { Tooltip } from "@mui/material";
-import {
-  Club,
-  ClubMembership,
-  Student,
-  Teacher,
-} from "../../../interfaces/common.interface";
-import { UserInfo } from "../../../interfaces/account.interface";
+import { ClubMembership } from "../../../interfaces/common.interface";
 import {
   get_student_image_from_ID,
   get_student_major_from_ID,
@@ -18,38 +12,34 @@ import Club_rolodex_modal from "../modal/Club_rolodex_modal.component";
 import { Default_Image } from "../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 import {
-  Major_Name,
   Major_To_Background_Color,
   Major_To_Border_Color,
+  Major_To_Text_Color,
 } from "../../../constants/Majors.constant";
 import { hover_transition } from "../../../constants/styles/transitions.style";
 
+// Contexts //
+import { useContext_Teachers } from "../../../context/Teachers.context";
+import { useContext_Students } from "../../../context/Students.context";
+
 interface CurrentComponentProp {
-  club: Club;
-  clubMemberships: ClubMembership[];
-  setClubMemberships: any;
-  teachers: Teacher[];
-  students: Student[];
-  userInfo: UserInfo;
+  club: any;
+  clubMemberships: any;
 }
 
 const Club_rolodex_card = (props: CurrentComponentProp) => {
-  const {
-    club,
-    clubMemberships,
-    setClubMemberships,
-    teachers,
-    students,
-    userInfo,
-  } = props;
+  const { club, clubMemberships } = props;
 
-  let currentClub: ClubMembership[] = [];
+  const { students } = useContext_Students();
+  const { teachers } = useContext_Teachers();
+
+  let currentClub: any = [];
   const clubMembers = () => {
     currentClub = clubMemberships.filter(
       (clubMembership: ClubMembership) => clubMembership.club_ID == club.club_ID
     );
 
-    return currentClub.length != 0;
+    return currentClub.length !== 0;
   };
 
   // Modal states //
@@ -70,16 +60,18 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
               backgroundImage: `url(${CDN_ENDPOINT}${club.club_image})`,
             }}></div>
         ) : null}
-        <div className="px-4 py-4">
-          <h1 className="text-2xl font-semibold">{club.club_name}</h1>
-          <h1 className="text-lg opacity-50 mb-4">
-            {Major_Name[club.club_major]}
+        <div className="flex flex-col gap-4 p-4">
+          <h1
+            className={`text-2xl font-semibold ${
+              Major_To_Text_Color[club.club_major]
+            }`}>
+            {club.club_name}
           </h1>
           {/* Members icons */}
           <div className="flex flex-row gap-2 sm:gap-[2px] overflow-x-hidden">
             {/* Teachers */}
             <div className="flex flex-row -space-x-4">
-              {club.club_teacher.teachers[0] != 0
+              {club.club_teacher.teachers.length !== 0
                 ? club.club_teacher.teachers.map((teacher: number) => (
                     <Tooltip
                       key={teacher}
@@ -158,11 +150,6 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
       </div>
       <Club_rolodex_modal
         club={club}
-        clubMemberships={clubMemberships}
-        setClubMemberships={setClubMemberships}
-        teachers={teachers}
-        students={students}
-        userInfo={userInfo}
         open={modalOpen}
         onModalClose={onModalClose}
       />

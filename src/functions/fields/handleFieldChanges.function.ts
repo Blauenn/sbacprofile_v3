@@ -5,8 +5,8 @@ export const handle_input_change = (event: any, object: any, setObject: any) => 
 export const handle_file_input_change = (
   fieldQuery: string,
   event: any,
-  setLeaveNoticeFile: any,
-  setLeaveNoticeFileName: any,
+  setFile: any,
+  setFileName: any,
   setFileSizeNotice: any
 ) => {
   if (event.target.files[0]) {
@@ -26,7 +26,7 @@ export const handle_file_input_change = (
 
     setFileSizeNotice(false);
     // Set the uploaded file into a state. //
-    setLeaveNoticeFile(event.target.files[0]);
+    setFile(event.target.files[0]);
 
     const currentDate = new Date();
     // Generate an 8-digit unique ID based on the current time as a seed. //
@@ -44,9 +44,9 @@ export const handle_file_input_change = (
     const fileExtension = fileNameParts.pop().toLowerCase();
 
     // Combine the formatted date, unique ID and file extension. //
-    const leaveNoticeFileName = `${formattedDate}_${uniqueID}.${fileExtension}`;
+    const finalFileName = `${formattedDate}_${uniqueID}.${fileExtension}`;
 
-    setLeaveNoticeFileName(leaveNoticeFileName);
+    setFileName(finalFileName);
   }
 };
 
@@ -109,9 +109,9 @@ export const handle_image_change = (
       currentDate.getMonth() + 1
     }${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}`;
     // Combine the formatted date, unique ID and file extension. //
-    const leaveNoticeFileName = `${formattedDate}_${uniqueID}.${fileExtension}`;
+    const finalFileName = `${formattedDate}_${uniqueID}.${fileExtension}`;
     if (setImageName) {
-      setImageName(leaveNoticeFileName);
+      setImageName(finalFileName);
     }
   }
 };

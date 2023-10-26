@@ -52,14 +52,14 @@ const uploadAnnouncementImage = async (
   announcementImage: any,
   announcementImageName: string
 ) => {
-  const announcementCreateImage = new FormData();
-  announcementCreateImage.append("image", announcementImage);
-  announcementCreateImage.append("filename", `${announcementImageName}`);
+  const announcementImageForm = new FormData();
+  announcementImageForm.append("image", announcementImage);
+  announcementImageForm.append("filename", `${announcementImageName}`);
 
   try {
     await fetch(`${API_ENDPOINT}/api/v1/upload/image/announcement`, {
       method: "POST",
-      body: announcementCreateImage,
+      body: announcementImageForm,
     });
     return true;
   } catch (error) {
@@ -82,13 +82,13 @@ export const handleAnnouncementCreate = async (
 
   // If the validation passes. //
   if (validation) {
-    // Announcement image. //
+    // Announcement image //
     if (announcementImageObject != null) {
       uploadAnnouncementImage(announcementImageObject, announcementImageName);
     }
 
-    // Announcement information. //
-    const announcementCreateObjectToPost = {
+    // Announcement information //
+    const announcementToCreateObject = {
       announcement_status: announcementCreateObject.announcement_status,
       announcement_title: announcementCreateObject.announcement_title,
       announcement_description:
@@ -97,7 +97,7 @@ export const handleAnnouncementCreate = async (
       announcement_create_datetime: currentDate,
     };
     const announcementCreateObjectJSON = JSON.stringify(
-      announcementCreateObjectToPost
+      announcementToCreateObject
     );
 
     // Upload the announcement information. //

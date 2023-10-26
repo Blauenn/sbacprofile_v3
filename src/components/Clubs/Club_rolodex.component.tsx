@@ -1,33 +1,17 @@
 import { useEffect, useState } from "react";
-import {
-  Club,
-  ClubMembership,
-  Student,
-  Teacher,
-} from "../../interfaces/common.interface";
-import { UserInfo } from "../../interfaces/account.interface";
+import { Club } from "../../interfaces/common.interface";
 import Club_rolodex_card from "./card/Club_rolodex_card.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
 
 interface CurrentComponentProp {
-  clubs: Club[];
-  clubMemberships: ClubMembership[];
+  clubs: any;
+  clubMemberships: any;
   setClubMemberships: any;
-  teachers: Teacher[];
-  students: Student[];
-  userInfo: UserInfo;
 }
 
 const Club_rolodex = (props: CurrentComponentProp) => {
-  const {
-    clubs,
-    clubMemberships,
-    setClubMemberships,
-    teachers,
-    students,
-    userInfo,
-  } = props;
+  const { clubs, clubMemberships } = props;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,10 +31,6 @@ const Club_rolodex = (props: CurrentComponentProp) => {
             key={club.club_ID}
             club={club}
             clubMemberships={clubMemberships}
-            setClubMemberships={setClubMemberships}
-            teachers={teachers}
-            students={students}
-            userInfo={userInfo}
           />
         ))}
       </div>

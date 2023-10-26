@@ -184,6 +184,7 @@
     "Admin_Clubs_create_modal_header": "클럽을 만드세요",
     "Admin_Clubs_create_modal_submit_button_title": "클럽을 만드세요",
     "Admin_Clubs_create_modal_submit_success_message": "클럽이 생성되었습니다.",
+    "Admin_Clubs_update_modal_teacher_label": "교사 관리",
     "Admin_Clubs_update_button_title": "클럽 업데이트",
     "Admin_Clubs_update_modal_header": "클럽 업데이트",
     "Admin_Clubs_update_modal_submit_button_title": "클럽 업데이트",
@@ -198,8 +199,15 @@
     "Admin_Clubs_crud_modal_status_option3": "합류할 수 없는",
     "Admin_Clubs_crud_modal_status_option4": "비활성",
     "Admin_Clubs_crud_modal_description_label": "설명",
+    "Admin_Clubs_crud_modal_file_label": "이미지 업로드",
+    "Admin_Clubs_crud_modal_noTeachers_message": "이 클럽에는 교사가 없습니다.",
     "Admin_Clubs_create_modal_teachers_label": "교사",
     "Admin_Clubs_update_modal_teachers_label": "교사",
+
+    "Admin_Clubs_update_teachers_modal_header": "교사 관리",
+    "Admin_Clubs_update_teachers_currentTeachers_label": "현직 교사",
+    "Admin_Clubs_update_teachers_allTeachers_label": "모든 교사",
+    "Admin_Clubs_update_teachers_submit_button_title": "변경 사항 저장",
 
     "Admin_Clubs_table_header_name": "이름",
     "Admin_Clubs_table_header_major": "주요한",

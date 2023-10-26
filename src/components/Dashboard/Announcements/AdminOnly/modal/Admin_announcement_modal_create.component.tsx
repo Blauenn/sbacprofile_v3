@@ -28,7 +28,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
 
   const { t } = useTranslation();
 
-  const [announcementAddObject, setAnnouncementAddObject] =
+  const [announcementCreateObject, setAnnouncementCreateObject] =
     useState<Announcement>({
       announcement_title: "",
       announcement_description: "",
@@ -41,8 +41,8 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
     announcement_title: "",
     announcement_description: "",
   });
-  const [announcementImage, setAnnouncementImage] = useState(null);
-  const [announcementImageName, setAnnouncementImageName] = useState("");
+  const [announcementCreateImage, setAnnouncementCreateImage] = useState(null);
+  const [announcementCreateImageName, setAnnouncementCreateImageName] = useState("");
 
   const [imagePreview, setImagePreview] = useState("");
   const [fileSizeNotice, setFileSizeNotice] = useState(false);
@@ -52,13 +52,13 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
 
   const handleImageCancel = () => {
     setImagePreview("");
-    setAnnouncementImage(null);
-    setAnnouncementImageName("");
+    setAnnouncementCreateImage(null);
+    setAnnouncementCreateImageName("");
     setFileSizeNotice(false);
   };
 
   const handleModalClose = () => {
-    setAnnouncementAddObject({
+    setAnnouncementCreateObject({
       announcement_title: "",
       announcement_description: "",
       announcement_status: 1,
@@ -70,8 +70,8 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       announcement_title: "",
       announcement_description: "",
     });
-    setAnnouncementImage(null);
-    setAnnouncementImageName("");
+    setAnnouncementCreateImage(null);
+    setAnnouncementCreateImageName("");
 
     setImagePreview("");
     setFileSizeNotice(false);
@@ -86,9 +86,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
     setIsSubmitting(true);
 
     const submissionStatus = await handleAnnouncementCreate(
-      announcementAddObject,
-      announcementImage,
-      announcementImageName,
+      announcementCreateObject,
+      announcementCreateImage,
+      announcementCreateImageName,
       setValidationErrors
     );
 
@@ -118,7 +118,7 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
       <div className="grid grid-cols-1 gap-4">
         {/* Announcement image */}
         <div className="flex flex-col gap-2">
-          {announcementImage ? (
+          {announcementCreateImage ? (
             <div className="border border-standardBlack border-opacity-25 rounded-xl w-full sm:w-[500px] h-auto overflow-auto">
               <div className="relative">
                 <FileResetButton functionToRun={handleImageCancel} />
@@ -136,9 +136,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                       handle_image_change(
                         event,
                         setImagePreview,
-                        setAnnouncementImage,
+                        setAnnouncementCreateImage,
                         setFileSizeNotice,
-                        setAnnouncementImageName
+                        setAnnouncementCreateImageName
                       );
                     }}
                   />
@@ -164,9 +164,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
                     handle_image_change(
                       event,
                       setImagePreview,
-                      setAnnouncementImage,
+                      setAnnouncementCreateImage,
                       setFileSizeNotice,
-                      setAnnouncementImageName
+                      setAnnouncementCreateImageName
                     );
                   }}
                 />
@@ -184,9 +184,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
           label={t("Admin_Announcements_crud_modal_title_label")}
           name="announcement_title"
           className="col-span-1"
-          object={announcementAddObject}
-          setObject={setAnnouncementAddObject}
-          value={announcementAddObject.announcement_title}
+          object={announcementCreateObject}
+          setObject={setAnnouncementCreateObject}
+          value={announcementCreateObject.announcement_title}
           validation={validationErrors.announcement_title}
         />
         {/* Announcement description */}
@@ -195,9 +195,9 @@ const Admin_announcement_modal_create = (props: CurrentComponentProp) => {
           name="announcement_description"
           className="col-span-1"
           maxRows={4}
-          object={announcementAddObject}
-          setObject={setAnnouncementAddObject}
-          value={announcementAddObject.announcement_description}
+          object={announcementCreateObject}
+          setObject={setAnnouncementCreateObject}
+          value={announcementCreateObject.announcement_description}
           validation={validationErrors.announcement_description}
         />
         {/* Submit button */}
