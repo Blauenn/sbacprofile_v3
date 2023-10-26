@@ -22,6 +22,7 @@ import {
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
+import { useContext_Account } from "../../../../../context/Account.context";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -29,11 +30,12 @@ interface CurrentComponentProp {
   teacher: any;
 }
 
-const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
+const Head_teacher_modal_update = (props: CurrentComponentProp) => {
   const { open, onModalClose, teacher } = props;
 
   const { setTeachers } = useContext_Teachers();
   const { majors, setMajors } = useContext_Majors();
+  const { userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
@@ -190,7 +192,8 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
               {/* Teacher position */}
               <TextField_select
                 // Disable if the user tries to demote the administrator. //
-                disabled={teacherUpdateObject.teacher_position === 6}
+                // Disable if the user tries to demote themselves. //
+                disabled={teacherUpdateObject.teacher_position === 6 || userInfo.profile_ID === teacherUpdateObject.teacher_ID}
                 label={t("Admin_Teachers_crud_modal_position_label")}
                 name="teacher_position"
                 className="col-span-1"
@@ -234,7 +237,8 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
           object={teacherUpdateObject}
           setObject={setTeacherUpdateObject}
           value={teacherUpdateObject.teacher_major}
-          validation={validationErrors.teacher_major}>
+          validation={validationErrors.teacher_major}
+          disabled>
           <option value="0">Major</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
@@ -382,4 +386,4 @@ const Admin_teacher_modal_update = (props: CurrentComponentProp) => {
   );
 };
 
-export default Admin_teacher_modal_update;
+export default Head_teacher_modal_update;

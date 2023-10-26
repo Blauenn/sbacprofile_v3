@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Club } from "../../../../../interfaces/common.interface";
 import Loading from "../../../../misc/Loading.component";
-import Admin_club_table_row from "./Admin_club_table_row.component";
+import Head_club_table_row from "./Head_club_table.component";
 import {
   table_content_style,
   table_header_style,
   table_parent_style,
 } from "../../../../../constants/styles/tables.style";
+
+// Contexts //
+import { useContext_Account } from "../../../../../context/Account.context";
 
 interface CurrentComponentProp {
   clubs: any;
@@ -15,8 +18,10 @@ interface CurrentComponentProp {
   teachers: any;
 }
 
-const Admin_club_table = (props: CurrentComponentProp) => {
+const Head_club_table = (props: CurrentComponentProp) => {
   const { clubs, clubMemberships, teachers } = props;
+
+  const { userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
@@ -30,7 +35,11 @@ const Admin_club_table = (props: CurrentComponentProp) => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (clubs.length > 0) {
+  const filteredClubs = clubs.filter((club: Club) => {
+    return club.club_major === userInfo.profile_major;
+  })
+
+  if (filteredClubs.length > 0) {
     return (
       <table className={table_parent_style}>
         <thead>
@@ -53,9 +62,9 @@ const Admin_club_table = (props: CurrentComponentProp) => {
           </tr>
         </thead>
         <tbody>
-          {clubs.map((club: Club, index: number) => (
+          {filteredClubs.map((club: Club, index: number) => (
             <React.Fragment key={club.club_ID}>
-              <Admin_club_table_row
+              <Head_club_table_row
                 club={club}
                 index={index}
                 clubMemberships={clubMemberships}
@@ -106,4 +115,4 @@ const Admin_club_table = (props: CurrentComponentProp) => {
   }
 };
 
-export default Admin_club_table;
+export default Head_club_table;

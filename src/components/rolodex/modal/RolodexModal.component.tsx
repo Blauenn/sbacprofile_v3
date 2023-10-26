@@ -97,7 +97,7 @@ const RolodexModal = (props: CurrentComponentProp) => {
           ? `${object.first_name_thai} ${object.last_name_thai}`
           : `${object.first_name} ${object.last_name}`
       }>
-      <div className="flex flex-col lg:flex-row lg:gap-12 px-4">
+      <div className="flex flex-col lg:flex-row lg:gap-12 px-2">
         <div className="flex items-center flex-col gap-1 mb-4 | w-full lg:mb-0 lg:w-1/2">
           <RolodexModal_image
             image={object.image}

@@ -18,7 +18,7 @@ interface CurrentComponentProp {
   onModalClose: any;
 }
 
-const Teacher_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
+const Head_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
   const { leaveNotice, open, onModalClose } = props;
 
   const { userInfo } = useContext_Account();
@@ -70,7 +70,7 @@ const Teacher_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
     const submissionStatus = await handleLeaveNoticeUpdate(
       leaveNotice,
       updatedLeaveNoticeObject,
-      1
+      2
     );
 
     if (submissionStatus) {
@@ -95,17 +95,19 @@ const Teacher_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
     case 1:
       info_submit_button_text = t("LeaveNotices_evaluate_button_approve_title");
       info_submit_button_icon = "fa-solid fa-circle-check";
-      info_submit_button_color = "border-green-500 hover:bg-green-500 text-green-500"
+      info_submit_button_color =
+        "border-green-500 hover:bg-green-500 text-green-500";
       break;
     case 2:
       info_submit_button_text = t("LeaveNotices_evaluate_button_edit_title");
       info_submit_button_icon = "fa-solid fa-pencil";
-      info_submit_button_color = "border-yellow-500 hover:bg-yellow-500 text-yellow-500"
+      info_submit_button_color =
+        "border-yellow-500 hover:bg-yellow-500 text-yellow-500";
       break;
     case 3:
       info_submit_button_text = t("LeaveNotices_evaluate_button_reject_title");
       info_submit_button_icon = "fa-solid fa-circle-xmark";
-      info_submit_button_color = "border-red-500 hover:bg-red-500 text-red-500"
+      info_submit_button_color = "border-red-500 hover:bg-red-500 text-red-500";
       break;
     default:
       info_submit_button_text = t("LeaveNotices_evaluate_button_title");
@@ -151,4 +153,4 @@ const Teacher_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
   );
 };
 
-export default Teacher_leaveNotices_evaluate_modal;
+export default Head_leaveNotices_evaluate_modal;

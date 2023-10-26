@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { postData, postDataAutheticated } from "../fetchFromAPI.function";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
-import { useTranslation } from "react-i18next";
 
 interface SettingsPassword {
   current_password: string;
@@ -10,9 +9,9 @@ interface SettingsPassword {
 }
 
 const settingsPassword_schema = z.object({
-  current_password: z.string().nonempty(),
-  new_password: z.string().nonempty().min(8),
-  confirm_password: z.string().nonempty().min(8),
+  current_password: z.string().min(1),
+  new_password: z.string().min(8),
+  confirm_password: z.string().min(8),
 });
 
 export const accountPasswordUpdate = (
@@ -20,10 +19,9 @@ export const accountPasswordUpdate = (
   settingsPasswordObject: SettingsPassword,
   setIsUpdating: any,
   setIsUpdateSuccess: any,
-  setIsError: any
+  setIsError: any,
+  t: any
 ) => {
-  const { t } = useTranslation();
-  
   setIsUpdating(true);
   if (settingsPassword_schema.safeParse(settingsPasswordObject).success) {
     // If the password doesn't match, don't proceed. //

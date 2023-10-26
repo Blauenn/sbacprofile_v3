@@ -14,6 +14,9 @@
     
     "Dashboard_header": "แดชบอร์ด",
     "Dashboard_title_quickAccess": "ปุ่มลัด",
+
+    "Dashboard_quickAccess_majors_header": "จัดการสาขา",
+    "Dashboard_quickAccess_homeroomStudents_header": "นักเรียนในที่ปรึกษา",
     
     "Dashboard_quickAccess_leaveNotices_title": "คำขอการลา",
     "Dashboard_quickAccess_leaveNotices_description": "ดูคำขอการลาทั้งหมด",
@@ -21,6 +24,15 @@
     "Dashboard_quickAccess_requestForms_description": "ดูเอกสารคำร้องทั้งหมด",
     "Dashboard_quickAccess_clubs_title": "ชมรม",
     "Dashboard_quickAccess_clubs_description": "ดูชมรมที่เป็นสมาชิก",
+
+    "Dashboard_Majors_quickAccess_students_title": "นักศึกษา",
+    "Dashboard_Majors_quickAccess_students_description": "จัดการนักศึกษาในสาขา",
+    "Dashboard_Majors_quickAccess_teachers_title": "อาจารย์",
+    "Dashboard_Majors_quickAccess_teachers_description": "จัดการอาจารย์ในสาขา",
+    "Dashboard_Majors_quickAccess_clubs_title": "ชมรม",
+    "Dashboard_Majors_quickAccess_clubs_description": "จัดการชมรมในสาขา",
+    "Dashboard_Majors_quickAccess_leaveNotices_title": "คำขอการลา",
+    "Dashboard_Majors_quickAccess_leaveNotices_description": "ดูคำขอการลาในสาขา",
 
     "Dashboard_Admin_quickAccess_announcements_title": "ประกาศ",
     "Dashboard_Admin_quickAccess_announcements_description": "จัดการประกาศทั้งหมด",
@@ -60,6 +72,18 @@
 
     "Admin_Classrooms_header": "ห้องเรียน",
     "Admin_Classrooms_update_modal_header": "แก้ไขห้องเรียน",
+    "Admin_Classrooms_update_modal_submit_button_title": "แก้ไขห้องเรียน",
+    "Admin_Classrooms_update_modal_submit_success_message": "ห้องเรียนถูกแก้ไขแล้ว",
+    "Admin_Classrooms_crud_modal_major_label": "สาขา",
+    "Admin_Classrooms_crud_modal_level_label": "ระดับชั้น",
+    "Admin_Classrooms_crud_modal_level_option1": "ระดับชั้น",
+    "Admin_Classrooms_crud_modal_level_option_lower1": "ปวช. 1",
+    "Admin_Classrooms_crud_modal_level_option_lower2": "ปวช. 2",
+    "Admin_Classrooms_crud_modal_level_option_lower3": "ปวช. 3",
+    "Admin_Classrooms_crud_modal_level_option_higher1": "ปวส. 1",
+    "Admin_Classrooms_crud_modal_level_option_higher2": "ปวส. 2",
+    "Admin_Classrooms_crud_modal_class_label": "ห้องเรียน",
+    "Admin_Classrooms_crud_modal_teachers_label": "อาจารย์",
 
     "Admin_Classrooms_table_header_class": "ห้องเรียน",
     "Admin_Classrooms_table_header_major": "สาขา",
@@ -158,6 +182,8 @@
     "Admin_Clubs_header": "ชมรม",
     "Admin_Clubs_create_button_title": "สร้างชมรม",
     "Admin_Clubs_create_modal_header": "สร้างชมรม",
+    "Admin_Clubs_create_modal_submit_button_title": "สร้างชมรม",
+    "Admin_Clubs_create_modal_submit_success_message": "ชมรมถูกสร้างแล้ว",
     "Admin_Clubs_update_button_title": "แก้ไขชมรม",
     "Admin_Clubs_update_modal_header": "แก้ไขชมรม",
     "Admin_Clubs_update_modal_submit_button_title": "แก้ไขชมรม",
@@ -172,6 +198,7 @@
     "Admin_Clubs_crud_modal_status_option3": "ไม่สามารถเข้าได้",
     "Admin_Clubs_crud_modal_status_option4": "ปิด",
     "Admin_Clubs_crud_modal_description_label": "คำอธิบาย",
+    "Admin_Clubs_create_modal_teachers_label": "อาจารย์",
     "Admin_Clubs_update_modal_teachers_label": "อาจารย์",
 
     "Admin_Clubs_table_header_name": "Name",
@@ -207,7 +234,7 @@
     "LeaveNotices_students_create_modal_endDate_label": "วันที่สิ้นสุดการลา",
     "LeaveNotices_students_create_modal_leaveChoice_label": "ประเภทการลา",
     "LeaveNotices_students_create_modal_leaveChoice_option1": "ลาป่วย",
-    "LeaveNotices_students_create_modal_leaveChoice_option2": "ะุระส่วนตัว",
+    "LeaveNotices_students_create_modal_leaveChoice_option2": "ธุระส่วนตัว",
     "LeaveNotices_students_create_modal_leaveChoice_option3": "อื่นๆ",
     "LeaveNotices_students_create_modal_description_label": "คำอธิบาย",
     "LeaveNotices_students_create_modal_file_label": "อัปโหลดไฟล์",

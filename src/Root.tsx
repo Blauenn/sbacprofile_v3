@@ -44,6 +44,11 @@ const Admin_requestForms = lazy(
   () => import("./pages/AdminOnly/Admin_requestForms.page")
 );
 
+const Head_students = lazy(() => import("./pages/HeadOnly/Head_students.page"));
+const Head_teachers = lazy(() => import("./pages/HeadOnly/Head_teachers.page"));
+const Head_clubs = lazy(() => import("./pages/HeadOnly/Head_clubs.page"));
+const Head_leaveNotices = lazy(() => import("./pages/HeadOnly/Head_leaveNotices.page"));
+
 const Dashboard = lazy(() => import("./pages/Dashboard.page"));
 const LeaveNotices = lazy(() => import("./pages/LeaveNotices.page"));
 
@@ -132,7 +137,9 @@ const Root = () => {
                               <Route
                                 path="/admin/announcements"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_announcements />
                                   ) : (
                                     <PageNotFound />
@@ -142,7 +149,9 @@ const Root = () => {
                               <Route
                                 path="/admin/classrooms"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_classrooms />
                                   ) : (
                                     <PageNotFound />
@@ -152,7 +161,9 @@ const Root = () => {
                               <Route
                                 path="/admin/students"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_students />
                                   ) : (
                                     <PageNotFound />
@@ -162,7 +173,9 @@ const Root = () => {
                               <Route
                                 path="/admin/teachers"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_teachers />
                                   ) : (
                                     <PageNotFound />
@@ -172,7 +185,9 @@ const Root = () => {
                               <Route
                                 path="/admin/clubs"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_clubs />
                                   ) : (
                                     <PageNotFound />
@@ -182,7 +197,9 @@ const Root = () => {
                               <Route
                                 path="/admin/leaveNotices"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_leaveNotices />
                                   ) : (
                                     <PageNotFound />
@@ -192,7 +209,9 @@ const Root = () => {
                               <Route
                                 path="/admin/requestForms"
                                 element={
-                                  admin_access_only(userInfo.profile_position) ? (
+                                  admin_access_only(
+                                    userInfo.profile_position
+                                  ) ? (
                                     <Admin_requestForms />
                                   ) : (
                                     <PageNotFound />
@@ -203,6 +222,24 @@ const Root = () => {
                               <Route
                                 path="/dashboard"
                                 element={<Dashboard />}></Route>
+
+                              {/* Head of department only */}
+                              {/* Students */}
+                              <Route
+                                path="/majors/students"
+                                element={<Head_students />}></Route>
+                              {/* Teachers */}
+                              <Route
+                                path="/majors/teachers"
+                                element={<Head_teachers />}></Route>
+                              {/* Clubs */}
+                              <Route
+                                path="/majors/clubs"
+                                element={<Head_clubs />}></Route>
+                              {/* Leave notices */}
+                              <Route
+                                path="/majors/leaveNotices"
+                                element={<Head_leaveNotices />}></Route>
 
                               {/* Leave notices */}
                               <Route

@@ -8,8 +8,8 @@ const validateAnnoucementObject = (
 ) => {
   const AnnouncementSchema = z.object({
     announcement_status: z.number(),
-    announcement_title: z.string().nonempty(),
-    announcement_description: z.string().nonempty(),
+    announcement_title: z.string().min(1),
+    announcement_description: z.string().min(1),
     announcement_image: z.string(),
   });
 

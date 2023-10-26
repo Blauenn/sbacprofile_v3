@@ -7,7 +7,7 @@ import {
   get_teacher_name_thai_from_ID,
 } from "../../../../../functions/getFromID.function";
 import Table_button from "../../../../table/Table_button.component";
-import Admin_club_modal_update from "../modal/Admin_club_modal_update.component";
+import Head_club_modal_update from "../modal/Head_club_modal_update.component";
 import {
   Major_Name_Abbreviation,
   Major_To_Background_Color,
@@ -21,7 +21,7 @@ interface CurrentComponentProp {
   teachers: any;
 }
 
-const Admin_club_table_row = (props: CurrentComponentProp) => {
+const Head_club_table_row = (props: CurrentComponentProp) => {
   const { club, index, clubMemberships, teachers } = props;
 
   const { t } = useTranslation();
@@ -66,7 +66,7 @@ const Admin_club_table_row = (props: CurrentComponentProp) => {
       </td>
       {/* Buttons */}
       <td className={table_content_style}>
-        <Admin_club_modal_update
+        <Head_club_modal_update
           club={club}
           open={modalOpen}
           onModalClose={onModalClose}
@@ -83,4 +83,4 @@ const Admin_club_table_row = (props: CurrentComponentProp) => {
   );
 };
 
-export default Admin_club_table_row;
+export default Head_club_table_row;

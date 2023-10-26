@@ -29,7 +29,7 @@ interface CurrentComponentProp {
   onModalClose: any;
 }
 
-const Admin_club_modal_update = (props: CurrentComponentProp) => {
+const Head_club_modal_update = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
 
   const { setClubs } = useContext_Clubs();
@@ -251,4 +251,4 @@ const Admin_club_modal_update = (props: CurrentComponentProp) => {
   );
 };
 
-export default Admin_club_modal_update;
+export default Head_club_modal_update;

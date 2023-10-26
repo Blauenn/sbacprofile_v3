@@ -4,12 +4,11 @@ import { TextField } from "@mui/material";
 import { handle_input_change } from "../../functions/fields/handleFieldChanges.function";
 import { accountPasswordUpdate } from "../../functions/Settings/PasswordUpdate.function";
 
-interface CurrentComponentProp {
-  userEmail: string;
-}
+// Contexts //
+import { useContext_Account } from "../../context/Account.context";
 
-const SettingsAccountTab = (props: CurrentComponentProp) => {
-  const { userEmail } = props;
+const SettingsAccountTab = () => {
+  const { userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
@@ -92,11 +91,12 @@ const SettingsAccountTab = (props: CurrentComponentProp) => {
           <button
             onClick={() => {
               accountPasswordUpdate(
-                userEmail,
+                userInfo.profile_email,
                 settingsPassword,
                 setIsUpdating,
                 setIsUpdateSuccess,
-                setError
+                setError,
+                t
               );
             }}
             disabled={

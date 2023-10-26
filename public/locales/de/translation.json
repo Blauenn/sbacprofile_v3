@@ -14,6 +14,9 @@
 
     "Dashboard_header": "Armaturenbrett",
     "Dashboard_title_quickAccess": "Schnellzugriff",
+
+    "Dashboard_quickAccess_majors_header": "Hauptfach verwalten",
+    "Dashboard_quickAccess_homeroomStudents_header": "Schüler im Klassenzimmer",
     
     "Dashboard_quickAccess_leaveNotices_title": "Abwesenheitsnotizen",
     "Dashboard_quickAccess_leaveNotices_description": "Alle Abwesenheitsnotizenen anzeigen",
@@ -21,6 +24,15 @@
     "Dashboard_quickAccess_requestForms_description": "Alle Antragsformulare anzeigen",
     "Dashboard_quickAccess_clubs_title": "Club",
     "Dashboard_quickAccess_clubs_description": "Siehe aktuell beigetretenen Club",
+
+    "Dashboard_Majors_quickAccess_students_title": "Studenten",
+    "Dashboard_Majors_quickAccess_students_description": "Studenten verwalten",
+    "Dashboard_Majors_quickAccess_teachers_title": "Lehrer",
+    "Dashboard_Majors_quickAccess_teachers_description": "Lehrer verwalten",
+    "Dashboard_Majors_quickAccess_clubs_title": "Club",
+    "Dashboard_Majors_quickAccess_clubs_description": "Club verwalten",
+    "Dashboard_Majors_quickAccess_leaveNotices_title": "Abwesenheitsnotizen",
+    "Dashboard_Majors_quickAccess_leaveNotices_description": "Abwesenheitsnotizenen anzeigen",
 
     "Dashboard_Admin_quickAccess_announcements_title": "Ankündigungen",
     "Dashboard_Admin_quickAccess_announcements_description": "Ankündigungen verwalten",
@@ -60,6 +72,18 @@
 
     "Admin_Classrooms_header": "Klassenräume",
     "Admin_Classrooms_update_modal_header": "Klassenraum aktualisieren",
+    "Admin_Classrooms_update_modal_submit_button_title": "Klassenraum aktualisieren",
+    "Admin_Classrooms_update_modal_submit_success_message": "Klassenraum wurde aktualisiert",
+    "Admin_Classrooms_crud_modal_major_label": "Haupfach",
+    "Admin_Classrooms_crud_modal_level_label": "Stufe",
+    "Admin_Classrooms_crud_modal_level_option1": "Stufe",
+    "Admin_Classrooms_crud_modal_level_option_lower1": "Berufabschluss 1",
+    "Admin_Classrooms_crud_modal_level_option_lower2": "Berufabschluss 2",
+    "Admin_Classrooms_crud_modal_level_option_lower3": "Berufabschluss 3",
+    "Admin_Classrooms_crud_modal_level_option_higher1": "Diplom 1",
+    "Admin_Classrooms_crud_modal_level_option_higher2": "Diplom 2",
+    "Admin_Classrooms_crud_modal_class_label": "Klassenraum",
+    "Admin_Classrooms_crud_modal_teachers_label": "Lehrer",
 
     "Admin_Classrooms_table_header_class": "Klassenraum",
     "Admin_Classrooms_table_header_major": "Hauptfach",
@@ -158,6 +182,7 @@
     "Admin_Clubs_header": "Club",
     "Admin_Clubs_create_button_title": "Club erstellen",
     "Admin_Clubs_create_modal_header": "Club erstellen",
+    "Admin_Clubs_create_modal_submit_button_title": "Club erstellen",
     "Admin_Clubs_create_modal_submit_success_message": "Der Club wurde erstellt.",
     "Admin_Clubs_update_button_title": "Club aktualisieren",
     "Admin_Clubs_update_modal_header": "Club aktualisieren",
@@ -173,6 +198,7 @@
     "Admin_Clubs_crud_modal_status_option3": "Nicht anschließbar",
     "Admin_Clubs_crud_modal_status_option4": "Inaktiv",
     "Admin_Clubs_crud_modal_description_label": "Beschreibung",
+    "Admin_Clubs_create_modal_teachers_label": "Lehrer",
     "Admin_Clubs_update_modal_teachers_label": "Lehrer",
 
     "Admin_Clubs_table_header_name": "Name",

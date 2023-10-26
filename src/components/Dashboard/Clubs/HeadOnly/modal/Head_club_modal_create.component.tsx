@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
+import { useEffect } from "react";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
@@ -12,7 +12,7 @@ interface CurrentComponentProp {
   onModalClose: any;
 }
 
-const Admin_club_modal_create = (props: CurrentComponentProp) => {
+const Head_club_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
 
   const { majors, setMajors } = useContext_Majors();
@@ -50,4 +50,4 @@ const Admin_club_modal_create = (props: CurrentComponentProp) => {
   );
 };
 
-export default Admin_club_modal_create;
+export default Head_club_modal_create;

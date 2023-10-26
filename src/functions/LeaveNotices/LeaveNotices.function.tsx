@@ -8,11 +8,11 @@ const validateLeaveNoticeObject = (
 ) => {
   const LeaveNoticeSchema = z.object({
     leave_notice_student_ID: z.number(),
-    leave_notice_description: z.string().nonempty(),
+    leave_notice_description: z.string().min(1),
     leave_notice_choice: z.number(),
-    leave_notice_start_datetime: z.string().nonempty(),
-    leave_notice_end_datetime: z.string().nonempty(),
-    leave_notice_create_datetime: z.string().nonempty(),
+    leave_notice_start_datetime: z.string().min(1),
+    leave_notice_end_datetime: z.string().min(1),
+    leave_notice_create_datetime: z.string().min(1),
     leave_notice_attached_file: z.string(),
   });
 
@@ -134,41 +134,83 @@ export const handleLeaveNoticeCreate = async (
 
 export const handleLeaveNoticeUpdate = async (
   leaveNoticeOriginalObject: any,
-  leaveNoticeUpdateObject: any
+  leaveNoticeUpdateObject: any,
+  updateAs: number
+  // Update as: //
+  // 1. Teacher //
+  // 2. Head of department //
 ) => {
   const currentDate = new Date();
 
   // Get the data to turn them into JSON to update. //
-  const leaveNoticeToUpdateObject = {
-    id: leaveNoticeOriginalObject.leave_notice_ID,
-    leaveNoticeInfo: {
-      // Updated values //
-      leave_notice_teacher_ID: leaveNoticeUpdateObject.teacher,
-      leave_notice_teacher_status: leaveNoticeUpdateObject.status,
-      leave_notice_teacher_description: leaveNoticeUpdateObject.description,
-      leave_notice_teacher_change_datetime: currentDate,
-      // Retain previous values. //
-      leave_notice_student_ID:
-        leaveNoticeOriginalObject.leave_notice_student_ID,
-      leave_notice_description:
-        leaveNoticeOriginalObject.leave_notice_description,
-      leave_notice_choice: leaveNoticeOriginalObject.leave_notice_choice,
-      leave_notice_for_date: leaveNoticeOriginalObject.leave_notice_for_date,
-      leave_notice_duration: leaveNoticeOriginalObject.leave_notice_duration,
-      leave_notice_create_datetime:
-        leaveNoticeOriginalObject.leave_notice_create_datetime,
-      leave_notice_attached_file:
-        leaveNoticeOriginalObject.leave_notice_attached_file,
+  let leaveNoticeToUpdateObject;
+  // If head of department evaluates. //
+  if (updateAs === 2) {
+    leaveNoticeToUpdateObject = {
+      id: leaveNoticeOriginalObject.leave_notice_ID,
+      leaveNoticeInfo: {
+        // Updated values //
+        leave_notice_teacher_ID:
+          leaveNoticeOriginalObject.leave_notice_teacher_ID,
+        leave_notice_teacher_status:
+          leaveNoticeOriginalObject.leave_notice_teacher_status,
+        leave_notice_teacher_description:
+          leaveNoticeOriginalObject.leave_notice_teacher_description,
+        leave_notice_teacher_change_datetime:
+          leaveNoticeOriginalObject.leave_notice_teacher_change_datetime,
+        // Retain previous values. //
+        leave_notice_student_ID:
+          leaveNoticeOriginalObject.leave_notice_student_ID,
+        leave_notice_description:
+          leaveNoticeOriginalObject.leave_notice_description,
+        leave_notice_choice: leaveNoticeOriginalObject.leave_notice_choice,
+        leave_notice_for_date: leaveNoticeOriginalObject.leave_notice_for_date,
+        leave_notice_duration: leaveNoticeOriginalObject.leave_notice_duration,
+        leave_notice_create_datetime:
+          leaveNoticeOriginalObject.leave_notice_create_datetime,
+        leave_notice_attached_file:
+          leaveNoticeOriginalObject.leave_notice_attached_file,
 
-      leave_notice_head_ID: leaveNoticeOriginalObject.leave_notice_head_ID,
-      leave_notice_head_status:
-        leaveNoticeOriginalObject.leave_notice_head_status,
-      leave_notice_head_description:
-        leaveNoticeOriginalObject.leave_notice_head_description,
-      leave_notice_head_change_datetime:
-        leaveNoticeOriginalObject.leave_notice_head_change_datetime,
-    },
-  };
+        leave_notice_head_ID: leaveNoticeUpdateObject.teacher,
+        leave_notice_head_status: leaveNoticeUpdateObject.status,
+        leave_notice_head_description: leaveNoticeUpdateObject.description,
+        leave_notice_head_change_datetime: currentDate,
+      },
+    };
+  }
+  // If the teacher evaluates. //
+  else {
+    leaveNoticeToUpdateObject = {
+      id: leaveNoticeOriginalObject.leave_notice_ID,
+      leaveNoticeInfo: {
+        // Updated values //
+        leave_notice_teacher_ID: leaveNoticeUpdateObject.teacher,
+        leave_notice_teacher_status: leaveNoticeUpdateObject.status,
+        leave_notice_teacher_description: leaveNoticeUpdateObject.description,
+        leave_notice_teacher_change_datetime: currentDate,
+        // Retain previous values. //
+        leave_notice_student_ID:
+          leaveNoticeOriginalObject.leave_notice_student_ID,
+        leave_notice_description:
+          leaveNoticeOriginalObject.leave_notice_description,
+        leave_notice_choice: leaveNoticeOriginalObject.leave_notice_choice,
+        leave_notice_for_date: leaveNoticeOriginalObject.leave_notice_for_date,
+        leave_notice_duration: leaveNoticeOriginalObject.leave_notice_duration,
+        leave_notice_create_datetime:
+          leaveNoticeOriginalObject.leave_notice_create_datetime,
+        leave_notice_attached_file:
+          leaveNoticeOriginalObject.leave_notice_attached_file,
+
+        leave_notice_head_ID: leaveNoticeOriginalObject.leave_notice_head_ID,
+        leave_notice_head_status:
+          leaveNoticeOriginalObject.leave_notice_head_status,
+        leave_notice_head_description:
+          leaveNoticeOriginalObject.leave_notice_head_description,
+        leave_notice_head_change_datetime:
+          leaveNoticeOriginalObject.leave_notice_head_change_datetime,
+      },
+    };
+  }
   const leaveNoticeJSON = JSON.stringify(leaveNoticeToUpdateObject);
 
   // Update the leaveNotice table with the corresponding info. //
@@ -193,7 +235,10 @@ export const handleLeaveNoticeUpdate = async (
 };
 
 // The text thats's to be used in the table. //
-export const get_text_from_status_table = (leaveNotice: LeaveNotice, t: any) => {
+export const get_text_from_status_table = (
+  leaveNotice: LeaveNotice,
+  t: any
+) => {
   const teacher_status = leaveNotice.leave_notice_teacher_status;
   const head_status = leaveNotice.leave_notice_head_status;
 
@@ -250,7 +295,10 @@ export const get_text_from_status_table = (leaveNotice: LeaveNotice, t: any) => 
 };
 
 // The color that's to be used in the timeline. //
-export const get_color_from_status_timeline = (status: number, type: string) => {
+export const get_color_from_status_timeline = (
+  status: number,
+  type: string
+) => {
   if (status == 2) {
     return type == "border" ? "border-green-500" : "text-green-500";
   } else if (status == 3) {
@@ -258,9 +306,7 @@ export const get_color_from_status_timeline = (status: number, type: string) => 
   } else if (status == 4) {
     return type == "border" ? "border-red-500" : "text-red-500";
   } else if (status == 1) {
-    return type == "border"
-      ? "border-standardBlack border-opacity-25"
-      : "opacity-25";
+    return type == "border" ? null : "opacity-25";
   }
 };
 // The text that's to be used under the icons in the timeline. //

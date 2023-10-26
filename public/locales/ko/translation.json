@@ -14,6 +14,9 @@
 
     "Dashboard_header": "계기반",
     "Dashboard_title_quickAccess": "빠른 접근",
+
+    "Dashboard_quickAccess_majors_header": "주요 관리",
+    "Dashboard_quickAccess_homeroomStudents_header": "담임 학생",
     
     "Dashboard_quickAccess_leaveNotices_title": "공지사항 남기기",
     "Dashboard_quickAccess_leaveNotices_description": "모든 휴가 공지 보기",
@@ -21,6 +24,15 @@
     "Dashboard_quickAccess_requestForms_description": "모든 요청 양식 보기",
     "Dashboard_quickAccess_clubs_title": "클럽",
     "Dashboard_quickAccess_clubs_description": "현재 가입된 클럽 보기",
+
+    "Dashboard_Majors_quickAccess_students_title": "학생",
+    "Dashboard_Majors_quickAccess_students_description": "학생 관리",
+    "Dashboard_Majors_quickAccess_teachers_title": "선생",
+    "Dashboard_Majors_quickAccess_teachers_description": "선생 관리",
+    "Dashboard_Majors_quickAccess_clubs_title": "클럽",
+    "Dashboard_Majors_quickAccess_clubs_description": "클럽 관리",
+    "Dashboard_Majors_quickAccess_leaveNotices_title": "공지사항 남기기",
+    "Dashboard_Majors_quickAccess_leaveNotices_description": "모든 휴가 공지 보기",
 
     "Dashboard_Admin_quickAccess_announcements_title": "공지사항",
     "Dashboard_Admin_quickAccess_announcements_description": "공지사항 관리",
@@ -60,11 +72,23 @@
 
     "Admin_Classrooms_header": "교실",
     "Admin_Classrooms_update_modal_header": "교실 업데이트",
+    "Admin_Classrooms_update_modal_submit_button_title": "교실 업데이트",
+    "Admin_Classrooms_update_modal_submit_success_message": "클래스룸이 업데이트되었습니다.",
+    "Admin_Classrooms_crud_modal_major_label": "주요한",
+    "Admin_Classrooms_crud_modal_level_label": "수준",
+    "Admin_Classrooms_crud_modal_level_option1": "수준",
+    "Admin_Classrooms_crud_modal_level_option_lower1": "하위 졸업장 1",
+    "Admin_Classrooms_crud_modal_level_option_lower2": "하위 졸업장 2",
+    "Admin_Classrooms_crud_modal_level_option_lower3": "하위 졸업장 3",
+    "Admin_Classrooms_crud_modal_level_option_higher1": "고등 졸업장 1",
+    "Admin_Classrooms_crud_modal_level_option_higher2": "고등 졸업장 2",
+    "Admin_Classrooms_crud_modal_class_label": "교실",
+    "Admin_Classrooms_crud_modal_teachers_label": "교사",
 
     "Admin_Classrooms_table_header_class": "교실",
     "Admin_Classrooms_table_header_major": "주요한",
     "Admin_Classrooms_table_header_studentCount": "재학생",
-    "Admin_Classrooms_table_header_teachers": "Teachers",
+    "Admin_Classrooms_table_header_teachers": "교사",
     "Admin_Classrooms_table_content_button_update_title": "편집",
     
     "Admin_Students_header": "재학생",
@@ -158,6 +182,8 @@
     "Admin_Clubs_header": "클럽",
     "Admin_Clubs_create_button_title": "클럽을 만드세요",
     "Admin_Clubs_create_modal_header": "클럽을 만드세요",
+    "Admin_Clubs_create_modal_submit_button_title": "클럽을 만드세요",
+    "Admin_Clubs_create_modal_submit_success_message": "클럽이 생성되었습니다.",
     "Admin_Clubs_update_button_title": "클럽 업데이트",
     "Admin_Clubs_update_modal_header": "클럽 업데이트",
     "Admin_Clubs_update_modal_submit_button_title": "클럽 업데이트",
@@ -172,6 +198,7 @@
     "Admin_Clubs_crud_modal_status_option3": "합류할 수 없는",
     "Admin_Clubs_crud_modal_status_option4": "비활성",
     "Admin_Clubs_crud_modal_description_label": "설명",
+    "Admin_Clubs_create_modal_teachers_label": "교사",
     "Admin_Clubs_update_modal_teachers_label": "교사",
 
     "Admin_Clubs_table_header_name": "이름",

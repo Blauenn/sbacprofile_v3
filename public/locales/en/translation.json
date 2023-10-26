@@ -15,12 +15,24 @@
     "Dashboard_header": "Dashboard",
     "Dashboard_title_quickAccess": "Quick access",
     
+    "Dashboard_quickAccess_majors_header": "Major management",
+    "Dashboard_quickAccess_homeroomStudents_header": "Homeroom students",
+
     "Dashboard_quickAccess_leaveNotices_title": "Leave notices",
     "Dashboard_quickAccess_leaveNotices_description": "See all leave notices",
     "Dashboard_quickAccess_requestForms_title": "Request forms",
     "Dashboard_quickAccess_requestForms_description": "See all request forms",
     "Dashboard_quickAccess_clubs_title": "Clubs",
     "Dashboard_quickAccess_clubs_description": "See currently joined club",
+
+    "Dashboard_Majors_quickAccess_students_title": "Students",
+    "Dashboard_Majors_quickAccess_students_description": "Manage students",
+    "Dashboard_Majors_quickAccess_teachers_title": "Teachers",
+    "Dashboard_Majors_quickAccess_teachers_description": "Manage teachers",
+    "Dashboard_Majors_quickAccess_clubs_title": "Clubs",
+    "Dashboard_Majors_quickAccess_clubs_description": "Manage clubs",
+    "Dashboard_Majors_quickAccess_leaveNotices_title": "Leave notices",
+    "Dashboard_Majors_quickAccess_leaveNotices_description": "See leave notices",
 
     "Dashboard_Admin_quickAccess_announcements_title": "Announcements",
     "Dashboard_Admin_quickAccess_announcements_description": "Manage announcements",
@@ -170,6 +182,8 @@
     "Admin_Clubs_header": "Clubs",
     "Admin_Clubs_create_button_title": "Create a club",
     "Admin_Clubs_create_modal_header": "Create a club",
+    "Admin_Clubs_create_modal_submit_button_title": "Create a club",
+    "Admin_Clubs_create_modal_submit_success_message": "Club has been created",
     "Admin_Clubs_update_button_title": "Update club",
     "Admin_Clubs_update_modal_header": "Update club",
     "Admin_Clubs_update_modal_submit_button_title": "Update club",
@@ -184,6 +198,7 @@
     "Admin_Clubs_crud_modal_status_option3": "Unjoinable",
     "Admin_Clubs_crud_modal_status_option4": "Inactive",
     "Admin_Clubs_crud_modal_description_label": "Description",
+    "Admin_Clubs_create_modal_teachers_label": "Teachers",
     "Admin_Clubs_update_modal_teachers_label": "Teachers",
 
     "Admin_Clubs_table_header_name": "Name",

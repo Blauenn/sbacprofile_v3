@@ -30,13 +30,13 @@ const validateStudentObject = (
       .refine((value) => value !== 0, { message: "Please select a position" }),
     student_first_name: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((value) => englishAlphabetRegex.test(value), {
         message: "First name must contain only English alphabets.",
       }),
     student_last_name: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((value) => englishAlphabetRegex.test(value), {
         message: "Last name must contain only English alphabets.",
       }),
@@ -47,13 +47,13 @@ const validateStudentObject = (
       }),
     student_first_name_thai: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((value) => thaiAlphabetRegex.test(value), {
         message: "Thai first name must contain only Thai alphabets.",
       }),
     student_last_name_thai: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((value) => thaiAlphabetRegex.test(value), {
         message: "Thai last name must contain only Thai alphabets.",
       }),
@@ -73,7 +73,7 @@ const validateStudentObject = (
     }),
     student_class: z
       .string()
-      .nonempty()
+      .min(1)
       .refine(
         (value) => {
           if (!value) {
@@ -98,7 +98,7 @@ const validateStudentObject = (
     student_image: z.string(),
     student_email: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((value) => emailRegex.test(value), {
         message: "Invalid email address.",
       }),

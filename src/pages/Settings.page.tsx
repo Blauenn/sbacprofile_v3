@@ -5,17 +5,10 @@ import SettingsTab from "../components/Settings/SettingsTab.component";
 import SettingsPreferencesTab from "../components/Settings/SettingsPreferencesTab.component";
 import SettingsAccountTab from "../components/Settings/SettingsAccountTab.component";
 
-// Contexts //
-import { useContext_Account } from "../context/Account.context";
-
 const Settings = () => {
-  const { userInfo } = useContext_Account();
-
   const { t } = useTranslation();
 
   const [activeTab, setActiveTab] = useState(1);
-
-  const userEmail = userInfo.length > 0 ? userInfo[0].profile_email : "";
 
   return (
     <div>
@@ -48,7 +41,7 @@ const Settings = () => {
         </div>
 
         <div hidden={activeTab !== 2}>
-          <SettingsAccountTab userEmail={userEmail} />
+          <SettingsAccountTab />
         </div>
       </div>
     </div>

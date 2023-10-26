@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 import { getData } from "../../functions/fetchFromAPI.function";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Admin_club_table from "../../components/Dashboard/Clubs/AdminOnly/table/Admin_club_table.component";
-import Admin_club_modal_create from "../../components/Dashboard/Clubs/AdminOnly/modal/Admin_club_modal_create.component";
+import Head_club_modal_create from "../../components/Dashboard/Clubs/HeadOnly/modal/Head_club_modal_create.component";
+import Head_club_table from "../../components/Dashboard/Clubs/HeadOnly/table/Head_club_table_row.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Clubs } from "../../context/Clubs.context";
 import { useContext_Teachers } from "../../context/Teachers.context";
 
-const Admin_clubs = () => {
+const Head_clubs = () => {
   const { clubs, setClubs, clubMemberships, setClubMemberships } =
     useContext_Clubs();
   const { teachers, setTeachers } = useContext_Teachers();
@@ -63,10 +63,10 @@ const Admin_clubs = () => {
           icon="fa-solid fa-puzzle-piece"
           text={t("Admin_Clubs_create_button_title")}
         />
-        <Admin_club_modal_create open={modalOpen} onModalClose={onModalClose} />
+        <Head_club_modal_create open={modalOpen} onModalClose={onModalClose} />
       </div>
 
-      <Admin_club_table
+      <Head_club_table
         clubs={clubs}
         clubMemberships={clubMemberships}
         teachers={teachers}
@@ -75,4 +75,4 @@ const Admin_clubs = () => {
   );
 };
 
-export default Admin_clubs;
+export default Head_clubs;

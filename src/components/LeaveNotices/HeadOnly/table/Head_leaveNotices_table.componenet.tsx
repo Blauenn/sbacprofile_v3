@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
-import Admin_leaveNotices_table_row from "./Admin_leaveNotices_table_row.component";
 import Loading from "../../../misc/Loading.component";
 import {
   table_content_style,
   table_header_style,
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
+import Head_leaveNotices_table_row from "./Head_leaveNotices_table_row.component";
 
 interface CurrentComponentProp {
   leaveNotices: LeaveNotice[];
 }
 
-const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
+const Head_leaveNotices_table = (props: CurrentComponentProp) => {
   const { leaveNotices } = props;
 
   const { t } = useTranslation();
@@ -59,7 +59,7 @@ const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
         <tbody>
           {[...leaveNotices].reverse().map((leaveNotice: LeaveNotice, index: number) => (
             <React.Fragment key={leaveNotice.leave_notice_ID}>
-              <Admin_leaveNotices_table_row
+              <Head_leaveNotices_table_row
                 leaveNotice={leaveNotice}
                 index={index}
               />
@@ -114,4 +114,4 @@ const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
   }
 };
 
-export default Admin_leaveNotices_table;
+export default Head_leaveNotices_table;
