@@ -73,11 +73,20 @@ const Admin_student_table_row = (props: CurrentComponentProp) => {
               onModalClose={onModalClose}
               student={student}
             />
+            {/* Update button */}
             <Table_button
               text={t("Admin_Students_table_content_button_update_title")}
               color={Major_To_Background_Color[student.student_major]}
               functionToRun={() => {
                 setModalOpen(true);
+              }}
+            />
+            {/* Delete button */}
+            <Table_button
+              text={t("Admin_Students_table_content_button_update_title")}
+              color="bg-red-500"
+              functionToRun={() => {
+                console.log(student.primary_student_ID)
               }}
             />
           </div>

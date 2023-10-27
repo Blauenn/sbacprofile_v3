@@ -80,13 +80,11 @@ const RolodexCard = (props: CurrentComponentProp) => {
           <div className="w-5/6">
             {i18n.language === "th" ? (
               <h1 className="text-2xl text-center truncate block">
-                {remappedObject.first_name_thai}{" "}
-                {remappedObject.last_name_thai.substring(0, 1)}.
+                {remappedObject.first_name_thai}
               </h1>
             ) : (
               <h1 className="text-2xl text-center truncate block">
-                {remappedObject.first_name}{" "}
-                {remappedObject.last_name.substring(0, 1)}.
+                {remappedObject.first_name}
               </h1>
             )}
           </div>
