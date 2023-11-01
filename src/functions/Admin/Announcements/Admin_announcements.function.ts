@@ -192,6 +192,29 @@ export const handleAnnouncementUpdate = async (
   }
 };
 
+export const handleAnnouncementDelete = async (announcement_ID: number) => {
+  const announcementToDelete = {
+    id: announcement_ID,
+  };
+  const announcementToDeleteJSON = JSON.stringify(announcementToDelete);
+
+  try {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/announcement/remove`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: announcementToDeleteJSON,
+    });
+
+    if (response.status) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
 export const get_announcement_status_text = (status: number | undefined) => {
   let status_text;
 
@@ -199,6 +222,17 @@ export const get_announcement_status_text = (status: number | undefined) => {
     status_text = "Shown";
   } else {
     status_text = "Hidden";
+  }
+
+  return status_text;
+};
+export const get_announcement_status_icon = (status: number | undefined) => {
+  let status_text;
+
+  if (status === 1) {
+    status_text = "fa-solid fa-eye";
+  } else {
+    status_text = "fa-solid fa-eye-slash";
   }
 
   return status_text;

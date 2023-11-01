@@ -190,3 +190,26 @@ export const handleClubUpdate = async (
     }
   }
 };
+
+export const handleClubDelete = async (club_ID: number) => {
+  const clubDelete = {
+    id: club_ID,
+  };
+  const clubDeleteJSON = JSON.stringify(clubDelete);
+
+  try {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/club/remove`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: clubDeleteJSON,
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};

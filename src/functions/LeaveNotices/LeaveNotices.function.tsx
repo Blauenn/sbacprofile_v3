@@ -74,6 +74,7 @@ const uploadLeaveNoticeFile = async (
 
 export const handleLeaveNoticeCreate = async (
   leaveNoticeCreateObject: any,
+  leave_notice_student_ID: number,
   leaveNoticeFile: any,
   leaveNoticeFileName: string,
   setValidationErrors: any
@@ -82,18 +83,18 @@ export const handleLeaveNoticeCreate = async (
   const validation = validateLeaveNoticeObject(
     leaveNoticeCreateObject,
     setValidationErrors
-  );
-
-  // If validation passes. //
-  if (validation) {
-    // Upload the file //
-    if (leaveNoticeFile) {
+    );
+    
+    // If validation passes. //
+    if (validation) {
+      // Upload the file //
+      if (leaveNoticeFile) {
       uploadLeaveNoticeFile(leaveNoticeFile, leaveNoticeFileName);
     }
 
     // Upload the leave notice information. //
     const leaveNoticeObject = {
-      leave_notice_student_ID: leaveNoticeCreateObject.leave_notice_student_ID,
+      leave_notice_student_ID: leave_notice_student_ID,
       leave_notice_description:
         leaveNoticeCreateObject.leave_notice_description,
       leave_notice_choice: leaveNoticeCreateObject.leave_notice_choice,
@@ -234,6 +235,34 @@ export const handleLeaveNoticeUpdate = async (
   }
 };
 
+export const handleLeaveNoticeDelete = async (leave_notice_ID: number) => {
+  const leaveNoticeToDelete = {
+    id: leave_notice_ID,
+  };
+  const leaveNoticeToDeleteJSON = JSON.stringify(leaveNoticeToDelete);
+
+  // Delete the leave notice //
+  try {
+    const result = await fetch(
+      `${API_ENDPOINT}/api/v1/forms/leaveNotice/remove`,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: leaveNoticeToDeleteJSON,
+      }
+    );
+    const response = await result.json();
+
+    if (response) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
 // The text thats's to be used in the table. //
 export const get_text_from_status_table = (
   leaveNotice: LeaveNotice,
@@ -247,7 +276,7 @@ export const get_text_from_status_table = (
     case teacher_status === 2 && head_status === 1:
       return (
         <h1 className="font-semibold opacity-50">
-          {t("LeaveNotices_status_head_pending")}...
+          {t("LeaveNotices_status_head_pending")}
         </h1>
       );
     // If the teachers ask for changes. //
@@ -257,14 +286,14 @@ export const get_text_from_status_table = (
       (teacher_status === 2 && head_status === 3):
       return (
         <h1 className="font-semibold text-yellow-500">
-          {t("LeaveNotices_status_changesNeeded")}...
+          {t("LeaveNotices_status_changesNeeded")}
         </h1>
       );
     // If the teacher rejects. //
     case teacher_status === 4 && head_status === 1:
       return (
         <h1 className="font-semibold text-red-500">
-          {t("LeaveNotices_status_teacher_rejected")}...
+          {t("LeaveNotices_status_teacher_rejected")}
         </h1>
       );
 
@@ -272,7 +301,7 @@ export const get_text_from_status_table = (
     case teacher_status === 2 && head_status === 4:
       return (
         <h1 className="font-semibold text-red-500">
-          {t("LeaveNotices_status_head_rejected")}...
+          {t("LeaveNotices_status_head_rejected")}
         </h1>
       );
 
@@ -280,7 +309,7 @@ export const get_text_from_status_table = (
     case teacher_status === 2 && head_status === 2:
       return (
         <h1 className="font-semibold text-green-500">
-          {t("LeaveNotices_status_success")}
+          {t("LeaveNotices_status_approved")}
         </h1>
       );
 
@@ -288,7 +317,7 @@ export const get_text_from_status_table = (
     default:
       return (
         <h1 className="font-semibold opacity-50">
-          {t("LeaveNotices_status_teacher_pending")}...
+          {t("LeaveNotices_status_teacher_pending")}
         </h1>
       );
   }
@@ -314,7 +343,7 @@ export const get_text_from_status_timeline = (status: number, t: any) => {
   if (status == 2) {
     return (
       <h1 className="hidden sm:block | font-semibold text-green-500 | text-sm sm:text-base">
-        {t("LeaveNotices_status_timeline_success")}
+        {t("LeaveNotices_status_timeline_approved")}
       </h1>
     );
   } else if (status == 3) {

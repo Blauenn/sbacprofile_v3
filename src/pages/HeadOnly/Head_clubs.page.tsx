@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { getData } from "../../functions/fetchFromAPI.function";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Head_club_modal_create from "../../components/Dashboard/Clubs/HeadOnly/modal/Head_club_modal_create.component";
-import Head_club_table from "../../components/Dashboard/Clubs/HeadOnly/table/Head_club_table_row.component";
+import Head_club_modal_create from "../../components/Dashboard/Clubs/HeadOnly/modal/Head_clubs_modal_create.component";
+import Head_club_table from "../../components/Dashboard/Clubs/HeadOnly/table/Head_clubs_table.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //

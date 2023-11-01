@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Student } from "../../interfaces/common.interface";
 import { getData } from "../../functions/fetchFromAPI.function";
 import { has_number } from "../../functions/stringManipulation.function";
-import Admin_student_table from "../../components/Dashboard/Students/AdminOnly/table/Admin_student_table.component";
-import StudentFilters from "../../components/Students/StudentFilters.component";
+import Admin_student_table from "../../components/Dashboard/Students/AdminOnly/table/Admin_students_table.component";
+import StudentFilters from "../../components/Students/Student_filters.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Admin_student_modal_create from "../../components/Dashboard/Students/AdminOnly/modal/Admin_student_modal_create.component";
+import Admin_student_modal_create from "../../components/Dashboard/Students/AdminOnly/modal/Admin_students_modal_create.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //
@@ -92,7 +92,10 @@ const Admin_students = () => {
       <PageHeaderReturn text={t("Admin_Students_header")} />
 
       <div className="mb-8">
-        <Admin_student_modal_create open={modalOpen} onModalClose={onModalClose} />
+        <Admin_student_modal_create
+          open={modalOpen}
+          onModalClose={onModalClose}
+        />
         <Info_create_button
           setModalOpen={setModalOpen}
           icon="fa-solid fa-graduation-cap"

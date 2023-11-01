@@ -4,8 +4,8 @@ import { Student } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
 import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
-import StudentRolodex from "../components/Students/StudentRolodex.component";
-import StudentFilters from "../components/Students/StudentFilters.component";
+import StudentRolodex from "../components/Students/Student_rolodex.component";
+import StudentFilters from "../components/Students/Student_filters.component";
 import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
@@ -71,7 +71,7 @@ const Students = () => {
           (student: Student) => student.student_class == selectedClass
         )
       : filteredStudentLevel;
-      
+
   const filteredStudents = filteredStudentClass.filter((student: Student) => {
     if (has_number(searchField)) {
       return student.student_ID.toString().includes(searchField);

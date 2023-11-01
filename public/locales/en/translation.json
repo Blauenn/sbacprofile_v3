@@ -51,12 +51,16 @@
 
     "Admin_Announcements_header": "Announcements",
     "Admin_Announcements_create_button_title": "Create an announcement",
-    "Admin_Announcements_create_modal_header": "Create an announcement",
+    "Admin_Announcements_create_modal_header": "Create announcement",
     "Admin_Announcements_create_modal_submit_button_title": "Create announcement",
     "Admin_Announcements_create_modal_submit_success_message": "Announcement has been created.",
-    "Admin_Announcements_update_modal_header": "Update an announcement",
+    "Admin_Announcements_update_modal_header": "Update announcement",
     "Admin_Announcements_update_modal_submit_button_title": "Update announcement",
     "Admin_Announcements_update_modal_submit_success_message": "Announcement has been updated.",
+    "Admin_Announcements_delete_modal_header": "Delete announcement",
+    "Admin_Announcements_delete_modal_message": "Are you sure you want to delete this announcement?",
+    "Admin_Announcements_delete_modal_submit_button_title": "Delete announcement",
+    "Admin_Announcements_delete_modal_submit_success_message": "Announcement has been deleted.",
     "Admin_Announcements_crud_modal_status_label": "Status",
     "Admin_Announcements_crud_modal_status_option1": "Shown",
     "Admin_Announcements_crud_modal_status_option2": "Hidden",
@@ -93,10 +97,10 @@
     
     "Admin_Students_header": "Students",
     "Admin_Students_create_button_title": "Create a student",
-    "Admin_Students_create_modal_header": "Create a student",
+    "Admin_Students_create_modal_header": "Create student",
     "Admin_Students_create_modal_submit_button_title": "Create student",
     "Admin_Students_create_modal_submit_success_message": "Student has been created.",
-    "Admin_Students_update_modal_header": "Update a student",
+    "Admin_Students_update_modal_header": "Update student",
     "Admin_Students_update_modal_submit_button_title": "Update student",
     "Admin_Students_update_modal_submit_success_message": "Student has been updated.",
     "Admin_Students_crud_modal_ID_label": "Student ID",
@@ -140,11 +144,11 @@
     
     "Admin_Teachers_header": "Teachers",
     "Admin_Teachers_create_button_title": "Create a teacher",
-    "Admin_Teachers_create_modal_header": "Create a teacher",
+    "Admin_Teachers_create_modal_header": "Create teacher",
     "Admin_Teachers_create_modal_submit_button_title": "Create teacher",
     "Admin_Teachers_create_modal_submit_success_message": "Teacher has been created.",
     "Admin_Teachers_update_button_title": "Update a teacher",
-    "Admin_Teachers_update_modal_header": "Update a teacher",
+    "Admin_Teachers_update_modal_header": "Update teacher",
     "Admin_Teachers_update_modal_submit_button_title": "Update teacher",
     "Admin_Teachers_update_modal_submit_success_message": "Teacher has been updated.",
     "Admin_Teachers_crud_modal_ID_label": "Teacher ID",
@@ -181,7 +185,7 @@
     
     "Admin_Clubs_header": "Clubs",
     "Admin_Clubs_create_button_title": "Create a club",
-    "Admin_Clubs_create_modal_header": "Create a club",
+    "Admin_Clubs_create_modal_header": "Create club",
     "Admin_Clubs_create_modal_submit_button_title": "Create club",
     "Admin_Clubs_create_modal_submit_success_message": "Club has been created",
     "Admin_Clubs_update_modal_teacher_label": "Manage teachers",
@@ -217,8 +221,9 @@
     "Admin_Clubs_table_content_button_update_title": "Update",
     
     "Admin_LeaveNotices_header": "Leave notices",
-    "Admin_LeaveNotices_table_content_button_view_title": "View",
+    "Admin_LeaveNotices_table_content_button_evaluate_title": "Evaluate",
     "Admin_LeaveNotices_table_content_button_file_title": "File",
+    "Admin_LeaveNotices_table_noLeaveNotices_message": "No leave notices",
 
     "Admin_LeaveNotices_table_header_ID": "ID",
     "Admin_LeaveNotices_table_header_submitDate": "Submit date",
@@ -248,6 +253,9 @@
     "LeaveNotices_students_create_modal_file_label": "Upload a file",
     "LeaveNotices_students_create_modal_submit_button_title": "Submit leave notice",
     "LeaveNotices_students_create_modal_submit_success_message": "Leave notice has been submitted.",
+    "LeaveNotices_students_delete_modal_header": "Delete leave notice",
+    "LeaveNotices_students_delete_modal_submit_button_title": "Delete leave notice",
+    "LeaveNotices_students_delete_modal_submit_success_message": "Leave notice has been deleted.",
 
     "LeaveNotices_teachers_evaluate_modal_header": "Evaluate leave notice",
     
@@ -274,14 +282,14 @@
     "LeaveNotices_status_timeline_pending": "Pending",
     "LeaveNotices_status_timeline_changesNeeded": "Changes needed",
     "LeaveNotices_status_timeline_rejected": "Rejected",
-    "LeaveNotices_status_timeline_success": "Success",
+    "LeaveNotices_status_timeline_approved": "Approved",
 
     "LeaveNotices_status_teacher_pending": "Pending teacher",
     "LeaveNotices_status_teacher_rejected": "Rejected by teacher",
     "LeaveNotices_status_head_pending": "Pending head",
-    "LeaveNotices_status_head_rejected": "Rejected by teacher",
+    "LeaveNotices_status_head_rejected": "Rejected by head",
     "LeaveNotices_status_changesNeeded": "Changes needed",
-    "LeaveNotices_status_success": "Success",
+    "LeaveNotices_status_approved": "Approved",
     
     "profile_filters_label_major": "Major",
     "profile_filters_label_level": "Level",
@@ -336,6 +344,9 @@
 
     "PageNotFound_message": "Page not found.",
     "PageNotFound_button": "Return to home page.",
+
+    "Error_message": "There's an error. Please logout and re-login",
+    "Error_logout_button": "Logout",
 
     "Loading_message": "Loading...",
 

@@ -133,7 +133,7 @@ const Head_leaveNotices_table_row = (props: CurrentComponentProp) => {
               onModalClose={onModalClose}
             />
             <Table_button
-              text={t("Admin_LeaveNotices_table_content_button_view_title")}
+              text={t("Admin_LeaveNotices_table_content_button_evaluate_title")}
               color="bg-blue-500"
               functionToRun={() => {
                 setModalOpen(true);
@@ -142,7 +142,7 @@ const Head_leaveNotices_table_row = (props: CurrentComponentProp) => {
             {/* View file button */}
             {leaveNotice.leave_notice_attached_file != "" ? (
               <Table_button_download
-                text={t("Admin_LeaveNotices_table_content_button_file_title")}
+                icon="fa-solid fa-folder"
                 color="bg-purple-500"
                 url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
               />

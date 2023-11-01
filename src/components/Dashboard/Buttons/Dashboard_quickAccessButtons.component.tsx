@@ -5,6 +5,7 @@ import Dashboard_button from "./Dashboard_button.component";
 import { useContext_Account } from "../../../context/Account.context";
 import {
   head_access_only,
+  student_access_only,
   teacher_access_only,
 } from "../../../functions/permissionChecks.function";
 
@@ -102,13 +103,15 @@ const Dashboard_quickAccessButtons = (props: CurrentComponentProp) => {
                 )}
               />
               {/* Clubs */}
-              <Dashboard_button
-                url="/clubs"
-                color="text-green-500"
-                icon="fa-solid fa-puzzle-piece"
-                title={t("Dashboard_quickAccess_clubs_title")}
-                description={t("Dashboard_quickAccess_clubs_description")}
-              />
+              {student_access_only(userInfo.profile_position) ? (
+                <Dashboard_button
+                  url="/clubs"
+                  color="text-green-500"
+                  icon="fa-solid fa-puzzle-piece"
+                  title={t("Dashboard_quickAccess_clubs_title")}
+                  description={t("Dashboard_quickAccess_clubs_description")}
+                />
+              ) : null}
             </div>
           </div>
         </div>

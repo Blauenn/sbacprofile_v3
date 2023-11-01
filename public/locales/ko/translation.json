@@ -279,7 +279,7 @@
     "LeaveNotices_status_teacher_pending": "대기 중인 교사",
     "LeaveNotices_status_teacher_rejected": "교사에 의해 거부됨",
     "LeaveNotices_status_head_pending": "보류 중인 헤드",
-    "LeaveNotices_status_head_rejected": "교사에 의해 거부됨",
+    "LeaveNotices_status_head_rejected": "부서장 의해 거부됨",
     "LeaveNotices_status_changesNeeded": "변경이 필요함",
     "LeaveNotices_status_success": "성공",
     

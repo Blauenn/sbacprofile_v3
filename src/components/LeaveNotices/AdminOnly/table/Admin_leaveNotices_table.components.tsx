@@ -10,7 +10,7 @@ import {
 } from "../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  leaveNotices: LeaveNotice[];
+  leaveNotices: any;
 }
 
 const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
@@ -52,19 +52,21 @@ const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
               {t("Admin_LeaveNotices_table_header_status")}
             </th>
             <th className={table_header_style}>
-              <i className="fa-solid fa-pencil"></i>
+              <i className="fa-solid fa-eye"></i>
             </th>
           </tr>
         </thead>
         <tbody>
-          {[...leaveNotices].reverse().map((leaveNotice: LeaveNotice, index: number) => (
-            <React.Fragment key={leaveNotice.leave_notice_ID}>
-              <Admin_leaveNotices_table_row
-                leaveNotice={leaveNotice}
-                index={index}
-              />
-            </React.Fragment>
-          ))}
+          {[...leaveNotices]
+            .reverse()
+            .map((leaveNotice: LeaveNotice, index: number) => (
+              <React.Fragment key={leaveNotice.leave_notice_ID}>
+                <Admin_leaveNotices_table_row
+                  leaveNotice={leaveNotice}
+                  index={index}
+                />
+              </React.Fragment>
+            ))}
         </tbody>
       </table>
     );

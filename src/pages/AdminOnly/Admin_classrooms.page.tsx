@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getData } from "../../functions/fetchFromAPI.function";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
-import Admin_classroom_table from "../../components/Dashboard/Classrooms/table/Admin_classroom_table.component";
+import Admin_classroom_table from "../../components/Dashboard/Classrooms/table/Admin_classrooms_table.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //

@@ -379,3 +379,26 @@ export const handleTeacherUpdate = async (
     }
   }
 };
+
+export const handleTeacherDelete = async (teacher_ID: number) => {
+  const teacherDelete = {
+    id: teacher_ID,
+  };
+  const teacherDeleteJSON = JSON.stringify(teacherDelete);
+
+  try {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/remove`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: teacherDeleteJSON,
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};

@@ -168,6 +168,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
 
     const submissionStatus = await handleLeaveNoticeCreate(
       leaveNoticeCreateObject,
+      userInfo.profile_ID,
       leaveNoticeFile,
       leaveNoticeFileName,
       setValidationErrors
@@ -192,10 +193,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
       open={open}
       onModalClose={handleModalClose}
       icon="fa-solid fa-plus"
-      title={t("LeaveNotices_students_create_modal_header")}
-      altIcon="fa-solid fa-circle-check text-green-500"
-      altTitle={t("LeaveNotices_students_create_modal_submit_success_message")}
-      useAltTitle={isCreateSuccess}>
+      title={t("LeaveNotices_students_create_modal_header")}>
       <div className="grid grid-cols-1 gap-4">
         {/* Leave duration */}
         <TextField
@@ -262,7 +260,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
           className="col-span-1"
           object={leaveNoticeCreateObject}
           setObject={setLeaveNoticeCreateObject}
-          value="1"
+          value={leaveNoticeCreateObject.leave_notice_choice}
           validation="">
           <option value="1">
             {t("LeaveNotices_students_create_modal_leaveChoice_option1")}
@@ -353,8 +351,12 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
         {/* Submit button */}
         <Info_submit_button
           text={t("LeaveNotices_students_create_modal_submit_button_title")}
+          successText={t(
+            "LeaveNotices_students_create_modal_submit_success_message"
+          )}
           icon="fa-solid fa-flag"
           isSubmitting={isSubmitting}
+          isSuccess={isCreateSuccess}
           onClickFunction={setObjectAndSubmit}
         />
       </div>
