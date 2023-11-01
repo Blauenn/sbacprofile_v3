@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeader from "../components/misc/common/PageHeader.component";
-import SettingsTab from "../components/Settings/SettingsTab.component";
-import SettingsPreferencesTab from "../components/Settings/SettingsPreferencesTab.component";
-import SettingsAccountTab from "../components/Settings/SettingsAccountTab.component";
+import SettingsTab from "../components/Settings/Settings_tab.component";
+import SettingsPreferencesTab from "../components/Settings/Settings_tab_preferences.component";
+import SettingsAccountTab from "../components/Settings/Settings_tab_account.component";
 
 const Settings = () => {
   const { t } = useTranslation();

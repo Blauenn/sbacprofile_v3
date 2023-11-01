@@ -49,7 +49,11 @@ const LeaveNotices_approval_timeline = (props: any) => {
         {/* Arrow */}
         <div className="hidden md:flex | relative flex-col justify-center">
           <i
-            className={`absolute top-1/4 fa-solid fa-arrow-right | text-xl sm:text-3xl ${get_color_from_status_timeline(
+            className={`absolute top-1/4 fa-solid ${
+              leaveNotice.leave_notice_teacher_status === 4
+                ? "fa-xmark"
+                : "fa-arrow-right"
+            } | text-xl sm:text-3xl ${get_color_from_status_timeline(
               leaveNotice.leave_notice_teacher_status,
               "text"
             )}`}></i>
@@ -131,7 +135,7 @@ const LeaveNotices_approval_timeline = (props: any) => {
             </h1>
           ) : (
             <h1 className="hidden sm:block | font-semibold opacity-50 | text-sm sm:text-base">
-              Pending...
+              Pending
             </h1>
           )}
         </div>

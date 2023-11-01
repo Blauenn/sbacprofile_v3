@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Teacher } from "../../interfaces/common.interface";
 import { has_number } from "../../functions/stringManipulation.function";
 import { getData } from "../../functions/fetchFromAPI.function";
-import TeacherFilters from "../../components/Teachers/TeacherFilters.component";
-import Admin_teacher_table from "../../components/Dashboard/Teachers/AdminOnly/table/Admin_teacher_table.component";
+import TeacherFilters from "../../components/Teachers/Teacher_filters.component";
+import Admin_teacher_table from "../../components/Dashboard/Teachers/AdminOnly/table/Admin_teachers_table.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Admin_teacher_modal_create from "../../components/Dashboard/Teachers/AdminOnly/modal/Admin_teacher_modal_create.component";
+import Admin_teacher_modal_create from "../../components/Dashboard/Teachers/AdminOnly/modal/Admin_teachers_modal_create.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //

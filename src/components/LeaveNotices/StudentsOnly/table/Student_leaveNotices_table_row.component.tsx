@@ -18,6 +18,7 @@ import {
 import { Day_Colors } from "../../../../constants/Misc.constant.ts";
 import { CDN_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
 import { table_content_style } from "../../../../constants/styles/tables.style.tsx";
+import Student_leaveNotices_modal_delete from "../modal/Student_leaveNotices_modal_delete.component.tsx";
 
 interface CurrentComponentProp {
   leaveNotice: LeaveNotice;
@@ -58,9 +59,13 @@ const Student_leaveNotices_table_row = (props: CurrentComponentProp) => {
     .toISOString()
     .split("T")[0];
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const onModalClose = () => {
-    setModalOpen(false);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+  const onViewModalClose = () => {
+    setViewModalOpen(false);
+  };
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const onDeleteModalClose = () => {
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -113,24 +118,37 @@ const Student_leaveNotices_table_row = (props: CurrentComponentProp) => {
             {/* View info button */}
             <Student_leaveNotices_modal
               leaveNotice={leaveNotice}
-              open={modalOpen}
-              onModalClose={onModalClose}
+              open={viewModalOpen}
+              onModalClose={onViewModalClose}
             />
             <Table_button
-              text={t("LeaveNotices_table_content_button_view_title")}
+              icon="fa-solid fa-eye"
               color="bg-blue-500"
               functionToRun={() => {
-                setModalOpen(true);
+                setViewModalOpen(true);
               }}
             />
             {/* View file button */}
             {leaveNotice.leave_notice_attached_file != "" ? (
               <Table_button_download
-                text={t("LeaveNotices_table_content_button_file_title")}
+                icon="fa-solid fa-folder"
                 color="bg-purple-500"
                 url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
               />
             ) : null}
+            {/* Delete info button */}
+            <Student_leaveNotices_modal_delete
+              leaveNotice={leaveNotice}
+              open={deleteModalOpen}
+              onModalClose={onDeleteModalClose}
+            />
+            <Table_button
+              icon="fa-solid fa-trash-can"
+              color="bg-red-500"
+              functionToRun={() => {
+                setDeleteModalOpen(true);
+              }}
+            />
           </div>
         </td>
       </tr>

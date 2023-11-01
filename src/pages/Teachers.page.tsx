@@ -4,8 +4,8 @@ import { Teacher } from "../interfaces/common.interface";
 import { getData } from "../functions/fetchFromAPI.function";
 import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
-import TeacherRolodex from "../components/Teachers/TeacherRolodex.component";
-import TeacherFilters from "../components/Teachers/TeacherFilters.component";
+import TeacherRolodex from "../components/Teachers/Teacher_rolodex.component";
+import TeacherFilters from "../components/Teachers/Teacher_filters.component";
 import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //

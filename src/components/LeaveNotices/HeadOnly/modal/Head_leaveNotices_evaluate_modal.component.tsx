@@ -120,10 +120,7 @@ const Head_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
       open={open}
       onModalClose={handleModalClose}
       icon="fa-solid fa-flag"
-      title={t("LeaveNotices_teachers_evaluate_modal_header")}
-      altIcon="fa-solid fa-circle-check text-green-500"
-      altTitle={t("LeaveNotices_evaluate_modal_submit_success_message")}
-      useAltTitle={isUpdateSuccess}>
+      title={t("LeaveNotices_teachers_evaluate_modal_header")}>
       <div className="flex flex-col gap-8 w-full">
         <LeaveNotice_evaluate_buttons
           leaveNoticeUpdateObject={leaveNoticeUpdateObject}
@@ -140,9 +137,11 @@ const Head_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
         />
         <Info_submit_button
           text={info_submit_button_text}
+          successText={t("LeaveNotices_evaluate_modal_submit_success_message")}
           icon={info_submit_button_icon}
           color={info_submit_button_color}
           isSubmitting={isSubmitting}
+          isSuccess={isUpdateSuccess}
           disabled={leaveNoticeUpdateObject.status === 0}
           onClickFunction={() => {
             setObjectAndSubmit();

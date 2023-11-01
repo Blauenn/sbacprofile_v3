@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Teacher } from "../../interfaces/common.interface";
 import { getData } from "../../functions/fetchFromAPI.function";
-import Head_teacher_table from "../../components/Dashboard/Teachers/HeadOnly/table/Head_teacher_table.component";
+import Head_teacher_table from "../../components/Dashboard/Teachers/HeadOnly/table/Head_teachers_table.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Head_teacher_modal_create from "../../components/Dashboard/Teachers/HeadOnly/modal/Head_teacher_modal_create.component";
+import Head_teacher_modal_create from "../../components/Dashboard/Teachers/HeadOnly/modal/Head_teachers_modal_create.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 import { handle_input_change } from "../functions/fields/handleFieldChanges.function";
 import { handleLogin } from "../functions/Login/Login.function";
+import { hover_transition } from "../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
   setAccessToken: any;
@@ -79,9 +80,9 @@ const Login = (props: CurrentComponentProp) => {
                     isLoggingIn ||
                     loginObject.login_email == "" ||
                     loginObject.login_password == ""
-                      ? "bg-gray-500"
-                      : "bg-primary hover:bg-violet-700"
-                  } text-white rounded-full px-6 py-2 w-full sm:w-1/2`}
+                      ? "bg-gray-500 text-white"
+                      : "border border-primary text-primary hover:bg-primary hover:text-white"
+                  } rounded-full px-6 py-2 w-full sm:w-1/2 ${hover_transition}`}
                   disabled={
                     isLoggingIn ||
                     loginObject.login_email == "" ||

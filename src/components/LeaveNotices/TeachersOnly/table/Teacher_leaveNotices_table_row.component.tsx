@@ -126,7 +126,7 @@ const Teacher_leaveNotices_table_row = (props: CurrentComponentProp) => {
             {/* View file button */}
             {leaveNotice.leave_notice_attached_file != "" ? (
               <Table_button_download
-                text={t("LeaveNotices_table_content_button_file_title")}
+                icon="fa-solid fa-folder"
                 color="bg-purple-500"
                 url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
               />

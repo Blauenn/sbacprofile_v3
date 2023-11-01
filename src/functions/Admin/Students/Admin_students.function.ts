@@ -412,3 +412,26 @@ export const handleStudentUpdate = async (
     }
   }
 };
+
+export const handleStudentDelete = async (student_ID: number) => {
+  const studentDelete = {
+    id: student_ID,
+  };
+  const studentDeleteJSON = JSON.stringify(studentDelete);
+
+  try {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/student/remove`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: studentDeleteJSON,
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};

@@ -279,7 +279,7 @@
     "LeaveNotices_status_teacher_pending": "Lehrer im Wartestand",
     "LeaveNotices_status_teacher_rejected": "Vom Lehrer abgelehnt",
     "LeaveNotices_status_head_pending": "Wartender Abteilungsleiter",
-    "LeaveNotices_status_head_rejected": "Vom Lehrer abgelehnt",
+    "LeaveNotices_status_head_rejected": "Vom Leiter abgelehnt",
     "LeaveNotices_status_changesNeeded": "Änderungen erforderlich",
     "LeaveNotices_status_success": "Erfolg",
     

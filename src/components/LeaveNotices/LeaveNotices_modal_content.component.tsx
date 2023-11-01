@@ -48,33 +48,43 @@ const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
           />
         </div>
         <div className="flex flex-col gap-2 sm:gap-4">
-          {get_day_amount_between_dates(
-            leaveNotice.leave_notice_start_datetime,
-            leaveNotice.leave_notice_end_datetime
-          ) -
-            1 !=
-          0 ? (
-            <h1 className="text-2xl sm:text-4xl font-semibold">
-              {get_day_amount_between_dates(
-                leaveNotice.leave_notice_start_datetime,
-                leaveNotice.leave_notice_end_datetime
-              )}{" "}
-              days of leave.
-            </h1>
-          ) : (
-            <h1 className="text-2xl sm:text-4xl font-semibold">
-              1 day of leave
-            </h1>
-          )}
-          <h1 className="text-xl sm:text-2xl">
-            <b className="text-xl sm:text-2xl font-normal opacity-50">
+          <div className="flex flex-col gap-2">
+            {/* Description */}
+            <div className="col-span-1 flex flex-col w-full">
+              <h1 className="text-lg md:text-2xl opacity-50">
+                {leaveNotice.leave_notice_description}
+              </h1>
+            </div>
+            {/* Leave duration */}
+            {get_day_amount_between_dates(
+              leaveNotice.leave_notice_start_datetime,
+              leaveNotice.leave_notice_end_datetime
+            ) -
+              1 !=
+            0 ? (
+              <h1 className="text-2xl sm:text-4xl font-semibold">
+                {get_day_amount_between_dates(
+                  leaveNotice.leave_notice_start_datetime,
+                  leaveNotice.leave_notice_end_datetime
+                )}{" "}
+                days of leave.
+              </h1>
+            ) : (
+              <h1 className="text-2xl sm:text-4xl font-semibold">
+                1 day of leave.
+              </h1>
+            )}
+          </div>
+          {/* Student name */}
+          <h1 className="text-lg sm:text-xl">
+            <b className="text-lg sm:text-xl font-normal opacity-50">
               {leaveNotice.leave_notice_student_ID} :
             </b>{" "}
             {get_student_name_from_ID(
               leaveNotice.leave_notice_student_ID,
               students
             )}{" "}
-            <b className="text-xl sm:text-2xl font-normal opacity-50">
+            <b className="text-lg sm:text-xl font-normal opacity-50">
               :{" "}
               {get_student_classroom_from_ID(
                 leaveNotice.leave_notice_student_ID,
@@ -82,11 +92,13 @@ const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
               )}
             </b>
           </h1>
-          <h1 className="text-lg sm:text-xl opacity-50">{`Document #${leaveNotice.leave_notice_ID}`}</h1>
+          <h1 className="text-md sm:text-lg opacity-50">{`Document #${leaveNotice.leave_notice_ID}`}</h1>
         </div>
       </div>
       {/* Approval timeline */}
-      <LeaveNotice_approval_timeline leaveNotice={leaveNotice} />
+      <div className="mb-2">
+        <LeaveNotice_approval_timeline leaveNotice={leaveNotice} />
+      </div>
       {/* Teacher and head of department description */}
       <div className="grid grid-cols-2 mb-4">
         {/* Teacher description */}
@@ -129,15 +141,6 @@ const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
       </div>
       {/* Description and files */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-        {/* Description */}
-        <div className="col-span-1 flex flex-col w-full">
-          <h1 className="text-md md:text-lg opacity-50 break-all">
-            Description
-          </h1>
-          <h1 className="text-lg md:text-2xl">
-            {leaveNotice.leave_notice_description}
-          </h1>
-        </div>
         {/* Attached file */}
         {leaveNotice.leave_notice_attached_file != "" ? (
           <div className="col-span-1 flex flex-col w-full">

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { getData } from "../../functions/fetchFromAPI.function";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Admin_announcement_modal_create from "../../components/Dashboard/Announcements/AdminOnly/modal/Admin_announcement_modal_create.component";
-import { useContext_Announcements } from "../../context/Announcements.context";
-import { getData } from "../../functions/fetchFromAPI.function";
+import Admin_announcement_table from "../../components/Dashboard/Announcements/AdminOnly/table/Admin_announcements_table.component";
+import Admin_announcements_modal_create from "../../components/Dashboard/Announcements/AdminOnly/modal/Admin_announcements_modal_create.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
-import Admin_announcement_table from "../../components/Dashboard/Announcements/AdminOnly/table/Admin_announcement_table.component";
+
+// Contexts //
+import { useContext_Announcements } from "../../context/Announcements.context";
 
 const Admin_announcements = () => {
   const { announcements, setAnnouncements } = useContext_Announcements();
@@ -35,7 +37,7 @@ const Admin_announcements = () => {
           icon="fa-solid fa-bullhorn"
           text={t("Admin_Announcements_create_button_title")}
         />
-        <Admin_announcement_modal_create
+        <Admin_announcements_modal_create
           open={modalOpen}
           onModalClose={onModalClose}
         />

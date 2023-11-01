@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../../interfaces/common.interface";
 import { getData } from "../../functions/fetchFromAPI.function";
-import Head_student_table from "../../components/Dashboard/Students/HeadOnly/table/Head_student_table.component";
+import Head_student_table from "../../components/Dashboard/Students/HeadOnly/table/Head_students_table.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Head_student_modal_create from "../../components/Dashboard/Students/HeadOnly/modal/Head_student_modal_create.component";
+import Head_student_modal_create from "../../components/Dashboard/Students/HeadOnly/modal/Head_students_modal_create.component";
 import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //
