@@ -151,34 +151,6 @@ const Student_leaveNotices_table_row = (props: CurrentComponentProp) => {
                 setDeleteModalOpen(true);
               }}
             />
-            <Table_button
-              icon="fa-solid fa-eye"
-              color="bg-blue-500"
-              functionToRun={() => {
-                setViewModalOpen(true);
-              }}
-            />
-            {/* View file button */}
-            {leaveNotice.leave_notice_attached_file != "" ? (
-              <Table_button_download
-                icon="fa-solid fa-folder"
-                color="bg-purple-500"
-                url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
-              />
-            ) : null}
-            {/* Delete info button */}
-            <Student_leaveNotices_modal_delete
-              leaveNotice={leaveNotice}
-              open={deleteModalOpen}
-              onModalClose={onDeleteModalClose}
-            />
-            <Table_button
-              icon="fa-solid fa-trash-can"
-              color="bg-red-500"
-              functionToRun={() => {
-                setDeleteModalOpen(true);
-              }}
-            />
           </div>
         </td>
       </tr>
