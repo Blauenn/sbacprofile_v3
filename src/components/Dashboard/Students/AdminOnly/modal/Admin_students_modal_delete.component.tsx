@@ -4,10 +4,11 @@ import Custom_Modal from "../../../../custom/Custom_Modal";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleStudentDelete } from "../../../../../functions/Admin/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../../../../../context/Students.context";
+import { Major_To_Background_Color } from "../../../../../constants/Majors.constant";
 
 interface CurrentComponentProp {
   student: any;
@@ -42,6 +43,14 @@ const Admin_students_modal_delete = (props: CurrentComponentProp) => {
         setStudents(result);
         setStudentCount(result.length);
       });
+
+      setIsSubmitting(false);
+      setIsDeleteSuccess(true);
+
+      handleModalClose();
+    } else {
+      setIsSubmitting(false);
+      setIsDeleteSuccess(false);
     }
   };
 
@@ -55,12 +64,21 @@ const Admin_students_modal_delete = (props: CurrentComponentProp) => {
         <h1 className="text-xl opacity-50">
           {t("Admin_Students_delete_modal_message")}
         </h1>
+        <div className="flex flex-row items-center gap-4">
+          <img
+            className={`w-[120px] h-[120px] rounded-full ${
+              Major_To_Background_Color[student.student_major]
+            }`}
+            src={`${CDN_ENDPOINT}${student.student_image}`}
+          />
+          <h1 className="text-2xl font-semibold">
+            {student.student_first_name} {student.student_last_name}
+          </h1>
+        </div>
         {/* Submit button */}
         <Info_submit_button
-          text={t("Admin_Announcements_delete_modal_submit_button_title")}
-          successText={t(
-            "Admin_Announcements_delete_modal_submit_success_message"
-          )}
+          text={t("Admin_Students_delete_modal_submit_button_title")}
+          successText={t("Admin_Students_delete_modal_submit_success_message")}
           icon="fa-solid fa-trash-can"
           color="border-red-500 hover:bg-red-500 text-red-500"
           isSubmitting={isSubmitting}

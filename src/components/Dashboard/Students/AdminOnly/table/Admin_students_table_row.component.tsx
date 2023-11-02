@@ -5,6 +5,7 @@ import { Major_To_Background_Color } from "../../../../../constants/Majors.const
 import { Default_Image } from "../../../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
+import Admin_students_modal_delete from "../modal/Admin_students_modal_delete.component";
 
 interface CurrentComponentProp {
   student: any;
@@ -14,9 +15,13 @@ interface CurrentComponentProp {
 const Admin_students_table_row = (props: CurrentComponentProp) => {
   const { student, index } = props;
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const onModalClose = () => {
-    setModalOpen(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const onUpdateModalClose = () => {
+    setUpdateModalOpen(false);
+  };
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const onDeleteModalClose = () => {
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -66,23 +71,28 @@ const Admin_students_table_row = (props: CurrentComponentProp) => {
           <div className="flex gap-x-2">
             {/* Update button */}
             <Admin_student_modal_update
-              open={modalOpen}
-              onModalClose={onModalClose}
               student={student}
+              open={updateModalOpen}
+              onModalClose={onUpdateModalClose}
             />
             <Table_button
               icon="fa-solid fa-pencil"
               color={Major_To_Background_Color[student.student_major]}
               functionToRun={() => {
-                setModalOpen(true);
+                setUpdateModalOpen(true);
               }}
             />
             {/* Delete button */}
+            <Admin_students_modal_delete
+              student={student}
+              open={deleteModalOpen}
+              onModalClose={onDeleteModalClose}
+            />
             <Table_button
               icon="fa-solid fa-trash-can"
               color="bg-red-500"
               functionToRun={() => {
-                console.log(student.primary_student_ID);
+                setDeleteModalOpen(true)
               }}
             />
           </div>
