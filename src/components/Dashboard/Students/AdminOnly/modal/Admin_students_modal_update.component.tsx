@@ -233,7 +233,7 @@ const Admin_students_modal_update = (props: CurrentComponentProp) => {
           setObject={setStudentUpdateObject}
           value={studentUpdateObject.student_major}
           validation={validationErrors.student_major}>
-          <option value="0">Major</option>
+          <option value="0">{t("Admin_Students_crud_modal_major_label")}</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"

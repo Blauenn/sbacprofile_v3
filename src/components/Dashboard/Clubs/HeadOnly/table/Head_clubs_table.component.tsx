@@ -11,17 +11,13 @@ import {
 
 // Contexts //
 import { useContext_Account } from "../../../../../context/Account.context";
+import { useContext_Clubs } from "../../../../../context/Clubs.context";
+import { useContext_Teachers } from "../../../../../context/Teachers.context";
 
-interface CurrentComponentProp {
-  clubs: any;
-  clubMemberships: any;
-  teachers: any;
-}
-
-const Head_club_table = (props: CurrentComponentProp) => {
-  const { clubs, clubMemberships, teachers } = props;
-
+const Head_club_table = () => {
   const { userInfo } = useContext_Account();
+  const { clubs, clubMemberships } = useContext_Clubs();
+  const { teachers } = useContext_Teachers();
 
   const { t } = useTranslation();
 

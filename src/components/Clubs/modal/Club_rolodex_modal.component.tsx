@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
 import Custom_Modal from "../../custom/Custom_Modal";
 import { ClubMembership } from "../../../interfaces/common.interface";
@@ -12,8 +13,11 @@ import {
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
 import { student_access_only } from "../../../functions/permissionChecks.function";
+import Info_create_button from "../../Dashboard/Buttons/Info_create_button.component";
+import Club_rolodex_modal_join from "./Club_rolodex_modal_join.component";
 import {
   Major_To_Background_Color,
+  Major_To_Background_Color_Hover,
   Major_To_Border_Color,
   Major_To_Text_Color,
 } from "../../../constants/Majors.constant";
@@ -34,6 +38,8 @@ interface CurrentComponentProp {
 
 const Club_rolodex_modal = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
+
+  const { t } = useTranslation();
 
   const { clubMemberships, setClubMemberships } = useContext_Clubs();
   const { teachers } = useContext_Teachers();
@@ -117,13 +123,18 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
     }
   };
 
+  const [joinModalOpen, setJoinModalOpen] = useState(false);
+  const onJoinModalClose = () => {
+    setJoinModalOpen(false);
+  };
+
   return (
     <Custom_Modal
       open={open}
       onModalClose={onModalClose}
       title={club.club_name}
       overflow>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         <div className="w-full flex justify-center">
           {club.club_image != "/assets/profilePic/clubs/" ? (
             <img
@@ -147,39 +158,39 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
             ) : null}
           </div>
           {/* Club teachers */}
-          <div className="mb-4">
-            <h1 className="text-xl font-semibold mb-2">Teachers</h1>
-            {club.club_teacher.teachers[0] != 0 ? (
+          <div>
+            <h1 className="text-xl font-semibold mb-2">
+              {t("Clubs_modal_teachers_title")}
+            </h1>
+            {club.club_teacher.teachers.length !== 0 ? (
               <div className="grid grid-cols-1 min-[400px]:grid-cols-2 lg:grid-cols-4 gap-2">
-                {club.club_teacher.teachers.length !== 0 ? (
-                  club.club_teacher.teachers.map((teacher: number) => (
-                    <div
-                      key={teacher}
-                      className="flex flex-row justify-between items-center gap-4 border border-standardBlack border-opacity-25 rounded-3xl px-2 py-1">
-                      <div className="flex flex-row items-center gap-4">
-                        <img
-                          src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
-                            teacher,
-                            teachers
-                          )}`}
-                          className={`w-[40px] h-[40px] rounded-full ${
-                            Major_To_Background_Color[
-                              get_teacher_major_from_ID(teacher, teachers)
-                            ]
-                          }`}
-                        />
-                        <h1 className="font-semibold line-clamp-1">
-                          {get_teacher_name_from_ID(teacher, teachers)}
-                        </h1>
-                      </div>
+                {club.club_teacher.teachers.map((teacher: number) => (
+                  <div
+                    key={teacher}
+                    className="flex flex-row justify-between items-center gap-4 border border-standardBlack border-opacity-25 rounded-3xl px-2 py-1">
+                    <div className="flex flex-row items-center gap-4">
+                      <img
+                        src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
+                          teacher,
+                          teachers
+                        )}`}
+                        className={`w-[40px] h-[40px] rounded-full ${
+                          Major_To_Background_Color[
+                            get_teacher_major_from_ID(teacher, teachers)
+                          ]
+                        }`}
+                      />
+                      <h1 className="font-semibold line-clamp-1">
+                        {get_teacher_name_from_ID(teacher, teachers)}
+                      </h1>
                     </div>
-                  ))
-                ) : (
-                  <h1 className="font-semibold opacity-50">No teachers</h1>
-                )}
+                  </div>
+                ))}
               </div>
             ) : (
-              <h1 className="text-xl mb-2">No teachers.</h1>
+              <h1 className="font-semibold opacity-50">
+                {t("Clubs_modal_noTeachers_message")}
+              </h1>
             )}
           </div>
           {/* Club members */}
@@ -187,10 +198,10 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
             clubMembers() ? (
               <div className="mb-4">
                 <h1 className="text-xl font-semibold mb-2">
-                  Members{" "}
-                  <small className="text-xl opacity-50 inline-block">
+                  {t("Clubs_modal_members_title")}{" "}
+                  <h1 className="text-xl opacity-50 inline-block">
                     {`: ${currentClub.length}/${club.club_capacity}`}
-                  </small>
+                  </h1>
                 </h1>
                 <div className="flex flex-row -space-x-4">
                   {currentClub.map((clubMembership: ClubMembership) => (
@@ -238,24 +249,35 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
             ) : (
               // If there's no student in this club. //
               <div className="mb-4">
-                <h1 className="text-xl font-semibold mb-2">Members</h1>
-                <h1 className="font-semibold opacity-50">No members</h1>
+                <h1 className="text-xl font-semibold mb-2">
+                  {t("Clubs_modal_members_title")}
+                </h1>
+                <h1 className="font-semibold opacity-50">
+                  {t("Clubs_modal_noMembers_message")}
+                </h1>
               </div>
             )
           ) : null}
-          {userInfo && student_access_only(userInfo.profile_position) ? (
-            !selfClubCheck() ? (
-              <div className="mt-4">
-                <button
-                  onClick={() => handleClubJoin(club.club_ID)}
-                  type="button"
-                  className={`text-white ${
-                    Major_To_Background_Color[club.club_major]
-                  } rounded-xl px-4 py-2`}>
-                  Join club
-                </button>
-              </div>
-            ) : null
+          {!selfClubCheck() &&
+          student_access_only(userInfo.profile_position) ? (
+            <>
+              <Club_rolodex_modal_join
+                club={club}
+                open={joinModalOpen}
+                onModalClose={onJoinModalClose}
+              />
+              <Info_create_button
+                text={t("Clubs_modal_joinClub_button_title")}
+                icon="fa-solid fa-right-from-bracket"
+                color={`${Major_To_Border_Color[club.club_major]} ${
+                  Major_To_Text_Color[club.club_major]
+                } ${Major_To_Background_Color_Hover[club.club_major]}`}
+                setModalOpen={() => {
+                  setJoinModalOpen(true);
+                }}
+                fullWidth
+              />
+            </>
           ) : null}
         </div>
       </div>

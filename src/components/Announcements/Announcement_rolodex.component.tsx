@@ -9,13 +9,13 @@ import {
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
 import { CDN_ENDPOINT } from "../../constants/ENDPOINTS";
+import { hover_transition } from "../../constants/styles/transitions.style";
 
-interface CurrentComponentProp {
-  announcements: Announcement[];
-}
+// Contexts //
+import { useContext_Announcements } from "../../context/Announcements.context";
 
-const Announcement_rolodex = (props: CurrentComponentProp) => {
-  const { announcements } = props;
+const Announcement_rolodex = () => {
+  const { announcements } = useContext_Announcements();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,22 +30,21 @@ const Announcement_rolodex = (props: CurrentComponentProp) => {
   const filteredAnnouncements = announcements.filter(
     (announcement: Announcement) => announcement.announcement_status === 1
   );
-  const sortedAnnouncements = [...filteredAnnouncements].reverse();
 
-  if (sortedAnnouncements?.length > 0) {
+  if (filteredAnnouncements?.length > 0) {
     return (
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        {sortedAnnouncements.map((announcement: Announcement) => (
+        {filteredAnnouncements.map((announcement: Announcement) => (
           <div
             key={announcement.announcement_ID}
-            className="bg-white shadow-sm rounded-xl w-full overflow-hidden">
-            <div className="flex flex-col md:flex-row md:gap-4 h-full">
+            className={`bg-white shadow-sm rounded-xl w-full ${hover_transition} hover:bg-slate-200 cursor-pointer`}>
+            <div className="flex flex-col sm:flex-row h-full">
               {announcement.announcement_image !==
               "/assets/files/announcements/" ? (
-                <div className="flex items-center w-1/2">
+                <div className={`flex items-center h-full`}>
                   <img
                     src={`${CDN_ENDPOINT}${announcement.announcement_image}`}
-                    className="w-full md:w-[320px] md:h-auto rounded-xl shadow-sm"
+                    className="border rounded-xl sm:max-h-[280px]"
                   />
                 </div>
               ) : (

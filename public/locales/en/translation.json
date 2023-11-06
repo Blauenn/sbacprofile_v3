@@ -9,6 +9,8 @@
     "Sidebar_logout": "Logout",
 
     "Home_welcomeMessage": "Welcome to SBAC Profile",
+    "Home_latestAnnouncement_title": "Latest announcement",
+    "Home_latestAnnouncement_viewMore_title": "View more",
     
     "Announcements_header": "Announcements",
 
@@ -17,13 +19,16 @@
     
     "Dashboard_quickAccess_majors_header": "Major management",
     "Dashboard_quickAccess_homeroomStudents_header": "Homeroom students",
+    "Dashboard_quickAccess_others_header": "Others",
 
     "Dashboard_quickAccess_leaveNotices_title": "Leave notices",
     "Dashboard_quickAccess_leaveNotices_description": "See all leave notices",
     "Dashboard_quickAccess_requestForms_title": "Request forms",
     "Dashboard_quickAccess_requestForms_description": "See all request forms",
-    "Dashboard_quickAccess_clubs_title": "Clubs",
+    "Dashboard_quickAccess_clubs_title": "Club",
     "Dashboard_quickAccess_clubs_description": "See currently joined club",
+    "Dashboard_quickAccess_student_clubs_description": "View currently joined club",
+    "Dashboard_quickAccess_teacher_clubs_description": "Manage your current club",
 
     "Dashboard_Majors_quickAccess_students_title": "Students",
     "Dashboard_Majors_quickAccess_students_description": "Manage students",
@@ -155,6 +160,10 @@
     "Admin_Teachers_update_modal_header": "Update teacher",
     "Admin_Teachers_update_modal_submit_button_title": "Update teacher",
     "Admin_Teachers_update_modal_submit_success_message": "Teacher has been updated.",
+    "Admin_Teachers_delete_modal_header": "Delete teacher",
+    "Admin_Teachers_delete_modal_message": "Are you sure you want to delete this teacher?",
+    "Admin_Teachers_delete_modal_submit_button_title": "Delete teacher",
+    "Admin_Teachers_delete_modal_submit_success_message": "Teacher has been deleted.",
     "Admin_Teachers_crud_modal_ID_label": "Teacher ID",
     "Admin_Teachers_crud_modal_position_label": "Position",
     "Admin_Teachers_crud_modal_position_option1": "Position",
@@ -197,6 +206,10 @@
     "Admin_Clubs_update_modal_header": "Update club",
     "Admin_Clubs_update_modal_submit_button_title": "Update club",
     "Admin_Clubs_update_modal_submit_success_message": "Club has been updated.",
+    "Admin_Clubs_delete_modal_header": "Delete club",
+    "Admin_Clubs_delete_modal_message": "Are you sure you want to delete this club?",
+    "Admin_Clubs_delete_modal_submit_button_title": "Delete club",
+    "Admin_Clubs_delete_modal_submit_success_message": "Club has been deleted.",
     "Admin_Clubs_crud_modal_name_label": "Name",
     "Admin_Clubs_crud_modal_major_label": "Major",
     "Admin_Clubs_crud_modal_major_option1": "Major",
@@ -237,7 +250,7 @@
     "Admin_LeaveNotices_table_header_status": "Status",
     
     "Admin_RequestForms_header": "Request forms",
-    
+
     "LeaveNotices_header": "Leave notices",
     "LeaveNotices_students_create_button_title": "Create leave notice",
     "LeaveNotices_students_create_modal_header": "Create leave notice",
@@ -319,7 +332,40 @@
     "RolodexCard_modal_clickToCopy_message": "Click to copy",
     "RolodexCard_modal_copied_message": "Copied",
 
+    "Club_header": "Club",
+
     "Clubs_header": "Clubs",
+    "Clubs_modal_teachers_title": "Teachers",
+    "Clubs_modal_noTeachers_message": "No teachers",
+    "Clubs_modal_members_title": "Members",
+    "Clubs_modal_noMembers_message": "No teachers",
+    "Clubs_modal_joinClub_button_title": "Join club",
+    "Clubs_joinClub_modal_header": "Join club",
+    "Clubs_joinClub_modal_title": "Are you sure you want to join...",
+    "Clubs_joinClub_modal_description": "A request to join this club will be submitted to the teacher of the club.",
+    "Clubs_modal_submit_success_message": "Join request has been submitted",
+
+    "Teacher_club_currentClub_title": "Current club",
+    "Teacher_club_teachers_title": "Teachers",
+    "Teacher_club_members_title": "{{members}} members",
+    "Teacher_club_joinRequests_title": "Join requests",
+
+    "Teacher_club_noClub_message": "No club",
+
+    "Student_club_requestedClub_title": "Requested club",
+    "Student_club_requestStatus_title": "Request status",
+    "Student_club_pendingApproval_message": "Pending approval",
+    "Student_club_cancelRequest_button_title": "Cancel request",
+    "Student_club_currentClub_title": "Current club",
+    "Student_club_teachers_title": "Teachers",
+    "Student_club_members_title": "{{members}} members",
+    "Student_club_noClub_message": "No club",
+    "Student_club_joinClub_button_title": "Join a club",
+
+    "Student_club_cancelRequest_modal_header": "Cancel join request",
+    "Student_club_cancelRequest_modal_message": "Are you sure you want to cancel the join request?",
+    "Student_club_cancelRequest_modal_submit_button_title": "Cancel request",
+    "Student_club_cancelRequest_modal_submit_success_message": "The join request has been cancelled.",
 
     "Settings_header": "Settings",
 
@@ -349,7 +395,7 @@
     "PageNotFound_message": "Page not found.",
     "PageNotFound_button": "Return to home page.",
 
-    "Error_message": "There's an error. Please logout and re-login",
+    "Error_message": "There's an error. Please re-login",
     "Error_logout_button": "Logout",
 
     "Loading_message": "Loading...",
@@ -364,6 +410,8 @@
     "Logout_description": "Are you sure you want to logout?",
     "Logout_confirmButton": "Logout",
     "Logout_cancelButton": "No",
+
+    "Info_submit_button_submitting_message": "Submitting",
 
     "fileSizeNotice_20MB": "File can't be over 20MB."
 }

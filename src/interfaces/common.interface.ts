@@ -95,3 +95,11 @@ export interface ClubMembership {
   club_ID: number;
   club_student: number;
 }
+export interface ClubJoinRequest {
+  club_join_request_ID: number;
+  club_join_request_status: number;
+  club_join_request_club_ID: number;
+  club_join_request_student_ID: number;
+  club_join_request_create_datetime: string;
+  club_join_request_status_change_datetime: string;
+}

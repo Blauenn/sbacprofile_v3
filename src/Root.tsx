@@ -47,7 +47,9 @@ const Admin_requestForms = lazy(
 const Head_students = lazy(() => import("./pages/HeadOnly/Head_students.page"));
 const Head_teachers = lazy(() => import("./pages/HeadOnly/Head_teachers.page"));
 const Head_clubs = lazy(() => import("./pages/HeadOnly/Head_clubs.page"));
-const Head_leaveNotices = lazy(() => import("./pages/HeadOnly/Head_leaveNotices.page"));
+const Head_leaveNotices = lazy(
+  () => import("./pages/HeadOnly/Head_leaveNotices.page")
+);
 
 const Dashboard = lazy(() => import("./pages/Dashboard.page"));
 const LeaveNotices = lazy(() => import("./pages/LeaveNotices.page"));
@@ -55,6 +57,7 @@ const LeaveNotices = lazy(() => import("./pages/LeaveNotices.page"));
 const Teachers = lazy(() => import("./pages/Teachers.page"));
 const Students = lazy(() => import("./pages/Students.page"));
 
+const Club = lazy(() => import("./pages/Club.page"));
 const Clubs = lazy(() => import("./pages/Clubs.page"));
 
 const Settings = lazy(() => import("./pages/Settings.page"));
@@ -256,6 +259,8 @@ const Root = () => {
                                 element={<Students />}></Route>
                               {/* Clubs */}
                               <Route path="/clubs" element={<Clubs />}></Route>
+                              {/* Current club */}
+                              <Route path="/club" element={<Club />}></Route>
 
                               {/* Settings */}
                               <Route

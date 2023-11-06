@@ -3,15 +3,10 @@ import { Club } from "../../interfaces/common.interface";
 import Club_rolodex_card from "./card/Club_rolodex_card.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
+import { useContext_Clubs } from "../../context/Clubs.context";
 
-interface CurrentComponentProp {
-  clubs: any;
-  clubMemberships: any;
-  setClubMemberships: any;
-}
-
-const Club_rolodex = (props: CurrentComponentProp) => {
-  const { clubs, clubMemberships } = props;
+const Club_rolodex = () => {
+  const { clubs, clubMemberships } = useContext_Clubs();
 
   const [isLoading, setIsLoading] = useState(true);
 

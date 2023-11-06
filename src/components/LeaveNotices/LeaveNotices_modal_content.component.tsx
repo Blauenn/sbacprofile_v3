@@ -48,7 +48,7 @@ const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
           />
         </div>
         <div className="flex flex-col gap-2 sm:gap-4">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             {/* Description */}
             <div className="col-span-1 flex flex-col w-full">
               <h1 className="text-lg md:text-2xl opacity-50">

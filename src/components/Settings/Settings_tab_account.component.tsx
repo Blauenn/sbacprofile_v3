@@ -6,13 +6,14 @@ import { accountPasswordUpdate } from "../../functions/Settings/PasswordUpdate.f
 
 // Contexts //
 import { useContext_Account } from "../../context/Account.context";
+import Info_submit_button from "../Dashboard/Buttons/Info_submit_button.component";
 
 const Settings_tab_account = () => {
   const { userInfo } = useContext_Account();
 
   const { t } = useTranslation();
 
-  const [isError, setError] = useState("");
+  const [isError, setIsError] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
 
@@ -29,7 +30,7 @@ const Settings_tab_account = () => {
           <i className="fa-solid fa-lock me-4"></i>
           {t("Settings_account_password_title")}
         </h1>
-        <h1 className="text-lg opacity-50 mb-4">
+        <h1 className="opacity-50 mb-4">
           {t("Settings_account_password_description")}
         </h1>
         <div className="mb-2">
@@ -88,29 +89,26 @@ const Settings_tab_account = () => {
           </div>
         ) : null}
         <div className="grid grid-cols-1 justify-end">
-          <button
-            onClick={() => {
+          <Info_submit_button
+            text={t("Settings_account_password_button")}
+            successText={"Settings_account_password_submit_success_message"}
+            disabled={Object.values(settingsPassword).some(
+              (value) => value === ""
+            )}
+            icon={"fa-solid fa-lock hidden sm:inline-block"}
+            isSubmitting={isUpdating}
+            isSuccess={isUpdateSuccess}
+            onClickFunction={() => {
               accountPasswordUpdate(
                 userInfo.profile_email,
                 settingsPassword,
                 setIsUpdating,
                 setIsUpdateSuccess,
-                setError,
+                setIsError,
                 t
               );
             }}
-            disabled={
-              isUpdating ||
-              Object.values(settingsPassword).some((value) => value === "")
-            }
-            className={`text-white ${
-              isUpdating ||
-              Object.values(settingsPassword).some((value) => value === "")
-                ? "bg-gray-500"
-                : "bg-primary"
-            } px-4 py-2 rounded-xl w-full`}>
-            {t("Settings_account_password_button")}
-          </button>
+          />
         </div>
       </div>
     </div>

@@ -107,7 +107,7 @@ export const handleClubCreate = async (
   if (validation) {
     // Club image //
     if (clubImageObject != null) {
-      uploadClubImage(clubImageObject, clubImageName);
+      await uploadClubImage(clubImageObject, clubImageName);
     }
 
     // Club information //
@@ -154,7 +154,7 @@ export const handleClubUpdate = async (
   if (validation) {
     // Club image //
     if (clubImageObject != null) {
-      uploadClubImage(clubImageObject, clubImageName);
+      await uploadClubImage(clubImageObject, clubImageName);
     }
 
     // Update the club. //

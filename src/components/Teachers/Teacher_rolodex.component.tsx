@@ -52,7 +52,7 @@ const Teacher_rolodex = (props: CurrentComponentProp) => {
       <div>
         {Object.entries(sortedTeachersByMajor).map(([major, teachers]) => (
           <div key={major} className="mb-12">
-            <h1 className="text-2xl lg:text-3xl | font-semibold xl:mx-16 mb-6">
+            <h1 className="text-xl lg:text-2xl | font-semibold xl:mx-16 mb-6">
               {i18n.language === "th"
                 ? Major_Name_Thai[parseInt(major)]
                 : i18n.language === "ko"

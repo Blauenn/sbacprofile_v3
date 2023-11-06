@@ -13,50 +13,61 @@ import { useContext_Teachers } from "../context/Teachers.context";
 const Clubs = () => {
   const { clubs, setClubs, clubMemberships, setClubMemberships } =
     useContext_Clubs();
-  const { setStudents } = useContext_Students();
-  const { setTeachers } = useContext_Teachers();
+  const { students, setStudents, setStudentCount } = useContext_Students();
+  const { teachers, setTeachers, setTeacherCount } = useContext_Teachers();
 
   const { t } = useTranslation();
 
-  const fetchClubs = () => {
-    getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-      // Change the value of the club_teacher from string into an object. //
-      const remappedClub = result.map((club: any) => {
-        const parsedTeacher = JSON.parse(club.club_teacher);
-        return { ...club, club_teacher: parsedTeacher };
-      });
+  const fetchClubs = async () => {
+    if (clubs.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
+        // Change the value of the club_teacher from string into an object. //
+        const remappedClub = result.map((club: any) => {
+          const parsedTeacher = JSON.parse(club.club_teacher);
+          return { ...club, club_teacher: parsedTeacher };
+        });
 
-      // Sort in alphabetical order. //
-      const sortedResults = remappedClub.sort((a: any, b: any) => {
-        return a.club_name.localeCompare(b.club_name);
-      });
+        // Sort in alphabetical order. //
+        const sortedResults = remappedClub.sort((a: any, b: any) => {
+          return a.club_name.localeCompare(b.club_name);
+        });
 
-      setClubs(sortedResults);
-    });
+        setClubs(sortedResults);
+      });
+    }
   };
-  const fetchClubMemberships = () => {
-    getData(`${API_ENDPOINT}/api/v1/clubMembership/getAll`, (result: any) => {
-      setClubMemberships(result);
-    });
+  const fetchClubMemberships = async () => {
+    if (clubMemberships.length === 0) {
+      await getData(
+        `${API_ENDPOINT}/api/v1/clubMembership/getAll`,
+        (result: any) => {
+          setClubMemberships(result);
+        }
+      );
+    }
   };
-  const fetchTeachers = () => {
-    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-      setTeachers(result);
-    });
+  const fetchTeachers = async () => {
+    if (teachers.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
+        setTeachers(result);
+        setTeacherCount(result.length);
+      });
+    }
   };
-  const fetchStudents = () => {
-    getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-      setStudents(result);
-    });
+  const fetchStudents = async () => {
+    if (students.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
+        setStudents(result);
+        setStudentCount(result.length);
+      });
+    }
   };
 
   useEffect(() => {
-    (async () => {
-      fetchClubs();
-      fetchClubMemberships();
-      fetchTeachers();
-      fetchStudents();
-    })();
+    fetchClubs();
+    fetchClubMemberships();
+    fetchTeachers();
+    fetchStudents();
   }, []);
 
   return (
@@ -64,11 +75,7 @@ const Clubs = () => {
       <PageHeader icon="fa-solid fa-puzzle-piece" text={t("Clubs_header")} />
 
       {/* Rolodex */}
-      <Club_rolodex
-        clubs={clubs}
-        clubMemberships={clubMemberships}
-        setClubMemberships={setClubMemberships}
-      />
+      <Club_rolodex />
     </div>
   );
 };

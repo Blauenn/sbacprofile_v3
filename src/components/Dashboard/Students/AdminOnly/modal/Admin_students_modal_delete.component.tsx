@@ -4,11 +4,11 @@ import Custom_Modal from "../../../../custom/Custom_Modal";
 import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleStudentDelete } from "../../../../../functions/Admin/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
+import { ImageField_profile_image_styles } from "../../../../../constants/styles/image.style";
 import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../../../../../context/Students.context";
-import { Major_To_Background_Color } from "../../../../../constants/Majors.constant";
 
 interface CurrentComponentProp {
   student: any;
@@ -65,12 +65,9 @@ const Admin_students_modal_delete = (props: CurrentComponentProp) => {
           {t("Admin_Students_delete_modal_message")}
         </h1>
         <div className="flex flex-row items-center gap-4">
-          <img
-            className={`w-[120px] h-[120px] rounded-full ${
-              Major_To_Background_Color[student.student_major]
-            }`}
-            src={`${CDN_ENDPOINT}${student.student_image}`}
-          />
+          <div className={`${ImageField_profile_image_styles} bg-primary`}>
+            <img src={`${CDN_ENDPOINT}${student.student_image}`} />
+          </div>
           <h1 className="text-2xl font-semibold">
             {student.student_first_name} {student.student_last_name}
           </h1>

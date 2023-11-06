@@ -15,9 +15,11 @@ const Announcements = () => {
 
   useEffect(() => {
     // Announcements //
-    getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
-      setAnnouncements(result);
-    });
+    if (announcements.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
+        setAnnouncements(result);
+      });
+    }
   }, []);
 
   return (
@@ -27,7 +29,7 @@ const Announcements = () => {
         text={t("Announcements_header")}
       />
 
-      <Announcement_rolodex announcements={announcements} />
+      <Announcement_rolodex />
     </div>
   );
 };

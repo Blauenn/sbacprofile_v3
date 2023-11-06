@@ -105,13 +105,37 @@ const Dashboard_quickAccessButtons = (props: CurrentComponentProp) => {
               {/* Clubs */}
               {student_access_only(userInfo.profile_position) ? (
                 <Dashboard_button
-                  url="/clubs"
+                  url="/club"
                   color="text-green-500"
                   icon="fa-solid fa-puzzle-piece"
                   title={t("Dashboard_quickAccess_clubs_title")}
-                  description={t("Dashboard_quickAccess_clubs_description")}
+                  description={t(
+                    "Dashboard_quickAccess_student_clubs_description"
+                  )}
                 />
               ) : null}
+            </div>
+            <div className="flex flex-col gap-4">
+            {teacher_access_only(userInfo.profile_position) ? (
+              <h1 className="text-xl">
+                <i className="fa-solid fa-thumbtack me-4"></i>
+                {t("Dashboard_quickAccess_others_header")}
+              </h1>
+            ) : null}
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-4">
+                {/* Clubs */}
+                {teacher_access_only(userInfo.profile_position) ? (
+                  <Dashboard_button
+                    url="/club"
+                    color="text-green-500"
+                    icon="fa-solid fa-puzzle-piece"
+                    title={t("Dashboard_quickAccess_clubs_title")}
+                    description={t(
+                      "Dashboard_quickAccess_teacher_clubs_description"
+                    )}
+                  />
+                ) : null}
+              </div>
             </div>
           </div>
         </div>

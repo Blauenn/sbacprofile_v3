@@ -14,38 +14,48 @@ import { useContext_Teachers } from "../../context/Teachers.context";
 const Head_clubs = () => {
   const { clubs, setClubs, clubMemberships, setClubMemberships } =
     useContext_Clubs();
-  const { teachers, setTeachers } = useContext_Teachers();
+  const { teachers, setTeachers, setTeacherCount } = useContext_Teachers();
 
   const { t } = useTranslation();
 
-  const fetchClubs = () => {
-    getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-      // Change the value of the club_teacher from string into an object. //
-      const remappedClub = result.map((club: any) => {
-        const parsedTeacher = JSON.parse(club.club_teacher);
-        return { ...club, club_teacher: parsedTeacher };
-      });
+  const fetchClubs = async () => {
+    if (clubs.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
+        // Change the value of the club_teacher from string into an object. //
+        const remappedClub = result.map((club: any) => {
+          const parsedTeacher = JSON.parse(club.club_teacher);
+          return { ...club, club_teacher: parsedTeacher };
+        });
 
-      // Sort in alphabetical order. //
-      const sortedResults = remappedClub.sort((a: any, b: any) => {
-        return a.club_name.localeCompare(b.club_name);
-      });
+        // Sort in alphabetical order. //
+        const sortedResults = remappedClub.sort((a: any, b: any) => {
+          return a.club_name.localeCompare(b.club_name);
+        });
 
-      setClubs(sortedResults);
-    });
+        setClubs(sortedResults);
+      });
+    }
   };
   const fetchClubMemberships = () => {
-    getData(`${API_ENDPOINT}/api/v1/clubMembership/getAll`, (result: any) => {
-      setClubMemberships(result);
-    });
+    if (clubMemberships.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/clubMembership/getAll`, (result: any) => {
+        setClubMemberships(result);
+      });
+    }
+  };
+  const fetchTeachers = () => {
+    if (teachers.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
+        setTeachers(result);
+        setTeacherCount(result.length);
+      });
+    }
   };
 
   useEffect(() => {
     fetchClubs();
     fetchClubMemberships();
-    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-      setTeachers(result);
-    });
+    fetchTeachers();
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -66,11 +76,7 @@ const Head_clubs = () => {
         <Head_club_modal_create open={modalOpen} onModalClose={onModalClose} />
       </div>
 
-      <Head_club_table
-        clubs={clubs}
-        clubMemberships={clubMemberships}
-        teachers={teachers}
-      />
+      <Head_club_table />
     </div>
   );
 };

@@ -56,12 +56,12 @@ const Admin_announcements_modal_delete = (props: CurrentComponentProp) => {
       onModalClose={handleModalClose}
       icon="fa-solid fa-trash-can"
       title={t("Admin_Announcements_delete_modal_header")}>
-      <div className="flex flex-col gap-8 w-full">
-        <h1 className="text-xl opacity-50">
+      <div className="flex flex-col gap-4">
+        <h1 className="opacity-50">
           {t("Admin_Announcements_delete_modal_message")}
         </h1>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl">{announcement.announcement_title}</h1>
+        <div className="flex flex-col mb-2">
+          <h1 className="text-2xl font-semibold">{announcement.announcement_title}</h1>
           <h1 className="text-lg opacity-50">
             {announcement.announcement_description}
           </h1>

@@ -15,20 +15,26 @@ const Admin_classrooms = () => {
   const { students, setStudents } = useContext_Students();
   const { teachers, setTeachers } = useContext_Teachers();
 
-  const fetchClassrooms = () => {
-    getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) =>
-      setClassrooms(result)
-    );
+  const fetchClassrooms = async () => {
+    if (classrooms.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) =>
+        setClassrooms(result)
+      );
+    }
   };
-  const fetchStudents = () => {
-    getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) =>
-      setStudents(result)
-    );
+  const fetchStudents = async () => {
+    if (students.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) =>
+        setStudents(result)
+      );
+    }
   };
-  const fetchTeachers = () => {
-    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) =>
-      setTeachers(result)
-    );
+  const fetchTeachers = async () => {
+    if (teachers.length === 0) {
+      await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) =>
+        setTeachers(result)
+      );
+    }
   };
 
   useEffect(() => {
@@ -43,11 +49,7 @@ const Admin_classrooms = () => {
     <div>
       <PageHeaderReturn text={t("Admin_Classrooms_header")} />
 
-      <Admin_classroom_table
-        classrooms={classrooms}
-        students={students}
-        teachers={teachers}
-      />
+      <Admin_classroom_table />
     </div>
   );
 };

@@ -9,14 +9,18 @@ import {
   Major_Name_Thai,
 } from "../../constants/Majors.constant";
 
+// Contexts //
+import { useContext_Majors } from "../../context/Majors.context";
+
 interface CurrentComponentProp {
-  majors: Major[];
   onMajorChangeHandler: any;
   onSearchFieldChangeHandler: any;
 }
 
 const Teacher_filters = (props: CurrentComponentProp) => {
-  const { majors, onMajorChangeHandler, onSearchFieldChangeHandler } = props;
+  const { onMajorChangeHandler, onSearchFieldChangeHandler } = props;
+
+  const { majors } = useContext_Majors();
 
   const { t } = useTranslation();
 

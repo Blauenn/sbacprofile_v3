@@ -18,15 +18,17 @@ import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
 
 // Contexts //
 import { useContext_Account } from "../../../../context/Account.context.tsx";
+import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context.tsx";
 
 interface CurrentComponentProp {
-  setLeaveNotices: any;
   open: boolean;
   onModalClose: any;
 }
 
 const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
-  const { setLeaveNotices, open, onModalClose } = props;
+  const { open, onModalClose } = props;
+
+  const { setLeaveNotices } = useContext_LeaveNotices();
 
   const { userInfo } = useContext_Account();
 

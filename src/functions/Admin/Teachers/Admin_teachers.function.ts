@@ -241,7 +241,7 @@ export const handleTeacherCreate = async (
     let teacherImageFileName;
     if (teacherCreateImage) {
       // After the image is uploaded, the image name will be returned. //
-      teacherImageFileName = uploadTeacherImage(
+      teacherImageFileName = await uploadTeacherImage(
         teacherCreateObject,
         teacherCreateImage
       );
@@ -329,7 +329,7 @@ export const handleTeacherUpdate = async (
     let teacherImageFileName;
     if (teacherUpdateImage) {
       // After the image is uploaded, the image name will be returned. //
-      teacherImageFileName = uploadTeacherImage(
+      teacherImageFileName = await uploadTeacherImage(
         teacherUpdateObject,
         teacherUpdateImage
       );

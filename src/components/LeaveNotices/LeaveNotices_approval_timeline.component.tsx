@@ -11,7 +11,7 @@ const LeaveNotices_approval_timeline = (props: any) => {
 
   return (
     <div>
-      <div className="flex flex-row | justify-around">
+      <div className="flex flex-row justify-around">
         {/* Request created */}
         <div className="flex flex-col items-center">
           <div className="flex justify-center items-center | bg-white rounded-full mb-2 | w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] border-4 sm:border-8 | border-green-500">

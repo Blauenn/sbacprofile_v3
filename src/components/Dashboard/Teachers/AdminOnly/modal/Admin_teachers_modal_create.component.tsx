@@ -227,7 +227,7 @@ const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
           setObject={setTeacherCreateObject}
           value={teacherCreateObject.teacher_major}
           validation={validationErrors.teacher_major}>
-          <option value="0">Major</option>
+          <option value="0">{t("Admin_Teachers_crud_modal_major_label")}</option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
@@ -353,7 +353,7 @@ const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
         {/* Submit button */}
         <Info_submit_button
           text={t("Admin_Teachers_create_modal_submit_button_title")}
-          successText={t("Admin_Teacher_create_modal_submit_success_message")}
+          successText={t("Admin_Teachers_create_modal_submit_success_message")}
           icon="fa-solid fa-pencil"
           isSubmitting={isSubmitting}
           isSuccess={isCreateSuccess}

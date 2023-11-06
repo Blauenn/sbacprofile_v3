@@ -22,12 +22,13 @@ const Head_teachers = () => {
 
   useEffect(() => {
     // Teachers //
-    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-      setTeachers(result);
-      setTeacherCount(result.length);
-    });
+    if (teachers.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
+        setTeachers(result);
+        setTeacherCount(result.length);
+      });
+    }
     // Majors //
-    // Only fetch when empty //
     if (majors.length === 0) {
       getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
         setMajors(result);

@@ -84,7 +84,7 @@ export const handleAnnouncementCreate = async (
   if (validation) {
     // Announcement image //
     if (announcementImageObject != null) {
-      uploadAnnouncementImage(announcementImageObject, announcementImageName);
+      await uploadAnnouncementImage(announcementImageObject, announcementImageName);
     }
 
     // Announcement information //
@@ -150,7 +150,7 @@ export const handleAnnouncementUpdate = async (
   if (validation) {
     // Announcement image. //
     if (announcementImageObject != null) {
-      uploadAnnouncementImage(announcementImageObject, announcementImageName);
+      await uploadAnnouncementImage(announcementImageObject, announcementImageName);
     }
 
     // Announcement information. //

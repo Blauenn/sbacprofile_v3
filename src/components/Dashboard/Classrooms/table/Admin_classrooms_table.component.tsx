@@ -9,14 +9,17 @@ import {
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
 
-interface CurrentComponentProp {
-  classrooms: any;
-  students: any;
-  teachers: any;
-}
+// Contexts //
+import { useContext_Classrooms } from "../../../../context/Classrooms.context";
+import { useContext_Students } from "../../../../context/Students.context";
+import { useContext_Teachers } from "../../../../context/Teachers.context";
 
-const Admin_classrooms_table = (props: CurrentComponentProp) => {
-  const { classrooms, students, teachers } = props;
+const Admin_classrooms_table = () => {
+  const { classrooms } = useContext_Classrooms();
+  const { students } = useContext_Students();
+  const { teachers } = useContext_Teachers();
+  
+  const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +31,6 @@ const Admin_classrooms_table = (props: CurrentComponentProp) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const { t } = useTranslation();
 
   if (classrooms.length > 0) {
     return (

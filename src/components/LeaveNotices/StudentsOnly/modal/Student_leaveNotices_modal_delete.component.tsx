@@ -66,7 +66,7 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
       title={t("LeaveNotices_students_delete_modal_header")}>
       <div className="flex flex-col w-full">
         <div className="flex flex-col gap-4">
-          <h1 className="text-xl opacity-50">
+          <h1 className="opacity-50">
             Are you sure you want to delete this leave notice?
           </h1>
           <div className="flex flex-col gap-2 mb-2">
@@ -80,11 +80,9 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
               0 ? (
                 /* Start date */
                 <div className="col-span-1 sm:col-span-2 flex flex-col">
-                  <h1 className="text-md md:text-lg opacity-50">
-                    Date of leave
-                  </h1>
+                  <h1 className="font-semibold opacity-50">Date of leave</h1>
                   <h1
-                    className={`text-lg md:text-2xl font-semibold ${
+                    className={`text-xl font-semibold ${
                       Day_Colors[
                         get_day_from_date(
                           leaveNotice.leave_notice_start_datetime
@@ -110,7 +108,7 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
                       Start date
                     </h1>
                     <h1
-                      className={`text-lg md:text-2xl font-semibold ${
+                      className={`text-xl font-semibold ${
                         Day_Colors[
                           get_day_from_date(
                             leaveNotice.leave_notice_start_datetime
@@ -128,7 +126,7 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
                   <div className="flex flex-col">
                     <h1 className="text-md md:text-lg opacity-50">End date</h1>
                     <h1
-                      className={`text-lg md:text-2xl font-semibold ${
+                      className={`text-xl font-semibold ${
                         Day_Colors[
                           get_day_from_date(
                             leaveNotice.leave_notice_end_datetime
@@ -147,8 +145,8 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
             </div>
             {/* Description */}
             <div className="flex flex-col gap-1">
-              <h1 className="text-lg opacity-50">Description</h1>
-              <h1 className="text-2xl">
+              <h1 className="font-semibold opacity-50">Description</h1>
+              <h1 className="text-xl">
                 {leaveNotice.leave_notice_description}
               </h1>
             </div>

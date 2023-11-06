@@ -218,19 +218,17 @@ const uploadStudentImage = async (
   }_${studentObject.student_first_name.toLowerCase()}.${studentImageFileExtension}`;
   studentImageObjectForm.append("filename", studentImageFileName);
 
-  console.log(studentImageFileName);
-
   // Upload the image into the CDN. //
-  // try {
-  //   await fetch(`${API_ENDPOINT}/api/v1/upload/image/student`, {
-  //     method: "POST",
-  //     body: studentImageObjectForm,
-  //   });
-  //   // Return the uploaded image file name //
-  //   return studentImageFileName;
-  // } catch (error) {
-  //   return false;
-  // }
+  try {
+    await fetch(`${API_ENDPOINT}/api/v1/upload/image/student`, {
+      method: "POST",
+      body: studentImageObjectForm,
+    });
+    // Return the uploaded image file name //
+    return studentImageFileName;
+  } catch (error) {
+    return studentImageFileName;
+  }
 };
 
 export const handleStudentCreate = async (
@@ -271,7 +269,7 @@ export const handleStudentCreate = async (
     let studentImageFileName;
     if (studentCreateImage) {
       // After the image is uploaded, the image name will be returned. //
-      studentImageFileName = uploadStudentImage(
+      studentImageFileName = await uploadStudentImage(
         studentCreateObject,
         studentCreateImage
       );
@@ -307,23 +305,21 @@ export const handleStudentCreate = async (
     };
     const studentAddJSON = JSON.stringify(studentToAddObject);
 
-    console.log(studentToAddObject)
+    try {
+      const response = await fetch(`${API_ENDPOINT}/api/v1/student/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: studentAddJSON,
+      });
 
-    // try {
-    //   const response = await fetch(`${API_ENDPOINT}/api/v1/student/create`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: studentAddJSON,
-    //   });
-
-    //   if (response.status) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // } catch (error) {
-    //   return false;
-    // }
+      if (response.status) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   }
 };
 
@@ -364,7 +360,7 @@ export const handleStudentUpdate = async (
     // Student image //
     let studentImageFileName;
     if (studentUpdateImage) {
-      studentImageFileName = uploadStudentImage(
+      studentImageFileName = await uploadStudentImage(
         studentUpdateObject,
         studentUpdateImage
       );

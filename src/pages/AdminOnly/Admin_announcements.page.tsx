@@ -17,9 +17,11 @@ const Admin_announcements = () => {
 
   useEffect(() => {
     // Announcements //
-    getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
-      setAnnouncements(result);
-    });
+    if (announcements.length === 0) {
+      getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
+        setAnnouncements(result);
+      });
+    }
   }, []);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,7 +46,7 @@ const Admin_announcements = () => {
       </div>
 
       <div className="flex flex-col gap-8">
-        <Admin_announcement_table announcements={announcements} />
+        <Admin_announcement_table />
       </div>
     </div>
   );

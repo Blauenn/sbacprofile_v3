@@ -9,14 +9,13 @@ import {
   table_parent_style,
 } from "../../../../../constants/styles/tables.style";
 
-interface CurrentComponentProp {
-  clubs: any;
-  clubMemberships: any;
-  teachers: any;
-}
+// Contexts //
+import { useContext_Clubs } from "../../../../../context/Clubs.context";
+import { useContext_Teachers } from "../../../../../context/Teachers.context";
 
-const Admin_club_table = (props: CurrentComponentProp) => {
-  const { clubs, clubMemberships, teachers } = props;
+const Admin_club_table = () => {
+  const { clubs, clubMemberships } = useContext_Clubs();
+  const { teachers } = useContext_Teachers();
 
   const { t } = useTranslation();
 

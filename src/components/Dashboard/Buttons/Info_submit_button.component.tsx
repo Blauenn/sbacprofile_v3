@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { hover_transition } from "../../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
@@ -23,6 +24,8 @@ const Info_submit_button = (props: CurrentComponentProp) => {
     onClickFunction,
   } = props;
 
+  const { t } = useTranslation();
+
   return (
     <button
       type="button"
@@ -39,9 +42,18 @@ const Info_submit_button = (props: CurrentComponentProp) => {
       onClick={() => {
         onClickFunction();
       }}>
-      <i
-        className={`${isSuccess ? "fa-solid fa-circle-check" : icon} me-4`}></i>
-      {isSuccess ? successText : text}
+      {isSubmitting ? (
+        <>
+          <i className="fa-solid fa-spinner me-2 animate-spin"></i>{t("Info_submit_button_submitting_message")}...
+        </>
+      ) : (
+        <>
+          <i
+            className={`${isSuccess ? "fa-solid fa-circle-check" : icon} me-4`}
+          />
+          {isSuccess ? successText : text}
+        </>
+      )}
     </button>
   );
 };

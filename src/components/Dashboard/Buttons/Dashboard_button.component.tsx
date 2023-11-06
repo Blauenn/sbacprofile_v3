@@ -18,7 +18,7 @@ const Dashboard_button = (props: CurrentComponentProp) => {
       <NavLink to={url}>
         <div
           className={`relative flex flex-row justify-between h-full shadow-sm rounded-xl px-4 py-2 | bg-white hover:bg-slate-200 cursor-pointer ${hover_transition}`}>
-          <div>
+          <div className="overflow-hidden">
             <h1 className="text-xl font-semibold">
               <i className={`${icon} me-4 ${color}`}></i>
               {/* If it does not overflow */}

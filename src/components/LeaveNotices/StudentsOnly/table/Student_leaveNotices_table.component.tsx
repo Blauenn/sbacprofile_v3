@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
-import { UserInfo } from "../../../../interfaces/account.interface";
 import Student_leaveNotices_table_row from "./Student_leaveNotices_table_row.component";
 import {
   table_content_style,
@@ -9,13 +8,14 @@ import {
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
 
-interface CurrentComponentProp {
-  leaveNotices: LeaveNotice[];
-  userInfo: UserInfo;
-}
+// Contexts //
+import { useContext_Account } from "../../../../context/Account.context";
+import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
 
-const Student_leaveNotices_table = (props: CurrentComponentProp) => {
-  const { leaveNotices, userInfo } = props;
+
+const Student_leaveNotices_table = () => {
+  const { userInfo } = useContext_Account();
+  const { leaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 

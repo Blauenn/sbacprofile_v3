@@ -4,27 +4,25 @@ import {
   Classroom,
   LeaveNotice,
 } from "../../../../interfaces/common.interface";
-import { UserInfo } from "../../../../interfaces/account.interface";
+import { getData } from "../../../../functions/fetchFromAPI.function";
 import Teacher_leaveNotices_table_row from "./Teacher_leaveNotices_table_row.component";
 import {
   table_content_style,
   table_header_style,
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
-import { getData } from "../../../../functions/fetchFromAPI.function";
 import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
-import { useContext_Students } from "../../../../context/Students.context";
-import { useContext_Classrooms } from "../../../../context/Classrooms.context";
 import { get_classroom_from_student_ID } from "../../../../functions/getFromID.function";
 
-interface CurrentComponentProp {
-  leaveNotices: LeaveNotice[];
-  userInfo: UserInfo;
-}
+// Contexts //
+import { useContext_Account } from "../../../../context/Account.context";
+import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
+import { useContext_Students } from "../../../../context/Students.context";
+import { useContext_Classrooms } from "../../../../context/Classrooms.context";
 
-const Teacher_leaveNotices_table = (props: CurrentComponentProp) => {
-  const { leaveNotices, userInfo } = props;
-
+const Teacher_leaveNotices_table = () => {
+  const { userInfo } = useContext_Account();
+  const { leaveNotices } = useContext_LeaveNotices();
   const { students } = useContext_Students();
   const { classrooms, setClassrooms } = useContext_Classrooms();
 

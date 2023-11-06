@@ -9,6 +9,8 @@
     "Sidebar_logout": "ลงชื่อออก",
 
     "Home_welcomeMessage": "ยินดีต้อนรับสู่ SBAC Profile",
+    "Home_latestAnnouncement_title": "ประกาศล่าสุด",
+    "Home_latestAnnouncement_viewMore_title": "ดูเพิ่มเติม",
 
     "Announcements_header": "ประกาศ",
     
@@ -17,6 +19,7 @@
 
     "Dashboard_quickAccess_majors_header": "จัดการสาขา",
     "Dashboard_quickAccess_homeroomStudents_header": "นักเรียนในที่ปรึกษา",
+    "Dashboard_quickAccess_others_header": "อื่นๆ",
     
     "Dashboard_quickAccess_leaveNotices_title": "คำขอการลา",
     "Dashboard_quickAccess_leaveNotices_description": "ดูคำขอการลาทั้งหมด",
@@ -24,6 +27,8 @@
     "Dashboard_quickAccess_requestForms_description": "ดูเอกสารคำร้องทั้งหมด",
     "Dashboard_quickAccess_clubs_title": "ชมรม",
     "Dashboard_quickAccess_clubs_description": "ดูชมรมที่เป็นสมาชิก",
+    "Dashboard_quickAccess_student_clubs_description": "ดูข้อมูลชมรมปัจจุบัน",
+    "Dashboard_quickAccess_teacher_clubs_description": "จัดการชมรมที่ดูแล",
 
     "Dashboard_Majors_quickAccess_students_title": "นักศึกษา",
     "Dashboard_Majors_quickAccess_students_description": "จัดการนักศึกษาในสาขา",
@@ -50,13 +55,17 @@
     "Dashboard_Admin_quickAccess_requestForms_description": "ดูเอกสารคำร้องทั้งหมด",
 
     "Admin_Announcements_header": "ประกาศ",
-    "Admin_Announcements_create_button_title": "สร้างประกาศ",
-    "Admin_Announcements_create_modal_header": "สร้างประกาศ",
-    "Admin_Announcements_create_modal_submit_button_title": "สร้างประกาศ",
+    "Admin_Announcements_create_button_title": "สร้างข้อมูลประกาศ",
+    "Admin_Announcements_create_modal_header": "สร้างข้อมูลประกาศ",
+    "Admin_Announcements_create_modal_submit_button_title": "สร้างข้อมูลประกาศ",
     "Admin_Announcements_create_modal_submit_success_message": "ข้อมูลประกาศถูกสร้างขึ้นแล้ว",
-    "Admin_Announcements_update_modal_header": "แก้ไขประกาศ",
-    "Admin_Announcements_update_modal_submit_button_title": "แก้ไขประกาศ",
+    "Admin_Announcements_update_modal_header": "แก้ไขข้อมูลประกาศ",
+    "Admin_Announcements_update_modal_submit_button_title": "แก้ไขข้อมูลประกาศ",
     "Admin_Announcements_update_modal_submit_success_message": "ข้อมูลประกาศถูกแก้ไขแล้ว",
+    "Admin_Announcements_delete_modal_header": "ลบข้อมูลประกาศ",
+    "Admin_Announcements_delete_modal_message": "คุณแน่ใจว่าจะลบข้อมูลประกาศหรือไม่",
+    "Admin_Announcements_delete_modal_submit_button_title": "ลบข้อมูลประกาศ",
+    "Admin_Announcements_delete_modal_submit_success_message": "ข้อมูลประกาศถูกลบแล้ว",
     "Admin_Announcements_crud_modal_status_label": "สถานะ",
     "Admin_Announcements_crud_modal_status_option1": "แสดง",
     "Admin_Announcements_crud_modal_status_option2": "ไม่แสดง",
@@ -92,13 +101,17 @@
     "Admin_Classrooms_table_content_button_update_title": "แก้ไข",
     
     "Admin_Students_header": "นักศึกษา",
-    "Admin_Students_create_button_title": "สร้างนักศึกษา",
-    "Admin_Students_create_modal_header": "สร้างนักศึกษา",
-    "Admin_Students_create_modal_submit_button_title": "สร้างนักศึกษา",
+    "Admin_Students_create_button_title": "สร้างข้อมูลนักศึกษา",
+    "Admin_Students_create_modal_header": "สร้างข้อมูลนักศึกษา",
+    "Admin_Students_create_modal_submit_button_title": "สร้างข้อมูลนักศึกษา",
     "Admin_Students_create_modal_submit_success_message": "ข้อมูลนักศึกษาถูกสร้างขึ้นแล้ว",
-    "Admin_Students_update_modal_header": "แก้ไขนักศึกษา",
-    "Admin_Students_update_modal_submit_button_title": "แก้ไขนักศึกษา",
+    "Admin_Students_update_modal_header": "แก้ไขข้อมูลนักศึกษา",
+    "Admin_Students_update_modal_submit_button_title": "แก้ไขข้อมูลนักศึกษา",
     "Admin_Students_update_modal_submit_success_message": "ข้อมูลนักศึกษาถูกแก้ไขแล้ว",
+    "Admin_Students_delete_modal_header": "ลบข้อมูลนักศึกษา",
+    "Admin_Students_delete_modal_message": "คุณแน่ใจว่าจะลบข้อมูลนักศึกษาหรือไม่",
+    "Admin_Students_delete_modal_submit_button_title": "ลบข้อมูลนักศึกษา",
+    "Admin_Students_delete_modal_submit_success_message": "ข้อมูลนักศึกษาถูกลบแล้ว",
     "Admin_Students_crud_modal_ID_label": "รหัสนักศึกษา",
     "Admin_Students_crud_modal_position_label": "ตำแหน่ง",
     "Admin_Students_crud_modal_position_option1": "ตำแหน่ง",
@@ -139,14 +152,18 @@
     "Admin_Students_table_noStudents_message": "ไม่มีนักศึกษา",
     
     "Admin_Teachers_header": "อาจารย์",
-    "Admin_Teachers_create_button_title": "สร้างอาจารย์",
-    "Admin_Teachers_create_modal_header": "สร้างอาจารย์",
-    "Admin_Teachers_create_modal_submit_button_title": "สร้างอาจารย์",
+    "Admin_Teachers_create_button_title": "สร้างข้อมูลอาจารย์",
+    "Admin_Teachers_create_modal_header": "สร้างข้อมูลอาจารย์",
+    "Admin_Teachers_create_modal_submit_button_title": "สร้างข้อมูลอาจารย์",
     "Admin_Teachers_create_modal_submit_success_message": "ข้อมูลอาจารย์ถูกสร้างขึ้นแล้ว",
-    "Admin_Teachers_update_button_title": "แก้ไขอาจารย์",
-    "Admin_Teachers_update_modal_header": "แก้ไขอาจารย์",
-    "Admin_Teachers_update_modal_submit_button_title": "แก้ไขอาจารย์",
+    "Admin_Teachers_update_button_title": "แก้ไขข้อมูลอาจารย์",
+    "Admin_Teachers_update_modal_header": "แก้ไขข้อมูลอาจารย์",
+    "Admin_Teachers_update_modal_submit_button_title": "แก้ไขข้อมูลอาจารย์",
     "Admin_Teachers_update_modal_submit_success_message": "ข้อมูลอาจารย์ถูกแก้ไขแล้ว",
+    "Admin_Teachers_delete_modal_header": "ลบข้อมูลอาจารย์",
+    "Admin_Teachers_delete_modal_message": "คุณแน่ใจว่าจะลบข้อมูลอาจารย์หรือไม่",
+    "Admin_Teachers_delete_modal_submit_button_title": "ลบข้อมูลอาจารย์",
+    "Admin_Teachers_delete_modal_submit_success_message": "ข้อมูลอาจารย์ถูกลบแล้ว",
     "Admin_Teachers_crud_modal_ID_label": "รหัสอาจารย์",
     "Admin_Teachers_crud_modal_position_label": "ตำแหน่ง",
     "Admin_Teachers_crud_modal_position_option1": "ตำแหน่ง",
@@ -180,15 +197,19 @@
     "Admin_Teachers_table_noTeachers_message": "ไม่มีอาจารย์",
 
     "Admin_Clubs_header": "ชมรม",
-    "Admin_Clubs_create_button_title": "สร้างชมรม",
-    "Admin_Clubs_create_modal_header": "สร้างชมรม",
-    "Admin_Clubs_create_modal_submit_button_title": "สร้างชมรม",
+    "Admin_Clubs_create_button_title": "สร้างข้อมูลชมรม",
+    "Admin_Clubs_create_modal_header": "สร้างข้อมูลชมรม",
+    "Admin_Clubs_create_modal_submit_button_title": "สร้างข้อมูลชมรม",
     "Admin_Clubs_create_modal_submit_success_message": "ข้อมูลชมรมถูกสร้างแล้ว",
-    "Admin_Clubs_update_modal_teacher_label": "แก้ไขอาจารย์",
-    "Admin_Clubs_update_button_title": "แก้ไขชมรม",
-    "Admin_Clubs_update_modal_header": "แก้ไขชมรม",
-    "Admin_Clubs_update_modal_submit_button_title": "แก้ไขชมรม",
+    "Admin_Clubs_update_modal_teacher_label": "แก้ไขข้อมูลอาจารย์",
+    "Admin_Clubs_update_button_title": "แก้ไขข้อมูลชมรม",
+    "Admin_Clubs_update_modal_header": "แก้ไขข้อมูลชมรม",
+    "Admin_Clubs_update_modal_submit_button_title": "แก้ไขข้อมูลชมรม",
     "Admin_Clubs_update_modal_submit_success_message": "ข้อมูลชมรมถูกแก้ไขแล้ว",
+    "Admin_Clubs_delete_modal_header": "ลบข้อมูลชมรม",
+    "Admin_Clubs_delete_modal_message": "คุณแน่ใจว่าจะลบข้อมูลชมรมหรือไม่",
+    "Admin_Clubs_delete_modal_submit_button_title": "ลบข้อมูลชมรม",
+    "Admin_Clubs_delete_modal_submit_success_message": "ข้อมูลชมรมถูกลบแล้ว",
     "Admin_Clubs_crud_modal_name_label": "ชื่อ",
     "Admin_Clubs_crud_modal_major_label": "สาขา",
     "Admin_Clubs_crud_modal_major_option1": "สาขา",
@@ -217,8 +238,9 @@
     "Admin_Clubs_table_content_button_update_title": "แก้ไข",
 
     "Admin_LeaveNotices_header": "คำขอการลา",
-    "Admin_LeaveNotices_table_content_button_view_title": "ดู",
+    "Admin_LeaveNotices_table_content_button_evaluate_title": "ประเมิน",
     "Admin_LeaveNotices_table_content_button_file_title": "ไฟล์",
+    "Admin_LeaveNotices_table_noLeaveNotices_message": "ไม่มีคำขอการลา",
 
     "Admin_LeaveNotices_table_header_ID": "รหัส",
     "Admin_LeaveNotices_table_header_submitDate": "วันที่ส่ง",
@@ -248,6 +270,9 @@
     "LeaveNotices_students_create_modal_file_label": "อัปโหลดไฟล์",
     "LeaveNotices_students_create_modal_submit_button_title": "ส่งคำขอการลา",
     "LeaveNotices_students_create_modal_submit_success_message": "ข้อมูลคำขอการลาถูกส่งแล้ว",
+    "LeaveNotices_students_delete_modal_header": "ลบคำขอการลา",
+    "LeaveNotices_students_delete_modal_submit_button_title": "ลบคำขอการลา",
+    "LeaveNotices_students_delete_modal_submit_success_message": "คำขอการลาถูกลบแล้ว",
 
     "LeaveNotices_teachers_evaluate_modal_header": "ประเมินคำขอการลา",
 
@@ -307,7 +332,40 @@
     "RolodexCard_modal_clickToCopy_message": "คลิกเพื่อคัดลอก",
     "RolodexCard_modal_copied_message": "คัดลอกเสร็จสิ้น",
 
+    "Club_header": "ชมรม",
+
     "Clubs_header": "ชมรม",
+    "Clubs_modal_teachers_title": "อาจารย์",
+    "Clubs_modal_noTeachers_message": "ไม่มีอาจารย์",
+    "Clubs_modal_members_title": "สมาชิก",
+    "Clubs_modal_noMembers_message": "ไม่มีอาจารย์",
+    "Clubs_modal_joinClub_button_title": "เข้าร่วมชมรม",
+    "Clubs_joinClub_modal_header": "เข้าร่วมชมรม",
+    "Clubs_joinClub_modal_title": "คุณแน่ใจว่าจะเข้าร่วมชมรมหรือไม่...",
+    "Clubs_joinClub_modal_description": "คำขอการเข้าชมรมจะถูกส่งไปยังอาจารย์ประจำชมรม",
+    "Clubs_modal_submit_success_message": "คำขอการเข้าชมรมถูกส่งแล้ว",
+
+    "Teacher_club_currentClub_title": "ชมรมปัจจุบัน",
+    "Teacher_club_teachers_title": "อาจารย์",
+    "Teacher_club_members_title": "สมาชิก {{members}} คน",
+    "Teacher_club_joinRequests_title": "คำขอการเข้าร่วม",
+
+    "Teacher_club_noClub_message": "ไม่มีชมรม",
+
+    "Student_club_requestedClub_title": "ชมรมที่ขอเข้าร่วม",
+    "Student_club_requestStatus_title": "สถานะคำขอเข้าร่วม",
+    "Student_club_pendingApproval_message": "กำลังรอการอนุมัติ",
+    "Student_club_cancelRequest_button_title": "ยกเลิกคำขอ",
+    "Student_club_currentClub_title": "ชมรมปัจจุบัน",
+    "Student_club_teachers_title": "อาจารย์",
+    "Student_club_members_title": "สมาชิก {{members}} คน",
+    "Student_club_noClub_message": "ไม่มีชมรม",
+    "Student_club_joinClub_button_title": "เข้าร่วมชมรม",
+
+    "Student_club_cancelRequest_modal_header": "ยกเลิกคำขอเข้าร่วมชมรม",
+    "Student_club_cancelRequest_modal_message": "คุณแน่ใจว่าจะยกเลิกคำขอการเข้าร่วมชมรมหรือไม่",
+    "Student_club_cancelRequest_modal_submit_button_title": "ยกเลิกคำขอเข้าร่วมชมรม",
+    "Student_club_cancelRequest_modal_submit_success_message": "คำขอการเข้าร่วมชมรมถูกยกเลิกแล้ว",
     
     "Settings_header": "ตั้งค่า",
 
@@ -337,6 +395,9 @@
     "PageNotFound_message": "ไม่พบหน้านี้",
     "PageNotFound_button": "กลับไปหน้าแรก",
 
+    "Error_message": "พบข้อผิดพลาด กรูณาเข้าสู่ระบบใหม่",
+    "Error_logout_button": "ออกจากระบบ",
+
     "Loading_message": "กำลังโหลด...",
 
     "Login_title": "เข้าสู่ระบบ",
@@ -349,6 +410,8 @@
     "Logout_description": "คุณแน่ใจว่าจะลงชื่อออกหรือไม่",
     "Logout_confirmButton": "ลงชื่อออก",
     "Logout_cancelButton": "ไม่",
+
+    "Info_submit_button_submitting_message": "กำลังส่ง",
     
     "fileSizeNotice_20MB": "ไฟล์จะมีขนาดมากกว่า 20MB ไม่ได้"
 }

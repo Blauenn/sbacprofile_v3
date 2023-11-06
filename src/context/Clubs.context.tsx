@@ -12,6 +12,8 @@ type ClubsContextType = {
   setClubs: React.Dispatch<React.SetStateAction<any[]>>;
   clubMemberships: any[];
   setClubMemberships: React.Dispatch<React.SetStateAction<any[]>>;
+  clubJoinRequests: any[];
+  setClubJoinRequests: React.Dispatch<React.SetStateAction<any[]>>;
 };
 type ClubsContextProviderProps = {
   children: ReactNode;
@@ -31,6 +33,7 @@ export function useContext_Clubs() {
 export function ClubsContextProvider({ children }: ClubsContextProviderProps) {
   const [clubs, setClubs] = useState<any[]>([]);
   const [clubMemberships, setClubMemberships] = useState<any[]>([]);
+  const [clubJoinRequests, setClubJoinRequests] = useState<any[]>([]);
 
   const contextValue = useMemo(
     () => ({
@@ -38,8 +41,17 @@ export function ClubsContextProvider({ children }: ClubsContextProviderProps) {
       setClubs,
       clubMemberships,
       setClubMemberships,
+      clubJoinRequests,
+      setClubJoinRequests,
     }),
-    [clubs, setClubs, clubMemberships, setClubMemberships]
+    [
+      clubs,
+      setClubs,
+      clubMemberships,
+      setClubMemberships,
+      clubJoinRequests,
+      setClubJoinRequests,
+    ]
   );
 
   return (

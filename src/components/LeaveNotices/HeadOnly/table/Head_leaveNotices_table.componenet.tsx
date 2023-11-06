@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import Loading from "../../../misc/Loading.component";
+import Head_leaveNotices_table_row from "./Head_leaveNotices_table_row.component";
 import {
   table_content_style,
   table_header_style,
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
-import Head_leaveNotices_table_row from "./Head_leaveNotices_table_row.component";
 
-interface CurrentComponentProp {
-  leaveNotices: LeaveNotice[];
-}
+// Contexts //
+import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
 
-const Head_leaveNotices_table = (props: CurrentComponentProp) => {
-  const { leaveNotices } = props;
+const Head_leaveNotices_table = () => {
+  const { leaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 
@@ -57,14 +56,16 @@ const Head_leaveNotices_table = (props: CurrentComponentProp) => {
           </tr>
         </thead>
         <tbody>
-          {[...leaveNotices].reverse().map((leaveNotice: LeaveNotice, index: number) => (
-            <React.Fragment key={leaveNotice.leave_notice_ID}>
-              <Head_leaveNotices_table_row
-                leaveNotice={leaveNotice}
-                index={index}
-              />
-            </React.Fragment>
-          ))}
+          {[...leaveNotices]
+            .reverse()
+            .map((leaveNotice: LeaveNotice, index: number) => (
+              <React.Fragment key={leaveNotice.leave_notice_ID}>
+                <Head_leaveNotices_table_row
+                  leaveNotice={leaveNotice}
+                  index={index}
+                />
+              </React.Fragment>
+            ))}
         </tbody>
       </table>
     );

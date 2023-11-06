@@ -9,12 +9,11 @@ import {
   table_parent_style,
 } from "../../../../../constants/styles/tables.style";
 
-interface CurrentComponentProp {
-  announcements: any;
-}
+// Contexts //
+import { useContext_Announcements } from "../../../../../context/Announcements.context";
 
-const Admin_announcements_table = (props: CurrentComponentProp) => {
-  const { announcements } = props;
+const Admin_announcements_table = () => {
+  const { announcements } = useContext_Announcements();
 
   const { t } = useTranslation();
 

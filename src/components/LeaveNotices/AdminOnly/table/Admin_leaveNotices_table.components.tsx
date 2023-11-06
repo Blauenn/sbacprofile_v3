@@ -9,12 +9,11 @@ import {
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
 
-interface CurrentComponentProp {
-  leaveNotices: any;
-}
+// Contexts //
+import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
 
-const Admin_leaveNotices_table = (props: CurrentComponentProp) => {
-  const { leaveNotices } = props;
+const Admin_leaveNotices_table = () => {
+  const { leaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 

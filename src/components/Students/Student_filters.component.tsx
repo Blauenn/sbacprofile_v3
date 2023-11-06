@@ -18,8 +18,10 @@ import {
   Level_Name_Thai,
 } from "../../constants/Levels.constant";
 
+// Contexts //
+import { useContext_Majors } from "../../context/Majors.context";
+
 interface StudentFilterProps {
-  majors: any;
   onSearchFieldChangeHandler: any;
   onMajorChangeHandler: any;
   onLevelChangeHandler: any;
@@ -30,7 +32,6 @@ interface StudentFilterProps {
 
 const Student_filters_class = (props: StudentFilterProps) => {
   const {
-    majors,
     selectedMajor,
     selectedLevel,
     onMajorChangeHandler,
@@ -39,13 +40,15 @@ const Student_filters_class = (props: StudentFilterProps) => {
     onSearchFieldChangeHandler,
   } = props;
 
+  const { majors } = useContext_Majors();
+
   const { t } = useTranslation();
 
-  const [lowerLevel1, setlowerLevel1] = useState([]);
-  const [lowerLevel2, setlowerLevel2] = useState([]);
-  const [lowerLevel3, setlowerLevel3] = useState([]);
-  const [higherLevel1, sethigherLevel1] = useState([]);
-  const [higherLevel2, sethigherLevel2] = useState([]);
+  const [lowerLevel1, setLowerLevel1] = useState([]);
+  const [lowerLevel2, setLowerLevel2] = useState([]);
+  const [lowerLevel3, setLowerLevel3] = useState([]);
+  const [higherLevel1, setHigherLevel1] = useState([]);
+  const [higherLevel2, setHigherLevel2] = useState([]);
 
   const post = async (url: string, level: number, callback: any) => {
     await fetch(url, {
@@ -66,27 +69,27 @@ const Student_filters_class = (props: StudentFilterProps) => {
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       1,
-      setlowerLevel1
+      setLowerLevel1
     );
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       2,
-      setlowerLevel2
+      setLowerLevel2
     );
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       3,
-      setlowerLevel3
+      setLowerLevel3
     );
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       4,
-      sethigherLevel1
+      setHigherLevel1
     );
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       5,
-      sethigherLevel2
+      setHigherLevel2
     );
   }, []);
 

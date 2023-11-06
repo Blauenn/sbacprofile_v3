@@ -9,6 +9,8 @@
     "Sidebar_logout": "Abmelden",
 
     "Home_welcomeMessage": "Willkommen beim SBAC Profile",
+    "Home_latestAnnouncement_title": "Neueste Ankündigung",
+    "Home_latestAnnouncement_viewMore_title": "Mehr anzeigen",
     
     "Announcements_header": "Ankündigungen",
 
@@ -17,6 +19,7 @@
 
     "Dashboard_quickAccess_majors_header": "Hauptfach verwalten",
     "Dashboard_quickAccess_homeroomStudents_header": "Schüler im Klassenzimmer",
+    "Dashboard_quickAccess_others_header": "Andere",
     
     "Dashboard_quickAccess_leaveNotices_title": "Abwesenheitsnotizen",
     "Dashboard_quickAccess_leaveNotices_description": "Alle Abwesenheitsnotizenen anzeigen",
@@ -24,6 +27,8 @@
     "Dashboard_quickAccess_requestForms_description": "Alle Antragsformulare anzeigen",
     "Dashboard_quickAccess_clubs_title": "Club",
     "Dashboard_quickAccess_clubs_description": "Siehe aktuell beigetretenen Club",
+    "Dashboard_quickAccess_student_clubs_description": "Aktuell beigetretenen Club anzeigen",
+    "Dashboard_quickAccess_teacher_clubs_description": "Aktuellen Club verwalten",
 
     "Dashboard_Majors_quickAccess_students_title": "Studenten",
     "Dashboard_Majors_quickAccess_students_description": "Studenten verwalten",
@@ -57,6 +62,10 @@
     "Admin_Announcements_update_modal_header": "Ankündigung aktualisieren",
     "Admin_Announcements_update_modal_submit_button_title": "Ankündigung aktualisieren",
     "Admin_Announcements_update_modal_submit_success_message": "Ankündigung wurde aktualisiert.",
+    "Admin_Announcements_delete_modal_header": "Ankündigung löschen",
+    "Admin_Announcements_delete_modal_message": "Sind Sie sicher, dass Sie diese Ankündigung löschen wollen?",
+    "Admin_Announcements_delete_modal_submit_button_title": "Ankündigung löschen",
+    "Admin_Announcements_delete_modal_submit_success_message": "Ankündigung wurde gelöscht.",
     "Admin_Announcements_crud_modal_status_label": "Status",
     "Admin_Announcements_crud_modal_status_option1": "Angezeigt",
     "Admin_Announcements_crud_modal_status_option2": "Versteckt",
@@ -99,6 +108,10 @@
     "Admin_Students_update_modal_header": "Student aktualisieren",
     "Admin_Students_update_modal_submit_button_title": "Student aktualisieren",
     "Admin_Students_update_modal_submit_success_message": "Student wurde aktualisiert.",
+    "Admin_Students_delete_modal_header": "Student löschen",
+    "Admin_Students_delete_modal_message": "Sind Sie sicher, dass Sie dieser Student löschen wollen?",
+    "Admin_Students_delete_modal_submit_button_title": "Student löschen",
+    "Admin_Students_delete_modal_submit_success_message": "Student wurde gelöscht.",
     "Admin_Students_crud_modal_ID_label": "Student ID",
     "Admin_Students_crud_modal_position_label": "Position",
     "Admin_Students_crud_modal_position_option1": "Position",
@@ -147,6 +160,10 @@
     "Admin_Teachers_update_modal_header": "Lehrer aktualisieren",
     "Admin_Teachers_update_modal_submit_button_title": "Lehrer aktualisieren",
     "Admin_Teachers_update_modal_submit_success_message": "Der Lehrer wurde aktualisiert.",
+    "Admin_Teachers_delete_modal_header": "Lehrer löschen",
+    "Admin_Teachers_delete_modal_message": "Sind Sie sicher, dass Sie dieser Lehrer löschen wollen?",
+    "Admin_Teachers_delete_modal_submit_button_title": "Lehrer löschen",
+    "Admin_Teachers_delete_modal_submit_success_message": "Lehrer wurde gelöscht",
     "Admin_Teachers_crud_modal_ID_label": "Lehrer ID",
     "Admin_Teachers_crud_modal_position_label": "Position",
     "Admin_Teachers_crud_modal_position_option1": "Position",
@@ -189,6 +206,10 @@
     "Admin_Clubs_update_modal_header": "Club aktualisieren",
     "Admin_Clubs_update_modal_submit_button_title": "Club aktualisieren",
     "Admin_Clubs_update_modal_submit_success_message": "Der Club wurde aktualisiert.",
+    "Admin_Clubs_delete_modal_header": "Club löschen",
+    "Admin_Clubs_delete_modal_message": "Sind Sie sicher, dass Sie dieser Club löschen wollen?",
+    "Admin_Clubs_delete_modal_submit_button_title": "Club löschen",
+    "Admin_Clubs_delete_modal_submit_success_message": "Club wurde gelöscht",
     "Admin_Clubs_crud_modal_name_label": "Name",
     "Admin_Clubs_crud_modal_major_label": "Hauptfach",
     "Admin_Clubs_crud_modal_major_option1": "Hauptfach",
@@ -217,8 +238,9 @@
     "Admin_Clubs_table_content_button_update_title": "Aktualisieren",
     
     "Admin_LeaveNotices_header": "Abwesenheitsnotizen",
-    "Admin_LeaveNotices_table_content_button_view_title": "Ansicht",
+    "Admin_LeaveNotices_table_content_button_evaluate_title": "Auswerten",
     "Admin_LeaveNotices_table_content_button_file_title": "Datei",
+    "Admin_LeaveNotices_table_noLeaveNotices_message": "Keine Abwesenheitsnotizen",
 
     "Admin_LeaveNotices_table_header_ID": "ID",
     "Admin_LeaveNotices_table_header_submitDate": "Datum der Erstellung",
@@ -248,7 +270,10 @@
     "LeaveNotices_students_create_modal_file_label": "Datei hochladen",
     "LeaveNotices_students_create_modal_submit_button_title": "Abwesenheitsnotizen erstellen",
     "LeaveNotices_students_create_modal_submit_success_message": "Die Abwesenheitsnotizen wurde erstellt.",
-    
+    "LeaveNotices_students_delete_modal_header": "Abwesenheitsnotiz löschen",
+    "LeaveNotices_students_delete_modal_submit_button_title": "Abwesenheitsnotiz löschen",
+    "LeaveNotices_students_delete_modal_submit_success_message": "Abwesenheitsnotiz wurde gelöscht",
+
     "LeaveNotices_teachers_evaluate_modal_header": "Abwesenheitsnotizen auswerten",
 
     "LeaveNotices_students_myLeaveNotices_title": "Meine Abwesenheitsnotizen",
@@ -307,7 +332,40 @@
     "RolodexCard_modal_clickToCopy_message": "Zum Kopieren klicken",
     "RolodexCard_modal_copied_message": "Kopiert",
 
+    "Club_header": "Club",
+
     "Clubs_header": "Club",
+    "Clubs_modal_teachers_title": "Lehrer",
+    "Clubs_modal_noTeachers_message": "Kein Lehrer",
+    "Clubs_modal_members_title": "Mitglieder",
+    "Clubs_modal_noMembers_message": "Kein Lehrer",
+    "Clubs_modal_joinClub_button_title": "Club beitreten",
+    "Clubs_joinClub_modal_header": "Club beitreten",
+    "Clubs_joinClub_modal_title": "Sind Sie sicher, dass Sie diesem Club beitreten wollen?",
+    "Clubs_joinClub_modal_description": "Ein Antrag auf Mitgliedschaft in diesem Club wird bei der Lehrkraft des Clubs eingereicht.",
+    "Clubs_modal_submit_success_message": "Der Antrag auf Clubbeitritt wurde eingereicht.",
+
+    "Teacher_club_currentClub_title": "Aktueller Club",
+    "Teacher_club_teachers_title": "Lehrer",
+    "Teacher_club_members_title": "{{members}} mitglieder",
+    "Teacher_club_joinRequests_title": "Beitrittsanfrage",
+
+    "Teacher_club_noClub_message": "Kein Club",
+
+    "Student_club_requestedClub_title": "Angefragter Club",
+    "Student_club_requestStatus_title": "Status der Anfrage",
+    "Student_club_pendingApproval_message": "Lehrer im Wartestand",
+    "Student_club_cancelRequest_button_title": "Anfrage abbrechen",
+    "Student_club_currentClub_title": "Aktueller Club",
+    "Student_club_teachers_title": "Lehrer",
+    "Student_club_members_title": "{{members}} mitglieder",
+    "Student_club_noClub_message": "Kein Club",
+    "Student_club_joinClub_button_title": "Club beitreten",
+
+    "Student_club_cancelRequest_modal_header": "Beitrittsanfrage abbrechen",
+    "Student_club_cancelRequest_modal_message": "Sind Sie sicher, dass Sie diese Beitrittsanfrage abbrechen wollen?",
+    "Student_club_cancelRequest_modal_submit_button_title": "Beitrittsanfrage abbrechen",
+    "Student_club_cancelRequest_modal_submit_success_message": "Beitrittsanfrage wurde abgebrochen.",
 
     "Settings_header": "Einstellungen",
 
@@ -337,6 +395,9 @@
     "PageNotFound_message": "Seite nicht gefunden.",
     "PageNotFound_button": "Zurück zur Hauptseite.",
 
+    "Error_message": "Es ist ein Fehler aufgetreten. Bitte neu anmelden.",
+    "Error_logout_button": "Abmelden",
+
     "Loading_message": "Laden...",
 
     "Login_title": "Anmeldung",
@@ -349,6 +410,8 @@
     "Logout_description": "Sind Sie sicher, dass Sie sich abmelden möchten?",
     "Logout_confirmButton": "Abmelden",
     "Logout_cancelButton": "Nein",
+
+    "Info_submit_button_submitting_message": "Senden",
 
     "fileSizeNotice_20MB": "Die Datei darf nicht größer als 20 MB sein."
 }

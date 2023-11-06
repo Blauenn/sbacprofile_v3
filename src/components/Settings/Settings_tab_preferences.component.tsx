@@ -14,7 +14,7 @@ const Settings_tab_preferences = () => {
           <i className="fa-solid fa-globe me-4"></i>
           {t("Settings_preferences_language_title")}
         </h1>
-        <h1 className="text-lg opacity-50 mb-4">
+        <h1 className="opacity-50 mb-4">
           {t("Settings_preferences_language_description")}
         </h1>
         <TextField
@@ -39,7 +39,7 @@ const Settings_tab_preferences = () => {
           <i className="fa-solid fa-brush me-4"></i>
           {t("Settings_preferences_theme_title")}
         </h1>
-        <h1 className="text-lg opacity-50 mb-4">
+        <h1 className="opacity-50 mb-4">
           {t("Settings_preferences_theme_description")}
         </h1>
         <TextField

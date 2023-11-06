@@ -49,7 +49,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
   };
 
   return (
-    <div>
+    <>
       <div
         className={`h-full relative flex flex-col bg-white shadow-sm rounded-xl overflow-hidden | ${hover_transition} hover:bg-slate-200 cursor-pointer`}
         onClick={() => setModalOpen(true)}>
@@ -153,7 +153,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
         open={modalOpen}
         onModalClose={onModalClose}
       />
-    </div>
+    </>
   );
 };
 
