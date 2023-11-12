@@ -31,6 +31,13 @@ const Clubs_rolodex_modal_join = (props: CurrentComponentProp) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
 
+  const handleModalClose = () => {
+    setIsSubmitting(false);
+    setIsSubmitSuccess(false);
+
+    onModalClose();
+  };
+
   const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
@@ -47,6 +54,10 @@ const Clubs_rolodex_modal_join = (props: CurrentComponentProp) => {
 
       setIsSubmitting(false);
       setIsSubmitSuccess(true);
+
+      setTimeout(() => {
+        handleModalClose();
+      }, 3000);
     } else {
       setIsSubmitting(false);
       setIsSubmitSuccess(false);
@@ -56,7 +67,7 @@ const Clubs_rolodex_modal_join = (props: CurrentComponentProp) => {
   return (
     <Custom_Modal
       open={open}
-      onModalClose={onModalClose}
+      onModalClose={handleModalClose}
       title={t("Clubs_joinClub_modal_header")}>
       <div className="flex flex-col gap-4">
         <div>

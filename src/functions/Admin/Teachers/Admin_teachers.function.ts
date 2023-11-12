@@ -389,7 +389,7 @@ export const handleTeacherDelete = async (teacher_ID: number) => {
   const teacherDeleteJSON = JSON.stringify(teacherDelete);
 
   try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/remove`, {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/teacher/delete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: teacherDeleteJSON,

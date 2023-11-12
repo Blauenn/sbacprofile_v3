@@ -23,7 +23,7 @@ const Teacher_rolodex = (props: CurrentComponentProp) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);

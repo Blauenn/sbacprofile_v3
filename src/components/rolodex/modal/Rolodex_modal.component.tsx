@@ -1,28 +1,14 @@
 import { useEffect } from "react";
 import i18n from "i18next";
-import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../custom/Custom_Modal";
-import { getData } from "../../../functions/fetchFromAPI.function";
-import {
-  Major_Name,
-  Major_Name_German,
-  Major_Name_Korean,
-  Major_Name_Thai,
-  Major_To_Background_Color,
-  Major_To_Text_Color,
-} from "../../../constants/Majors.constant";
-import {
-  Level_Name,
-  Level_Name_German,
-  Level_Name_Korean,
-  Level_Name_Thai,
-} from "../../../constants/Levels.constant";
-import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
+import { Major_To_Background_Color } from "../../../constants/Majors.constant";
 
 // Contexts //
 import { useContext_Classrooms } from "../../../context/Classrooms.context";
 import Rolodex_modal_image from "./Rolodex_modal_image.component";
 import Rolodex_modal_contacts from "./Rolodex_modal_contacts.component";
+import Rolodex_modal_names from "./content/Rolodex_modal_names.component";
+import Rolodex_modal_majorAndClassroom from "./content/Rolodex_modal_majorAndClassroom.component";
 
 interface CurrentComponentProp {
   profile: string;
@@ -34,16 +20,11 @@ interface CurrentComponentProp {
 const Rolodex_modal = (props: CurrentComponentProp) => {
   const { profile, object, open, onModalClose } = props;
 
-  const { classrooms, setClassrooms } = useContext_Classrooms();
-
-  const { t } = useTranslation();
+  const { classrooms, fetchClassrooms } = useContext_Classrooms();
 
   useEffect(() => {
     if (classrooms.length === 0) {
-      // Classroom //
-      getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) => {
-        setClassrooms(result);
-      });
+      fetchClassrooms();
     }
   }, []);
 
@@ -107,89 +88,12 @@ const Rolodex_modal = (props: CurrentComponentProp) => {
         </div>
         <div className="flex justify-start items-start flex-col px-4 lg:px-0 lg:mt-4">
           <div className="flex flex-col gap-4">
-            <div>
-              {i18n.language === "th" ? (
-                <>
-                  <h1 className="text-2xl font-semibold mb-2">
-                    {object.first_name_thai} {object.last_name_thai}
-                  </h1>
-                  <h1 className="text-xl">
-                    {object.first_name} {object.last_name}
-                  </h1>
-                </>
-              ) : (
-                <>
-                  <h1 className="text-2xl font-semibold mb-2">
-                    {object.first_name} {object.last_name}
-                  </h1>
-                  <h1 className="text-xl">
-                    {object.first_name_thai} {object.last_name_thai}
-                  </h1>
-                </>
-              )}
-              {object.nickname && object.nickname_thai && (
-                <h1 className="text-xl font-semibold mt-2">
-                  {i18n.language === "th"
-                    ? `${object.nickname_thai} · ${object.nickname}`
-                    : `${object.nickname} · ${object.nickname_thai}`}
-                </h1>
-              )}
-            </div>
-            <div>
-              <h1
-                className={`text-lg font-semibold ${
-                  Major_To_Text_Color[object.major]
-                }`}>
-                {i18n.language === "th"
-                  ? Major_Name_Thai[object.major]
-                  : i18n.language === "ko"
-                  ? Major_Name_Korean[object.major]
-                  : i18n.language === "de"
-                  ? Major_Name_German[object.major]
-                  : Major_Name[object.major]}
-              </h1>
-              {profile === "student" ? (
-                <h1 className="text-lg">
-                  {t("profile_rolodex_studentClass", {
-                    level:
-                      i18n.language === "th"
-                        ? Level_Name_Thai[object.level]
-                        : i18n.language === "ko"
-                        ? Level_Name_Korean[object.level]
-                        : i18n.language === "de"
-                        ? Level_Name_German[object.level]
-                        : Level_Name[object.level],
-                    classroom: object.class,
-                  })}
-                </h1>
-              ) : (
-                matchedClassrooms.map((matchedClassroom: any) =>
-                  matchedClassroom.classroom_ID != 0 ? (
-                    <h1 key={matchedClassroom.classroom_ID} className="text-lg">
-                      {t("profile_rolodex_teacherClass", {
-                        level:
-                          i18n.language === "th"
-                            ? Level_Name_Thai[matchedClassroom.classroom_level]
-                            : i18n.language === "ko"
-                            ? Level_Name_Korean[
-                                matchedClassroom.classroom_level
-                              ]
-                            : i18n.language === "de"
-                            ? Level_Name_German[
-                                matchedClassroom.classroom_level
-                              ]
-                            : Level_Name[matchedClassroom.classroom_level],
-                        classroom: matchedClassroom.classroom_class,
-                      })}
-                    </h1>
-                  ) : (
-                    <h1 key={matchedClassroom.classroom_ID} className="text-lg">
-                      {t("profile_rolodex_noHomeroomClass")}
-                    </h1>
-                  )
-                )
-              )}
-            </div>
+            <Rolodex_modal_names object={object} />
+            <Rolodex_modal_majorAndClassroom
+              object={object}
+              profile={profile}
+              matchedClassrooms={matchedClassrooms}
+            />
             <div className="w-11/12 lg:w-full">
               <Rolodex_modal_contacts object={object} />
             </div>

@@ -15,6 +15,7 @@ const LeaveNotices = () => {
   return (
     <div>
       <PageHeaderReturn text={t("LeaveNotices_header")} />
+      
       {getTextByPosition(userInfo.profile_position) === "student" ? (
         <Student_leaveNotices />
       ) : (

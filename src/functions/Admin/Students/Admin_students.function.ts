@@ -422,7 +422,7 @@ export const handleStudentDelete = async (student_ID: number) => {
   const studentDeleteJSON = JSON.stringify(studentDelete);
 
   try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/student/remove`, {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/student/delete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: studentDeleteJSON,

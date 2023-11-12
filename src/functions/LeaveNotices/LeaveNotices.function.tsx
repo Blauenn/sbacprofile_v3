@@ -239,7 +239,7 @@ export const handleLeaveNoticeDelete = async (leave_notice_ID: number) => {
   // Delete the leave notice //
   try {
     const result = await fetch(
-      `${API_ENDPOINT}/api/v1/forms/leaveNotice/remove`,
+      `${API_ENDPOINT}/api/v1/forms/leaveNotice/delete`,
       {
         method: "post",
         headers: { "Content-Type": "application/json" },

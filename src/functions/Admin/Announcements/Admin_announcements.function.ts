@@ -199,7 +199,7 @@ export const handleAnnouncementDelete = async (announcement_ID: number) => {
   const announcementToDeleteJSON = JSON.stringify(announcementToDelete);
 
   try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/announcement/remove`, {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/announcement/delete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: announcementToDeleteJSON,

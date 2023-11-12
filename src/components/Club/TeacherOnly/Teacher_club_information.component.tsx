@@ -56,6 +56,9 @@ const Teacher_club_information = (props: CurrentComponentProp) => {
     if (teachers.length === 0) {
       fetchTeachers();
     }
+    if (clubJoinRequests.length === 0) {
+      fetchClubJoinRequests();
+    }
   }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);

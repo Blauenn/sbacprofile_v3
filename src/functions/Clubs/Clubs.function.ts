@@ -81,7 +81,7 @@ export const handleClubJoinRequestDelete = async (
   // Delete the club join request //
   try {
     const response = await fetch(
-      `${API_ENDPOINT}/api/v1/clubJoinRequest/remove`,
+      `${API_ENDPOINT}/api/v1/clubJoinRequest/delete`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -197,7 +197,7 @@ export const handleClubDelete = async (club_ID: number) => {
   const clubDeleteJSON = JSON.stringify(clubDelete);
 
   try {
-    const response = await fetch(`${API_ENDPOINT}/api/v1/club/remove`, {
+    const response = await fetch(`${API_ENDPOINT}/api/v1/club/delete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: clubDeleteJSON,
