@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { Teacher } from "../../../../../interfaces/common.interface";
@@ -26,9 +26,15 @@ const Head_clubs_modal_update_teachers = (props: CurrentComponentProp) => {
   const { club, clubUpdateObject, setClubUpdateObject, open, onModalClose } =
     props;
 
-  const { teachers } = useContext_Teachers();
+  const { teachers, fetchTeachers } = useContext_Teachers();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (teachers.length === 0) {
+      fetchTeachers();
+    }
+  }, []);
 
   const [clubTeachers, setClubTeachers] = useState(club.club_teacher.teachers);
 

@@ -1,6 +1,7 @@
 import { CDN_ENDPOINT } from "../../constants/ENDPOINTS";
-import { Major_To_Background_Color } from "../../constants/Majors.constant";
 import { handle_image_change } from "../../functions/fields/handleFieldChanges.function";
+import { Major_To_Background_Color } from "../../constants/Majors.constant";
+import { Default_Image } from "../../constants/Misc.constant";
 
 const ImageField_profile_image_styles =
   "flex justify-center items-center border border-opacity-25 border-standardBlack w-[120px] h-[120px] sm:w-[300px] sm:h-[300px] | rounded-full overflow-hidden";
@@ -31,18 +32,21 @@ export const ImageField_profile = (props: ImageFieldProfileProps) => {
   return (
     <>
       {imageObject ? (
-        <div
-          className={`${ImageField_profile_image_styles} bg-primary`}>
+        <div className={`${ImageField_profile_image_styles} bg-primary`}>
           <img src={imagePreview || ""} />
         </div>
       ) : profile_image && profile_major ? (
         <div
           className={`${ImageField_profile_image_styles} ${Major_To_Background_Color[profile_major]}`}>
-          <img src={`${CDN_ENDPOINT}${profile_image}`} />
+          <img
+            src={`${CDN_ENDPOINT}${profile_image}`}
+            onError={(e) => {
+              e.currentTarget.src = Default_Image;
+            }}
+          />
         </div>
       ) : (
-        <div
-          className={`${ImageField_profile_image_styles}`}>
+        <div className={`${ImageField_profile_image_styles}`}>
           <i className="fa-solid fa-image text-4xl sm:text-6xl opacity-50"></i>
         </div>
       )}

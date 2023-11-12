@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import { Club } from "../../interfaces/common.interface";
-import Club_rolodex_card from "./card/Club_rolodex_card.component";
+import Clubs_rolodex_card from "./card/Clubs_rolodex_card.component";
 import Loading from "../misc/Loading.component";
 import Rolodex_noResult from "../rolodex/Rolodex_noResult.component";
 import { useContext_Clubs } from "../../context/Clubs.context";
 
-const Club_rolodex = () => {
-  const { clubs, clubMemberships } = useContext_Clubs();
+const Clubs_rolodex = () => {
+  const { clubs, fetchClubs, clubMemberships, fetchClubMemberships } =
+    useContext_Clubs();
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (clubs.length === 0) {
+      fetchClubs();
+    }
+    if (clubMemberships.length === 0) {
+      fetchClubMemberships();
+    }
+
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -22,11 +30,7 @@ const Club_rolodex = () => {
     return (
       <div className="grid-cols-1 min-[490px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mx-16 | grid gap-4">
         {clubs.map((club: Club) => (
-          <Club_rolodex_card
-            key={club.club_ID}
-            club={club}
-            clubMemberships={clubMemberships}
-          />
+          <Clubs_rolodex_card key={club.club_ID} club={club} />
         ))}
       </div>
     );
@@ -35,4 +39,4 @@ const Club_rolodex = () => {
   }
 };
 
-export default Club_rolodex;
+export default Clubs_rolodex;

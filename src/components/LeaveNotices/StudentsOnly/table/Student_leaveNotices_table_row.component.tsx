@@ -69,92 +69,88 @@ const Student_leaveNotices_table_row = (props: CurrentComponentProp) => {
   };
 
   return (
-    <>
-      <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
-        {/* Leave notice submit date */}
-        <td
-          className={`${table_content_style} | hidden md:table-cell ${dayColor_createDateTime}`}>
-          <h1>{localeDate_createDateTime}</h1>
-        </td>
-        {/* Leave notice choice */}
-        <td className={`${table_content_style} | hidden md:table-cell`}>
-          {i18n.language === "th"
-            ? LeaveNotice_Choice_Thai[leaveNotice.leave_notice_choice]
-            : LeaveNotice_Choice[leaveNotice.leave_notice_choice]}
-        </td>
-        {/* Leave notice for dates */}
-        {dateToISOString_startDateTime === dateToISOString_endDateTime ? (
-          <>
-            {/* Leave notice start and end datetime altogether */}
-            <td
-              className={`${table_content_style} text-center ${dayColor_startDateTime}`}
-              colSpan={2}>
-              <h1>{localeDate_startDateTime}</h1>
-            </td>
-          </>
-        ) : (
-          <>
-            {/* Leave notice start and end datetime */}
-            <td className={`${table_content_style}`} colSpan={2}>
-              <div className="flex flex-row items-center gap-4">
-                <h1 className={dayColor_startDateTime}>
-                  {localeDate_startDateTime}
-                </h1>
-                <i className="fa-solid fa-arrow-right opacity-50 | hidden sm:block"></i>
-                <h1 className={dayColor_endDateTime}>
-                  {localeDate_endDateTime}
-                </h1>
-              </div>
-            </td>
-          </>
-        )}
-        {/* Leave notice status */}
-        <td className={`${table_content_style} | hidden sm:table-cell`}>
-          {get_text_from_status_table(leaveNotice, t)}
-        </td>
-        {/* Buttons */}
-        <td className={table_content_style}>
-          <div className="flex gap-x-4">
-            <div className="flex gap-x-2">
-              {/* View info button */}
-              <Student_leaveNotices_modal
-                leaveNotice={leaveNotice}
-                open={viewModalOpen}
-                onModalClose={onViewModalClose}
-              />
-              <Table_button
-                icon="fa-solid fa-eye"
-                color="bg-blue-500"
-                functionToRun={() => {
-                  setViewModalOpen(true);
-                }}
-              />
-              {/* View file button */}
-              {leaveNotice.leave_notice_attached_file != "" ? (
-                <Table_button_download
-                  icon="fa-solid fa-folder"
-                  color="bg-purple-500"
-                  url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
-                />
-              ) : null}
+    <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
+      {/* Leave notice submit date */}
+      <td
+        className={`${table_content_style} | hidden md:table-cell ${dayColor_createDateTime}`}>
+        <h1>{localeDate_createDateTime}</h1>
+      </td>
+      {/* Leave notice choice */}
+      <td className={`${table_content_style} | hidden md:table-cell`}>
+        {i18n.language === "th"
+          ? LeaveNotice_Choice_Thai[leaveNotice.leave_notice_choice]
+          : LeaveNotice_Choice[leaveNotice.leave_notice_choice]}
+      </td>
+      {/* Leave notice for dates */}
+      {dateToISOString_startDateTime === dateToISOString_endDateTime ? (
+        <>
+          {/* Leave notice start and end datetime altogether */}
+          <td
+            className={`${table_content_style} text-center ${dayColor_startDateTime}`}
+            colSpan={2}>
+            <h1>{localeDate_startDateTime}</h1>
+          </td>
+        </>
+      ) : (
+        <>
+          {/* Leave notice start and end datetime */}
+          <td className={`${table_content_style}`} colSpan={2}>
+            <div className="flex flex-row items-center gap-4">
+              <h1 className={dayColor_startDateTime}>
+                {localeDate_startDateTime}
+              </h1>
+              <i className="fa-solid fa-arrow-right opacity-50 | hidden sm:block"></i>
+              <h1 className={dayColor_endDateTime}>{localeDate_endDateTime}</h1>
             </div>
-            {/* Delete info button */}
-            <Student_leaveNotices_modal_delete
+          </td>
+        </>
+      )}
+      {/* Leave notice status */}
+      <td className={`${table_content_style} | hidden sm:table-cell`}>
+        {get_text_from_status_table(leaveNotice, t)}
+      </td>
+      {/* Buttons */}
+      <td className={table_content_style}>
+        <div className="flex gap-x-4">
+          <div className="flex gap-x-2">
+            {/* View info button */}
+            <Student_leaveNotices_modal
               leaveNotice={leaveNotice}
-              open={deleteModalOpen}
-              onModalClose={onDeleteModalClose}
+              open={viewModalOpen}
+              onModalClose={onViewModalClose}
             />
             <Table_button
-              icon="fa-solid fa-trash-can"
-              color="bg-red-500"
+              icon="fa-solid fa-eye"
+              color="bg-blue-500"
               functionToRun={() => {
-                setDeleteModalOpen(true);
+                setViewModalOpen(true);
               }}
             />
+            {/* View file button */}
+            {leaveNotice.leave_notice_attached_file != "" ? (
+              <Table_button_download
+                icon="fa-solid fa-folder"
+                color="bg-purple-500"
+                url={`${CDN_ENDPOINT}${leaveNotice.leave_notice_attached_file}`}
+              />
+            ) : null}
           </div>
-        </td>
-      </tr>
-    </>
+          {/* Delete info button */}
+          <Student_leaveNotices_modal_delete
+            leaveNotice={leaveNotice}
+            open={deleteModalOpen}
+            onModalClose={onDeleteModalClose}
+          />
+          <Table_button
+            icon="fa-solid fa-trash-can"
+            color="bg-red-500"
+            functionToRun={() => {
+              setDeleteModalOpen(true);
+            }}
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 

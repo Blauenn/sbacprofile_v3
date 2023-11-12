@@ -98,6 +98,7 @@
     "Admin_Classrooms_table_header_major": "Major",
     "Admin_Classrooms_table_header_studentCount": "Students",
     "Admin_Classrooms_table_header_teachers": "Teachers",
+    "Admin_Classrooms_table_content_noTeachers_message": "No teachers",
     "Admin_Classrooms_table_content_button_update_title": "Update",
     
     "Admin_Students_header": "Students",
@@ -236,6 +237,7 @@
     "Admin_Clubs_table_header_capacity": "Capacity",
     "Admin_Clubs_table_content_teachers_noTeachers_message": "No teachers",
     "Admin_Clubs_table_content_button_update_title": "Update",
+    "Admin_Clubs_table_noClubs_message": "No clubs",
     
     "Admin_LeaveNotices_header": "Leave notices",
     "Admin_LeaveNotices_table_content_button_evaluate_title": "Evaluate",
@@ -296,6 +298,10 @@
     "LeaveNotices_evaluate_button_reject_title": "Reject",
     "LeaveNotices_evaluate_modal_submit_success_message": "Leave notice has been evaluated.",
     
+    "LeaveNotices_status_timeline_requestCreated_title": "Request created",
+    "LeaveNotices_status_timeline_teacher_title": "Teacher",
+    "LeaveNotices_status_timeline_head_title": "Head of department",
+    "LeaveNotices_status_timeline_status_title": "Status",
     "LeaveNotices_status_timeline_pending": "Pending",
     "LeaveNotices_status_timeline_changesNeeded": "Changes needed",
     "LeaveNotices_status_timeline_rejected": "Rejected",
@@ -333,6 +339,8 @@
     "RolodexCard_modal_copied_message": "Copied",
 
     "Club_header": "Club",
+    "Club_member_title": "Members",
+    "Club_member_noMember_message": "No members",
 
     "Clubs_header": "Clubs",
     "Clubs_modal_teachers_title": "Teachers",
@@ -348,18 +356,20 @@
     "Teacher_club_currentClub_title": "Current club",
     "Teacher_club_teachers_title": "Teachers",
     "Teacher_club_members_title": "{{members}} members",
-    "Teacher_club_joinRequests_title": "Join requests",
-
-    "Teacher_club_noClub_message": "No club",
+    "Teacher_club_joinRequests_title": "Join requests", 
+    "Teacher_club_noClub_message": "No clubs",
+    "Teacher_club_noJoinRequest_message": "No join requests",
 
     "Student_club_requestedClub_title": "Requested club",
     "Student_club_requestStatus_title": "Request status",
     "Student_club_pendingApproval_message": "Pending approval",
+    "Student_club_rejected_message": "Rejected",
     "Student_club_cancelRequest_button_title": "Cancel request",
+    "Student_club_cancelRequest_message": "You must cancel this join request before making another.",
     "Student_club_currentClub_title": "Current club",
     "Student_club_teachers_title": "Teachers",
     "Student_club_members_title": "{{members}} members",
-    "Student_club_noClub_message": "No club",
+    "Student_club_noClub_message": "No clubs",
     "Student_club_joinClub_button_title": "Join a club",
 
     "Student_club_cancelRequest_modal_header": "Cancel join request",
@@ -395,7 +405,7 @@
     "PageNotFound_message": "Page not found.",
     "PageNotFound_button": "Return to home page.",
 
-    "Error_message": "There's an error. Please re-login",
+    "Error_message": "There's an error. Please re-login.",
     "Error_logout_button": "Logout",
 
     "Loading_message": "Loading...",

@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../custom/Custom_Modal";
-import { useState } from "react";
 import { handleClubJoinRequestDelete } from "../../../../functions/Clubs/Clubs.function";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
 
 // Contexts //
 import { useContext_Clubs } from "../../../../context/Clubs.context";
-import { getData } from "../../../../functions/fetchFromAPI.function";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 
 interface CurrentComponentProp {
   clubJoinRequest: any;
@@ -18,7 +16,7 @@ interface CurrentComponentProp {
 const Student_club_modal_cancel = (props: CurrentComponentProp) => {
   const { clubJoinRequest, open, onModalClose } = props;
 
-  const { setClubJoinRequests } = useContext_Clubs();
+  const { fetchClubJoinRequests } = useContext_Clubs();
 
   const { t } = useTranslation();
 
@@ -37,13 +35,7 @@ const Student_club_modal_cancel = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      // Club join request //
-      //   getData(
-      //     `${API_ENDPOINT}/api/v1/clubJoinRequest/getAll`,
-      //     (result: any) => {
-      //       setClubJoinRequests(result);
-      //     }
-      //   );
+      fetchClubJoinRequests();
 
       setIsSubmitting(false);
       setIsCancelSuccess(true);

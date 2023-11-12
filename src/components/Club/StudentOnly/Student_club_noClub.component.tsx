@@ -18,29 +18,33 @@ import {
 import { hover_transition } from "../../../constants/styles/transitions.style";
 
 // Contexts //
-import { useContext_Clubs } from "../../../context/Clubs.context";
 import { useContext_Account } from "../../../context/Account.context";
+import { useContext_Clubs } from "../../../context/Clubs.context";
 
 const Student_club_noClub = () => {
-  const { clubs, clubJoinRequests } = useContext_Clubs();
   const { userInfo } = useContext_Account();
+  const { clubs, fetchClubs, clubJoinRequests, fetchClubJoinRequests } =
+    useContext_Clubs();
 
   const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    if (clubs.length === 0) {
+      fetchClubs();
+    }
+    if (clubJoinRequests.length === 0) {
+      fetchClubJoinRequests();
+    }
+    setIsLoading(false);
   }, []);
 
   const selfClubJoinRequest = clubJoinRequests.find(
     (clubJoinRequest: ClubJoinRequest) =>
-      clubJoinRequest.club_join_request_student_ID === userInfo.profile_ID &&
-      clubJoinRequest.club_join_request_status === 1
+      (clubJoinRequest.club_join_request_student_ID === userInfo.profile_ID &&
+        clubJoinRequest.club_join_request_status === 1) ||
+      clubJoinRequest.club_join_request_status === 3
   );
   let selfClubJoinRequestInformation;
   if (selfClubJoinRequest) {
@@ -98,17 +102,35 @@ const Student_club_noClub = () => {
                 <h1 className="opacity-50">
                   {t("Student_club_requestStatus_title")}
                 </h1>
-                <h1 className="text-xl font-semibold mb-2">
-                  {t("Student_club_pendingApproval_message")}...
-                </h1>
-                <h1 className="opacity-50 mb-4">
-                  {formatDistanceToNow(
-                    change_to_date(
-                      selfClubJoinRequest.club_join_request_create_datetime
-                    ),
-                    { addSuffix: true }
-                  ).replace("about ", "")}
-                </h1>
+                {selfClubJoinRequest.club_join_request_status === 1 ? (
+                  <>
+                    <h1 className="text-xl font-semibold mb-2">
+                      {t("Student_club_pendingApproval_message")}...
+                    </h1>
+                    <h1 className="opacity-50 mb-4">
+                      {formatDistanceToNow(
+                        change_to_date(
+                          selfClubJoinRequest.club_join_request_create_datetime
+                        ),
+                        { addSuffix: true }
+                      ).replace("about ", "")}
+                    </h1>
+                  </>
+                ) : (
+                  <>
+                    <h1 className="text-xl font-semibold text-red-500 mb-2">
+                      {t("Student_club_rejected_message")}
+                    </h1>
+                    <h1 className="opacity-50 mb-4">
+                      {formatDistanceToNow(
+                        change_to_date(
+                          selfClubJoinRequest.club_join_request_create_datetime
+                        ),
+                        { addSuffix: true }
+                      ).replace("about ", "")}
+                    </h1>
+                  </>
+                )}
               </div>
             </div>
             {/* Cancel modal */}
@@ -126,6 +148,9 @@ const Student_club_noClub = () => {
               }}
               fullWidth
             />
+            <h1 className="opacity-50 mt-2">
+              {t("Student_club_cancelRequest_message")}
+            </h1>
           </div>
         </>
       ) : !isLoading ? (

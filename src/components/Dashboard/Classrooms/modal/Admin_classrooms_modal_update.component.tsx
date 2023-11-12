@@ -7,10 +7,8 @@ import {
   TextField_select,
   TextField_text,
 } from "../../../custom/Custom_TextFields";
-import { getData } from "../../../../functions/fetchFromAPI.function";
 import { handleClassroomUpdate } from "../../../../functions/Admin/Classrooms/Admin_classrooms.function";
 import Info_submit_button from "../../Buttons/Info_submit_button.component";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 import {
   Major_Name,
   Major_Name_German,
@@ -32,24 +30,18 @@ interface CurrentComponentProp {
 const Admin_classrooms_modal_update = (props: CurrentComponentProp) => {
   const { classroom, open, onModalClose } = props;
 
-  const { setClassrooms } = useContext_Classrooms();
-  const { teachers, setTeachers } = useContext_Teachers();
-  const { majors, setMajors } = useContext_Majors();
+  const { fetchClassrooms } = useContext_Classrooms();
+  const { teachers, fetchTeachers } = useContext_Teachers();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Majors //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
     }
-    // Teachers //
     if (teachers.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-        setTeachers(result);
-      });
+      fetchTeachers();
     }
   }, []);
 
@@ -101,9 +93,7 @@ const Admin_classrooms_modal_update = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) => {
-        setClassrooms(result);
-      });
+      fetchClassrooms();
 
       setIsSubmitting(false);
       setIsUpdateSuccess(true);

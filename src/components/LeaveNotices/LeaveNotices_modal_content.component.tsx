@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   get_student_classroom_from_ID,
   get_student_image_from_ID,
@@ -9,7 +10,7 @@ import {
   get_day_amount_between_dates,
   get_day_from_date,
 } from "../../functions/getDates.function";
-import LeaveNotice_approval_timeline from "./LeaveNotices_approval_timeline.component";
+import LeaveNotice_approval_timeline from "./approval_timeline/LeaveNotices_approval_timeline.component";
 import { LeaveNotice_Choice } from "../../constants/LeaveNotices.constant";
 import { Major_To_Background_Color } from "../../constants/Majors.constant";
 import { Day_Colors } from "../../constants/Misc.constant";
@@ -25,7 +26,13 @@ interface CurrentComponentProp {
 const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
   const { leaveNotice } = props;
 
-  const { students } = useContext_Students();
+  const { students, fetchStudents } = useContext_Students();
+
+  useEffect(() => {
+    if (students.length === 0) {
+      fetchStudents();
+    }
+  }, []);
 
   return (
     <div className="flex flex-col p-2 w-full lg:gap-x-4">
@@ -96,7 +103,7 @@ const LeaveNotices_modal_content = (props: CurrentComponentProp) => {
         </div>
       </div>
       {/* Approval timeline */}
-      <div className="mb-2">
+      <div className="mb-4">
         <LeaveNotice_approval_timeline leaveNotice={leaveNotice} />
       </div>
       {/* Teacher and head of department description */}

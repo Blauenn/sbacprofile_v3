@@ -5,11 +5,14 @@ import React, {
   ReactNode,
   useMemo,
 } from "react";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
+import { getData } from "../functions/fetchFromAPI.function";
 
 // Type //
 type LeaveNoticesContextType = {
   leaveNotices: any[];
   setLeaveNotices: React.Dispatch<React.SetStateAction<any[]>>;
+  fetchLeaveNotices: () => void;
 };
 type LeaveNoticesContextProviderProps = {
   children: ReactNode;
@@ -30,13 +33,23 @@ export function useContext_LeaveNotices() {
 
 export function LeaveNoticesContextProvider({
   children,
-}: LeaveNoticesContextProviderProps) {
+}: Readonly<LeaveNoticesContextProviderProps>) {
   const [leaveNotices, setLeaveNotices] = useState<any[]>([]);
+
+  const fetchLeaveNotices = () => {
+    getData(
+      `${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`,
+      (result: any) => {
+        setLeaveNotices(result);
+      }
+    );
+  };
 
   const contextValue = useMemo(
     () => ({
       leaveNotices,
       setLeaveNotices,
+      fetchLeaveNotices,
     }),
     [leaveNotices, setLeaveNotices]
   );

@@ -5,6 +5,8 @@ import React, {
   ReactNode,
   useMemo,
 } from "react";
+import { getData } from "../functions/fetchFromAPI.function";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Type //
 type StudentsContextType = {
@@ -12,6 +14,7 @@ type StudentsContextType = {
   setStudents: React.Dispatch<React.SetStateAction<any[]>>;
   studentCount: number;
   setStudentCount: React.Dispatch<React.SetStateAction<number>>;
+  fetchStudents: () => void;
 };
 type StudentsContextProviderProps = {
   children: ReactNode;
@@ -32,9 +35,16 @@ export function useContext_Students() {
 
 export function StudentsContextProvider({
   children,
-}: StudentsContextProviderProps) {
+}: Readonly<StudentsContextProviderProps>) {
   const [students, setStudents] = useState<any[]>([]);
   const [studentCount, setStudentCount] = useState<number>(0);
+
+  const fetchStudents = () => {
+    getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
+      setStudents(result);
+      setStudentCount(result.length);
+    });
+  };
 
   const contextValue = useMemo(
     () => ({
@@ -42,6 +52,7 @@ export function StudentsContextProvider({
       setStudents,
       studentCount,
       setStudentCount,
+      fetchStudents,
     }),
     [students, setStudents]
   );

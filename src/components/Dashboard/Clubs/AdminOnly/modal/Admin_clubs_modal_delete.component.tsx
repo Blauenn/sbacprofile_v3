@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
+import { handleClubDelete } from "../../../../../functions/Admin/Clubs/Admin_clubs.function";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 
 // Contexts //
 import { useContext_Clubs } from "../../../../../context/Clubs.context";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import { useState } from "react";
-import { handleClubDelete } from "../../../../../functions/Admin/Clubs/Admin_clubs.function";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 
 interface CurrentComponentProp {
   club: any;
@@ -19,7 +17,7 @@ interface CurrentComponentProp {
 const Admin_clubs_modal_delete = (props: CurrentComponentProp) => {
   const { club, club_member_count, open, onModalClose } = props;
 
-  const { setClubs } = useContext_Clubs();
+  const { fetchClubs } = useContext_Clubs();
 
   const { t } = useTranslation();
 
@@ -36,21 +34,7 @@ const Admin_clubs_modal_delete = (props: CurrentComponentProp) => {
     const submissionStatus = await handleClubDelete(club.club_ID);
 
     if (submissionStatus) {
-      // Clubs //
-      getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-        // Change the value of the club_teacher from string into an object. //
-        const remappedClub = result.map((club: any) => {
-          const parsedTeacher = JSON.parse(club.club_teacher);
-          return { ...club, club_teacher: parsedTeacher };
-        });
-
-        // Sort in alphabetical order. //
-        const sortedResults = remappedClub.sort((a: any, b: any) => {
-          return a.club_name.localeCompare(b.club_name);
-        });
-
-        setClubs(sortedResults);
-      });
+      fetchClubs();
 
       setIsSubmitting(false);
       setIsDeleteSuccess(true);

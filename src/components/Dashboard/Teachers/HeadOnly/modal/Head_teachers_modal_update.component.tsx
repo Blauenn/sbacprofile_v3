@@ -8,10 +8,8 @@ import {
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
 import { Major } from "../../../../../interfaces/common.interface";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   Major_Name,
   Major_Name_German,
@@ -20,9 +18,9 @@ import {
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
+import { useContext_Account } from "../../../../../context/Account.context";
 import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
-import { useContext_Account } from "../../../../../context/Account.context";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -33,18 +31,15 @@ interface CurrentComponentProp {
 const Head_teachers_modal_update = (props: CurrentComponentProp) => {
   const { open, onModalClose, teacher } = props;
 
-  const { setTeachers } = useContext_Teachers();
-  const { majors, setMajors } = useContext_Majors();
   const { userInfo } = useContext_Account();
+  const { fetchTeachers } = useContext_Teachers();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Majors //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
     }
   }, []);
 
@@ -142,9 +137,7 @@ const Head_teachers_modal_update = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-        setTeachers(result);
-      });
+      fetchTeachers();
 
       setIsSubmitting(false);
       setIsUpdateSuccess(true);
@@ -172,7 +165,7 @@ const Head_teachers_modal_update = (props: CurrentComponentProp) => {
                     fieldName="teacher_update_image"
                     profile_image={teacher.teacher_image}
                     profile_major={teacher.teacher_major}
-                    imagePreview={imagePreview || ""}
+                    imagePreview={imagePreview ?? ""}
                     setImagePreview={setImagePreview}
                     setImage={setTeacherUpdateImage}
                     setFileSizeNotice={setFileSizeNotice}

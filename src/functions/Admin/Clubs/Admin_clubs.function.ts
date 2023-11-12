@@ -121,7 +121,6 @@ export const handleClubCreate = async (
       club_capacity: updatedClubUpdateObject.club_capacity,
     };
     const clubToCreateObjectJSON = JSON.stringify(clubToCreateObject);
-    console.log(clubToCreateObjectJSON);
 
     // Upload the club information. //
     try {

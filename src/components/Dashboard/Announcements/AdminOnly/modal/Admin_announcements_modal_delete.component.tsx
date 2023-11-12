@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import { useState } from "react";
 import { handleAnnouncementDelete } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
+
+// Contexts //
 import { useContext_Announcements } from "../../../../../context/Announcements.context";
 
 interface CurrentComponentProp {
@@ -16,7 +16,7 @@ interface CurrentComponentProp {
 const Admin_announcements_modal_delete = (props: CurrentComponentProp) => {
   const { announcement, open, onModalClose } = props;
 
-  const { setAnnouncements } = useContext_Announcements();
+  const { fetchAnnouncements } = useContext_Announcements();
 
   const { t } = useTranslation();
 
@@ -35,10 +35,7 @@ const Admin_announcements_modal_delete = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      // Announcements //
-      getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
-        setAnnouncements(result);
-      });
+      fetchAnnouncements();
 
       setIsSubmitting(false);
       setIsDeleteSuccess(true);

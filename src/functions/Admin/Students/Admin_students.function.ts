@@ -273,6 +273,8 @@ export const handleStudentCreate = async (
         studentCreateObject,
         studentCreateImage
       );
+    } else {
+      return false;
     }
 
     // Student information //

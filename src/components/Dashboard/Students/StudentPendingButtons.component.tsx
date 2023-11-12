@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { LeaveNotice } from "../../../interfaces/common.interface";
-import Dashboard_requstTimeline from "../Dashboard_requestTimeline.component";
+import Dashboard_requestTimeline from "../Dashboard_requestTimeline.component";
 
 // TODO: Complete this component. //
 interface CurrentComponentProp {
@@ -29,7 +29,7 @@ const StudentPendingButtons = (props: CurrentComponentProp) => {
                 <NavLink
                   key={leaveNotice.leave_notice_ID}
                   to={`/leaveNotice?id=${leaveNotice.leave_notice_ID}`}>
-                  <Dashboard_requstTimeline leaveNotice={leaveNotice} />
+                  <Dashboard_requestTimeline leaveNotice={leaveNotice} />
                 </NavLink>
               ))}
           </div>
@@ -52,7 +52,7 @@ const StudentPendingButtons = (props: CurrentComponentProp) => {
                 <NavLink
                   key={leaveNotice.leave_notice_ID}
                   to={`/requestForms?id=${leaveNotice.leave_notice_ID}`}>
-                  <Dashboard_requstTimeline leaveNotice={leaveNotice} />
+                  <Dashboard_requestTimeline leaveNotice={leaveNotice} />
                 </NavLink>
               ))}
           </div>

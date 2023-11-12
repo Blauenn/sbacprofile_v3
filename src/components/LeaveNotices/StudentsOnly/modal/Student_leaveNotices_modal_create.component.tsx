@@ -11,10 +11,8 @@ import {
 } from "../../../custom/Custom_TextFields.tsx";
 import Custom_Modal from "../../../custom/Custom_Modal.tsx";
 import { handle_file_input_change } from "../../../../functions/fields/handleFieldChanges.function.ts";
-import { getData } from "../../../../functions/fetchFromAPI.function.ts";
 import { handleLeaveNoticeCreate } from "../../../../functions/LeaveNotices/LeaveNotices.function.tsx";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component.tsx";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS.ts";
 
 // Contexts //
 import { useContext_Account } from "../../../../context/Account.context.tsx";
@@ -28,9 +26,8 @@ interface CurrentComponentProp {
 const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
 
-  const { setLeaveNotices } = useContext_LeaveNotices();
-
   const { userInfo } = useContext_Account();
+  const { fetchLeaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 
@@ -177,10 +174,7 @@ const Student_leaveNotice_modal_create = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      getData(
-        `${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`,
-        (result: any) => setLeaveNotices(result)
-      );
+      fetchLeaveNotices();
 
       setIsSubmitting(false);
       setIsCreateSuccess(true);

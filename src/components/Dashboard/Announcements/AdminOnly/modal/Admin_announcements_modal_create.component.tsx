@@ -6,11 +6,9 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Announcements } from "../../../../../context/Announcements.context";
@@ -23,7 +21,7 @@ interface CurrentComponentProp {
 const Admin_announcements_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
 
-  const { setAnnouncements } = useContext_Announcements();
+  const { fetchAnnouncements } = useContext_Announcements();
 
   const { t } = useTranslation();
 
@@ -92,9 +90,7 @@ const Admin_announcements_modal_create = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      getData(`${API_ENDPOINT}/api/v1/announcement/getAll`, (result: any) => {
-        setAnnouncements(result);
-      });
+      fetchAnnouncements();
 
       setIsSubmitting(false);
       setIsCreateSuccess(true);

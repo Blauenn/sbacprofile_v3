@@ -245,6 +245,8 @@ export const handleTeacherCreate = async (
         teacherCreateObject,
         teacherCreateImage
       );
+    } else {
+      return false;
     }
 
     // Teacher information //

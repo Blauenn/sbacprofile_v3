@@ -4,19 +4,19 @@ export const LeaveNotice_Choice: any = {
   3: "Others",
 };
 export const LeaveNotice_Choice_German: any = {
-  1: "Sick leave",
-  2: "Private matter",
-  3: "Others",
+  1: "Krankheitsurlaub",
+  2: "Privatangelegenheit",
+  3: "Sonstiges",
 };
 export const LeaveNotice_Choice_Thai: any = {
-  1: "Sick leave",
-  2: "Private matter",
-  3: "Others",
+  1: "ลาป่วย",
+  2: "ลากิจ",
+  3: "อื่นๆ",
 };
 export const LeaveNotice_Choice_Korean: any = {
-  1: "Sick leave",
-  2: "Private matter",
-  3: "Others",
+  1: "병가",
+  2: "사적인 문제",
+  3: "기타",
 };
 
 export const LeaveNotice_Choice_Icon: any = {

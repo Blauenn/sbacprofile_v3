@@ -1,38 +1,24 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../../interfaces/common.interface";
-import { getData } from "../../functions/fetchFromAPI.function";
 import { has_number } from "../../functions/stringManipulation.function";
 import Admin_student_table from "../../components/Dashboard/Students/AdminOnly/table/Admin_students_table.component";
 import StudentFilters from "../../components/Students/Student_filters.component";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
 import Admin_student_modal_create from "../../components/Dashboard/Students/AdminOnly/modal/Admin_students_modal_create.component";
-import { API_ENDPOINT } from "../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../../context/Students.context";
-import { useContext_Majors } from "../../context/Majors.context";
 
 const Admin_students = () => {
-  const { students, setStudents, setStudentCount } = useContext_Students();
-  const { majors, setMajors } = useContext_Majors();
+  const { students, fetchStudents } = useContext_Students();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Students //
     if (students.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-        setStudents(result);
-        setStudentCount(result.length);
-      });
-    }
-    // Majors //
-    if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchStudents();
     }
   }, []);
 
@@ -83,9 +69,9 @@ const Admin_students = () => {
     }
   });
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const onModalClose = () => {
-    setModalOpen(false);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const onCreateModalClose = () => {
+    setCreateModalOpen(false);
   };
 
   return (
@@ -94,11 +80,11 @@ const Admin_students = () => {
 
       <div className="mb-8">
         <Admin_student_modal_create
-          open={modalOpen}
-          onModalClose={onModalClose}
+          open={createModalOpen}
+          onModalClose={onCreateModalClose}
         />
         <Info_create_button
-          setModalOpen={setModalOpen}
+          setModalOpen={setCreateModalOpen}
           icon="fa-solid fa-graduation-cap"
           text={t("Admin_Students_create_button_title")}
         />

@@ -98,6 +98,7 @@
     "Admin_Classrooms_table_header_major": "Hauptfach",
     "Admin_Classrooms_table_header_studentCount": "Studenten",
     "Admin_Classrooms_table_header_teachers": "Lehrer",
+    "Admin_Classrooms_table_content_noTeachers_message": "Kein Lehrer",
     "Admin_Classrooms_table_content_button_update_title": "Aktualisieren",
     
     "Admin_Students_header": "Studenten",
@@ -236,6 +237,7 @@
     "Admin_Clubs_table_header_capacity": "Capacity",
     "Admin_Clubs_table_content_teachers_noTeachers_message": "Kein Lehrer",
     "Admin_Clubs_table_content_button_update_title": "Aktualisieren",
+    "Admin_Clubs_table_noClubs_message": "Kein Club",
     
     "Admin_LeaveNotices_header": "Abwesenheitsnotizen",
     "Admin_LeaveNotices_table_content_button_evaluate_title": "Auswerten",
@@ -296,17 +298,21 @@
     "LeaveNotices_evaluate_button_reject_title": "Ablehnen",
     "LeaveNotices_evaluate_modal_submit_success_message": "Die Abwesenheitsnotizen wurde ausgewertet.",
 
+    "LeaveNotices_status_timeline_requestCreated_title": "Antrag erstellt",
+    "LeaveNotices_status_timeline_teacher_title": "Lehrer",
+    "LeaveNotices_status_timeline_head_title": "Abteilungsleiter",
+    "LeaveNotices_status_timeline_status_title": "Status",
     "LeaveNotices_status_timeline_pending": "Wartende",
     "LeaveNotices_status_timeline_changesNeeded": "Änderungen erforderlich",
     "LeaveNotices_status_timeline_rejected": "Abgelehnt",
-    "LeaveNotices_status_timeline_success": "Erfolg",
+    "LeaveNotices_status_timeline_approved": "Erfolg",
 
     "LeaveNotices_status_teacher_pending": "Lehrer im Wartestand",
     "LeaveNotices_status_teacher_rejected": "Vom Lehrer abgelehnt",
     "LeaveNotices_status_head_pending": "Wartender Abteilungsleiter",
     "LeaveNotices_status_head_rejected": "Vom Leiter abgelehnt",
     "LeaveNotices_status_changesNeeded": "Änderungen erforderlich",
-    "LeaveNotices_status_success": "Erfolg",
+    "LeaveNotices_status_approved": "Erfolg",
     
     "profile_filters_label_major": "Hauptfach",
     "profile_filters_label_level": "Stufe",
@@ -333,6 +339,8 @@
     "RolodexCard_modal_copied_message": "Kopiert",
 
     "Club_header": "Club",
+    "Club_member_title": "Mitglieder",
+    "Club_member_noMember_message": "Kein Mitglieder",
 
     "Clubs_header": "Club",
     "Clubs_modal_teachers_title": "Lehrer",
@@ -349,13 +357,15 @@
     "Teacher_club_teachers_title": "Lehrer",
     "Teacher_club_members_title": "{{members}} mitglieder",
     "Teacher_club_joinRequests_title": "Beitrittsanfrage",
-
     "Teacher_club_noClub_message": "Kein Club",
+    "Teacher_club_noJoinRequest_message": "Kein Beitrittsanfrage",
 
     "Student_club_requestedClub_title": "Angefragter Club",
     "Student_club_requestStatus_title": "Status der Anfrage",
     "Student_club_pendingApproval_message": "Lehrer im Wartestand",
+    "Student_club_rejected_message": "Abgelehnt",
     "Student_club_cancelRequest_button_title": "Anfrage abbrechen",
+    "Student_club_cancelRequest_message": "Sie müssen diese Beitrittsanfrage abbrechen, bevor Sie eine weitere stellen können.",
     "Student_club_currentClub_title": "Aktueller Club",
     "Student_club_teachers_title": "Lehrer",
     "Student_club_members_title": "{{members}} mitglieder",

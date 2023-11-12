@@ -61,79 +61,78 @@ const Head_leaveNotices_table_row = (props: CurrentComponentProp) => {
   };
 
   return (
-    <>
-      <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
-        {/* Leave notice ID */}
-        <td
-          className={`${table_content_style} font-family-monospace | hidden lg:table-cell`}>
-          <h1>{leaveNotice.leave_notice_ID}</h1>
-        </td>
-        {/* Leave notice create datetime */}
-        <td
-          className={`${table_content_style} ${
-            Day_Colors[
-              get_day_from_date(leaveNotice.leave_notice_create_datetime)
-            ]
-          } | hidden xl:table-cell`}>
-          <h1>
-            {
-              change_to_locale_date(
-                leaveNotice.leave_notice_create_datetime
-              ).split(",")[0]
-            }
-          </h1>
-        </td>
-        {/* Leave notice choice */}
-        <td className={`${table_content_style} | hidden md:table-cell`}>
-          {i18n.language === "th"
-            ? LeaveNotice_Choice_Thai[leaveNotice.leave_notice_choice]
-            : i18n.language === "ko"
-            ? LeaveNotice_Choice_Korean[leaveNotice.leave_notice_choice]
-            : i18n.language === "de"
-            ? LeaveNotice_Choice_German[leaveNotice.leave_notice_choice]
-            : LeaveNotice_Choice[leaveNotice.leave_notice_choice]}
-        </td>
-        {/* Leave notice for dates */}
-        {dateToISOString_startDateTime === dateToISOString_endDateTime ? (
-          <>
-            {/* Leave notice start and end datetime altogether */}
-            <td
-              className={`${table_content_style} text-center ${dayColor_startDateTime}`}
-              colSpan={2}>
-              <h1>{localeDate_startDateTime}</h1>
-            </td>
-          </>
-        ) : (
-          <>
-            {/* Leave notice start and end datetime */}
-            <td className={`${table_content_style}`} colSpan={2}>
-              <div className="flex flex-row items-center gap-4">
-                <h1 className={dayColor_startDateTime}>
-                  {localeDate_startDateTime}
-                </h1>
-                <i className="fa-solid fa-arrow-right opacity-50 | hidden sm:block"></i>
-                <h1 className={dayColor_endDateTime}>
-                  {localeDate_endDateTime}
-                </h1>
-              </div>
-            </td>
-          </>
-        )}
-        {/* Leave notice status */}
-        <td className={`${table_content_style} | hidden sm:table-cell`}>
-          {get_text_from_status_table(leaveNotice, t)}
-        </td>
-        {/* Buttons */}
-        <td className={table_content_style}>
-          <div className="flex gap-x-2">
-            {/* View info button */}
-            <Head_leaveNotices_modal
-              leaveNotice={leaveNotice}
-              open={modalOpen}
-              onModalClose={onModalClose}
-            />
+    <tr className={index % 2 === 1 ? "bg-gray-200" : ""}>
+      {/* Leave notice ID */}
+      <td
+        className={`${table_content_style} font-family-monospace | hidden lg:table-cell`}>
+        <h1>{leaveNotice.leave_notice_ID}</h1>
+      </td>
+      {/* Leave notice create datetime */}
+      <td
+        className={`${table_content_style} ${
+          Day_Colors[
+            get_day_from_date(leaveNotice.leave_notice_create_datetime)
+          ]
+        } | hidden xl:table-cell`}>
+        <h1>
+          {
+            change_to_locale_date(
+              leaveNotice.leave_notice_create_datetime
+            ).split(",")[0]
+          }
+        </h1>
+      </td>
+      {/* Leave notice choice */}
+      <td className={`${table_content_style} | hidden md:table-cell`}>
+        {i18n.language === "th"
+          ? LeaveNotice_Choice_Thai[leaveNotice.leave_notice_choice]
+          : i18n.language === "ko"
+          ? LeaveNotice_Choice_Korean[leaveNotice.leave_notice_choice]
+          : i18n.language === "de"
+          ? LeaveNotice_Choice_German[leaveNotice.leave_notice_choice]
+          : LeaveNotice_Choice[leaveNotice.leave_notice_choice]}
+      </td>
+      {/* Leave notice for dates */}
+      {dateToISOString_startDateTime === dateToISOString_endDateTime ? (
+        <>
+          {/* Leave notice start and end datetime altogether */}
+          <td
+            className={`${table_content_style} text-center ${dayColor_startDateTime}`}
+            colSpan={2}>
+            <h1>{localeDate_startDateTime}</h1>
+          </td>
+        </>
+      ) : (
+        <>
+          {/* Leave notice start and end datetime */}
+          <td className={`${table_content_style}`} colSpan={2}>
+            <div className="flex flex-row items-center gap-4">
+              <h1 className={dayColor_startDateTime}>
+                {localeDate_startDateTime}
+              </h1>
+              <i className="fa-solid fa-arrow-right opacity-50 | hidden sm:block"></i>
+              <h1 className={dayColor_endDateTime}>{localeDate_endDateTime}</h1>
+            </div>
+          </td>
+        </>
+      )}
+      {/* Leave notice status */}
+      <td className={`${table_content_style} | hidden sm:table-cell`}>
+        {get_text_from_status_table(leaveNotice, t)}
+      </td>
+      {/* Buttons */}
+      <td className={table_content_style}>
+        <div className="flex gap-x-2">
+          {/* View info button */}
+          <Head_leaveNotices_modal
+            leaveNotice={leaveNotice}
+            open={modalOpen}
+            onModalClose={onModalClose}
+          />
+          <div className="flex flex-row gap-x-4">
             <Table_button
-              text={t("Admin_LeaveNotices_table_content_button_evaluate_title")}
+              // text={t("Admin_LeaveNotices_table_content_button_evaluate_title")}
+              icon="fa-solid fa-check"
               color="bg-blue-500"
               functionToRun={() => {
                 setModalOpen(true);
@@ -148,9 +147,9 @@ const Head_leaveNotices_table_row = (props: CurrentComponentProp) => {
               />
             ) : null}
           </div>
-        </td>
-      </tr>
-    </>
+        </div>
+      </td>
+    </tr>
   );
 };
 

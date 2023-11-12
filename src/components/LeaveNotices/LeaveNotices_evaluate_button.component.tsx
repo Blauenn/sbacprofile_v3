@@ -1,13 +1,15 @@
+import { useEffect } from "react";
 import { get_student_major_from_ID } from "../../functions/getFromID.function";
-
-// Contexts //
-import { useContext_Students } from "../../context/Students.context";
+import { useTranslation } from "react-i18next";
 import {
   Major_To_Background_Color,
   Major_To_Border_Color,
   Major_To_Text_Color,
 } from "../../constants/Majors.constant";
 import { hover_transition } from "../../constants/styles/transitions.style";
+
+// Contexts //
+import { useContext_Students } from "../../context/Students.context";
 
 interface CurrentComponentProp {
   leaveNotice: any;
@@ -17,7 +19,15 @@ interface CurrentComponentProp {
 const LeaveNotices_evaluate_button = (props: CurrentComponentProp) => {
   const { leaveNotice, functionToRun } = props;
 
-  const { students } = useContext_Students();
+  const { t } = useTranslation();
+
+  const { students, fetchStudents } = useContext_Students();
+
+  useEffect(() => {
+    if (students.length === 0) {
+      fetchStudents();
+    }
+  }, []);
 
   const studentMajor = get_student_major_from_ID(
     leaveNotice.leave_notice_student_ID,
@@ -31,7 +41,7 @@ const LeaveNotices_evaluate_button = (props: CurrentComponentProp) => {
         onClick={() => {
           functionToRun();
         }}>
-        Evaluate
+        {t("LeaveNotices_evaluate_button_title")}
       </button>
     </div>
   );

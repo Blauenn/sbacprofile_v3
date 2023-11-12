@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../custom/Custom_Modal";
 import { TextField_multiline } from "../../../custom/Custom_TextFields";
-import { getData } from "../../../../functions/fetchFromAPI.function";
 import { handleLeaveNoticeUpdate } from "../../../../functions/LeaveNotices/LeaveNotices.function";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
 import LeaveNotice_evaluate_buttons from "../../LeaveNotices_evaluate_buttons.component";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Account } from "../../../../context/Account.context";
@@ -22,7 +20,7 @@ const Head_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
   const { leaveNotice, open, onModalClose } = props;
 
   const { userInfo } = useContext_Account();
-  const { setLeaveNotices } = useContext_LeaveNotices();
+  const { fetchLeaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 
@@ -74,10 +72,7 @@ const Head_leaveNotices_evaluate_modal = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      getData(
-        `${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`,
-        (result: any) => setLeaveNotices(result)
-      );
+      fetchLeaveNotices();
 
       setIsSubmitting(false);
       setIsUpdateSuccess(true);

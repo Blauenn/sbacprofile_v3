@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,17 +15,31 @@ import {
 import { table_content_style } from "../../../../../constants/styles/tables.style";
 import Admin_clubs_modal_delete from "../modal/Admin_clubs_modal_delete.component";
 
+// Contexts //
+import { useContext_Clubs } from "../../../../../context/Clubs.context";
+import { useContext_Teachers } from "../../../../../context/Teachers.context";
+
 interface CurrentComponentProp {
   club: any;
   index: number;
-  clubMemberships: any;
-  teachers: any;
 }
 
 const Admin_clubs_table_row = (props: CurrentComponentProp) => {
-  const { club, index, clubMemberships, teachers } = props;
+  const { club, index } = props;
+
+  const { clubMemberships, fetchClubMemberships } = useContext_Clubs();
+  const { teachers, fetchTeachers } = useContext_Teachers();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (clubMemberships.length === 0) {
+      fetchClubMemberships();
+    }
+    if (teachers.length === 0) {
+      fetchTeachers();
+    }
+  }, []);
 
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const onUpdateModalClose = () => {

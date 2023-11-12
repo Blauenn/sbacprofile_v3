@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
@@ -20,9 +21,15 @@ interface CurrentComponentProp {
 const Teacher_filters = (props: CurrentComponentProp) => {
   const { onMajorChangeHandler, onSearchFieldChangeHandler } = props;
 
-  const { majors } = useContext_Majors();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (majors.length === 0) {
+      fetchMajors();
+    }
+  }, []);
 
   return (
     <div className="flex-col md:flex-row | flex justify-between gap-4">

@@ -5,6 +5,8 @@ import React, {
   ReactNode,
   useMemo,
 } from "react";
+import { getData } from "../functions/fetchFromAPI.function";
+import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Type //
 type TeachersContextType = {
@@ -12,6 +14,7 @@ type TeachersContextType = {
   setTeachers: React.Dispatch<React.SetStateAction<any[]>>;
   teacherCount: number;
   setTeacherCount: React.Dispatch<React.SetStateAction<number>>;
+  fetchTeachers: () => void;
 };
 type TeachersContextProviderProps = {
   children: ReactNode;
@@ -32,9 +35,16 @@ export function useContext_Teachers() {
 
 export function TeachersContextProvider({
   children,
-}: TeachersContextProviderProps) {
+}: Readonly<TeachersContextProviderProps>) {
   const [teachers, setTeachers] = useState<any[]>([]);
   const [teacherCount, setTeacherCount] = useState<number>(0);
+
+  const fetchTeachers = () => {
+    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
+      setTeachers(result);
+      setTeacherCount(result.length);
+    });
+  };
 
   const contextValue = useMemo(
     () => ({
@@ -42,6 +52,7 @@ export function TeachersContextProvider({
       setTeachers,
       teacherCount,
       setTeacherCount,
+      fetchTeachers,
     }),
     [teachers, setTeachers]
   );

@@ -40,7 +40,7 @@ const Student_filters_class = (props: StudentFilterProps) => {
     onSearchFieldChangeHandler,
   } = props;
 
-  const { majors } = useContext_Majors();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
@@ -66,6 +66,7 @@ const Student_filters_class = (props: StudentFilterProps) => {
 
   // Fetch levels //
   useEffect(() => {
+    fetchMajors();
     post(
       `${API_ENDPOINT}/api/v1/classroom/getClassroomByLevel`,
       1,

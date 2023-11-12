@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import Admin_leaveNotices_table_row from "./Admin_leaveNotices_table_row.component";
-import Loading from "../../../misc/Loading.component";
 import {
   table_content_style,
   table_header_style,
@@ -13,50 +12,54 @@ import {
 import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
 
 const Admin_leaveNotices_table = () => {
-  const { leaveNotices } = useContext_LeaveNotices();
+  const { leaveNotices, fetchLeaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (leaveNotices.length === 0) {
+      fetchLeaveNotices();
+    }
+
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  if (leaveNotices.length > 0) {
-    return (
-      <table className={table_parent_style}>
-        <thead>
-          <tr>
-            <th className={`${table_header_style} | hidden lg:table-cell`}>
-              {t("Admin_LeaveNotices_table_header_ID")}
-            </th>
-            <th className={`${table_header_style} | hidden xl:table-cell`}>
-              {t("Admin_LeaveNotices_table_header_submitDate")}
-            </th>
-            <th className={`${table_header_style} | hidden md:table-cell`}>
-              {t("Admin_LeaveNotices_table_header_type")}
-            </th>
-            <th className={table_header_style}>
-              {t("Admin_LeaveNotices_table_header_startDate")}
-            </th>
-            <th className={table_header_style}>
-              {t("Admin_LeaveNotices_table_header_endDate")}
-            </th>
-            <th className={`${table_header_style} | hidden sm:table-cell`}>
-              {t("Admin_LeaveNotices_table_header_status")}
-            </th>
-            <th className={table_header_style}>
-              <i className="fa-solid fa-eye"></i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...leaveNotices]
+  return (
+    <table className={table_parent_style}>
+      <thead>
+        <tr>
+          <th className={`${table_header_style} | hidden lg:table-cell`}>
+            {t("Admin_LeaveNotices_table_header_ID")}
+          </th>
+          <th className={`${table_header_style} | hidden xl:table-cell`}>
+            {t("Admin_LeaveNotices_table_header_submitDate")}
+          </th>
+          <th className={`${table_header_style} | hidden md:table-cell`}>
+            {t("Admin_LeaveNotices_table_header_type")}
+          </th>
+          <th className={table_header_style}>
+            {t("Admin_LeaveNotices_table_header_startDate")}
+          </th>
+          <th className={table_header_style}>
+            {t("Admin_LeaveNotices_table_header_endDate")}
+          </th>
+          <th className={`${table_header_style} | hidden sm:table-cell`}>
+            {t("Admin_LeaveNotices_table_header_status")}
+          </th>
+          <th className={table_header_style}>
+            <i className="fa-solid fa-eye"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {leaveNotices.length > 0 ? (
+          [...leaveNotices]
             .reverse()
             .map((leaveNotice: LeaveNotice, index: number) => (
               <React.Fragment key={leaveNotice.leave_notice_ID}>
@@ -65,54 +68,22 @@ const Admin_leaveNotices_table = () => {
                   index={index}
                 />
               </React.Fragment>
-            ))}
-        </tbody>
-      </table>
-    );
-  } else {
-    return (
-      <>
-        {isLoading ? (
-          <Loading />
+            ))
         ) : (
-          <table className="border border-standardBlack border-opacity-25">
-            <thead>
-              <tr>
-                <th className={`${table_header_style} | hidden lg:table-cell`}>
-                  {t("Admin_LeaveNotices_table_header_ID")}
-                </th>
-                <th className={`${table_header_style} | hidden xl:table-cell`}>
-                  {t("Admin_LeaveNotices_table_header_submitDate")}
-                </th>
-                <th className={`${table_header_style} | hidden md:table-cell`}>
-                  {t("Admin_LeaveNotices_table_header_type")}
-                </th>
-                <th className={table_header_style}>
-                  {t("Admin_LeaveNotices_table_header_startDate")}
-                </th>
-                <th className={table_header_style}>
-                  {t("Admin_LeaveNotices_table_header_endDate")}
-                </th>
-                <th className={`${table_header_style} | hidden sm:table-cell`}>
-                  {t("Admin_LeaveNotices_table_header_status")}
-                </th>
-                <th className={table_header_style}>
-                  <i className="fa-solid fa-pencil"></i>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className={table_content_style}>
-                  {t("Admin_LeaveNotices_table_noLeaveNotices_message")}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <td className={table_content_style}>
+            {isLoading ? (
+              <>
+                <i className="fa-solid fa-spinner animate-spin me-2"></i>
+                {t("Loading_message")}
+              </>
+            ) : (
+              t("Admin_LeaveNotices_table_noLeaveNotices_message")
+            )}
+          </td>
         )}
-      </>
-    );
-  }
+      </tbody>
+    </table>
+  );
 };
 
 export default Admin_leaveNotices_table;

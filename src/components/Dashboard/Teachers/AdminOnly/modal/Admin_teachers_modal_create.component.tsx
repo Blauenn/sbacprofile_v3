@@ -8,19 +8,17 @@ import {
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
 import { Major } from "../../../../../interfaces/common.interface";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
+import { handleTeacherCreate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
+import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import {
   Major_Name,
   Major_Name_German,
   Major_Name_Korean,
   Major_Name_Thai,
 } from "../../../../../constants/Majors.constant";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
-import Info_submit_button from "../../../Buttons/Info_submit_button.component";
-import { handleTeacherCreate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
 
 interface CurrentComponentProp {
@@ -31,17 +29,14 @@ interface CurrentComponentProp {
 const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
 
-  const { setTeachers } = useContext_Teachers();
-  const { majors, setMajors } = useContext_Majors();
+  const { fetchTeachers } = useContext_Teachers();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Majors //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
     }
   }, []);
 
@@ -139,9 +134,7 @@ const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-        setTeachers(result);
-      });
+      fetchTeachers();
 
       setIsSubmitting(false);
       setIsCreateSuccess(true);
@@ -167,7 +160,7 @@ const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
                   <ImageField_profile
                     imageObject={teacherCreateImage}
                     fieldName="teacher_create_image"
-                    imagePreview={imagePreview || ""}
+                    imagePreview={imagePreview ?? ""}
                     setImagePreview={setImagePreview}
                     setImage={setTeacherCreateImage}
                     setFileSizeNotice={setFileSizeNotice}
@@ -227,7 +220,9 @@ const Admin_teachers_modal_create = (props: CurrentComponentProp) => {
           setObject={setTeacherCreateObject}
           value={teacherCreateObject.teacher_major}
           validation={validationErrors.teacher_major}>
-          <option value="0">{t("Admin_Teachers_crud_modal_major_label")}</option>
+          <option value="0">
+            {t("Admin_Teachers_crud_modal_major_label")}
+          </option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"

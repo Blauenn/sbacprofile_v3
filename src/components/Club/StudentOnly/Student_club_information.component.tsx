@@ -1,17 +1,14 @@
+import { useEffect } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { ClubMembership } from "../../../interfaces/common.interface";
 import {
-  get_student_image_from_ID,
-  get_student_major_from_ID,
-  get_student_name_from_ID,
-  get_student_name_thai_from_ID,
   get_teacher_image_from_ID,
   get_teacher_major_from_ID,
   get_teacher_name_from_ID,
   get_teacher_name_thai_from_ID,
 } from "../../../functions/getFromID.function";
 import { teacher_check } from "../../../functions/miscelleneous.function";
+import Club_information_members from "../Club_information_members.component";
 import {
   Major_Name,
   Major_Name_German,
@@ -23,7 +20,6 @@ import {
 import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 // Contexts //
-import { useContext_Students } from "../../../context/Students.context";
 import { useContext_Teachers } from "../../../context/Teachers.context";
 
 interface CurrentComponentProp {
@@ -36,8 +32,13 @@ const Student_club_information = (props: CurrentComponentProp) => {
 
   const { t } = useTranslation();
 
-  const { students } = useContext_Students();
-  const { teachers } = useContext_Teachers();
+  const { teachers, fetchTeachers } = useContext_Teachers();
+
+  useEffect(() => {
+    if (teachers.length === 0) {
+      fetchTeachers();
+    }
+  }, []);
 
   const information_card_style =
     "col-span-5 bg-white shadow-sm rounded-xl p-4 w-full";
@@ -98,46 +99,12 @@ const Student_club_information = (props: CurrentComponentProp) => {
       </div>
       {/* Club members */}
       <div className={information_card_style}>
-        <div className="flex flex-col gap-4">
-          <h1 className="opacity-50">
-            {t("Student_club_members_title", {
-              members: selfClubMembers.length,
-            })}
-          </h1>
-          <div className="flex flex-col gap-2">
-            {selfClubMembers.map((clubMembership: ClubMembership) => (
-              <div
-                key={clubMembership.club_membership_ID}
-                className="flex flex-row items-center gap-4">
-                <img
-                  src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                    clubMembership.club_student,
-                    students
-                  )}`}
-                  className={`${
-                    Major_To_Background_Color[
-                      get_student_major_from_ID(
-                        clubMembership.club_student,
-                        students
-                      )
-                    ]
-                  } w-[32px] h-[32px] rounded-full`}
-                />
-                <h1 className="line-clamp-1">
-                  {i18n.language === "th"
-                    ? get_student_name_thai_from_ID(
-                        clubMembership.club_student,
-                        students
-                      )
-                    : get_student_name_from_ID(
-                        clubMembership.club_student,
-                        students
-                      )}
-                </h1>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Club_information_members
+          selfClubMembers={selfClubMembers}
+          title={t("Student_club_members_title", {
+            members: selfClubMembers.length,
+          })}
+        />
       </div>
     </div>
   );

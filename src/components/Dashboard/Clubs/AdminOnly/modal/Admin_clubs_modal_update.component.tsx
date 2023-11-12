@@ -8,7 +8,6 @@ import {
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
 import { Major } from "../../../../../interfaces/common.interface";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleClubUpdate } from "../../../../../functions/Admin/Clubs/Admin_clubs.function";
 import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
 import {
@@ -26,7 +25,7 @@ import {
   Major_Name_Thai,
   Major_To_Background_Color,
 } from "../../../../../constants/Majors.constant";
-import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { hover_transition } from "../../../../../constants/styles/transitions.style";
 
 // Contexts //
@@ -43,24 +42,18 @@ interface CurrentComponentProp {
 const Admin_clubs_modal_update = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
 
-  const { setClubs } = useContext_Clubs();
-  const { majors, setMajors } = useContext_Majors();
-  const { teachers, setTeachers, setTeacherCount } = useContext_Teachers();
+  const { fetchClubs } = useContext_Clubs();
+  const { majors, fetchMajors } = useContext_Majors();
+  const { teachers, fetchTeachers } = useContext_Teachers();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Teachers //
-    getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-      setTeachers(result);
-      setTeacherCount(result.length);
-    });
-    // Majors //
-    // Only fetch when empty //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
+    }
+    if (teachers.length === 0) {
+      fetchTeachers();
     }
   }, []);
 
@@ -167,20 +160,7 @@ const Admin_clubs_modal_update = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-        // Change the value of the club_teacher from string into an object. //
-        const remappedClub = result.map((club: any) => {
-          const parsedTeacher = JSON.parse(club.club_teacher);
-          return { ...club, club_teacher: parsedTeacher };
-        });
-
-        // Sort in alphabetical order. //
-        const sortedResults = remappedClub.sort((a: any, b: any) => {
-          return a.club_name.localeCompare(b.club_name);
-        });
-
-        setClubs(sortedResults);
-      });
+      fetchClubs();
 
       setIsSubmitting(false);
       setIsUpdateSuccess(true);

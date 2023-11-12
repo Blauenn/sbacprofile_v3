@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
 import Custom_Modal from "../../custom/Custom_Modal";
-import { ClubMembership } from "../../../interfaces/common.interface";
-import { getData } from "../../../functions/fetchFromAPI.function";
+import {
+  ClubJoinRequest,
+  ClubMembership,
+} from "../../../interfaces/common.interface";
 import {
   get_student_image_from_ID,
   get_student_major_from_ID,
@@ -14,7 +16,7 @@ import {
 } from "../../../functions/getFromID.function";
 import { student_access_only } from "../../../functions/permissionChecks.function";
 import Info_create_button from "../../Dashboard/Buttons/Info_create_button.component";
-import Club_rolodex_modal_join from "./Club_rolodex_modal_join.component";
+import Clubs_rolodex_modal_join from "./Clubs_rolodex_modal_join.component";
 import {
   Major_To_Background_Color,
   Major_To_Background_Color_Hover,
@@ -22,13 +24,13 @@ import {
   Major_To_Text_Color,
 } from "../../../constants/Majors.constant";
 import { Default_Image } from "../../../constants/Misc.constant";
-import { API_ENDPOINT, CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
+import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 // Contexts //
+import { useContext_Account } from "../../../context/Account.context";
 import { useContext_Clubs } from "../../../context/Clubs.context";
 import { useContext_Students } from "../../../context/Students.context";
 import { useContext_Teachers } from "../../../context/Teachers.context";
-import { useContext_Account } from "../../../context/Account.context";
 
 interface CurrentComponentProp {
   club: any;
@@ -36,91 +38,69 @@ interface CurrentComponentProp {
   onModalClose: any;
 }
 
-const Club_rolodex_modal = (props: CurrentComponentProp) => {
+const Clubs_rolodex_modal = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
 
   const { t } = useTranslation();
 
-  const { clubMemberships, setClubMemberships } = useContext_Clubs();
-  const { teachers } = useContext_Teachers();
-  const { students } = useContext_Students();
   const { userInfo } = useContext_Account();
+  const {
+    clubMemberships,
+    fetchClubMemberships,
+    clubJoinRequests,
+    fetchClubJoinRequests,
+  } = useContext_Clubs();
+  const { students, fetchStudents } = useContext_Students();
+  const { teachers, fetchTeachers } = useContext_Teachers();
 
-  const [isJoinSuccess, setIsJoinSuccess] = useState(false);
-
-  const fetchClubMemberships = () => {
-    getData(`${API_ENDPOINT}/api/v1/clubMembership/getAll`, (result: any) => {
-      setClubMemberships(result);
-    });
-  };
+  useEffect(() => {
+    if (clubMemberships.length === 0) {
+      fetchClubMemberships();
+    }
+    if (clubJoinRequests.length === 0) {
+      fetchClubJoinRequests();
+    }
+    if (students.length === 0) {
+      fetchStudents();
+    }
+    if (teachers.length === 0) {
+      fetchTeachers();
+    }
+  }, []);
 
   let currentClub: ClubMembership[] = [];
   const clubMembers = () => {
     currentClub = clubMemberships.filter(
-      (clubMembership: ClubMembership) => clubMembership.club_ID == club.club_ID
+      (clubMembership: ClubMembership) =>
+        clubMembership.club_membership_club_ID == club.club_ID
     );
     return currentClub.length !== 0;
   };
 
-  const selfClubCheck = () => {
-    // Return true if the student already has a club. //
-    return !!clubMemberships.find(
+  const studentSelfClubCheck = () => {
+    const clubMembershipCheck = clubMemberships.some(
       (clubMembership: ClubMembership) =>
-        clubMembership.club_student == userInfo.profile_ID
-    );
-  };
-
-  const handleClubJoin = async (club_ID: number) => {
-    const clubJoinObject = {
-      club_ID: club_ID,
-      club_student: userInfo.profile_ID,
-    };
-    const clubJoinJSON = JSON.stringify(clubJoinObject);
-
-    // Fetch club membership before the student can join a club to check if they...
-    // already has a club or not. //
-    let newClubMemberships: ClubMembership[] = [];
-    let existingClubMembership: ClubMembership | undefined;
-    await getData(
-      `${API_ENDPOINT}/api/v1/clubMembership/getAll`,
-      (result: any) => {
-        newClubMemberships = result;
-      }
+        clubMembership.club_membership_student_ID === userInfo.profile_ID
     );
 
-    if (newClubMemberships) {
-      existingClubMembership = newClubMemberships.find(
-        (clubMembership: ClubMembership) =>
-          clubMembership.club_student == userInfo.profile_ID
-      );
+    // Student has a club membership. //
+    if (clubMembershipCheck) {
+      return true;
     }
 
-    // Join the club for the current user. //
-    // If the current user doesn't have a club. //
-    if (!existingClubMembership) {
-      try {
-        const response = await fetch(
-          `${API_ENDPOINT}/api/v1/clubMembership/create`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: clubJoinJSON,
-          }
-        );
+    const clubJoinRequestCheck = clubJoinRequests.some(
+      (clubJoinRequest: ClubJoinRequest) =>
+        clubJoinRequest.club_join_request_student_ID === userInfo.profile_ID &&
+        clubJoinRequest.club_join_request_status === 1
+    );
 
-        if (response.status) {
-          setIsJoinSuccess(true);
-          console.log(isJoinSuccess);
-          fetchClubMemberships();
-        } else {
-          setIsJoinSuccess(false);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      console.log("The user already has a club.");
+    // Student has a club join request. //
+    if (clubJoinRequestCheck) {
+      return true;
     }
+
+    // Student doesn't have a club membership or join request. //
+    return false;
   };
 
   const [joinModalOpen, setJoinModalOpen] = useState(false);
@@ -208,7 +188,7 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                     <Tooltip
                       key={clubMembership.club_membership_ID}
                       title={get_student_name_from_ID(
-                        clubMembership.club_student,
+                        clubMembership.club_membership_student_ID,
                         students
                       )}
                       placement="bottom"
@@ -217,21 +197,21 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
                         className={`${
                           Major_To_Background_Color[
                             get_student_major_from_ID(
-                              clubMembership.club_student,
+                              clubMembership.club_membership_student_ID,
                               students
                             )
                           ]
                         } w-[40px] h-[40px] rounded-full overflow-hidden`}>
                         <img
                           src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                            clubMembership.club_student,
+                            clubMembership.club_membership_student_ID,
                             students
                           )}`}
                           className={`border-2 flex-shrink-0 ${
                             club
                               ? Major_To_Border_Color[
                                   get_student_major_from_ID(
-                                    clubMembership.club_student,
+                                    clubMembership.club_membership_student_ID,
                                     students
                                   )
                                 ]
@@ -258,10 +238,9 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
               </div>
             )
           ) : null}
-          {!selfClubCheck() &&
-          student_access_only(userInfo.profile_position) ? (
+          {student_access_only(userInfo.profile_position) ? (
             <>
-              <Club_rolodex_modal_join
+              <Clubs_rolodex_modal_join
                 club={club}
                 open={joinModalOpen}
                 onModalClose={onJoinModalClose}
@@ -269,12 +248,17 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
               <Info_create_button
                 text={t("Clubs_modal_joinClub_button_title")}
                 icon="fa-solid fa-right-from-bracket"
-                color={`${Major_To_Border_Color[club.club_major]} ${
-                  Major_To_Text_Color[club.club_major]
-                } ${Major_To_Background_Color_Hover[club.club_major]}`}
+                color={
+                  studentSelfClubCheck()
+                    ? "border-gray-500 bg-gray-500 text-white"
+                    : `${Major_To_Border_Color[club.club_major]} ${
+                        Major_To_Text_Color[club.club_major]
+                      } ${Major_To_Background_Color_Hover[club.club_major]}`
+                }
                 setModalOpen={() => {
                   setJoinModalOpen(true);
                 }}
+                disabled={studentSelfClubCheck()}
                 fullWidth
               />
             </>
@@ -285,4 +269,4 @@ const Club_rolodex_modal = (props: CurrentComponentProp) => {
   );
 };
 
-export default Club_rolodex_modal;
+export default Clubs_rolodex_modal;

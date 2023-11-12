@@ -1,37 +1,22 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Student } from "../interfaces/common.interface";
-import { getData } from "../functions/fetchFromAPI.function";
 import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import StudentRolodex from "../components/Students/Student_rolodex.component";
 import StudentFilters from "../components/Students/Student_filters.component";
-import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../context/Students.context";
-import { useContext_Majors } from "../context/Majors.context";
 
 const Students = () => {
-  const { students, setStudents, studentCount, setStudentCount } =
-    useContext_Students();
-  const { majors, setMajors } = useContext_Majors();
+  const { students, studentCount, fetchStudents } = useContext_Students();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Students //
     if (students.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-        setStudents(result);
-        setStudentCount(result.length);
-      });
-    }
-    // Majors //
-    if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchStudents();
     }
   }, []);
 

@@ -4,14 +4,12 @@ import {
   Classroom,
   LeaveNotice,
 } from "../../../../interfaces/common.interface";
-import { getData } from "../../../../functions/fetchFromAPI.function";
 import Teacher_leaveNotices_table_row from "./Teacher_leaveNotices_table_row.component";
 import {
   table_content_style,
   table_header_style,
   table_parent_style,
 } from "../../../../constants/styles/tables.style";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 import { get_classroom_from_student_ID } from "../../../../functions/getFromID.function";
 
 // Contexts //
@@ -22,18 +20,22 @@ import { useContext_Classrooms } from "../../../../context/Classrooms.context";
 
 const Teacher_leaveNotices_table = () => {
   const { userInfo } = useContext_Account();
-  const { leaveNotices } = useContext_LeaveNotices();
-  const { students } = useContext_Students();
-  const { classrooms, setClassrooms } = useContext_Classrooms();
+  const { leaveNotices, fetchLeaveNotices } = useContext_LeaveNotices();
+  const { students, fetchStudents } = useContext_Students();
+  const { classrooms, fetchClassrooms } = useContext_Classrooms();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    (async () => {
-      await getData(`${API_ENDPOINT}/api/v1/classroom`, (result: any) =>
-        setClassrooms(result)
-      );
-    })();
+    if (leaveNotices.length === 0) {
+      fetchLeaveNotices();
+    }
+    if (students.length === 0) {
+      fetchStudents();
+    }
+    if (classrooms.length === 0) {
+      fetchClassrooms();
+    }
   }, []);
 
   const leaveNoticeWithClassroom = leaveNotices.map(

@@ -25,13 +25,9 @@ const validateLeaveNoticeObject = (
   if (!validationResult.success) {
     validationResult.error.issues.forEach((issue: any) => {
       // Add custom error messages based on which validation fails. //
-      switch (issue.path[0]) {
-        case "leave_notice_description":
-          validationErrors.leave_notice_description =
-            "The description should not be empty.";
-          break;
-        default:
-          break;
+      if (issue.path[0] === "leave_notice_description") {
+        validationErrors.leave_notice_description =
+          "The description should not be empty.";
       }
     });
     setValidationErrors(validationErrors);
@@ -83,12 +79,12 @@ export const handleLeaveNoticeCreate = async (
   const validation = validateLeaveNoticeObject(
     leaveNoticeCreateObject,
     setValidationErrors
-    );
-    
-    // If validation passes. //
-    if (validation) {
-      // Upload the file //
-      if (leaveNoticeFile) {
+  );
+
+  // If validation passes. //
+  if (validation) {
+    // Upload the file //
+    if (leaveNoticeFile) {
       uploadLeaveNoticeFile(leaveNoticeFile, leaveNoticeFileName);
     }
 
@@ -203,8 +199,7 @@ export const handleLeaveNoticeUpdate = async (
           leaveNoticeOriginalObject.leave_notice_attached_file,
 
         leave_notice_head_ID: leaveNoticeOriginalObject.leave_notice_head_ID,
-        leave_notice_head_status:
-          leaveNoticeOriginalObject.leave_notice_head_status,
+        leave_notice_head_status: 1,
         leave_notice_head_description:
           leaveNoticeOriginalObject.leave_notice_head_description,
         leave_notice_head_change_datetime:
@@ -340,30 +335,14 @@ export const get_color_from_status_timeline = (
 };
 // The text that's to be used under the icons in the timeline. //
 export const get_text_from_status_timeline = (status: number, t: any) => {
-  if (status == 2) {
-    return (
-      <h1 className="hidden sm:block | font-semibold text-green-500 | text-sm sm:text-base">
-        {t("LeaveNotices_status_timeline_approved")}
-      </h1>
-    );
-  } else if (status == 3) {
-    return (
-      <h1 className="hidden sm:block | font-semibold text-yellow-500 | text-sm sm:text-base">
-        {t("LeaveNotices_status_timeline_changesNeeded")}
-      </h1>
-    );
-  } else if (status == 4) {
-    return (
-      <h1 className="hidden sm:block | font-semibold text-red-500 | text-sm sm:text-base">
-        {t("LeaveNotices_status_timeline_rejected")}
-      </h1>
-    );
+  if (status === 2) {
+    return t("LeaveNotices_status_timeline_approved");
+  } else if (status === 3) {
+    return t("LeaveNotices_status_timeline_changesNeeded");
+  } else if (status === 4) {
+    return t("LeaveNotices_status_timeline_rejected");
   } else {
-    return (
-      <h1 className="hidden sm:block | font-semibold opacity-50 | text-sm sm:text-base">
-        {t("LeaveNotices_status_timeline_pending")}
-      </h1>
-    );
+    return;
   }
 };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tooltip } from "@mui/material";
 import { ClubMembership } from "../../../interfaces/common.interface";
 import {
@@ -8,7 +8,7 @@ import {
   get_teacher_image_from_ID,
   get_teacher_name_from_ID,
 } from "../../../functions/getFromID.function";
-import Club_rolodex_modal from "../modal/Club_rolodex_modal.component";
+import Clubs_rolodex_modal from "../modal/Clubs_rolodex_modal.component";
 import { Default_Image } from "../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 import {
@@ -21,22 +21,36 @@ import { hover_transition } from "../../../constants/styles/transitions.style";
 // Contexts //
 import { useContext_Teachers } from "../../../context/Teachers.context";
 import { useContext_Students } from "../../../context/Students.context";
+import { useContext_Clubs } from "../../../context/Clubs.context";
 
 interface CurrentComponentProp {
   club: any;
-  clubMemberships: any;
 }
 
-const Club_rolodex_card = (props: CurrentComponentProp) => {
-  const { club, clubMemberships } = props;
+const Clubs_rolodex_card = (props: CurrentComponentProp) => {
+  const { club } = props;
 
-  const { students } = useContext_Students();
-  const { teachers } = useContext_Teachers();
+  const { students, fetchStudents } = useContext_Students();
+  const { teachers, fetchTeachers } = useContext_Teachers();
+  const { clubMemberships, fetchClubMemberships } = useContext_Clubs();
+
+  useEffect(() => {
+    if (students.length === 0) {
+      fetchStudents();
+    }
+    if (teachers.length === 0) {
+      fetchTeachers();
+    }
+    if (clubMemberships.length === 0) {
+      fetchClubMemberships();
+    }
+  }, []);
 
   let currentClub: any = [];
   const clubMembers = () => {
     currentClub = clubMemberships.filter(
-      (clubMembership: ClubMembership) => clubMembership.club_ID == club.club_ID
+      (clubMembership: ClubMembership) =>
+        clubMembership.club_membership_club_ID == club.club_ID
     );
 
     return currentClub.length !== 0;
@@ -53,7 +67,9 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
       <div
         className={`h-full relative flex flex-col bg-white shadow-sm rounded-xl overflow-hidden | ${hover_transition} hover:bg-slate-200 cursor-pointer`}
         onClick={() => setModalOpen(true)}>
-        {club.club_image != "/assets/profilePic/clubs/default.jpg" ? (
+        {club.club_image !== "/assets/profilePic/clubs/undefined" &&
+        club.club_image !== "/assets/profilePic/clubs/default.jpg" &&
+        club.club_image !== "/assets/profilePic/clubs/" ? (
           <div
             className="w-full h-[200px] bg-top bg-cover bg-no-repeat"
             style={{
@@ -105,7 +121,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                         <Tooltip
                           key={clubMembership.club_membership_ID}
                           title={get_student_name_from_ID(
-                            clubMembership.club_student,
+                            clubMembership.club_membership_student_ID,
                             students
                           )}
                           placement="bottom"
@@ -114,21 +130,21 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
                             className={`${
                               Major_To_Background_Color[
                                 get_student_major_from_ID(
-                                  clubMembership.club_student,
+                                  clubMembership.club_membership_student_ID,
                                   students
                                 )
                               ]
                             } w-[40px] h-[40px] rounded-full overflow-hidden`}>
                             <img
                               src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                                clubMembership.club_student,
+                                clubMembership.club_membership_student_ID,
                                 students
                               )}`}
                               className={`border-2 flex-shrink-0 ${
                                 club
                                   ? Major_To_Border_Color[
                                       get_student_major_from_ID(
-                                        clubMembership.club_student,
+                                        clubMembership.club_membership_student_ID,
                                         students
                                       )
                                     ]
@@ -148,7 +164,7 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
           </div>
         </div>
       </div>
-      <Club_rolodex_modal
+      <Clubs_rolodex_modal
         club={club}
         open={modalOpen}
         onModalClose={onModalClose}
@@ -157,4 +173,4 @@ const Club_rolodex_card = (props: CurrentComponentProp) => {
   );
 };
 
-export default Club_rolodex_card;
+export default Clubs_rolodex_card;

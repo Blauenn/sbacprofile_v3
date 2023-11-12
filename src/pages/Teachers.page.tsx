@@ -1,37 +1,22 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Teacher } from "../interfaces/common.interface";
-import { getData } from "../functions/fetchFromAPI.function";
 import { has_number } from "../functions/stringManipulation.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
 import TeacherRolodex from "../components/Teachers/Teacher_rolodex.component";
 import TeacherFilters from "../components/Teachers/Teacher_filters.component";
-import { API_ENDPOINT } from "../constants/ENDPOINTS";
 
 // Contexts //
-import { useContext_Majors } from "../context/Majors.context";
 import { useContext_Teachers } from "../context/Teachers.context";
 
 const Teachers = () => {
-  const { teachers, setTeachers, teacherCount, setTeacherCount } =
-    useContext_Teachers();
-  const { majors, setMajors } = useContext_Majors();
+  const { teachers, teacherCount, fetchTeachers } = useContext_Teachers();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Teachers //
     if (teachers.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/teacher/getAll`, (result: any) => {
-        setTeachers(result);
-        setTeacherCount(result.length);
-      });
-    }
-    // Majors //
-    if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchTeachers();
     }
   }, []);
 

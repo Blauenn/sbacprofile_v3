@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Table_button from "../../../../table/Table_button.component";
 import Admin_student_modal_update from "../modal/Admin_students_modal_update.component";
+import Admin_students_modal_delete from "../modal/Admin_students_modal_delete.component";
 import { Major_To_Background_Color } from "../../../../../constants/Majors.constant";
 import { Default_Image } from "../../../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
-import Admin_students_modal_delete from "../modal/Admin_students_modal_delete.component";
 
 interface CurrentComponentProp {
   student: any;

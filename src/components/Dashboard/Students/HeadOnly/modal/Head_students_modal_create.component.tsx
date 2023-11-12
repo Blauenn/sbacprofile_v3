@@ -7,11 +7,9 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { Major } from "../../../../../interfaces/common.interface";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleStudentCreate } from "../../../../../functions/Admin/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import {
   Major_Name,
   Major_Name_German,
@@ -20,9 +18,9 @@ import {
 } from "../../../../../constants/Majors.constant";
 
 // Contexts //
+import { useContext_Account } from "../../../../../context/Account.context";
 import { useContext_Students } from "../../../../../context/Students.context";
 import { useContext_Majors } from "../../../../../context/Majors.context";
-import { useContext_Account } from "../../../../../context/Account.context";
 
 interface CurrentComponentProp {
   open: boolean;
@@ -32,18 +30,15 @@ interface CurrentComponentProp {
 const Head_students_modal_create = (props: CurrentComponentProp) => {
   const { open, onModalClose } = props;
 
-  const { setStudents } = useContext_Students();
-  const { majors, setMajors } = useContext_Majors();
   const { userInfo } = useContext_Account();
+  const { fetchStudents } = useContext_Students();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Majors //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
     }
   }, []);
 
@@ -149,9 +144,7 @@ const Head_students_modal_create = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-        setStudents(result);
-      });
+      fetchStudents();
 
       setIsSubmitting(false);
       setIsCreateSuccess(true);
@@ -177,7 +170,7 @@ const Head_students_modal_create = (props: CurrentComponentProp) => {
                   <ImageField_profile
                     imageObject={studentCreateImage}
                     fieldName="student_create_image"
-                    imagePreview={imagePreview || ""}
+                    imagePreview={imagePreview ?? ""}
                     setImagePreview={setImagePreview}
                     setImage={setStudentCreateImage}
                     setFileSizeNotice={setFileSizeNotice}

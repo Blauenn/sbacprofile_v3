@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import { handleStudentDelete } from "../../../../../functions/Admin/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { ImageField_profile_image_styles } from "../../../../../constants/styles/image.style";
-import { API_ENDPOINT, CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
+import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Students } from "../../../../../context/Students.context";
@@ -19,7 +18,7 @@ interface CurrentComponentProp {
 const Admin_students_modal_delete = (props: CurrentComponentProp) => {
   const { student, open, onModalClose } = props;
 
-  const { setStudents, setStudentCount } = useContext_Students();
+  const { fetchStudents } = useContext_Students();
 
   const { t } = useTranslation();
 
@@ -38,11 +37,7 @@ const Admin_students_modal_delete = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      // Students //
-      getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-        setStudents(result);
-        setStudentCount(result.length);
-      });
+      fetchStudents();
 
       setIsSubmitting(false);
       setIsDeleteSuccess(true);

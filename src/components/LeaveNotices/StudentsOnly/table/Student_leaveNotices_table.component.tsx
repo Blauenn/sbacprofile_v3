@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LeaveNotice } from "../../../../interfaces/common.interface";
 import Student_leaveNotices_table_row from "./Student_leaveNotices_table_row.component";
@@ -12,12 +12,17 @@ import {
 import { useContext_Account } from "../../../../context/Account.context";
 import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
 
-
 const Student_leaveNotices_table = () => {
   const { userInfo } = useContext_Account();
-  const { leaveNotices } = useContext_LeaveNotices();
+  const { leaveNotices, fetchLeaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (leaveNotices.length === 0) {
+      fetchLeaveNotices();
+    }
+  }, []);
 
   // Only get leave notices that has been made by the current user. //
   const selfLeaveNotices = leaveNotices.filter(

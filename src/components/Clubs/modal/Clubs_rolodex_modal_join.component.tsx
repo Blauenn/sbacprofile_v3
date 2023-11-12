@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import dayjs from "dayjs";
 import Custom_Modal from "../../custom/Custom_Modal";
 import { handleClubJoinRequestCreate } from "../../../functions/Clubs/Clubs.function";
-import { getData } from "../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../Dashboard/Buttons/Info_submit_button.component";
 import {
   Major_To_Background_Color_Hover,
   Major_To_Border_Color,
   Major_To_Text_Color,
 } from "../../../constants/Majors.constant";
-import { API_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Account } from "../../../context/Account.context";
@@ -21,11 +20,11 @@ interface CurrentComponentProp {
   onModalClose: any;
 }
 
-const Club_rolodex_modal_join = (props: CurrentComponentProp) => {
+const Clubs_rolodex_modal_join = (props: CurrentComponentProp) => {
   const { club, open, onModalClose } = props;
 
   const { userInfo } = useContext_Account();
-  const { setClubJoinRequests } = useContext_Clubs();
+  const { fetchClubJoinRequests } = useContext_Clubs();
 
   const { t } = useTranslation();
 
@@ -35,15 +34,16 @@ const Club_rolodex_modal_join = (props: CurrentComponentProp) => {
   const setObjectAndSubmit = async () => {
     setIsSubmitting(true);
 
+    const currentDateString: string = dayjs().toISOString();
+
     const submissionStatus = await handleClubJoinRequestCreate(
       club.club_ID,
-      userInfo.profile_ID
+      userInfo.profile_ID,
+      currentDateString
     );
 
     if (submissionStatus) {
-      //   getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-      //     setClubJoinRequest(result);
-      //   });
+      fetchClubJoinRequests();
 
       setIsSubmitting(false);
       setIsSubmitSuccess(true);
@@ -91,4 +91,4 @@ const Club_rolodex_modal_join = (props: CurrentComponentProp) => {
   );
 };
 
-export default Club_rolodex_modal_join;
+export default Clubs_rolodex_modal_join;

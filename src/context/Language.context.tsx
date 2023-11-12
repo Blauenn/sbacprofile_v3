@@ -24,7 +24,7 @@ export function useContext_Languages() {
 
 export function LanguageContextProvider({
   children,
-}: LanguageContextProviderProps) {
+}: Readonly<LanguageContextProviderProps>) {
   const [languages, setLanguages] = useState<string>("en");
 
   const contextValue = useMemo(

@@ -9,7 +9,7 @@ interface CurrentComponentProps {
   leaveNotice: LeaveNotice;
 }
 
-const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
+const Dashboard_requestTimeline = (props: CurrentComponentProps) => {
   const { leaveNotice } = props;
 
   return (
@@ -60,4 +60,4 @@ const Dashboard_requstTimeline = (props: CurrentComponentProps) => {
   );
 };
 
-export default Dashboard_requstTimeline;
+export default Dashboard_requestTimeline;

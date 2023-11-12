@@ -92,8 +92,8 @@ export interface Club {
 }
 export interface ClubMembership {
   club_membership_ID: number;
-  club_ID: number;
-  club_student: number;
+  club_membership_club_ID: number;
+  club_membership_student_ID: number;
 }
 export interface ClubJoinRequest {
   club_join_request_ID: number;

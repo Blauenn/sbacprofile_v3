@@ -26,7 +26,7 @@ export function useContext_Account() {
 
 export function AccountContextProvider({
   children,
-}: AccountContextProviderProps) {
+}: Readonly<AccountContextProviderProps>) {
   const [accessToken, setAccessToken] = useState<string>("");
   const [userInfo, setUserInfo] = useState<any>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

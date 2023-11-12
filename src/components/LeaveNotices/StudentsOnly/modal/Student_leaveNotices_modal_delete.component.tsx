@@ -8,9 +8,7 @@ import {
 } from "../../../../functions/getDates.function";
 import { handleLeaveNoticeDelete } from "../../../../functions/LeaveNotices/LeaveNotices.function";
 import Info_submit_button from "../../../Dashboard/Buttons/Info_submit_button.component";
-import { getData } from "../../../../functions/fetchFromAPI.function";
 import { Day_Colors } from "../../../../constants/Misc.constant";
-import { API_ENDPOINT } from "../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_LeaveNotices } from "../../../../context/LeaveNotices.context";
@@ -24,7 +22,7 @@ interface CurrentComponentProp {
 const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
   const { leaveNotice, open, onModalClose } = props;
 
-  const { setLeaveNotices } = useContext_LeaveNotices();
+  const { fetchLeaveNotices } = useContext_LeaveNotices();
 
   const { t } = useTranslation();
 
@@ -43,10 +41,7 @@ const Student_leaveNotices_modal_delete = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      getData(
-        `${API_ENDPOINT}/api/v1/forms/leaveNotice/getAll`,
-        (result: any) => setLeaveNotices(result)
-      );
+      fetchLeaveNotices();
 
       setIsSubmitting(false);
       setIsDeleteSuccess(true);

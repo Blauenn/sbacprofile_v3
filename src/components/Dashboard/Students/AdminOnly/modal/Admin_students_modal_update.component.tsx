@@ -9,7 +9,6 @@ import Custom_Modal from "../../../../custom/Custom_Modal";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
 import { Major } from "../../../../../interfaces/common.interface";
 import { handleStudentUpdate } from "../../../../../functions/Admin/Students/Admin_students.function";
-import { getData } from "../../../../../functions/fetchFromAPI.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import {
   Major_Name,
@@ -17,7 +16,6 @@ import {
   Major_Name_Korean,
   Major_Name_Thai,
 } from "../../../../../constants/Majors.constant";
-import { API_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 
 // Contexts //
 import { useContext_Majors } from "../../../../../context/Majors.context";
@@ -32,17 +30,14 @@ interface CurrentComponentProp {
 const Admin_students_modal_update = (props: CurrentComponentProp) => {
   const { student, open, onModalClose } = props;
 
-  const { setStudents } = useContext_Students();
-  const { majors, setMajors } = useContext_Majors();
+  const { fetchStudents } = useContext_Students();
+  const { majors, fetchMajors } = useContext_Majors();
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Majors //
     if (majors.length === 0) {
-      getData(`${API_ENDPOINT}/api/v1/major/getAll`, (result: any) => {
-        setMajors(result);
-      });
+      fetchMajors();
     }
   }, []);
 
@@ -148,9 +143,7 @@ const Admin_students_modal_update = (props: CurrentComponentProp) => {
     );
 
     if (submissionStatus) {
-      await getData(`${API_ENDPOINT}/api/v1/student/getAll`, (result: any) => {
-        setStudents(result);
-      });
+      fetchStudents();
 
       setIsSubmitting(false);
       setIsUpdateSuccess(true);
@@ -233,7 +226,9 @@ const Admin_students_modal_update = (props: CurrentComponentProp) => {
           setObject={setStudentUpdateObject}
           value={studentUpdateObject.student_major}
           validation={validationErrors.student_major}>
-          <option value="0">{t("Admin_Students_crud_modal_major_label")}</option>
+          <option value="0">
+            {t("Admin_Students_crud_modal_major_label")}
+          </option>
           {majors.map((major: Major) => (
             <option key={major.major_ID} value={major.major_ID}>
               {i18n.language === "th"
