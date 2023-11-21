@@ -6,9 +6,9 @@ import { handleLogin } from "../functions/Login/Login.function";
 import { hover_transition } from "../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
-  setAccessToken: any;
+  setAccessToken: React.Dispatch<React.SetStateAction<string>>;
   setUserInfo: any;
-  setIsLoggedIn: any;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Login = (props: CurrentComponentProp) => {

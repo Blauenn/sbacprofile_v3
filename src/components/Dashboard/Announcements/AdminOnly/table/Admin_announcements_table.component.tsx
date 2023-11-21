@@ -53,7 +53,7 @@ const Admin_announcements_table = () => {
       </thead>
       <tbody>
         {announcements.length > 0 ? (
-          announcements
+          [...announcements]
             .reverse()
             .map((announcement: Announcement, index: number) => (
               <React.Fragment key={announcement.announcement_ID}>

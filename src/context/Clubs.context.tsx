@@ -17,10 +17,18 @@ type ClubsContextType = {
   clubMemberships: any[];
   setClubMemberships: React.Dispatch<React.SetStateAction<any[]>>;
   fetchClubMemberships: () => void;
+  
+  clubManagers: any[];
+  setClubManagers: React.Dispatch<React.SetStateAction<any[]>>;
+  fetchClubManagers: () => void;
 
   clubJoinRequests: any[];
   setClubJoinRequests: React.Dispatch<React.SetStateAction<any[]>>;
   fetchClubJoinRequests: () => void;
+
+  clubLeaveRequests: any[];
+  setClubLeaveRequests: React.Dispatch<React.SetStateAction<any[]>>;
+  fetchClubLeaveRequests: () => void;
 };
 type ClubsContextProviderProps = {
   children: ReactNode;
@@ -42,22 +50,13 @@ export function ClubsContextProvider({
 }: Readonly<ClubsContextProviderProps>) {
   const [clubs, setClubs] = useState<any[]>([]);
   const [clubMemberships, setClubMemberships] = useState<any[]>([]);
+  const [clubManagers, setClubManagers] = useState<any[]>([]);
   const [clubJoinRequests, setClubJoinRequests] = useState<any[]>([]);
+  const [clubLeaveRequests, setClubLeaveRequests] = useState<any[]>([]);
 
   const fetchClubs = () => {
     getData(`${API_ENDPOINT}/api/v1/club/getAll`, (result: any) => {
-      // Change the value of the club_teacher from string into an object. //
-      const remappedClub = result.map((club: any) => {
-        const parsedTeacher = JSON.parse(club.club_teacher);
-        return { ...club, club_teacher: parsedTeacher };
-      });
-
-      // Sort in alphabetical order. //
-      const sortedResults = remappedClub.sort((a: any, b: any) => {
-        return a.club_name.localeCompare(b.club_name);
-      });
-
-      setClubs(sortedResults);
+      setClubs(result);
     });
   };
   const fetchClubMemberships = () => {
@@ -65,9 +64,19 @@ export function ClubsContextProvider({
       setClubMemberships(result);
     });
   };
+  const fetchClubManagers = () => {
+    getData(`${API_ENDPOINT}/api/v1/clubManager/getAll`, (result: any) => {
+      setClubManagers(result);
+    });
+  };
   const fetchClubJoinRequests = () => {
     getData(`${API_ENDPOINT}/api/v1/clubJoinRequest/getAll`, (result: any) => {
       setClubJoinRequests(result);
+    });
+  };
+  const fetchClubLeaveRequests = () => {
+    getData(`${API_ENDPOINT}/api/v1/clubLeaveRequest/getAll`, (result: any) => {
+      setClubLeaveRequests(result);
     });
   };
 
@@ -81,17 +90,33 @@ export function ClubsContextProvider({
       setClubMemberships,
       fetchClubMemberships,
 
+      clubManagers,
+      setClubManagers,
+      fetchClubManagers,
+
       clubJoinRequests,
       setClubJoinRequests,
       fetchClubJoinRequests,
+      
+      clubLeaveRequests,
+      setClubLeaveRequests,
+      fetchClubLeaveRequests,
     }),
     [
       clubs,
       setClubs,
+
       clubMemberships,
       setClubMemberships,
+
+      clubManagers,
+      setClubManagers,
+      
       clubJoinRequests,
       setClubJoinRequests,
+
+      clubLeaveRequests,
+      setClubLeaveRequests,
     ]
   );
 

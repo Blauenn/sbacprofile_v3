@@ -4,11 +4,12 @@ import {
     change_to_date,
     change_to_locale_date,
 } from "../../functions/getDates.function";
+import { Announcement } from "../../interfaces/common.interface";
 import { CDN_ENDPOINT } from "../../constants/ENDPOINTS";
 import { hover_transition } from "../../constants/styles/transitions.style";
 
 interface CurrentComponentProp {
-  announcement: any;
+  announcement: Announcement;
 }
 
 const Announcement_rolodex_card = (props: CurrentComponentProp) => {
@@ -18,12 +19,12 @@ const Announcement_rolodex_card = (props: CurrentComponentProp) => {
     <div
       key={announcement.announcement_ID}
       className={`bg-white shadow-sm rounded-xl w-full ${hover_transition} hover:bg-slate-200 cursor-pointer`}>
-      <div className="flex flex-col sm:flex-row gap-4 h-full">
+      <div className="flex flex-col md:flex-row gap-4 h-full">
         {announcement.announcement_image !== "/assets/files/announcements/" ? (
-          <div className={`flex items-center max-w-[300px] h-full`}>
+          <div className={`flex items-center h-full`}>
             <img
               src={`${CDN_ENDPOINT}${announcement.announcement_image}`}
-              className="border rounded-xl sm:max-w-[320px]"
+              className="border rounded-xl md:max-w-[320px]"
             />
           </div>
         ) : (

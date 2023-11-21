@@ -245,7 +245,6 @@
     "Admin_LeaveNotices_table_noLeaveNotices_message": "휴가 통지 없음",
 
     "Admin_LeaveNotices_table_header_ID": "ID",
-    "Admin_LeaveNotices_table_header_submitDate": "제출일",
     "Admin_LeaveNotices_table_header_type": "유형",
     "Admin_LeaveNotices_table_header_startDate": "시작일",
     "Admin_LeaveNotices_table_header_endDate": "종료일",
@@ -283,7 +282,7 @@
     "LeaveNotices_teachers_myLeaveNotices_title": "학생이 공지사항을 남깁니다.",
     "LeaveNotices_teachers_view_modal_header": "나의 휴가 통지서",
     
-    "LeaveNotices_table_header_submitDate": "제출일",
+    "LeaveNotices_table_header_student": "교사",
     "LeaveNotices_table_header_type": "유형",
     "LeaveNotices_table_header_startDate": "시작일",
     "LeaveNotices_table_header_endDate": "종료일",

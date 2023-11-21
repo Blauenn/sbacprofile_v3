@@ -5,9 +5,10 @@ import { Major_To_Background_Color } from "../../../../../constants/Majors.const
 import { Default_Image } from "../../../../../constants/Misc.constant";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
+import { Student } from "../../../../../interfaces/common.interface";
 
 interface CurrentComponentProp {
-  student: any;
+  student: Student;
   index: number;
 }
 

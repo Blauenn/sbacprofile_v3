@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { handleStudentDelete } from "../../../../../functions/Admin/Students/Admin_students.function";
+import { Student } from "../../../../../interfaces/common.interface";
+import { handleStudentDelete } from "../../../../../functions/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { ImageField_profile_image_styles } from "../../../../../constants/styles/image.style";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
@@ -10,9 +11,9 @@ import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { useContext_Students } from "../../../../../context/Students.context";
 
 interface CurrentComponentProp {
-  student: any;
+  student: Student;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_students_modal_delete = (props: CurrentComponentProp) => {

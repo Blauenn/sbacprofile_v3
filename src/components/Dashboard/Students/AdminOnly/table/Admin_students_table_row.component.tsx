@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Student } from "../../../../../interfaces/common.interface";
 import Table_button from "../../../../table/Table_button.component";
 import Admin_student_modal_update from "../modal/Admin_students_modal_update.component";
 import Admin_students_modal_delete from "../modal/Admin_students_modal_delete.component";
@@ -8,7 +9,7 @@ import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  student: any;
+  student: Student;
   index: number;
 }
 

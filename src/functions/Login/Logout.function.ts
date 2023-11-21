@@ -1,9 +1,9 @@
 export const logout = (
-  setAccessToken: any,
+  setAccessToken: React.Dispatch<React.SetStateAction<string>>,
   setUserInfo: any,
-  setIsLoggedIn: any,
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
   shouldClear: any,
-  setShouldClear: any
+  setShouldClear: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   if (shouldClear) {
     setAccessToken("");

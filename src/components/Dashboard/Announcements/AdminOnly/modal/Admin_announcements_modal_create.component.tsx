@@ -6,7 +6,7 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
-import { handleAnnouncementCreate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
+import { handleAnnouncementCreate } from "../../../../../functions/Announcements/Admin_announcements.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
 
@@ -15,7 +15,7 @@ import { useContext_Announcements } from "../../../../../context/Announcements.c
 
 interface CurrentComponentProp {
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_announcements_modal_create = (props: CurrentComponentProp) => {

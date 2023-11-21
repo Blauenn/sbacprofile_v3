@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { Major, Teacher } from "../../../../interfaces/common.interface";
+import { Classroom, Major, Teacher } from "../../../../interfaces/common.interface";
 import Custom_Modal from "../../../custom/Custom_Modal";
 import {
   TextField_select,
   TextField_text,
 } from "../../../custom/Custom_TextFields";
-import { handleClassroomUpdate } from "../../../../functions/Admin/Classrooms/Admin_classrooms.function";
+import { handleClassroomUpdate } from "../../../../functions/Classrooms/Admin_classrooms.function";
 import Info_submit_button from "../../Buttons/Info_submit_button.component";
 import {
   Major_Name,
@@ -22,9 +22,9 @@ import { useContext_Majors } from "../../../../context/Majors.context";
 import { useContext_Classrooms } from "../../../../context/Classrooms.context";
 
 interface CurrentComponentProp {
-  classroom: any;
+  classroom: Classroom;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_classrooms_modal_update = (props: CurrentComponentProp) => {

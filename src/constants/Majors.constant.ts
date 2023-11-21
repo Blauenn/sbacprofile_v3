@@ -1,4 +1,4 @@
-export const Major_Name: any = {
+export const Major_Name: { [key: number]: string } = {
   1: "Accounting",
   2: "Business Computer",
   3: "Computer Graphic",
@@ -8,7 +8,7 @@ export const Major_Name: any = {
   7: "Marketing",
   8: "Tourism",
 };
-export const Major_Name_German: any = {
+export const Major_Name_German: { [key: number]: string } = {
   1: "Buchhaltung",
   2: "Arbeitscomputer",
   3: "Computergrafik",
@@ -18,7 +18,7 @@ export const Major_Name_German: any = {
   7: "Marketing",
   8: "Touristik",
 };
-export const Major_Name_Thai: any = {
+export const Major_Name_Thai: { [key: number]: string } = {
   1: "การบัญชี",
   2: "คอมพิวเตอร์ธุรกิจ",
   3: "คอมพิวเตอร์กราฟิก",
@@ -28,7 +28,7 @@ export const Major_Name_Thai: any = {
   7: "การตลาด",
   8: "การท่องเที่ยว",
 };
-export const Major_Name_Korean: any = {
+export const Major_Name_Korean: { [key: number]: string } = {
   1: "회계",
   2: "비즈니스 컴퓨터",
   3: "컴퓨터 그래픽",
@@ -39,7 +39,7 @@ export const Major_Name_Korean: any = {
   8: "관광",
 };
 
-export const Major_Name_Abbreviation: any = {
+export const Major_Name_Abbreviation: { [key: number]: string } = {
   1: "AC",
   2: "BC",
   3: "CG",
@@ -50,7 +50,7 @@ export const Major_Name_Abbreviation: any = {
   8: "TS",
 };
 
-export const Major_Contacts_Hover: any = {
+export const Major_Contacts_Hover: { [key: number]: string } = {
   1: "hover:text-majorAC",
   2: "hover:text-majorBC",
   3: "hover:text-majorCG",
@@ -61,7 +61,7 @@ export const Major_Contacts_Hover: any = {
   8: "hover:text-majorTS",
 };
 
-export const Major_To_Text_Color: any = {
+export const Major_To_Text_Color: { [key: number]: string } = {
   1: "text-majorAC",
   2: "text-majorBC",
   3: "text-majorCG",
@@ -72,7 +72,7 @@ export const Major_To_Text_Color: any = {
   8: "text-majorTS",
 };
 
-export const Major_To_Border_Color: any = {
+export const Major_To_Border_Color: { [key: number]: string } = {
   1: "border-majorAC",
   2: "border-majorBC",
   3: "border-majorCG",
@@ -83,7 +83,7 @@ export const Major_To_Border_Color: any = {
   8: "border-majorTS",
 };
 
-export const Major_To_Background_Color: any = {
+export const Major_To_Background_Color: { [key: number]: string } = {
   1: "bg-majorAC",
   2: "bg-majorBC",
   3: "bg-majorCG",
@@ -93,7 +93,7 @@ export const Major_To_Background_Color: any = {
   7: "bg-majorMK",
   8: "bg-majorTS",
 };
-export const Major_To_Background_Color_Hover: any = {
+export const Major_To_Background_Color_Hover: { [key: number]: string } = {
   1: "hover:bg-majorAC",
   2: "hover:bg-majorBC",
   3: "hover:bg-majorCG",

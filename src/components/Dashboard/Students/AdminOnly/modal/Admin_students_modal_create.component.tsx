@@ -7,7 +7,7 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { Major } from "../../../../../interfaces/common.interface";
-import { handleStudentCreate } from "../../../../../functions/Admin/Students/Admin_students.function";
+import { handleStudentCreate } from "../../../../../functions/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
 import {
@@ -23,7 +23,7 @@ import { useContext_Majors } from "../../../../../context/Majors.context";
 
 interface CurrentComponentProp {
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_students_modal_create = (props: CurrentComponentProp) => {

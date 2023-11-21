@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Teacher } from "../../../../../interfaces/common.interface";
 import Table_button from "../../../../table/Table_button.component";
 import Admin_teacher_modal_update from "../modal/Admin_teachers_modal_update.component";
 import Admin_teachers_modal_delete from "../modal/Admin_teachers_modal_delete.component";
@@ -8,7 +9,7 @@ import { Default_Image } from "../../../../../constants/Misc.constant";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  teacher: any;
+  teacher: Teacher;
   index: number;
 }
 

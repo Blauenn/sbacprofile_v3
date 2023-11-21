@@ -9,7 +9,7 @@ import {
 } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  filteredTeachers: any;
+  filteredTeachers: Teacher[];
 }
 
 const Admin_teachers_table = (props: CurrentComponentProp) => {
@@ -27,7 +27,7 @@ const Admin_teachers_table = (props: CurrentComponentProp) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const sortedTeachers = filteredTeachers.sort((a: any, b: any) => {
+  const sortedTeachers = filteredTeachers.sort((a: Teacher, b: Teacher) => {
     if (a.teacher_major !== b.teacher_major) {
       return a.teacher_major - b.teacher_major;
     } else {

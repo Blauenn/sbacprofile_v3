@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeaderReturn from "../../components/misc/common/PageHeaderReturn.component";
 import Info_create_button from "../../components/Dashboard/Buttons/Info_create_button.component";
-import Admin_club_table from "../../components/Dashboard/Clubs/AdminOnly/table/Admin_clubs_table.component";
-import Admin_club_modal_create from "../../components/Dashboard/Clubs/AdminOnly/modal/Admin_clubs_modal_create.component";
+import Clubs_table from "../../components/Dashboard/Clubs/table/Clubs_table.component";
+import Clubs_modal_create from "../../components/Dashboard/Clubs/modal/Clubs_modal_create.component";
+
+// Contexts //
+import { useContext_Clubs } from "../../context/Clubs.context";
+import { Club } from "../../interfaces/common.interface";
 
 const Admin_clubs = () => {
+  const { clubs, fetchClubs } = useContext_Clubs();
+
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (clubs.length === 0) {
+      fetchClubs();
+    }
+  }, []);
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const onCreateModalClose = () => {
     setCreateModalOpen(false);
   };
+
+  const sortedClubs = clubs.sort((a: Club, b: Club) =>
+    a.club_name.localeCompare(b.club_name)
+  );
 
   return (
     <div>
@@ -21,15 +37,15 @@ const Admin_clubs = () => {
         <Info_create_button
           setModalOpen={setCreateModalOpen}
           icon="fa-solid fa-puzzle-piece"
-          text={t("Admin_Clubs_create_button_title")}
+          text={t("Clubs_create_button_title")}
         />
-        <Admin_club_modal_create
+        <Clubs_modal_create
           open={createModalOpen}
           onModalClose={onCreateModalClose}
         />
       </div>
 
-      <Admin_club_table />
+      <Clubs_table clubs={sortedClubs} />
     </div>
   );
 };

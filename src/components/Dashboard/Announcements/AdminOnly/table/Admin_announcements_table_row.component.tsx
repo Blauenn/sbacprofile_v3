@@ -7,7 +7,7 @@ import {
 import Table_button_download from "../../../../table/Table_button_download.component";
 import Table_button from "../../../../table/Table_button.component";
 import Admin_announcement_modal_update from "../modal/Admin_announcements_modal_update.component";
-import { get_announcement_status_icon } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
+import { get_announcement_status_icon } from "../../../../../functions/Announcements/Admin_announcements.function";
 import Admin_announcements_modal_delete from "../modal/Admin_announcements_modal_delete.component";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
 import { Day_Colors } from "../../../../../constants/Misc.constant";

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import { Classroom } from "../../../../interfaces/common.interface";
 import {
   get_student_count_from_classroom,
   get_teacher_name_from_ID,
@@ -24,7 +25,7 @@ import { useContext_Students } from "../../../../context/Students.context";
 import { useContext_Teachers } from "../../../../context/Teachers.context";
 
 interface CurrentComponentProp {
-  classroom: any;
+  classroom: Classroom;
   index: number;
 }
 

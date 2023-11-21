@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { handleTeacherDelete } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
+import { Teacher } from "../../../../../interfaces/common.interface";
+import { handleTeacherDelete } from "../../../../../functions/Teachers/Admin_teachers.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { ImageField_profile_image_styles } from "../../../../../constants/styles/image.style";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
@@ -10,9 +11,9 @@ import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
 
 interface CurrentComponentProp {
-  teacher: any;
+  teacher: Teacher;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_teachers_modal_delete = (props: CurrentComponentProp) => {

@@ -1,4 +1,4 @@
-export const getTextByPosition = (profile_position: number) => {
+export const get_text_by_position = (profile_position: number) => {
   let profile_text;
 
   switch (profile_position) {

@@ -9,7 +9,7 @@ import {
 } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  filteredStudents: any;
+  filteredStudents: Student[];
 }
 
 const Admin_students_table = (props: CurrentComponentProp) => {
@@ -27,13 +27,13 @@ const Admin_students_table = (props: CurrentComponentProp) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const sortedStudents = filteredStudents.sort((a: any, b: any) => {
+  const sortedStudents = filteredStudents.sort((a: Student, b: Student) => {
     if (a.student_major !== b.student_major) {
       return a.student_major - b.student_major; // Sort by major //
     } else if (a.student_level !== b.student_level) {
       return a.student_level - b.student_level; // Sort by level //
     } else if (a.student_class !== b.student_class) {
-      return a.student_class.localeCompare(b.student_class); // Sort by class //
+      return a.student_class - b.student_class; // Sort by class //
     } else {
       return a.student_ID - b.student_ID; // Sort by ID //
     }

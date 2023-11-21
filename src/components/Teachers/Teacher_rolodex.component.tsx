@@ -28,7 +28,7 @@ const Teacher_rolodex = (props: CurrentComponentProp) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const sortedTeachers = filteredTeachers.sort((a: any, b: any) => {
+  const sortedTeachers = filteredTeachers.sort((a: Teacher, b: Teacher) => {
     if (a.teacher_major !== b.teacher_major) {
       return a.teacher_major - b.teacher_major;
     } else {
@@ -61,7 +61,7 @@ const Teacher_rolodex = (props: CurrentComponentProp) => {
                 ? Major_Name_German[parseInt(major)]
                 : Major_Name[parseInt(major)]}
             </h1>
-            <div className="grid-cols-1 min-[490px]:grid-cols-2 lg:grid-cols-4 xl:mx-16 | grid gap-4">
+            <div className="grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 xl:mx-16 | grid gap-4">
               {teachers.map((teacher: Teacher) => (
                 <RolodexCard
                   key={teacher.primary_teacher_ID}

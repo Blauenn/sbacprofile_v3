@@ -1,62 +1,75 @@
 import { useEffect, useState } from "react";
-import { Tooltip } from "@mui/material";
-import { ClubMembership } from "../../../interfaces/common.interface";
 import {
-  get_student_image_from_ID,
-  get_student_major_from_ID,
-  get_student_name_from_ID,
-  get_teacher_image_from_ID,
-  get_teacher_name_from_ID,
-} from "../../../functions/getFromID.function";
+  Club,
+  ClubManager,
+  ClubMembership,
+} from "../../../interfaces/common.interface";
 import Clubs_rolodex_modal from "../modal/Clubs_rolodex_modal.component";
-import { Default_Image } from "../../../constants/Misc.constant";
-import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
+import Club_rolodex_avatar from "../Club_rolodex_avatar.component";
 import {
-  Major_To_Background_Color,
-  Major_To_Border_Color,
-  Major_To_Text_Color,
-} from "../../../constants/Majors.constant";
+  get_teacher_image_from_ID,
+  get_teacher_major_from_ID,
+} from "../../../functions/getFromID.function";
+import { Major_To_Text_Color } from "../../../constants/Majors.constant";
 import { hover_transition } from "../../../constants/styles/transitions.style";
+import { CDN_ENDPOINT } from "../../../constants/ENDPOINTS";
 
 // Contexts //
-import { useContext_Teachers } from "../../../context/Teachers.context";
-import { useContext_Students } from "../../../context/Students.context";
 import { useContext_Clubs } from "../../../context/Clubs.context";
+import { useContext_Teachers } from "../../../context/Teachers.context";
 
 interface CurrentComponentProp {
-  club: any;
+  club: Club;
 }
+
+// TODO: FIX THE ERRORS IN THIS COMPONENT. //
 
 const Clubs_rolodex_card = (props: CurrentComponentProp) => {
   const { club } = props;
 
-  const { students, fetchStudents } = useContext_Students();
+  const {
+    clubManagers,
+    fetchClubManagers,
+    clubMemberships,
+    fetchClubMemberships,
+  } = useContext_Clubs();
   const { teachers, fetchTeachers } = useContext_Teachers();
-  const { clubMemberships, fetchClubMemberships } = useContext_Clubs();
+
+  const [currentClubTeachers, setCurrentClubTeachers] = useState<ClubManager[]>(
+    []
+  );
+  const [currentClubMembers, setCurrentClubMembers] = useState<
+    ClubMembership[]
+  >([]);
 
   useEffect(() => {
-    if (students.length === 0) {
-      fetchStudents();
+    if (clubMemberships.length === 0) {
+      fetchClubMemberships();
+    }
+    if (clubManagers.length === 0) {
+      fetchClubManagers();
     }
     if (teachers.length === 0) {
       fetchTeachers();
     }
-    if (clubMemberships.length === 0) {
-      fetchClubMemberships();
+
+    if (clubMemberships.length !== 0) {
+      const currentClubMemberships = clubMemberships.filter(
+        (clubMembership: ClubMembership) =>
+          clubMembership.club_membership_club_ID === club.club_ID
+      );
+      setCurrentClubMembers(currentClubMemberships);
     }
-  }, []);
 
-  let currentClub: any = [];
-  const clubMembers = () => {
-    currentClub = clubMemberships.filter(
-      (clubMembership: ClubMembership) =>
-        clubMembership.club_membership_club_ID == club.club_ID
-    );
+    if (clubManagers.length !== 0) {
+      const currentClubManagers = clubManagers.filter(
+        (clubManger: ClubManager) =>
+          clubManger.club_manager_club_ID === club.club_ID
+      );
+      setCurrentClubTeachers(currentClubManagers);
+    }
+  }, [clubMemberships, clubManagers]);
 
-    return currentClub.length !== 0;
-  };
-
-  // Modal states //
   const [modalOpen, setModalOpen] = useState(false);
   const onModalClose = () => {
     setModalOpen(false);
@@ -65,107 +78,62 @@ const Clubs_rolodex_card = (props: CurrentComponentProp) => {
   return (
     <>
       <div
-        className={`h-full relative flex flex-col bg-white shadow-sm rounded-xl overflow-hidden | ${hover_transition} hover:bg-slate-200 cursor-pointer`}
+        className={`bg-white border rounded-xl overflow-hidden ${hover_transition} hover:bg-slate-200 cursor-pointer`}
         onClick={() => setModalOpen(true)}>
-        {club.club_image !== "/assets/profilePic/clubs/undefined" &&
-        club.club_image !== "/assets/profilePic/clubs/default.jpg" &&
+        {/* Club image */}
+        {club.club_image !== "" &&
         club.club_image !== "/assets/profilePic/clubs/" ? (
-          <div
-            className="w-full h-[200px] bg-top bg-cover bg-no-repeat"
-            style={{
-              backgroundImage: `url(${CDN_ENDPOINT}${club.club_image})`,
-            }}></div>
+          <img
+            src={`${CDN_ENDPOINT}${club.club_image}`}
+            className="h-[200px] w-full"
+          />
         ) : null}
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 px-4 py-6">
+          {/* Club name */}
           <h1
-            className={`text-2xl font-semibold ${
+            className={`text-xl font-semibold ${
               Major_To_Text_Color[club.club_major]
             }`}>
             {club.club_name}
           </h1>
-          {/* Members icons */}
-          <div className="flex flex-row gap-2 sm:gap-[2px] overflow-x-hidden">
-            {/* Teachers */}
-            <div className="flex flex-row -space-x-4">
-              {club.club_teacher.teachers.length !== 0
-                ? club.club_teacher.teachers.map((teacher: number) => (
-                    <Tooltip
-                      key={teacher}
-                      title={get_teacher_name_from_ID(teacher, teachers)}
-                      placement="bottom"
-                      arrow>
-                      <div
-                        className={`${
-                          Major_To_Background_Color[club.club_major]
-                        } w-[40px] h-[40px] rounded-full overflow-hidden`}>
-                        <img
-                          src={`${CDN_ENDPOINT}${get_teacher_image_from_ID(
-                            teacher,
-                            teachers
-                          )}`}
-                          className={`border-2 flex-shrink-0 ${
-                            Major_To_Border_Color[club.club_major]
-                          }`}
-                        />
-                      </div>
-                    </Tooltip>
-                  ))
-                : null}
+          <div className="flex flex-row gap-4">
+            <div className="flex -space-x-4">
+              {currentClubTeachers.map((clubManager: ClubManager) => (
+                <Club_rolodex_avatar
+                  key={clubManager.club_manager_ID}
+                  imageURL={get_teacher_image_from_ID(
+                    clubManager.club_manager_teacher_ID,
+                    teachers
+                  )}
+                  profileMajor={get_teacher_major_from_ID(
+                    clubManager.club_manager_teacher_ID,
+                    teachers
+                  )}
+                />
+              ))}
             </div>
-            {/* Students */}
-            {clubMemberships ? (
-              <div className="flex flex-row items-center gap-2">
-                <div className="flex flex-row -space-x-4">
-                  {clubMembers()
-                    ? currentClub.map((clubMembership: ClubMembership) => (
-                        <Tooltip
-                          key={clubMembership.club_membership_ID}
-                          title={get_student_name_from_ID(
-                            clubMembership.club_membership_student_ID,
-                            students
-                          )}
-                          placement="bottom"
-                          arrow>
-                          <div
-                            className={`${
-                              Major_To_Background_Color[
-                                get_student_major_from_ID(
-                                  clubMembership.club_membership_student_ID,
-                                  students
-                                )
-                              ]
-                            } w-[40px] h-[40px] rounded-full overflow-hidden`}>
-                            <img
-                              src={`${CDN_ENDPOINT}${get_student_image_from_ID(
-                                clubMembership.club_membership_student_ID,
-                                students
-                              )}`}
-                              className={`border-2 flex-shrink-0 ${
-                                club
-                                  ? Major_To_Border_Color[
-                                      get_student_major_from_ID(
-                                        clubMembership.club_membership_student_ID,
-                                        students
-                                      )
-                                    ]
-                                  : "text-blue-500"
-                              }`}
-                              onError={(e) => {
-                                e.currentTarget.src = Default_Image;
-                              }}
-                            />
-                          </div>
-                        </Tooltip>
-                      ))
-                    : null}
-                </div>
-              </div>
-            ) : null}
+            <div className="flex -space-x-4">
+              {currentClubMembers.map((clubMembership: ClubMembership) => (
+                <Club_rolodex_avatar
+                  key={clubMembership.club_membership_ID}
+                  imageURL={get_teacher_image_from_ID(
+                    clubMembership.club_membership_student_ID,
+                    teachers
+                  )}
+                  profileMajor={get_teacher_major_from_ID(
+                    clubMembership.club_membership_student_ID,
+                    teachers
+                  )}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
       <Clubs_rolodex_modal
         club={club}
+        currentClubMembers={currentClubMembers}
+        currentClubTeachers={currentClubTeachers}
         open={modalOpen}
         onModalClose={onModalClose}
       />

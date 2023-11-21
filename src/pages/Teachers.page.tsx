@@ -23,11 +23,11 @@ const Teachers = () => {
   const [selectedMajor, setSelectedMajor] = useState(0);
   const [searchField, setSearchField] = useState("");
 
-  const onMajorChange = (event: any) => {
-    setSelectedMajor(event.target!.value);
+  const onMajorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMajor(parseInt(event.target.value));
   };
-  const onSearchFieldChange = (event: any) => {
-    setSearchField(event.target!.value.toLowerCase());
+  const onSearchFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchField(event.target.value.toLowerCase());
   };
 
   const filteredTeacherMajor =

@@ -26,17 +26,17 @@ const Students = () => {
   const [searchField, setSearchField] = useState("");
 
   const onMajorChange = (event: any) => {
-    setSelectedMajor(event.target!.value);
+    setSelectedMajor(parseInt(event.target.value));
   };
   const onLevelChange = (event: any) => {
     setSelectedClass(0);
-    setSelectedLevel(event.target!.value);
+    setSelectedLevel(parseInt(event.target.value));
   };
   const onClassChange = (event: any) => {
-    setSelectedClass(event.target!.value);
+    setSelectedClass(parseInt(event.target.value));
   };
   const onSearchFieldChange = (event: any) => {
-    setSearchField(event.target!.value.toLowerCase());
+    setSearchField(event.target.value.toLowerCase());
   };
 
   const filteredStudentMajor =

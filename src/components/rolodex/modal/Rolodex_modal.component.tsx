@@ -14,7 +14,7 @@ interface CurrentComponentProp {
   profile: string;
   object: any;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Rolodex_modal = (props: CurrentComponentProp) => {

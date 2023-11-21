@@ -8,9 +8,9 @@ import Admin_announcements_modal_create from "../../components/Dashboard/Announc
 const Admin_announcements = () => {
   const { t } = useTranslation();
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const onModalClose = () => {
-    setModalOpen(false);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const onCreateModalClose = () => {
+    setCreateModalOpen(false);
   };
 
   return (
@@ -19,13 +19,13 @@ const Admin_announcements = () => {
 
       <div className="mb-8">
         <Info_create_button
-          setModalOpen={setModalOpen}
+          setModalOpen={setCreateModalOpen}
           icon="fa-solid fa-bullhorn"
           text={t("Admin_Announcements_create_button_title")}
         />
         <Admin_announcements_modal_create
-          open={modalOpen}
-          onModalClose={onModalClose}
+          open={createModalOpen}
+          onModalClose={onCreateModalClose}
         />
       </div>
 

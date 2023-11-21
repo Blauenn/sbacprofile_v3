@@ -6,8 +6,9 @@ import {
   TextField_text,
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
+import { Announcement } from "../../../../../interfaces/common.interface";
 import { handle_image_change } from "../../../../../functions/fields/handleFieldChanges.function";
-import { handleAnnouncementUpdate } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
+import { handleAnnouncementUpdate } from "../../../../../functions/Announcements/Admin_announcements.function";
 import FileResetButton from "../../../../misc/common/FileResetButton.component";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
@@ -16,9 +17,9 @@ import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { useContext_Announcements } from "../../../../../context/Announcements.context";
 
 interface CurrentComponentProp {
+  announcement: Announcement;
   open: boolean;
-  onModalClose: any;
-  announcement: any;
+  onModalClose: () => void;
 }
 
 const Admin_announcements_modal_update = (props: CurrentComponentProp) => {

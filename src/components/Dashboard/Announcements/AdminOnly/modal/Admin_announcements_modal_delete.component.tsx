@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Custom_Modal from "../../../../custom/Custom_Modal";
-import { handleAnnouncementDelete } from "../../../../../functions/Admin/Announcements/Admin_announcements.function";
+import { Announcement } from "../../../../../interfaces/common.interface";
+import { handleAnnouncementDelete } from "../../../../../functions/Announcements/Admin_announcements.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 
 // Contexts //
 import { useContext_Announcements } from "../../../../../context/Announcements.context";
 
 interface CurrentComponentProp {
-  announcement: any;
+  announcement: Announcement;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_announcements_modal_delete = (props: CurrentComponentProp) => {

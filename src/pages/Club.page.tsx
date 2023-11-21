@@ -3,9 +3,9 @@ import {
   student_access_only,
   teacher_access_only,
 } from "../functions/permissionChecks.function";
+import Student_club from "./StudentsOnly/Student_club.page";
+import Teacher_club from "./TeachersOnly/Teacher_club.page";
 import PageHeaderReturn from "../components/misc/common/PageHeaderReturn.component";
-import Student_club from "../components/Club/StudentOnly/Student_club.component";
-import Teacher_club from "../components/Club/TeacherOnly/Teacher_club.component";
 
 // Contexts //
 import { useContext_Account } from "../context/Account.context";

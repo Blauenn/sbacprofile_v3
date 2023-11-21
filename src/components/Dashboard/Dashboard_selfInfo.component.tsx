@@ -25,14 +25,14 @@ const Dashboard_selfInfo = () => {
     <div>
       <div className={`bg-white shadow-sm rounded-xl`}>
         <div className="grid grid-cols-1 min-[500px]:grid-cols-5 xl:grid-cols-1 gap-2 min-[500px]:gap-8 xl:gap-2 px-8 py-4">
-          <div className="col-span-2 flex flex-col items-center">
+          <div className="col-span-2 flex flex-col gap-2 items-center">
             <div className={`${Major_To_Background_Color[userInfo.profile_major]} rounded-full overflow-hidden`}>
               <img
                 src={`${CDN_ENDPOINT}${userInfo.profile_image}`}
-                className="w-full"
+                className="w-[300px]"
               />
             </div>
-            <h1 className="text-sm font-semibold opacity-50">
+            <h1 className="text-sm lg:text-md font-semibold opacity-50">
               {userInfo.profile_ID}
             </h1>
           </div>

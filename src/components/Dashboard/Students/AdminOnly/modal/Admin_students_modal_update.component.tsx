@@ -7,8 +7,8 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
-import { Major } from "../../../../../interfaces/common.interface";
-import { handleStudentUpdate } from "../../../../../functions/Admin/Students/Admin_students.function";
+import { Major, Student } from "../../../../../interfaces/common.interface";
+import { handleStudentUpdate } from "../../../../../functions/Students/Admin_students.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import {
   Major_Name,
@@ -22,9 +22,9 @@ import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Students } from "../../../../../context/Students.context";
 
 interface CurrentComponentProp {
-  student: any;
+  student: Student;
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Admin_students_modal_update = (props: CurrentComponentProp) => {
@@ -171,7 +171,7 @@ const Admin_students_modal_update = (props: CurrentComponentProp) => {
                     fieldName="student_update_image"
                     profile_image={student.student_image}
                     profile_major={student.student_major}
-                    imagePreview={imagePreview || ""}
+                    imagePreview={imagePreview ?? ""}
                     setImagePreview={setImagePreview}
                     setImage={setStudentUpdateImage}
                     setFileSizeNotice={setFileSizeNotice}

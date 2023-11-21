@@ -1,9 +1,10 @@
 import { createPortal } from "react-dom";
 import { Fade, Modal } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface CurrentComponentProp {
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
   icon?: string;
   title: string;
   altIcon?: string;
@@ -28,13 +29,32 @@ const Custom_Modal = (props: CurrentComponentProp) => {
 
   const modal = document.getElementById("modal");
 
+  const [padding, setPadding] = useState("0.25rem");
+  useEffect(() => {
+    const handleResize = () => {
+      const newPadding = window.innerWidth < 640 ? "0.25rem" : "2rem";
+      setPadding(newPadding);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial adjustment
+    handleResize();
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return modal
     ? createPortal(
         <Modal
           open={open}
           onClose={onModalClose}
           className="flex justify-center items-center"
-          sx={{ backdropFilter: "blur(2px)" }}
+          sx={{ backdropFilter: "blur(2px)", padding }}
           closeAfterTransition>
           <Fade in={open}>
             <div

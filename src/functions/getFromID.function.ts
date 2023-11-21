@@ -11,13 +11,37 @@ export const get_student_name_from_ID = (student_ID: number, students: any) => {
     return `${student.student_first_name} ${student.student_last_name}`;
   }
 };
-export const get_student_name_thai_from_ID = (student_ID: number, students: any) => {
+export const get_student_first_name_from_ID = (student_ID: number, students: any) => {
+  const student: any = students.find(
+    (student: Student) => student.student_ID == student_ID
+  );
+
+  if (student) {
+    return `${student.student_first_name}`;
+  }
+};
+export const get_student_name_thai_from_ID = (
+  student_ID: number,
+  students: any
+) => {
   const student: any = students.find(
     (student: Student) => student.student_ID == student_ID
   );
 
   if (student) {
     return `${student.student_first_name_thai} ${student.student_last_name_thai}`;
+  }
+};
+export const get_student_first_name_thai_from_ID = (
+  student_ID: number,
+  students: any
+) => {
+  const student: any = students.find(
+    (student: Student) => student.student_ID == student_ID
+  );
+
+  if (student) {
+    return `${student.student_first_name_thai}`;
   }
 };
 export const get_student_major_from_ID = (
@@ -125,7 +149,7 @@ export const get_clubMember_count_from_ID = (
 export const get_student_count_from_classroom = (
   classroomLevel: number,
   classroomClass: number,
-  students: any
+  students: Student[]
 ) => {
   const filteredStudentCount = students.filter(
     (student: Student) =>
@@ -135,7 +159,10 @@ export const get_student_count_from_classroom = (
   return filteredStudentCount.length;
 };
 
-export const get_classroom_from_student_ID = (student_ID: number, students: any) => {
+export const get_classroom_from_student_ID = (
+  student_ID: number,
+  students: Student[]
+) => {
   const foundStudent = students.find(
     (student: Student) => student.student_ID == student_ID
   );

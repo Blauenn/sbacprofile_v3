@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { getTextByPosition } from "../functions/getAccountInfo.function";
+import { get_text_by_position } from "../functions/getAccountInfo.function";
 import PageHeader from "../components/misc/common/PageHeader.component";
-import Dashboard_quickAccessButtons from "../components/Dashboard/Buttons/Dashboard_quickAccessButtons.component";
+import Dashboard_quickAccess_button_list from "../components/Dashboard/Buttons/Dashboard_quickAccess_button_list.component";
 import Dashboard_selfInfo from "../components/Dashboard/Dashboard_selfInfo.component";
 
 // Contexts //
@@ -22,8 +22,8 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 xl:grid-cols-8 gap-8 w-full">
         <div className="xl:col-span-6">
           <h1 className="text-2xl font-semibold mb-4">{t("Dashboard_title_quickAccess")}</h1>
-          <Dashboard_quickAccessButtons
-            profile={getTextByPosition(userInfo.profile_position)}
+          <Dashboard_quickAccess_button_list
+            profile={get_text_by_position(userInfo.profile_position)}
           />
         </div>
         <div className="xl:col-span-2 grid grid-cols-3 xl:grid-cols-1">

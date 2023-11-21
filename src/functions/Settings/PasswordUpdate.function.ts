@@ -15,11 +15,11 @@ const settingsPassword_schema = z.object({
 });
 
 export const accountPasswordUpdate = (
-  userEmail: any,
+  userEmail: string,
   settingsPasswordObject: SettingsPassword,
-  setIsUpdating: any,
-  setIsUpdateSuccess: any,
-  setIsError: any,
+  setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsUpdateSuccess: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsError: React.Dispatch<React.SetStateAction<string>>,
   t: any
 ) => {
   setIsUpdating(true);

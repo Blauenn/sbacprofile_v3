@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Teacher } from "../../../../../interfaces/common.interface";
 import Table_button from "../../../../table/Table_button.component";
 import Head_teacher_modal_update from "../modal/Head_teachers_modal_update.component";
 import { Major_To_Background_Color } from "../../../../../constants/Majors.constant";
@@ -7,7 +8,7 @@ import { CDN_ENDPOINT } from "../../../../../constants/ENDPOINTS";
 import { table_content_style } from "../../../../../constants/styles/tables.style";
 
 interface CurrentComponentProp {
-  teacher: any;
+  teacher: Teacher;
   index: number;
 }
 

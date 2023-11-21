@@ -1,4 +1,4 @@
-import { get_color_from_status_timeline } from "../../functions/LeaveNotices/LeaveNotices.function.tsx";
+import { get_color_from_status_timeline } from "../../functions/Forms/LeaveNotices/LeaveNotices.function.tsx";
 import {
   get_day_from_date,
   get_day_name_from_date,

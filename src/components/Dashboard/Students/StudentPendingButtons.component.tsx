@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { LeaveNotice } from "../../../interfaces/common.interface";
+import { LeaveNotice, RequestForm } from "../../../interfaces/common.interface";
 import Dashboard_requestTimeline from "../Dashboard_requestTimeline.component";
 
 // TODO: Complete this component. //
 interface CurrentComponentProp {
   selfLeaveNotice: LeaveNotice[];
-  requestForms: any;
+  requestForms: RequestForm[];
 }
 
 const StudentPendingButtons = (props: CurrentComponentProp) => {

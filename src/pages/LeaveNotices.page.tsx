@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { getTextByPosition } from "../functions/getAccountInfo.function";
+import { get_text_by_position } from "../functions/getAccountInfo.function";
 import Student_leaveNotices from "./StudentsOnly/Student_leaveNotices.page";
 import Teacher_leaveNotices from "./TeachersOnly/Teacher_leaveNotices.page";
 import PageHeaderReturn from "../components/misc/common/PageHeaderReturn.component";
@@ -16,7 +16,7 @@ const LeaveNotices = () => {
     <div>
       <PageHeaderReturn text={t("LeaveNotices_header")} />
       
-      {getTextByPosition(userInfo.profile_position) === "student" ? (
+      {get_text_by_position(userInfo.profile_position) === "student" ? (
         <Student_leaveNotices />
       ) : (
         <Teacher_leaveNotices />

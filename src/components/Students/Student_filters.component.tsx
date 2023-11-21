@@ -50,6 +50,7 @@ const Student_filters_class = (props: StudentFilterProps) => {
   const [higherLevel1, setHigherLevel1] = useState([]);
   const [higherLevel2, setHigherLevel2] = useState([]);
 
+  // TODO: MAKE THE TYPE WORKS //
   const post = async (url: string, level: number, callback: any) => {
     await fetch(url, {
       method: "post",
@@ -94,7 +95,7 @@ const Student_filters_class = (props: StudentFilterProps) => {
     );
   }, []);
 
-  const allClasses: any = [
+  const allClasses = [
     [],
     lowerLevel1,
     lowerLevel2,
@@ -102,8 +103,8 @@ const Student_filters_class = (props: StudentFilterProps) => {
     higherLevel1,
     higherLevel2,
   ];
-  let newArray = allClasses.concat();
-  let filteredClass =
+  const newArray = allClasses.concat();
+  const filteredClass =
     selectedMajor == 0
       ? allClasses[selectedLevel]
       : newArray[selectedLevel].filter(

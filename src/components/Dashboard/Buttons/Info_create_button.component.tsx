@@ -4,7 +4,7 @@ interface CurrentComponentProp {
   text: string;
   icon: string;
   color?: string;
-  setModalOpen: any;
+  setModalOpen: (setTo: boolean) => void;
   disabled?: boolean;
   fullWidth?: boolean;
 }

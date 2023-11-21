@@ -3,8 +3,8 @@ import { TextField } from "@mui/material";
 import { Classroom } from "../../interfaces/common.interface";
 
 interface ClassFilterProps {
-  classes: any;
-  onChangeHandler: any;
+  classes: Classroom[];
+  onChangeHandler: () => void;
 }
 
 const Student_filters_class = (props: ClassFilterProps) => {

@@ -7,8 +7,8 @@ import {
 } from "../../../../custom/Custom_TextFields";
 import Custom_Modal from "../../../../custom/Custom_Modal";
 import { ImageField_profile } from "../../../../custom/Custom_ImageFields";
-import { Major } from "../../../../../interfaces/common.interface";
-import { handleTeacherUpdate } from "../../../../../functions/Admin/Teachers/Admin_teachers.function";
+import { Major, Teacher } from "../../../../../interfaces/common.interface";
+import { handleTeacherUpdate } from "../../../../../functions/Teachers/Admin_teachers.function";
 import Info_submit_button from "../../../Buttons/Info_submit_button.component";
 import {
   Major_Name,
@@ -23,13 +23,13 @@ import { useContext_Majors } from "../../../../../context/Majors.context";
 import { useContext_Teachers } from "../../../../../context/Teachers.context";
 
 interface CurrentComponentProp {
+  teacher: Teacher;
   open: boolean;
-  onModalClose: any;
-  teacher: any;
+  onModalClose: () => void;
 }
 
 const Head_teachers_modal_update = (props: CurrentComponentProp) => {
-  const { open, onModalClose, teacher } = props;
+  const { teacher, open, onModalClose } = props;
 
   const { userInfo } = useContext_Account();
   const { fetchTeachers } = useContext_Teachers();

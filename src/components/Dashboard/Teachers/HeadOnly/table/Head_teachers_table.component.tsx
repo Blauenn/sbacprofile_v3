@@ -36,7 +36,7 @@ const Head_teachers_table = () => {
     return teacher.teacher_major === userInfo.profile_major;
   });
 
-  const sortedTeachers = filteredTeachers.sort((a: any, b: any) => {
+  const sortedTeachers = filteredTeachers.sort((a: Teacher, b: Teacher) => {
     if (a.teacher_major !== b.teacher_major) {
       return a.teacher_major - b.teacher_major;
     } else {

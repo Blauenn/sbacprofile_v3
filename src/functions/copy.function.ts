@@ -1,5 +1,5 @@
 // Copy function //
-export const handle_copy = (content: any, setCopied: any) => {
+export const handle_copy = (content: string, setCopied: React.Dispatch<React.SetStateAction<boolean>>) => {
   navigator.clipboard.writeText(content);
   setCopied(true);
 

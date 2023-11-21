@@ -9,7 +9,7 @@ import { useContext_Account } from "../../../context/Account.context";
 
 interface CurrentComponentProp {
   open: boolean;
-  onModalClose: any;
+  onModalClose: () => void;
 }
 
 const Sidebar_modal_logout = (props: CurrentComponentProp) => {
